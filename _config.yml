@@ -3,7 +3,7 @@ author: 甫生 # Your name
 email: 1634442468@qq.com # your email shown in the footer
 url: http://fusheng-ji.github.io # this is your site's root address.
 description: > # this means to ignore newlines until "show_excerpts:"
-  甫生.
+  不定期分享一些自己的心得体会和读书思考，不求做他人灯塔，只为不有愧于己。
 favicon: "./favicon-fusheng.ico" # set the favicon of the site 
 
 show_excerpts: true # set to true to show excerpts on the homepage
