@@ -6,5 +6,4 @@ These are controlled by `about.md` under the root directory. If you want a more 
 
 ### What's New
 
-- One paper got accepted in xxx 2019.
-- I'm going to join xxx as a xxx 2019 Fall.
+- 2020年准备研究生入学考试，减缓更新进度
