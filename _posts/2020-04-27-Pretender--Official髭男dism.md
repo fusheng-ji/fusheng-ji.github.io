@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Pretender/Official髭男dism"
+title: "Pretender--Official髭男dism"
 categories: music
 author: fusheng-ji
 typora-root-url: ..
