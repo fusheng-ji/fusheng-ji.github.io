@@ -1,6 +1,5 @@
 ---
 layout: about
-music-id: 4880435
 ---
 
 ### To myself
