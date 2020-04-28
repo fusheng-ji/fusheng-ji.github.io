@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Shallow——Lady Gaga&Bradley Cooper"
+title: "Shallow--Lady Gaga&Bradley Cooper"
 categories: music
 author: fusheng-ji
 ---

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "瞬き-back number"
+title: "瞬き--back number"
 categories: music
 author: fusheng-ji
 ---

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Tummy——RADWIMPS"
+title: "Tummy--RADWIMPS"
 categories: music
 author: fusheng-ji
 ---
