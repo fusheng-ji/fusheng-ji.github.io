@@ -1,69 +1,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
-
-
-  <head>
-    <style>
-      .centered {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            line-height: 1.2;
-            /* width: 60%; */
-        }
-        .centered img {
-            margin-right: 10px;
-
-        }
-        .left-align {
-            text-align: left;
-            /* width: 60%; */
-        }
-      body {
-          font-family: Arial, sans-serif;
-          background-color: #f5f5f5;
-          color: #333;
-          margin: 0;
-          padding: 20px;
-
-      }
-      .paper {
-          margin-bottom: 20px;
-          background-color: #f9f9f9; /* 浅灰色背景 */
-          border: 1px solid #ddd;
-          border-radius: 5px;
-          padding: 20px;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          
-      }
-      .new_h3{
-        color: #5c6bc0;
-      }
-      .paper h2 {
-          font-size: 24px;
-          font-weight: bold;
-          margin-bottom: 10px;
-          color: #5c6bc0; /* 柔和的蓝紫色 */
-      }
-      .paper p {
-          font-size: 16px;
-          line-height: 1.5;
-          color: #666; /* 柔和的灰色 */
-      }
-      .paper a {
-          color: #5c6bc0; /* 柔和的蓝紫色 */
-          text-decoration: none;
-          transition: color 0.3s ease;
-      }
-      .paper a:hover {
-          color: #3949ab; /* 柔和的深蓝色 */
-          text-decoration: underline;
-      }
-  </style>
-
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -73,40 +10,71 @@
     </title>
     <!-- Bootstrap -->
     <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+    rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
   </head>
 
   <!-- cover -->
-  <section>
-    <div class="jumbotron text-center mt-0">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            
-            <h2 class="centered">
-              <div>
-                Tour into the Picture
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+        <a class="navbar-item" href="https://fusheng-ji.github.io">
+        <span class="icon">
+            <i class="fas fa-home"></i>
+        </span>
+      </a>
+      </div>
+  
+    </div>
+  </nav>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Tour into the Picture</h1>   
+            <div class="col-12">
+              <hr>
+              <h6>
+                  <a href="https://fusheng-ji.github.io/" target="_blank">Wenbo Ji</a>,
+                  <a href="https://github.com/DJX2024" target="_blank">Xiang Ji</a>,
+                  <a href="https://github.com/hongru88" target="_blank">Hongru Li</a>,
+                  
+                  <a href="https://yuming1227.github.io/" target="_blank">Yuming Li</a>,
+                  <a href="https://github.com/shilinzhang42" target="_blank">Shilin Zhang</a>,
+                </h6>
+              <p>
+                  Group 31, Technical University of Munich
+              </p>
+  
+              <div class="row justify-content-center">
+                <div class="column">
+                    <p class="mb-5"><a class="btn btn-large btn-light" href="https://github.com/fusheng-ji/TUM_CV_Challenge_SS24" role="button"  target="_blank">
+                      Code </a> </p>
+                </div>
               </div>
-          </h2>
-            <h4 style="color:#5a6268;"> TUM CV Challenge SS24 </h4>
-            <hr>
-            <h6>
-                <a href="https://fusheng-ji.github.io/" target="_blank">Wenbo Ji</a>,
-                <a href="https://github.com/DJX2024" target="_blank">Xiang Ji</a>,
-                <a href="https://github.com/hongru88" target="_blank">Hongru Li</a>,
-                
-                <a href="https://yuming1227.github.io/" target="_blank">Yuming Li</a>,
-                <a href="https://github.com/shilinzhang42" target="_blank">Shilin Zhang</a>,
-              </h6>
-            <p>
-                Technical University of Munich
-            </p>
-
-            <div class="row justify-content-center">
-              <div class="column">
-                  <p class="mb-5"><a class="btn btn-large btn-light" href="https://github.com/fusheng-ji/TUM_CV_Challenge_SS24" role="button"  target="_blank">
-                    <i class="fa fa-github-alt"></i> Code </a> </p>
-              </div>
+            </div> 
             </div>
           </div>
         </div>
@@ -114,7 +82,22 @@
     </div>
   </section>
 
+  
 
+
+  <section class="hero is-light is-small">
+    <div class="hero-body">
+      <div class="container">
+        <div id="results-carousel" class="carousel results-carousel">
+          <img src="./pic/cover_origin.png">
+          <img src="./pic/Cover.png">
+          <img src="./pic/Cover.png">
+          <img src="./pic/Cover.png">
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <!-- abstract -->
   <section>
     <div class="container">
@@ -134,12 +117,15 @@
 
 
           <p class="text-left">
-            Im Rahmen der Computer Vision Vorlesung haben wir ken- nen gelernt wie eine 3D-Rekonstruktion mit Stereobildern durchgefu ̈hrt werden kann. Jedoch ko ̈nnen auch aus einem Einzelbild verschiedene Ansichten generiert werden. 
+            We aim to build autonomous algorithms that can infer two important structures for compositional scene understanding and editing from a single image: the regular, program-like texture or patterns in 2D planes and the 3D posing of these planes in the scene. As a motivating example, when observing a single image of a corridor like the one in Fig. 1, we humans can effortlessly infer the camera pose, partition the image into five planes—including left and right walls, floor, ceiling, and a far plane—and recognize the repeated pattern on each of these planes. Such a holistic and structural representation allows us to flexibly edit the image, for instance by inpainting missing regions, moving the camera, and extrapolating the corridor to make it infinite.
             <br><br>
+            Taking a photograph and being able to move the camera around is a compelling way to bring photos to life. It requires understanding the 3D structure of the scene, reasoning about occlusions and what might be behind them, and rendering high-quality, spatially consistent new views in real-time.
+            
           
           
           </p>
 
+          <img src="./pic/decomp.svg" alt="SVG Image" width="1000" height="200">
         <p class="text-center">
         </p>
         </div>
@@ -202,41 +188,24 @@
   </section>
   <br>
 
-  <!-- <section>
+  <section>
     <div class="container">
       <div class="row">
         <div class="col-12 text-center">
-            <h2>Experimental Results </h2>
+            <h2>Live Demo</h2>
             <hr style="margin-top:0px">
-            <h3 class="new_h3"> Quantitative Results </h3>
-            <img src="./pic/exp_1.jpg" alt="" width="1000" height="600">
-            <h3 class="new_h3"> Qualitative Results </h3>
-            <img src="./pic/exp_2.png" alt="" width="1000" height="500">
-            
+            <img src="./pic/0_wellcome.png" alt="" width="1000" height="350">
+            <br>
+            <br>
+            <div class="text-left">
+              <!-- Overview of EndoSparse: Within a 3D-GS scene reconstruction framework, we incorporate vision foundation models as effective regularizers of the 3D scene.
+  We incorporate geometric prior knowledge from Depth-Anything and image appearance priors from Stable Diffusion, which provide valuable guidance signals for optimization at viewpoints without camera coverage. -->
+            <div>
       </div>
     </div>
   </section>
-  <br> -->
-  
+  <br>
 
-  <!-- citing -->
-  <div class="container">
-    <div class="row ">
-      <div class="col-12">
-          <h3>References</h3>
-          <hr style="margin-top:0px">
-              <pre style="background-color: #e9eeef;padding: 1.25em 1.5em">
-<code id="bib">@article{li2024endosparse,
-  author    = {Chenxin Li and Brandon Y. Feng and Yifan Liu and Hengyu Liu and Cheng Wang and Weihao Yu and Yixuan Yuan},
-  title     = {EndoSparse: Real-Time Sparse View Synthesis of Endoscopic Scenes using Gaussian Splatting},
-  journal   = {arXiv preprint},
-  year      = {2024}
-}</code>
-              </pre>
-          <hr>
-      </div>
-    </div>
-  </div>
 
 </body>
 </html>
