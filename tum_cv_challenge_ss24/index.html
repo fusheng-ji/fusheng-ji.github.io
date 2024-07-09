@@ -1,80 +1,124 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
+
+
+  <head>
+    <style>
+      .centered {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            line-height: 1.2;
+            /* width: 60%; */
+        }
+        .centered img {
+            margin-right: 10px;
+
+        }
+        .left-align {
+            text-align: left;
+            /* width: 60%; */
+        }
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #f5f5f5;
+          color: #333;
+          margin: 0;
+          padding: 20px;
+
+      }
+      .paper {
+          margin-bottom: 20px;
+          background-color: #f9f9f9; /* 浅灰色背景 */
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          padding: 20px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          
+      }
+      .new_h3{
+        color: #5c6bc0;
+      }
+      .paper h2 {
+          font-size: 24px;
+          font-weight: bold;
+          margin-bottom: 10px;
+          color: #5c6bc0; /* 柔和的蓝紫色 */
+      }
+      .paper p {
+          font-size: 16px;
+          line-height: 1.5;
+          color: #666; /* 柔和的灰色 */
+      }
+      .paper a {
+          color: #5c6bc0; /* 柔和的蓝紫色 */
+          text-decoration: none;
+          transition: color 0.3s ease;
+      }
+      .paper a:hover {
+          color: #3949ab; /* 柔和的深蓝色 */
+          text-decoration: underline;
+      }
+  </style>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐱</text></svg>">
     <title>
-      TUM CV Challenge SS24
+      TUM CV Challenge SS24 - Wenbo Ji
     </title>
     <!-- Bootstrap -->
     <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-    rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./static/css/bulma.min.css">
-    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-    <link rel="stylesheet" href="./static/css/index.css">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script defer src="./static/js/fontawesome.all.min.js"></script>
-    <script src="./static/js/bulma-carousel.min.js"></script>
-    <script src="./static/js/bulma-slider.min.js"></script>
-    <script src="./static/js/index.js"></script>
+    <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,800italic,400,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="css/project.css" media="screen" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/iconize.css" />
+    <script src="js/google-code-prettify/prettify.js"></script> -->
   </head>
 
   <!-- cover -->
-  <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    </div>
-    <div class="navbar-menu">
-      <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-        <a class="navbar-item" href="https://fusheng-ji.github.io">
-        <span class="icon">
-            <i class="fas fa-home"></i>
-        </span>
-      </a>
-      </div>
-  
-    </div>
-  </nav>
-  <section class="hero">
-    <div class="hero-body">
-      <div class="container is-max-desktop">
-        <div class="columns is-centered">
-          <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">Tour into the Picture</h1>   
-            <div class="col-12">
-              <hr>
-              <h6>
-                  <a href="https://fusheng-ji.github.io/" target="_blank">Wenbo Ji</a>,
-                  <a href="https://github.com/DJX2024" target="_blank">Xiang Ji</a>,
-                  <a href="https://github.com/hongru88" target="_blank">Hongru Li</a>,
-                  
-                  <a href="https://yuming1227.github.io/" target="_blank">Yuming Li</a>,
-                  <a href="https://github.com/shilinzhang42" target="_blank">Shilin Zhang</a>,
-                </h6>
-              <p>
-                  Group 31, Technical University of Munich
-              </p>
-  
-              <div class="row justify-content-center">
-                <div class="column">
-                    <p class="mb-5"><a class="btn btn-large btn-light" href="https://github.com/fusheng-ji/TUM_CV_Challenge_SS24" role="button"  target="_blank">
-                      Code </a> </p>
-                </div>
+  <section>
+    <div class="jumbotron text-center mt-0">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            
+            <h2 class="centered">
+              <div>
+                Tour in Picture
+                <br> using a spidery mesh interface to make animation from a single image
               </div>
-            </div> 
+          </h2>
+            <h4 style="color:#5a6268;"> TUM CV Challenge SS24 </h4>
+            <hr>
+            <h6>
+              <a href="https://fusheng-ji.github.io/" target="_blank">Wenbo Ji</a>,
+              <a href="https://github.com/DJX2024" target="_blank">Xiang Ji</a>,
+              <a href="https://github.com/hongru88" target="_blank">Hongru Li</a>,
+              
+              <a href="https://yuming1227.github.io/" target="_blank">Yuming Li</a>,
+              <a href="https://github.com/shilinzhang42" target="_blank">Shilin Zhang</a>
+
+              </h6>
+            <p>
+              Group 31
+              <br>
+              Technical University of Munich
+            </p>
+
+            <div class="row justify-content-center">
+              <div class="column">
+                <p class="mb-5"><a class="btn btn-large btn-light" href="./pic/TUM_CV_Challenge_SS24.pdf" role="button"  target="_blank">
+                  <i class="fa fa-file"></i> Poster</a> </p>
+            </div>
+              <div class="column">
+                  <p class="mb-5"><a class="btn btn-large btn-light" href="https://github.com/fusheng-ji/TUM_CV_Challenge_SS24" role="button"  target="_blank">
+                    <i class="fa fa-github-alt"></i> Code </a> </p>
+              </div>
             </div>
           </div>
         </div>
@@ -82,52 +126,26 @@
     </div>
   </section>
 
-  
-
-
-  <section class="hero is-light is-small">
-    <div class="hero-body">
-      <div class="container">
-        <div id="results-carousel" class="carousel results-carousel">
-          <img src="./pic/cover_origin.png">
-          <img src="./pic/Cover.png">
-          <img src="./pic/Cover.png">
-          <img src="./pic/Cover.png">
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- abstract -->
+  <p class="text-center">
+    <img src="./pic/cover_origin.png" height="500">
+    <img src="./pic/cover_cutted.png" height="500">
+  </p>
+ 
   <section>
     <div class="container">
       <div class="row">
         <div class="col-12 text-center">
           <h3>Motivation</h3>
             <hr style="margin-top:0px">
-            <!-- <h6 style="color:#8899a5">  -->
-              <!-- SyncDreamer is able to directly generate multiview consistent images, which allows 3D reconstruction by NeuS or NeRF without SDS loss.  -->
-              <!-- TL;DR:<i>Endora</i> enables the <b>high-fidelity medical video generation</b> on endoscopy scenes and demonstrates the <b>versatile ability through successful applications</b> in video-based disease diagnosis and 3D surgical scene reconstruction. -->
-            <!-- </h6> -->
-
-              <!-- <video width="80%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
-                  <source src="video/teaser.mp4" type="video/mp4">
-              </video> -->
-
-
-
           <p class="text-left">
-            We aim to build autonomous algorithms that can infer two important structures for compositional scene understanding and editing from a single image: the regular, program-like texture or patterns in 2D planes and the 3D posing of these planes in the scene. As a motivating example, when observing a single image of a corridor like the one in Fig. 1, we humans can effortlessly infer the camera pose, partition the image into five planes—including left and right walls, floor, ceiling, and a far plane—and recognize the repeated pattern on each of these planes. Such a holistic and structural representation allows us to flexibly edit the image, for instance by inpainting missing regions, moving the camera, and extrapolating the corridor to make it infinite.
+            Based on "Tour into the Picture" (TIP)[2] approach, we aim to develop autonomous algorithms that infer two key structures from a single 2D image: 
+            the regular, program-like textures or patterns on 2D planes and the 3D positioning of these planes within the scene. 
             <br><br>
-            Taking a photograph and being able to move the camera around is a compelling way to bring photos to life. It requires understanding the 3D structure of the scene, reasoning about occlusions and what might be behind them, and rendering high-quality, spatially consistent new views in real-time.
-            
-          
-          
+            For example, from a single Metro Station image below, we can infer the camera pose, partition the image into distinct planes (walls, floor, ceiling, and far plane), and recognize repeated patterns. 
+            <br><br>
+            This method enables flexible image editing, such as inpainting, moving the camera, and extending the Image Space, which requires a deep understanding of the scene's 3D structure and real-time rendering of spatially consistent views.
           </p>
-
-          <img src="./pic/decomp.svg" alt="SVG Image" width="1000" height="200">
-        <p class="text-center">
-        </p>
+          <img src="./pic/decomp.svg" alt="" width="1000" >
         </div>
       </div>
     </div>
@@ -138,31 +156,18 @@
     <div class="container">
       <div class="row">
         <div class="col-12 text-center">
-          <h3>Highlight</h3>
+          <h3>Introduction</h3>
             <hr style="margin-top:0px">
-
           <p class="text-left">
-            <ul style="list-style-position: inside; text-align: left; margin-left: 0x;">
-              <li>---------</li>
-              
-              <li>
-                ---------
-              </li>
-             
-              <li>
-                ---------
-              </li>
-
-
-            </ul>
-         
-          
+            The project aims to develop a graphical user interface (GUI) that allows users to extract a simple scene model from a single 2D image, facilitating easy animation and scene manipulation.
+            <br><br>
+            With our GUI, users can intuitively distinguish between foreground and background objects. The background geometry is approximated using simple polygons, forming a polyhedral model with the vanishing point at its base. 
+            <br><br>
+            Specifying the vanishing point is also user-driven, ensuring that the virtual vanishing point aligns with the user's perception. 
+            <br><br>
+            Finally, users can determine the proximity of objects in the scene, effectively setting camera parameters to position foreground objects as desired. 
           </p>
-
-        <p class="text-center">
-          <!-- Reverse process of SyncDreamer's multiview diffusion. -->
-          <!-- Sampled realistic endoscopy videos by <i>Endora</i>.  -->
-        </p>
+          <img src="./pic/algorithm.png" alt="" width="1000">
         </div>
       </div>
     </div>
@@ -176,13 +181,14 @@
         <div class="col-12 text-center">
             <h2>Method</h2>
             <hr style="margin-top:0px">
-            <img src="./pic/refer_pipeline.png" alt="" width="1000" height="350">
-            <br>
-            <br>
             <div class="text-left">
-              <!-- Overview of EndoSparse: Within a 3D-GS scene reconstruction framework, we incorporate vision foundation models as effective regularizers of the 3D scene.
-  We incorporate geometric prior knowledge from Depth-Anything and image appearance priors from Stable Diffusion, which provide valuable guidance signals for optimization at viewpoints without camera coverage. -->
-            <div>
+              Overview of Our Method: Step 1: Data Selection, Step 2: Image Decomposition, Step 3: Fitting Perspective Projection, and Step 4: Camera Positioning.
+            </div>
+            <br><br>
+            <img src="./pic/pipeline.png" alt="" width="1000">
+            <br>
+            <br>
+            
       </div>
     </div>
   </section>
@@ -192,20 +198,61 @@
     <div class="container">
       <div class="row">
         <div class="col-12 text-center">
-            <h2>Live Demo</h2>
+            <h2>Experimental Results </h2>
             <hr style="margin-top:0px">
-            <img src="./pic/0_wellcome.png" alt="" width="1000" height="350">
-            <br>
-            <br>
-            <div class="text-left">
-              <!-- Overview of EndoSparse: Within a 3D-GS scene reconstruction framework, we incorporate vision foundation models as effective regularizers of the 3D scene.
-  We incorporate geometric prior knowledge from Depth-Anything and image appearance priors from Stable Diffusion, which provide valuable guidance signals for optimization at viewpoints without camera coverage. -->
-            <div>
+            <h3 class="new_h3"> Costume Data - Chilli room</h3>
+            <img src="./pic/chilli_room.png" alt="" width="1000" >
+            <hr style="margin-top:0px">
+            <h3 class="new_h3"> Complex sipmle - Simple room </h3>
+            <img src="./pic/simple_room.png" alt="" width="1000" >
+            <hr style="margin-top:0px">
+            <h3 class="new_h3"> Complex middle - Museum </h3>
+            <img src="./pic/museum.png" alt="" width="1000" >
+            <hr style="margin-top:0px">
+            <h3 class="new_h3"> Complex middle - Shopping mall </h3>
+            <img src="./pic/shopping_mall.png" alt="" width="1000" >
+            
       </div>
     </div>
   </section>
   <br>
+  
 
+  <div class="container">
+    <div class="row ">
+      <div class="col-12">
+          <h3>Reference</h3>
+          <hr style="margin-top:0px">
+              <pre style="background-color: #e9eeef;padding: 1.25em 1.5em">
+  <code id="bib">
+    [1] Zhiqing Cao, Xin Sun, and Jiaoying Shi.
+    Tour into the picture using relative depth calculation.
+    In Proceedings of the 2004 ACM SIGGRAPH international conference on Virtual Reality continuum and its applications in industry, pages
+    38–44, 2004.
+    [2] Youichi Horry, Ken‐Ichi Anjyo, and Kiyoshi Arai.
+    Tour into the picture: using a spidery mesh interface to make animation from a single image.
+    In Proceedings of the 24th Annual Conference on Computer Graphics and Interactive Techniques, SIGGRAPH ’97, page 225–232, USA,
+    1997. ACM Press/Addison‐Wesley Publishing Co.
+    [3] Jian Liu, Kuangrong Hao, Huan Liu, and Yongsheng Ding.
+    An improved algorithm based on tip using a vanishing line.
+    In 2013 IEEE Third International Conference on Information Science and Technology (ICIST), pages 546–549. IEEE, 2013.
+    [4] Guihang Wang, Xuejin Chen, and Si Chen.
+    Cut‐and‐fold: Automatic 3d modeling from a single image.
+    In 2014 IEEE International Conference on Multimedia and Expo Workshops (ICMEW), pages 1–6, 2014.
+  </code>
+              </pre>
+          <hr>
+      </div>
+    </div>
+  </div>
+
+  
+
+
+
+  <footer class="text-center" style="margin-bottom:10px">
+      Last update 2024.07.09
+  </footer>
 
 </body>
 </html>
