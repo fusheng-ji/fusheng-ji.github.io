@@ -9,6 +9,11 @@
     <meta name="author" content="Wenbo Ji">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
+    <!-- jQuery and Bulma Carousel assets -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="./render_arts/static/css/bulma-carousel.min.css">
+    <script src="./render_arts/static/js/bulma-carousel.min.js"></script>
+    
     <!-- <link rel="stylesheet" type="text/css" href="stylesheet.css"> -->
     <style type="text/css">
       @import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700,700italic,900,900italic,300italic,300);
@@ -106,10 +111,44 @@
         .teaser-box:hover img.teaser-img {
           transform: scale(1.5);
         }
+
+        /* Results carousel styles (align with render_arts) */
+        .results-carousel { overflow: hidden; }
+        .results-carousel .item {
+          margin: 5px;
+          overflow: hidden;
+          border: 1px solid #bbb;
+          border-radius: 10px;
+          padding: 0;
+          font-size: 0;
+        }
+        .results-carousel img, .results-carousel video { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+        .results-carousel video { margin: 0; }
+        /* Limit carousel width like other sections */
+        .carousel-bound { width: 100%; max-width: 1000px; margin: 0 auto; overflow: hidden; }
       </style>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦫</text></svg>">
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <script src="script/functions.js"></script>
+    
+    <!-- Bulma Carousel init (aligned with render_arts) -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        try {
+          var options = {
+            slidesToScroll: 1,
+            slidesToShow: 2,
+            loop: true,
+            infinite: true,
+            autoplay: false,
+            autoplaySpeed: 3000
+          };
+          bulmaCarousel.attach('.carousel', options);
+        } catch (e) {
+          console.warn('Carousel init failed:', e);
+        }
+      });
+    </script>
   </head>
 
 <body>
@@ -198,13 +237,13 @@
             <td>
               <heading>News</heading>
             <ul>
-              <li><strong>[08/2025]</strong> Our paper CSG-Fusion is accepted by ICCV 2025 E2E3D Workshop. </li>
+              <li><strong>[08/2025]</strong> Our paper CSG-Fusion is accepted by ICCV 2025 Workshop E2E3D. </li>
               <br>
               <li><strong>[07/2025]</strong> I graduated from Tongji University with a Master’s degree in Computer Science! 🎓 </li>
               <br>
               <li><strong>[06/2025]</strong> Our paper <a href="https://arxiv.org/abs/2504.09904">LiteTracker</a> is accepted by MICCAI 2025. </li>
               <br>
-              <li><strong>[01/2025]</strong> Our paper Re0 is accepted by ICRA 2025. </li>
+              <li><strong>[01/2025]</strong> Our paper <a href="https://ieeexplore.ieee.org/document/11127468/">Re0</a> is accepted by ICRA 2025. </li>
               <br>
               <a href="javascript:toggleblock(&#39;old_news&#39;)">---- show more ----</a>
               <div id="old_news" style="display: none;">
@@ -244,7 +283,8 @@
             <br><br>
             I did a research internship at Zhejiang University under the supervision of <a href="https://yiyiliao.github.io/">Prof. Yiyi Liao</a>.
             <br><br>
-            Before that, I received my B.Sc degree in Information and Computing Science (Embedded Software) from <a href="http://lxy.njtech.edu.cn/">Department of Mathematics, Nanjing Tech University</a> in 2021.
+            <!-- Before that, I received my B.Sc degree in Information and Computing Science (Embedded Software) from <a href="http://lxy.njtech.edu.cn/">Department of Mathematics, Nanjing Tech University</a> in 2021. -->
+            Before that, I received my B.Sc degree in Information and Computing Science from <a href="http://lxy.njtech.edu.cn/">Department of Mathematics, Nanjing Tech University</a> in 2021.
             <br><br>
             I was born on April 20th, 2000 in <a href="https://en.wikipedia.org/wiki/Huai%27an">Huai'an</a>, China.
             <br><br>
@@ -292,7 +332,7 @@
             <br><br>
             Yan Xia*, <strong><u>Wenbo Ji*</u></strong>, Weirong Chen, Daniel Cremers
             <p></p>
-            <strong><em>ICCV E2E3D Workshop</em>, 2025</strong>
+            <strong><em>ICCV Workshop E2E3D</em>, 2025</strong>
             <p>
             A feed-forward framework that mindfully integrates pixel-aligned pointmap to reduce redundant primitives and produce compact and consistent 3D structures.</p>
           </td>
@@ -343,7 +383,15 @@
             <strong><u>Wenbo Ji</u></strong>, Ge Wu, Jinyu He, Gang Wei, Zhicheng Wang
             <p></p>
             <strong><em>ICRA</em>, 2025</strong>
-            <br>
+             <a href="https://ieeexplore.ieee.org/document/11127468/" style="margin-left:20px; vertical-align:middle;">
+              <img src="assets/misc/ieee-logo.svg" height="40" style="vertical-align:middle;">
+            </a>
+            <a href="https://github.com/RecognizeEverything/Re0" style="margin-left:20px; vertical-align:middle;">
+              <img src="assets/misc/github-logo.png" height="20" style="vertical-align:middle;">
+            </a>
+            <a href="https://recognizeeverything.github.io/" style="margin-left:20px; vertical-align:middle;">
+              <img src="assets/misc/website_logo.png" height="20" style="vertical-align:middle;">
+            </a>
             <p>
             Given 3D point clouds and multi-view RGB-D images with poses, Re0 leverages the 3D geometric information, projection relationships and CLIP semantic features for 3D zero-shot instance segmentation.</p>
           </td>
@@ -658,6 +706,40 @@
           </td>
       </tbody></table>
 
+      <!-- Render Arts Gallery Section -->
+      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+        <tr>
+        <td style="padding:20px;width:100%;vertical-align:middle">
+          <heading>Render Arts Gallery</heading>
+          <p>
+            Some of my 3D artwork and renders created with Blender.
+          </p>
+        </td>
+        </tr>
+      </tbody></table>
+
+      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+        <tr>
+          <td style="padding:20px;width:100%;vertical-align:middle">
+            <!-- Bulma Results Carousel (bounded like other sections) -->
+            <div class="carousel-bound">
+              <div id="results-carousel" class="carousel results-carousel">
+                <div class="item"><img src="./render_arts/static/images/river0.png" alt="River Scene 1"></div>
+                <div class="item"><img src="./render_arts/static/images/river1.png" alt="River Scene 2"></div>
+                <div class="item"><img src="./render_arts/static/images/river2.png" alt="River Scene 3"></div>
+                <div class="item"><img src="./render_arts/static/images/river3.png" alt="River Scene 4"></div>
+                <div class="item"><img src="./render_arts/static/images/house.png" alt="House Render"></div>
+                <div class="item">
+                  <video poster="" autoplay controls muted loop playsinline>
+                    <source src="./render_arts/static/videos/Alien_Ball.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody></table>
+
     <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate"><tbody>
       <tr>
         <td style="padding:20px;width:100%;vertical-align:top;" align="center">
@@ -666,7 +748,7 @@
       </tr>
       <tr>
         <td style="padding:20px;width:100%;vertical-align:middle;" align="center">
-          <strong>Last Updated on 2025/08/17</strong>
+          <strong>Last Updated on 2025/09/07</strong>
         </td>
       </tr>
       <tr>
