@@ -65,6 +65,38 @@
         font-size: 18px;
         font-weight:500;
         }
+        .topic-title {
+        font-size: 16px;
+        font-weight: 500;
+        }
+        .project-subtitle {
+        font-size: 16px;
+        font-weight: 500;
+        }
+        .topic-row {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+        }
+        .topic-location {
+        display: block;
+        font-size: 13px;
+        font-weight: 300;
+        color: #666;
+        white-space: nowrap;
+        }
+        .award-badge {
+        margin-left: 8px;          /* 与前面文字留一点空隙 */
+        font-size: 13px;
+        font-weight: 600;          /* 比正文稍微更粗一点 */
+        color: #000000;
+        white-space: nowrap;
+        }
+        .award-badge a {
+        color: inherit;
+        text-decoration: none;
+        }
         papertitle {
         /*font-family: 'Lato', Verdana, Helvetica, sans-serif;*/
         font-family: 'Roboto', sans-serif;
@@ -104,12 +136,63 @@
             background-color: #ffffd0;
         }
 
+        /* Small colored tags (e.g., for research interests) */
+        .tag {
+        display: inline-block;
+        padding: 3px 10px;
+        margin-right: 6px;
+        border-radius: 999px;
+        font-size: 15px;
+        font-weight: 500;
+        color: #fff;
+        }
+        .tag-blue {
+        background-color: #1772d0;
+        }
+        .tag-green {
+        background-color: #2e8b57;
+        }
+        .tag-orange {
+        background-color: #e67e22;
+        }
+        .tag-purple {
+        background-color: #8e44ad;
+        }
+        .tag-yellow {
+        background-color: #f1c40f;
+        }
+
+        /* Remove bullet dots for all list items */
+        ul, li {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        }
+
         .teaser-box img.teaser-img {
           transition: transform 0.3s ease;
         }
 
         .teaser-box:hover img.teaser-img {
-          transform: scale(1.5);
+          transform: scale(3.0);
+        }
+
+        /* Collaborator rows: name left, affiliation right */
+        .collab-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+        font-size: 13px;
+        color: #555;
+        }
+        .collab-name a {
+        color: inherit;
+        }
+        .collab-org {
+        text-align: right;
+        white-space: nowrap;
+        margin-right: 300px;
         }
 
         /* Results carousel styles (align with render_arts) */
@@ -162,6 +245,22 @@
         #clustrmaps-container {
           margin: 20px auto !important;
         }
+
+        /* Publications: right-aligned icon row (paper/arxiv/github/website etc.) */
+        .paper-meta {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 12px;
+        }
+        .paper-links {
+          text-align: right;
+        }
+        .paper-links a {
+          margin-left: 12px;
+          vertical-align: middle;
+        }
+
       </style>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦫</text></svg>">
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -185,6 +284,7 @@
         }
       });
     </script>
+
   </head>
 
 <body>
@@ -193,7 +293,9 @@
     <div class="navbar-container">
       <a class="navbar-brand" href="#top">🦫 Wenbo Ji</a>
       <div id="site-nav" class="navbar-links" role="navigation">
+        <a href="#bio">Bio</a>
         <a href="#Publications">Publications</a>
+        <a href="#projects">Projects</a>
         <a href="#experiences">Experiences</a>
         <a href="#awards">Awards</a>
         <a href="#education">Education</a>
@@ -248,8 +350,8 @@
       <td style="padding:0px">
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
           <tr style="padding:0px">
-            <td style="padding:2.5%;width:100%;vertical-align:middle;text-align:center;">
-              <p style="text-align:center">
+            <td style="padding:1.25%;width:100%;vertical-align:middle;text-align:center;">
+              <p style="text-align:center;margin:0;">
                 <name>Wenbo Ji&nbsp;&nbsp;&nbsp;<ruby>嵇<rt>jī&nbsp/&nbspyí</rt></ruby>文博</name>
               </p>
             </td>
@@ -259,7 +361,7 @@
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
           <tr style="padding:0px">
             <td style="padding:2.5%;width:65%;vertical-align:middle">
-              <p>I am a second year master's student in Electrical Engineering and Information Technology at the <a href="https://www.cit.tum.de/en/cit/home/">Technical University of Munich</a>.</p>
+              <p>I am a second year master's student in Electrical Engineering and Information Technology at the <a href="https://www.cit.tum.de/en/cit/home/" style="color: inherit;">Technical University of Munich</a>.</p>
               <p>I am doing research internship with <a href="https://tangjiapeng.github.io/">Jiapeng Tang</a> and <a href="https://niessnerlab.org/members/matthias_niessner/profile.html">Prof. Matthias Nießner</a> at <a href="https://niessnerlab.org/">TUM Visual Computing Group</a>.</p>
               <p>I was working as a working student at <a href="https://www.imfusion.com/">ImFusion</a> with 
                 <a href="https://scholar.google.de/citations?hl=en&user=j2REtlAAAAAJ">Mert Asim Karaoglu</a>,
@@ -273,11 +375,11 @@
                 <a href="https://chuanxiaz.com/">Dr. Chuanxia Zheng</a> and 
                 <a href="https://cvg.cit.tum.de/members/chwe">Weirong Chen</a>.</p>
 
-              <p>I did a research internship at Zhejiang University under the supervision of <a href="https://yiyiliao.github.io/">Prof. Yiyi Liao</a>.</p>
+              <p>I did a research internship at <a href="https://www.zju.edu.cn/" style="color: inherit;">Zhejiang University</a> under the supervision of <a href="https://yiyiliao.github.io/">Prof. Yiyi Liao</a>.</p>
               
-              <p>I obtained my Master’s degree in Computer Science from the <a href="https://see.tongji.edu.cn/index.htm">Tongji University</a>.</p>
+              <p>I obtained my Master's degree in Computer Science from the <a href="https://see.tongji.edu.cn/index.htm" style="color: inherit;">Tongji University</a>.</p>
               
-              <p>I did my B.Sc. in Information and Computing Science at <a href="http://lxy.njtech.edu.cn/">Nanjing Tech University</a>.</p>
+              <p>I did my B.Sc. in Information and Computing Science at <a href="http://lxy.njtech.edu.cn/" style="color: inherit;">Nanjing Tech University</a>.</p>
 
               <p>My research interests lie at the intersection of computer vision, computer graphics, and machine learning -- creating virtual human models and representing 3D scenes.</p>
                 
@@ -328,11 +430,11 @@
             <td>
               <heading>News</heading>
             <ul>
-              <li><strong>[10/2025]</strong> Our paper <a href="https://openaccess.thecvf.com/content/ICCV2025W/E2E3D/html/Xia_CSG-Fusion_Consistent_Sparse-View_Gaussian_Splatting_via_Matching-based_Fusion_ICCVW_2025_paper.html"></a>CSG-Fusion</a> received the 🏆 <strong>Best Paper Award</strong> at the ICCV 2025 Workshop E2E3D! </li>
+              <li><strong>[10/2025]</strong> Our paper <a href="https://openaccess.thecvf.com/content/ICCV2025W/E2E3D/html/Xia_CSG-Fusion_Consistent_Sparse-View_Gaussian_Splatting_via_Matching-based_Fusion_ICCVW_2025_paper.html">CSG-Fusion</a> received the 🏆 <strong>Best Paper Award</strong> at the ICCV 2025 Workshop E2E3D! </li>
               <br>
               <li><strong>[08/2025]</strong> Our paper <a href="https://openaccess.thecvf.com/content/ICCV2025W/E2E3D/html/Xia_CSG-Fusion_Consistent_Sparse-View_Gaussian_Splatting_via_Matching-based_Fusion_ICCVW_2025_paper.html">CSG-Fusion</a> is accepted by ICCV 2025 Workshop E2E3D. </li>
               <br>
-              <li><strong>[07/2025]</strong> I graduated from Tongji University with a Master’s degree in Computer Science! 🎓 </li>
+              <li><strong>[07/2025]</strong> I graduated from <a href="https://see.tongji.edu.cn/index.htm" style="color: inherit;">Tongji University</a> with a Master's degree in Computer Science! 🎓 </li>
               <br>
               <li><strong>[06/2025]</strong> Our paper <a href="https://arxiv.org/abs/2504.09904">LiteTracker</a> is accepted by MICCAI 2025. </li>
               <br>
@@ -344,7 +446,7 @@
                 <br>
                 <li><strong>[01/2024]</strong> I will join <a href="https://cvg.cit.tum.de/">TUM-CVG</a>, <a href="https://www.mdsi.tum.de/en/di-lab/tum-di-lab/">TUM-DI-LAB</a> under the co-supervision of <a href="https://cvg.cit.tum.de/members/xiya"> Dr. Yan Xia</a> and <a href="https://chuanxiaz.com/">Dr. Chuanxia Zheng</a>.</li>
                 <br>  
-                <li><strong>[05/2023]</strong> I will join <a href="https://www.cit.tum.de/en/cit/home/">Technische University München</a> in the winter semester 23/24 as a Master student in Electrical Engineering, see you in München🍻! </li>
+                <li><strong>[05/2023]</strong> I will join <a href="https://www.cit.tum.de/en/cit/home/" style="color: inherit;">Technische University München</a> in the winter semester 23/24 as a Master student in Electrical Engineering, see you in München🍻! </li>
               </div>
             </ul>
             </td>
@@ -356,8 +458,9 @@
           <tr>
           <td style="padding:20px;width:100%;vertical-align:middle">
             <heading>Short Bio</heading>
+            <a id="bio"></a>
             <br><br>
-            I am a second-year master's student in Electrical Engineering and Information Technology at the <a href="https://www.cit.tum.de/en/cit/home/">Technical University of Munich </a>.
+            I am a second-year master's student in Electrical Engineering and Information Technology at the <a href="https://www.cit.tum.de/en/cit/home/" style="color: inherit;">Technical University of Munich </a>.
             <br><br>
             I am doing research internship with <a href="https://tangjiapeng.github.io/">Jiapeng Tang</a> and <a href="https://niessnerlab.org/members/matthias_niessner/profile.html">Prof. Matthias Nießner</a> at <a href="https://niessnerlab.org/">TUM Visual Computing Group</a>.
             <br><br>
@@ -373,12 +476,12 @@
                 <a href="https://chuanxiaz.com/">Dr. Chuanxia Zheng</a> and 
                 <a href="https://cvg.cit.tum.de/members/chwe">Weirong Chen</a>.
             <br><br>
-            I obtained my Master’s degree in Computer Science from the <a href="https://see.tongji.edu.cn/index.htm">CAD Research Center, Tongji University</a>.
+            I obtained my Master's degree in Computer Science from the <a href="https://see.tongji.edu.cn/index.htm" style="color: inherit;">CAD Research Center, Tongji University</a>.
             <br><br>
-            I did a research internship at Zhejiang University under the supervision of <a href="https://yiyiliao.github.io/">Prof. Yiyi Liao</a>.
+            I did a research internship at <a href="https://www.zju.edu.cn/" style="color: inherit;">Zhejiang University</a> under the supervision of <a href="https://yiyiliao.github.io/">Prof. Yiyi Liao</a>.
             <br><br>
             <!-- Before that, I received my B.Sc degree in Information and Computing Science (Embedded Software) from <a href="http://lxy.njtech.edu.cn/">Department of Mathematics, Nanjing Tech University</a> in 2021. -->
-            Before that, I received my B.Sc degree in Information and Computing Science from <a href="http://lxy.njtech.edu.cn/">Department of Mathematics, Nanjing Tech University</a> in 2021.
+            Before that, I received my B.Sc degree in Information and Computing Science from <a href="http://lxy.njtech.edu.cn/" style="color: inherit;">Department of Mathematics, Nanjing Tech University</a> in 2021.
             <br><br>
             I was born on April 20th, 2000 in <a href="https://en.wikipedia.org/wiki/Huai%27an">Huai'an</a>, China.
             <br><br>
@@ -402,10 +505,25 @@
     <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
       <tr>
         <td style="padding:20px;width:100%;vertical-align:middle">
+          <heading>Research Interests</heading>
+          <p>
+            <span class="tag tag-blue">Video Generation</span>
+            <span class="tag tag-yellow">Avatar Animation</span>
+            <span class="tag tag-green">3D/4D Reconstruction</span>
+            <span class="tag tag-orange">Scene Decompostion</span>
+            <span class="tag tag-purple">Long-term Tracking</span>
+          </p>
+        </td>
+      </tr>
+    </tbody></table>
+
+    <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+      <tr>
+        <td style="padding:20px;width:100%;vertical-align:middle">
           <a id="Publications"></a>
           <heading>Publications</heading>
-          <p>
-            (* indicates equal contribution)
+          <p style="margin-top:4px; color:#666; font-size:13px;">
+            * equal contribution, † corresponding author
             <!-- Representative papers are <span class="highlight">highlighted</span>. -->
           </p>
         </td>
@@ -423,19 +541,33 @@
           </td>
 
           <td style="padding:20px;width:70%;vertical-align:middle">
-            <papertitle>CSG-Fusion: Consistent Sparse-View Gaussian Splatting via Matching-based Fusion</papertitle>
+            <topictitle>CSG-Fusion: Consistent Sparse-View Gaussian Splatting via Matching-based Fusion</topictitle>
             <br><br>
-            Yan Xia*, <strong><u>Wenbo Ji*</u></strong>, Weirong Chen, Daniel Cremers
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+              <span>
+                Yan Xia*† , <strong><u>Wenbo Ji*</u></strong>, Weirong Chen, Daniel Cremers
+              </span>
+              <span class="tag tag-green">3D/4D Reconstruction</span>
+            </div>
             <p></p>
-            <strong><em>ICCV Workshop E2E3D</em>, 2025  <a href="papers/CSG_Fusion_ICCV2025Workshop_E2E3D/CSG_fusion_certificate.pdf" style="color:#e60000; font-weight:bold; text-decoration:underline;">
-                Best Paper Award
-            </a></strong>
-            <a href="papers/CSG_Fusion_ICCV2025Workshop_E2E3D/CSG_fusion_poster.pdf" style="margin-left:20px; vertical-align:middle;">
-              <img src="assets/misc/poster-logo.svg" height="20" style="vertical-align:middle;">
-            </a>
-            <a href="https://openaccess.thecvf.com/content/ICCV2025W/E2E3D/html/Xia_CSG-Fusion_Consistent_Sparse-View_Gaussian_Splatting_via_Matching-based_Fusion_ICCVW_2025_paper.html" style="margin-left:20px; vertical-align:middle;">
-              <img src="assets/misc/paper_logo.svg" height="20" style="vertical-align:middle;">
-            </a>
+            <div class="paper-meta">
+              <strong>
+                <em>ICCV Workshop E2E3D</em>, 2025
+                <span class="award-badge">
+                  <a href="papers/CSG_Fusion_ICCV2025Workshop_E2E3D/CSG_fusion_certificate.pdf">
+                    <strong>Best Paper Award</strong>
+                  </a>
+                </span>
+              </strong>
+              <div class="paper-links">
+                <a href="papers/CSG_Fusion_ICCV2025Workshop_E2E3D/CSG_fusion_poster.pdf">
+                  <img src="assets/misc/poster-logo.svg" height="20" style="vertical-align:middle;">
+                </a>
+                <a href="https://openaccess.thecvf.com/content/ICCV2025W/E2E3D/html/Xia_CSG-Fusion_Consistent_Sparse-View_Gaussian_Splatting_via_Matching-based_Fusion_ICCVW_2025_paper.html">
+                  <img src="assets/misc/paper_logo.svg" height="16" style="vertical-align:middle;">
+                </a>
+              </div>
+            </div>
             <p>
             A feed-forward framework that mindfully integrates pixel-aligned pointmap to reduce redundant primitives and produce compact and consistent 3D structures.</p>
           </td>
@@ -450,24 +582,33 @@
           </td>
 
           <td style="padding:20px;width:70%;vertical-align:middle">
-            <papertitle>LiteTracker: Leveraging Temporal Causality for Accurate Low-latency Tissue Tracking</papertitle>
+            <topictitle>LiteTracker: Leveraging Temporal Causality for Accurate Low-latency Tissue Tracking</topictitle>
             <br><br>
-            Mert Asim Karaoglu, <strong><u>Wenbo Ji</u></strong>, Ahmed Abbas,<br>
-            Nassir Navab, Benjamin Busam, Alexander Ladikos
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+              <span>
+                Mert Asim Karaoglu, <strong><u>Wenbo Ji</u></strong>, Ahmed Abbas,<br>
+                Nassir Navab, Benjamin Busam, Alexander Ladikos† 
+              </span>
+              <span class="tag tag-purple">Long-term Tracking</span>
+            </div>
             <p></p>
-            <strong><em>MICCAI</em>, 2025</strong>
-            <a href="https://arxiv.org/abs/2504.09904" style="margin-left:20px; vertical-align:middle;">
-              <img src="assets/misc/arxiv_logo.svg" height="20" style="vertical-align:middle;">
-            </a>
-            <a href="https://papers.miccai.org/miccai-2025/paper/2578_paper.pdf" style="margin-left:20px; vertical-align:middle;">
-              <img src="assets/misc/paper_logo.svg" height="20" style="vertical-align:middle;">
-            </a>
-            <a href="https://github.com/ImFusionGmbH/lite-tracker" style="margin-left:20px; vertical-align:middle;">
-              <img src="assets/misc/github-logo.png" height="20" style="vertical-align:middle;">
-            </a>
-            <a href="https://www.youtube.com/watch?v=aDK18yXq0AA" style="margin-left:20px; vertical-align:middle;">
-              <img src="assets/misc/yotube_logo.png" height="20" style="vertical-align:middle;">
-            </a>
+            <div class="paper-meta">
+              <strong><em>MICCAI</em>, 2025</strong>
+              <div class="paper-links">
+              <a href="https://arxiv.org/abs/2504.09904">
+                <img src="assets/misc/arxiv_logo.svg" height="20" style="vertical-align:middle;">
+              </a>
+              <a href="https://papers.miccai.org/miccai-2025/paper/2578_paper.pdf">
+                <img src="assets/misc/paper_logo.svg" height="16" style="vertical-align:middle;">
+              </a>
+              <a href="https://www.youtube.com/watch?v=aDK18yXq0AA">
+                <img src="assets/misc/yotube_logo.png" height="16" style="vertical-align:middle;">
+              </a>
+              <a href="https://github.com/ImFusionGmbH/lite-tracker">
+                <img src="assets/misc/github-logo.png" height="20" style="vertical-align:middle;">
+              </a>
+              </div>
+            </div>
             <p>
             A low-latency method for tissue online tracking in endoscopic video streams, introduces a set of training-free runtime optimizations on a state-of-the-art long-term point tracking method.</p>
           </td>
@@ -483,27 +624,68 @@
           </td>
 
           <td style="padding:20px;width:70%;vertical-align:middle">
-            <papertitle>RE0: Recognize Everything with 3D Zero-shot Instance Segmentation</papertitle>
+            <topictitle>RE0: Recognize Everything with 3D Zero-shot Instance Segmentation</topictitle>
             <br><br>
-            Xiaohan Yan*, Zijian Jiang*, Yinghao Shuai*, Nan Wang, Xiaowei Song, <br>
-            <strong><u>Wenbo Ji</u></strong>, Ge Wu, Jinyu He, Gang Wei, Zhicheng Wang
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+              <span>
+                Xiaohan Yan*, Zijian Jiang*, Yinghao Shuai*, Nan Wang, Xiaowei Song, <br>
+                <strong><u>Wenbo Ji</u></strong>, Ge Wu, Jinyu He, Gang Wei, Zhicheng Wang† 
+              </span>
+              <span class="tag tag-orange">Scene Decompostion</span>
+            </div>
             <p></p>
-            <strong><em>ICRA</em>, 2025</strong>
-             <a href="https://ieeexplore.ieee.org/document/11127468/" style="margin-left:20px; vertical-align:middle;">
-              <img src="assets/misc/ieee-logo.svg" height="40" style="vertical-align:middle;">
-            </a>
-            <a href="https://github.com/RecognizeEverything/Re0" style="margin-left:20px; vertical-align:middle;">
-              <img src="assets/misc/github-logo.png" height="20" style="vertical-align:middle;">
-            </a>
-            <a href="https://recognizeeverything.github.io/" style="margin-left:20px; vertical-align:middle;">
-              <img src="assets/misc/website_logo.png" height="20" style="vertical-align:middle;">
-            </a>
+            <div class="paper-meta">
+              <strong><em>ICRA</em>, 2025</strong>
+              <div class="paper-links">
+                <a href="https://ieeexplore.ieee.org/document/11127468/">
+                  <img src="assets/misc/ieee-logo.svg" height="40" style="vertical-align:middle;">
+                </a>
+                <a href="https://recognizeeverything.github.io/">
+                  <img src="assets/misc/website_logo.png" height="20" style="vertical-align:middle;">
+                </a>
+                <a href="https://github.com/RecognizeEverything/Re0">
+                  <img src="assets/misc/github-logo.png" height="20" style="vertical-align:middle;">
+                </a>
+              </div>
+            </div>
             <p>
             Given 3D point clouds and multi-view RGB-D images with poses, Re0 leverages the 3D geometric information, projection relationships and CLIP semantic features for 3D zero-shot instance segmentation.</p>
           </td>
         </tr> 
       </tbody></table>
      
+      
+      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+        <tr>
+        <td style="padding:20px;width:100%;vertical-align:middle">
+          <heading>Thesis</heading>
+        </td>
+        </tr>
+      </tbody></table>
+      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+        <td style="padding:20px;width:30%;vertical-align:middle">
+            <div style="display:flex;justify-content:center;margin-bottom:10px;">
+                <img src="assets/institution_logo/tju.png" width="160">
+            </div>
+            <div class="teaser-box" style="display:flex;justify-content:center">
+                <img src="thesis/tongji/pipeline.svg" class="teaser-img" width="180">
+            </div>
+        </td>
+
+        <td style="padding:20px;width:70%;vertical-align:middle;text-align:left;">
+          <topictitle>4D Half Gaussian Splatting based Endoscopic Stereo Scene Reconstruction</topictitle>
+          <br><br>
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+            <p style="margin:0;">
+              <strong>Tongji University Master's Thesis, 2025</strong>
+            </p>
+            <span class="tag tag-green">3D/4D Reconstruction</span>
+          </div>
+          <p>
+            Given stereo endoscopic videos of deformable tissues, this thesis proposes a 4D deformable half-Gaussian splatting framework with depth-prior initialization, temporal–spatial encoding, and lightweight Gaussian pruning for high-fidelity, real-time surgical scene reconstruction.
+          </p>
+        </td>
+      </tbody></table>
 
       <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
         <tr>
@@ -513,8 +695,8 @@
         </td>
         </tr>
         </tbody></table>
-         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <!-- write Projects here -->
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+          <!-- Research Internship @ TUM Visual Computing -->
             <td style="padding:20px;width:30%;vertical-align:middle">
                 <div style="display:flex;justify-content:center;margin-bottom:20px;">
                     <img src='assets/institution_logo/visual_computing_lab.svg' width="200">
@@ -524,22 +706,38 @@
                 </div>
             </td>
   
-            <td style="padding:20px;width:50%;vertical-align:middle">
-                <sub_heading>Research Internship</sub_heading>
-                <br><br>
-                <topictitle>Topic - Gaussian Avatar Head</topictitle>
-                <br><br>
-                <papertitle>Work with:</papertitle> 
-                <li><a href="https://tangjiapeng.github.io/">Jiapeng Tang</a> (TUM Visual Computing Group)</li>
-                <li><a href="https://niessnerlab.org/members/matthias_niessner/profile.html">Prof. Matthias Nießner</a> (TUM Visual Computing Group)</li>
-            </td>
-            <td style="padding:20px;width:20%;vertical-align:top;text-align:right;">
-              <papertitle>April 2025 - Now</papertitle>
+            <td style="padding:20px;width:70%;vertical-align:middle">
+                <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+                  <sub_heading>Research Internship</sub_heading>
+                  <span style="text-align:right;">
+                    <papertitle>April 2025 - Now</papertitle><br>
+                    <span class="topic-location">Munich, Germany</span>
+                  </span>
+                </div>
+                <br>
+                <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+                  <span class="topic-title">Topic - Human Head Avatar Animation</span>
+                  <span>
+                    <span class="tag tag-blue">Video Generation</span>
+                    <span class="tag tag-yellow">Avatar Animation</span>
+                  </span>
+                </div>
+                <br>
+                <div class="collab-row">
+                  <span class="collab-name">
+                    <a href="https://tangjiapeng.github.io/">Jiapeng Tang</a>
+                  </span>
+                </div>
+                <div class="collab-row">
+                  <span class="collab-name">
+                    <a href="https://niessnerlab.org/members/matthias_niessner/profile.html">Prof. Matthias Nießner</a>
+                  </span>
+                </div>
             </td>
         </tbody></table>
 
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <!-- write Projects here -->
+          <!-- Research Internship @ ImFusion / TUM CAMP -->
             <td style="padding:20px;width:30%;vertical-align:middle">
                 <div style="display:flex;justify-content:center;margin-bottom:40px;">
                     <img src='assets/institution_logo/imfusion.png' width="200">
@@ -549,24 +747,49 @@
                 </div>
             </td>
   
-            <td style="padding:20px;width:50%;vertical-align:middle">
-                <sub_heading>Research Internship</sub_heading>
-                <br><br>
-                <topictitle>Topic - Dense Point Tracking</topictitle>
-                <br><br>
-                <papertitle>Work with:</papertitle> 
-                <li><a href="https://scholar.google.de/citations?hl=en&user=j2REtlAAAAAJ">Mert Asim Karaoglu</a> (Imfusion & TUM CAMP)</li>
-                <li><a href="https://www.cs.cit.tum.de/camp/members/benjamin-busam/">Dr. Benjamin Busam</a> (TUM CAMP)</li>
-                <li><a href="https://www.professoren.tum.de/en/navab-nassir">Prof. Nassir Navab</a> (TUM CAMP)</li>
-                <li><a href="https://scholar.google.de/citations?user=0fUQE3EAAAAJ&hl=en">Dr. Alexander Ladikos</a> (Imfusion)</li>
-            </td>
-            <td style="padding:20px;width:20%;vertical-align:top;text-align:right;">
-              <papertitle>Aug 2024 - April 2025</papertitle>
+            <td style="padding:20px;width:70%;vertical-align:middle">
+                <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+                  <sub_heading>Research Internship</sub_heading>
+                  <span style="text-align:right;">
+                    <papertitle>Aug 2024 - April 2025</papertitle><br>
+                    <span class="topic-location">Munich, Germany</span>
+                  </span>
+                </div>
+                <br>
+                <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+                  <span class="topic-title">Topic - Dense Point Tracking</span>
+                  <span class="tag tag-purple">Long-term Tracking</span>
+                </div>
+                <br>
+                <div class="collab-row">
+                  <span class="collab-name">
+                    <a href="https://scholar.google.de/citations?hl=en&user=j2REtlAAAAAJ">Mert Asim Karaoglu</a>
+                  </span>
+                  <span class="collab-org">Imfusion &amp; TUM CAMP</span>
+                </div>
+                <div class="collab-row">
+                  <span class="collab-name">
+                    <a href="https://www.cs.cit.tum.de/camp/members/benjamin-busam/">Dr. Benjamin Busam</a>
+                  </span>
+                  <span class="collab-org">TUM CAMP</span>
+                </div>
+                <div class="collab-row">
+                  <span class="collab-name">
+                    <a href="https://www.professoren.tum.de/en/navab-nassir">Prof. Nassir Navab</a>
+                  </span>
+                  <span class="collab-org">TUM CAMP</span>
+                </div>
+                <div class="collab-row">
+                  <span class="collab-name">
+                    <a href="https://scholar.google.de/citations?user=0fUQE3EAAAAJ&hl=en">Dr. Alexander Ladikos</a>
+                  </span>
+                  <span class="collab-org">Imfusion</span>
+                </div>
             </td>
         </tbody></table>
 
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <!-- write Projects here -->
+          <!-- Guided Research @ Oxford/TUM -->
             <td style="padding:20px;width:30%;vertical-align:middle">
                 <div style="display:flex;justify-content:center;margin-bottom:30px;">
                     <img src='assets/institution_logo/oxford.png' width="200">
@@ -576,41 +799,78 @@
                 </div>
             </td>
   
-            <td style="padding:20px;width:50%;vertical-align:middle">
-                <sub_heading>Guided Research</sub_heading>
-                <br><br>
-                <topictitle>Topic - 3D Scene Decomposition</topictitle> 
-                <br><br>
-                <papertitle>Work with:</papertitle> 
-                <li><a href="https://cvg.cit.tum.de/members/cremers">Prof. Daniel Cremers</a> (TUM CVG)</li>
-                <li><a href="https://chuanxiaz.com/">Dr. Chuanxia Zheng</a> (Oxford VGG)</li>
-                <li><a href="https://cvg.cit.tum.de/members/xiya">Dr. Yan Xia</a> (TUM CVG)</li>
-                <li><a href="https://chiaki530.github.io/">Weirong Chen</a> (TUM CVG)</li>
-            </td>
-            <td style="padding:20px;width:20%;vertical-align:top;text-align:right;">
-              <papertitle>Feb 2024 - Aug 2025</papertitle>
+            <td style="padding:20px;width:70%;vertical-align:middle">
+                <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+                  <sub_heading>Guided Research</sub_heading>
+                  <span style="text-align:right;">
+                    <papertitle>Feb 2024 - Aug 2025</papertitle><br>
+                    <span class="topic-location">Munich, Germany</span>
+                  </span>
+                </div>
+                <br>
+                <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+                  <span class="topic-title">Topic - 3D Scene Decomposition</span>
+                  <span>
+                    <span class="tag tag-green">3D/4D Reconstruction</span>
+                    <span class="tag tag-orange">Scene Decompostion</span>
+                  </span>
+                </div>
+                <br>
+                <div class="collab-row">
+                  <span class="collab-name">
+                    <a href="https://cvg.cit.tum.de/members/cremers">Prof. Daniel Cremers</a>
+                  </span>
+                  <span class="collab-org">TUM CVG</span>
+                </div>
+                <div class="collab-row">
+                  <span class="collab-name">
+                    <a href="https://chuanxiaz.com/">Dr. Chuanxia Zheng</a>
+                  </span>
+                  <span class="collab-org">Oxford VGG</span>
+                </div>
+                <div class="collab-row">
+                  <span class="collab-name">
+                    <a href="https://cvg.cit.tum.de/members/xiya">Dr. Yan Xia</a>
+                  </span>
+                  <span class="collab-org">TUM CVG</span>
+                </div>
+                <div class="collab-row">
+                  <span class="collab-name">
+                    <a href="https://chiaki530.github.io/">Weirong Chen</a>
+                  </span>
+                  <span class="collab-org">TUM CVG</span>
+                </div>
             </td>
         </tbody></table>
 
 
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <!-- write Projects here -->
+          <!-- Research Assistant @ ZJU -->
             <td style="padding:20px;width:30%;vertical-align:middle">
                 <div style="display:flex;justify-content:center;">
                     <img src='assets/institution_logo/zju.png' width="200">
                 </div>
             </td>
   
-            <td style="padding:20px;width:50%;vertical-align:middle">
-              <sub_heading>Research Assistant</sub_heading>
-              <br><br>
-              <topictitle>Topic - Large Scale 3D Scene Reconstruction</topictitle> 
-              <br><br>
-              <papertitle>Work with:</papertitle> 
-              <li><a href="https://yiyiliao.github.io/">Prof. Yiyi Liao</a></li>
-            </td>
-            <td style="padding:20px;width:20%;vertical-align:top;text-align:right;">
-              <papertitle>July 2023 - Sep 2023</papertitle>
+            <td style="padding:20px;width:70%;vertical-align:middle">
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+                <sub_heading>Research Assistant</sub_heading>
+                <span style="text-align:right;">
+                  <papertitle>July 2023 - Sep 2023</papertitle><br>
+                  <span class="topic-location">Hangzhou, China</span>
+                </span>
+              </div>
+              <br>
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+                <span class="topic-title">Topic - Large Scale 3D Scene Reconstruction</span>
+                <span class="tag tag-green">3D/4D Reconstruction</span>
+              </div>
+              <br>
+              <div class="collab-row">
+                <span class="collab-name">
+                  <a href="https://yiyiliao.github.io/">Prof. Yiyi Liao</a>
+                </span>
+              </div>
             </td>
         </tbody></table>
  
@@ -649,6 +909,7 @@
       <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
         <tr>
         <td style="padding:20px;width:100%;vertical-align:middle">
+          <a id="projects"></a>
           <heading>Projects</heading>
         </td>
         </tr>
@@ -661,17 +922,29 @@
                 </div>
             </td>
 
-            <td style="padding:20px;width:50%;vertical-align:middle">
-              <sub_heading>LiteAvatar - WASM version</sub_heading>
-              <br><br>
-              <topictitle>2D Audio-driven Human Avatar Animation</topictitle> 
-              <br><br>
-              A lightweight audio-driven 2D avatar solution that runs entirely in the browser using WASM based on <a href="https://github.com/HumanAIGC/lite-avatar">Lite-avatar</a>. No backend server required.
-            </td>
-            <td style="padding:20px;width:20%;vertical-align:top;text-align:right;">
-              <papertitle>Jan 2026</papertitle>
-              <br><br>
-            <a href="https://github.com/fusheng-ji/lite-avatar-WASM"><img src='assets/misc/github-logo.png' width="25"></a> &nbsp <a href="https://fusheng-ji.github.io/lite-avatar-WASM/"><img src='assets/misc/website_logo.png' width="25"></a>
+            <td style="padding:20px;width:70%;vertical-align:middle">
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%;">
+                <sub_heading>LiteAvatar - WASM version</sub_heading>
+                <div style="text-align:right;">
+                  <papertitle>Jan 2026</papertitle><br>
+                  <span class="topic-location">Personal Project</span>
+                </div>
+              </div>
+              <br>
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%;">
+                <span class="project-subtitle">2D Audio-driven Human Avatar Animation</span>
+                <span>
+                  <a href="https://fusheng-ji.github.io/lite-avatar-WASM/">
+                    <img src="assets/misc/website_logo.png" height="20" style="vertical-align:middle;">
+                  </a>
+                   &nbsp 
+                  <a href="https://github.com/fusheng-ji/lite-avatar-WASM">
+                    <img src="assets/misc/github-logo.png" height="20" style="vertical-align:middle;">
+                  </a>
+                </span>
+              </div>
+              <br>
+              A lightweight audio-driven 2D avatar solution that runs entirely in the browser using WASM based on <a href="https://github.com/HumanAIGC/lite-avatar" style="color: inherit;">Lite-avatar</a>. No backend server required.
             </td>
         </tbody></table>
        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
@@ -683,17 +956,25 @@
                 </div>
             </td>
   
-            <td style="padding:20px;width:50%;vertical-align:middle">
-              <sub_heading>Gaussian Avatar Animation</sub_heading>
-              <br><br>
-              <topictitle>Multi-view 3D Human Avatar Reconstruction</topictitle> 
-              <br><br>
-              Base on <a href="https://github.com/graphdeco-inria/gaussian-splatting">Gaussian-Splatting</a>, <a href="https://github.com/apple/ml-hugs.git">ML-HUGS</a>, modeling animatable human avatars from only Few pictures based on Gaussian Splatting.
-            </td>
-            <td style="padding:20px;width:20%;vertical-align:top;text-align:right;">
-              <papertitle>Aug 2025</papertitle>
-              <br><br>
-            <a href="https://github.com/fusheng-ji/Gaussian_Avatar_Animation"><img src='assets/misc/github-logo.png' width="25"></a>
+            <td style="padding:20px;width:70%;vertical-align:middle">
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%;">
+                <sub_heading>Gaussian Avatar Animation</sub_heading>
+                <div style="text-align:right;">
+                  <papertitle>Aug 2025</papertitle><br>
+                  <span class="topic-location">Personal Project</span>
+                </div>
+              </div>
+              <br>
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%;">
+                <span class="project-subtitle">Multi-view 3D Human Avatar Reconstruction</span>
+                <span>
+                  <a href="https://github.com/fusheng-ji/Gaussian_Avatar_Animation">
+                    <img src="assets/misc/github-logo.png" height="20" style="vertical-align:middle;">
+                  </a>
+                </span>
+              </div>
+              <br>
+              Base on <a href="https://github.com/graphdeco-inria/gaussian-splatting" style="color: inherit;">Gaussian-Splatting</a>, <a href="https://github.com/apple/ml-hugs.git" style="color: inherit;">ML-HUGS</a>, modeling animatable human avatars from only Few pictures based on Gaussian Splatting.
             </td>
         </tbody></table>
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
@@ -705,16 +986,29 @@
                   </div>
               </td>
     
-              <td style="padding:20px;width:50%;vertical-align:middle">
-                <sub_heading>Tour into the Picture</sub_heading>
-                <br><br>
-                <topictitle>Single Image Scene Reconstruction</topictitle> 
-                <br><br>
-                Base on <a href="https://dl.acm.org/doi/10.1145/258734.258854">Tour into the Picture(SIGGRAPH '97)</a>, using a spidery mesh interface to make animation from a single image.
-              <td style="padding:20px;width:20%;vertical-align:top;text-align:right;">
-                <papertitle>June 2024</papertitle>
-                <br><br>
-                <a href="https://github.com/fusheng-ji/TUM_CV_Challenge_SS24"><img src='assets/misc/github-logo.png' width="25"></a> &nbsp <a href="projects/tum_cv_challenge_ss24/index.html"><img src='assets/misc/website_logo.png' width="25"></a>
+              <td style="padding:20px;width:70%;vertical-align:middle">
+                <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%;">
+                  <sub_heading>Tour into the Picture</sub_heading>
+                  <div style="text-align:right;">
+                    <papertitle>June 2024</papertitle><br>
+                    <span class="topic-location">Course Project</span>
+                  </div>
+                </div>
+                <br>
+                <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%;">
+                  <span class="project-subtitle">Single Image Scene Reconstruction</span>
+                  <span>
+                    <a href="projects/tum_cv_challenge_ss24/index.html">
+                      <img src="assets/misc/website_logo.png" height="20" style="vertical-align:middle;">
+                    </a>
+                    &nbsp 
+                    <a href="https://github.com/fusheng-ji/TUM_CV_Challenge_SS24">
+                      <img src="assets/misc/github-logo.png" height="20" style="vertical-align:middle;">
+                    </a>
+                  </span>
+                </div>
+                <br>
+                Base on <a href="https://dl.acm.org/doi/10.1145/258734.258854" style="color: inherit;">Tour into the Picture (SIGGRAPH '97)</a>, using a spidery mesh interface to make animation from a single image.
               </td>
         </tbody></table>
 
@@ -739,35 +1033,29 @@
         <tr>
         <td style="padding:20px;width:100%;vertical-align:middle">
           <a id="awards"></a>
-          <heading>Selected awards</heading>
+          <heading>Selected Awards</heading>
         </td>
         </tr>
       </tbody></table>
       <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
         <tr>
           <td style="padding:20px;padding-left:50px;width:80%;vertical-align:top">
-            <papertitle>🇩🇪 - Deutscher Akademischer Austauschdienst (DAAD) Scholarship</papertitle>
+            <papertitle>Deutscher Akademischer Austauschdienst (DAAD) Scholarship</papertitle>
           </td>
           <td style="padding:20px;width:20%;vertical-align:top;text-align:right;">
-            <papertitle>2023 - 2024</papertitle>
+            <papertitle>2023 - 2024</papertitle><br>
+            <span class="topic-location">Munich, Germany</span>
           </td>
         </tr>
         <tr>
           <td style="padding:20px;padding-left:50px;width:80%;vertical-align:top">
-            <papertitle>🇨🇳 - National Encouragement Scholarship</papertitle>
+            <papertitle>National Encouragement Scholarship</papertitle>
           </td>
           <td style="padding:20px;width:20%;vertical-align:top;text-align:right;">
-            <papertitle>2019 - 2020</papertitle>
+            <papertitle>2019 - 2020</papertitle><br>
+            <span class="topic-location">Nanjing, China</span>
           </td>
         </tr>
-        <!-- <tr>
-          <td style="padding:20px;width:80%;vertical-align:top">
-            🇨🇳 - Nanjing Tech University's The First Prize Scholarship
-          </td>
-          <td style="padding:20px;width:20%;vertical-align:top">
-            <papertitle>2017~2021</papertitle>
-          </td>
-        </tr> -->
       </tbody></table>
 
       <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
@@ -793,7 +1081,8 @@
             <papertitle>M.Sc - Electrical Engineering and Information Technology</papertitle> 
           </td>
           <td style="padding:20px;width:20%;vertical-align:top;text-align:right;">
-            <papertitle>2023 - Now</papertitle>
+            <papertitle>2023 - Now</papertitle><br>
+            <span class="topic-location">Munich, Germany</span>
           </td>
       </tbody></table>
       
@@ -811,7 +1100,8 @@
             <papertitle>M.Sc - Computer Science</papertitle> 
           </td>
           <td style="padding:20px;width:20%;vertical-align:top;text-align:right;">
-            <papertitle>2021 - 2025</papertitle>
+            <papertitle>2021 - 2025</papertitle><br>
+            <span class="topic-location">Shanghai, China</span>
           </td>
       </tbody></table>
 
@@ -829,7 +1119,8 @@
             <papertitle>B.Sc - Information and Computing Science (Embedded Software)</papertitle> 
           </td>
           <td style="padding:20px;width:20%;vertical-align:top;text-align:right;">
-            <papertitle>2017 - 2021</papertitle>
+            <papertitle>2017 - 2021</papertitle><br>
+            <span class="topic-location">Nanjing, China</span>
           </td>
       </tbody></table>
 
@@ -839,7 +1130,7 @@
         <td style="padding:20px;width:100%;vertical-align:middle">
           <a id="gallery"></a>
           <heading>Render Arts Gallery</heading>
-          <p>
+          <p style="margin-top:4px; color:#666; font-size:13px;">
             Some of my 3D artwork and renders created with Blender.
           </p>
         </td>
@@ -876,7 +1167,7 @@
       </tr>
       <tr>
         <td style="padding:20px;width:100%;vertical-align:middle;" align="center">
-          <strong>Last Updated on 2026/01/22</strong>
+          <strong>Last Updated on 2026/01/29</strong>
         </td>
       </tr>
       <tr>
