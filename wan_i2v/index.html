@@ -1,0 +1,3304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wan I2V 视频展示</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .video-labels {
+            display: flex;
+            margin-bottom: 8px;
+        }
+
+        .video-label {
+            flex: 1;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #555;
+            text-align: center;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .video-info {
+            padding: 20px;
+        }
+
+        .video-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            word-break: break-word;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .failure-badge {
+            background: #ff4444;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .prompt-label {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 5px;
+            font-size: 0.95em;
+        }
+
+        .video-prompt {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+
+        .video-negative {
+            color: #999;
+            font-size: 0.85em;
+            line-height: 1.4;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        .negative-label {
+            font-weight: bold;
+            color: #777;
+            margin-bottom: 5px;
+        }
+
+        .error {
+            color: red;
+            padding: 10px;
+            background: #ffe6e6;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Wan I2V 视频展示</h1>
+        <div id="videoGrid" class="video-grid">
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="breakdance.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>breakdance</span>
+                        <span class="failure-badge">Failure Case</span>
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在城市广场上，一名身穿红色上衣和灰色牛仔裤的舞者正在进行街舞表演。他单手倒立，双腿高高抬起，展现出惊人的平衡和力量。周围聚集了一群观众，他们有的站着，有的坐着，全神贯注地观看表演。背景中，一座欧式建筑矗立，阳光洒在建筑的窗户上，为整个场景增添了一抹温暖的色彩。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_breakdance"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="breakdance-flare.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>breakdance-flare</span>
+                        <span class="failure-badge">Failure Case</span>
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一个年轻人正在进行街舞表演，他穿着浅蓝色的裤子和米色的上衣，脚上穿着白色的鞋子。他正在做一个单手倒立的动作，一只脚高高抬起，另一只脚和手臂支撑着身体。背景是一堵石墙，墙上挂着几盆紫色的花，旁边有一个铁门和一些红色的绳子。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_breakdance-flare"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="dance-jump.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>dance-jump</span>
+                        <span class="failure-badge">Failure Case</span>
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在一个古老的广场上，两位身着传统服饰的舞者正在翩翩起舞。她们的裙摆随着舞步轻轻摆动，仿佛在空中划出优美的弧线。背景中的石狮雕像和喷泉静静地观看着这场表演，为整个场景增添了一份庄重与神秘。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_dance-jump"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="dance-twirl.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>dance-twirl</span>
+                        <span class="failure-badge">Failure Case</span>
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一位身穿蓝色连衣裙的舞者在户外舞台上翩翩起舞，她的手臂优雅地摆动，腿部轻盈地摆动，仿佛在与风共舞。背景中，观众席上的人们静静地观看着这场表演，他们的身影在微风中轻轻摇曳。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_dance-twirl"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="dancing.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>dancing</span>
+                        <span class="failure-badge">Failure Case</span>
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一群人在户外跳舞，背景是夜晚的街道。人们穿着休闲服装，有的穿着裙子，有的穿着短裤。他们随着音乐节奏舞动，有的手牵手，有的独自跳舞。背景中可以看到一些建筑物和树木，灯光照亮了整个场景。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_dancing"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="dog.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>dog</span>
+                        <span class="failure-badge">Failure Case</span>
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一只金毛犬在草地上奔跑，尾巴高高翘起，耳朵随着奔跑的节奏轻轻摆动。背景中的树木和灌木丛随风轻轻摇曳，阳光透过树叶洒在草地上，为整个场景增添了一丝温暖。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_dog"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="dogs-jump.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>dogs-jump</span>
+                        <span class="failure-badge">Failure Case</span>
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一位穿着黄色夹克和卡其裤的女士站在草地上，手中拿着食物，两只毛色不同的狗站在她的两侧，它们的眼睛盯着女士手中的食物，似乎在等待指令。随着女士的命令，两只狗同时跳起来，前腿伸展，后腿弯曲，身体向上跃起，动作流畅而有力。背景中的天空布满了云朵，微风轻拂，草地上有一些小花在随风摇曳。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_dogs-jump"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="hoverboard.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>hoverboard</span>
+                        <span class="failure-badge">Failure Case</span>
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一个年轻人站在户外的电动滑板车上，穿着黑色外套和白色裤子，棕色鞋子。他正准备启动滑板车，滑板车的轮子开始转动，他将开始在湿滑的地面上滑行。背景中可以看到一些车辆和建筑物，天气阴沉，地面上有积水。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_hoverboard"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="judo.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>judo</span>
+                        <span class="failure-badge">Failure Case</span>
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在柔道训练馆内，两名穿着白色柔道服的男子正在进行对练。一名男子身穿蓝色腰带，另一名身穿黑色腰带。他们站在绿色和红色的垫子上，动作流畅，展示着柔道的技巧。背景中，其他穿着白色柔道服的学员在观看和等待轮到自己练习。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_judo"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="lady-running.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>lady-running</span>
+                        <span class="failure-badge">Failure Case</span>
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一位穿着彩色花纹上衣的老年女士正在走廊中奔跑，她的手臂摆动，腿部有力地向前迈步，背景中的家具和窗户随着她的移动而快速后退。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_lady-running"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="lock.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>lock</span>
+                        <span class="failure-badge">Failure Case</span>
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一把生锈的锁被紧紧地锁住，一只手正试图用钥匙打开它。钥匙在锁孔中旋转，手指紧握着钥匙柄，用力地转动。锁的表面布满了岁月的痕迹，显得有些陈旧。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_lock"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="parkour.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>parkour</span>
+                        <span class="failure-badge">Failure Case</span>
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一名男子正在进行跑酷运动，他从一个高台上跳过一个金属栏杆，背景是城市建筑和蓝天。他的身体在空中旋转，双腿弯曲，手臂伸展，显示出高度的灵活性和控制力。金属栏杆在男子的跳跃中显得格外醒目，背景中的建筑物和树木随着男子的动作轻微摇晃。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_parkour"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="salsa.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>salsa</span>
+                        <span class="failure-badge">Failure Case</span>
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一群穿着黑色和白色相间连衣裙的舞者在户外跳舞，背景是一栋砖砌建筑和一些观众。舞者们在音乐的伴奏下，随着节奏摆动身体，旋转和移动，他们的动作流畅而富有激情。观众们围在周围，有的在拍照，有的在观看。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_salsa"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="slackline.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>slackline</span>
+                        <span class="failure-badge">Failure Case</span>
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一个人正在走钢丝，他穿着黑色的上衣和牛仔裤，脚上穿着黑色的运动鞋。他正向前走，身体微微前倾，双臂摆动以保持平衡。钢丝被固定在两棵树之间，钢丝的另一端系着一个绿色的布条。背景是一片绿色的草地和高大的树木，远处可以看到一些建筑物。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_slackline"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="aerobatics.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>aerobatics</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在晴朗的天空中，一架白色的滑翔机在空中翱翔。飞行员戴着太阳镜，双手紧握操纵杆，控制着滑翔机的方向。滑翔机的机翼在风中轻轻扇动，带动机身平稳地飞行。下方的田野和云朵在滑翔机的飞行中快速后退，形成了一幅美丽的画卷。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_aerobatics"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="bear.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>bear</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一只棕熊在岩石和泥土之间行走，它的毛发湿漉漉的，显得非常警觉。随着它的步伐，周围的岩石和泥土微微晃动，阳光透过树叶洒在它的身上，形成斑驳的光影。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_bear"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="bike-packing.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>bike-packing</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一个穿着骑行服的人正在室内准备自行车训练。他将自行车固定在室内训练台上，准备进行室内骑行。随着镜头的推进，可以看到他将自行车的后轮固定在训练台上，然后调整训练台的位置，确保自行车的后轮与训练台的轮子对齐。背景中可以看到一个舒适的客厅，有沙发、书架和装饰品，营造出一种温馨的氛围。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_bike-packing"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="blackswan.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>blackswan</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一只黑天鹅优雅地在水中游动，它的长颈和红色的喙在阳光下显得格外醒目。天鹅的翅膀轻轻拍动，带动水面泛起一圈圈涟漪。周围的绿色植物在微风中轻轻摇曳，为这个宁静的场景增添了几分生机。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_blackswan"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="bmx-bumps.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>bmx-bumps</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一个穿着黑色和红色骑行服的人正在BMX赛道上骑行。他戴着黑色头盔，双手紧握车把，双腿用力蹬踏板，车轮在沙地上快速转动，带动自行车向前飞驰。背景中的绿色围栏和树木在车手的快速移动中显得模糊，仿佛在为他加油助威。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_bmx-bumps"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="bmx-trees.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>bmx-trees</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一个阳光明媚的日子，一个穿着白色T恤和迷彩短裤的小男孩骑着一辆红色的BMX自行车在一条小路上飞驰。他双手紧握车把，双腿有力地蹬着踏板，车轮在地面上快速转动，留下一串串尘土。背景是一面色彩斑斓的涂鸦墙，墙上的人物形象栩栩如生，仿佛在为男孩加油助威。周围的树木随风轻轻摇曳，为整个场景增添了几分生机。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_bmx-trees"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="boat.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>boat</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一艘白色的渔船在碧蓝的海面上快速行驶，船尾激起白色的浪花。船上的渔夫正在熟练地操控着船只，船体在海面上划出一道道波纹。远处的海岸线和房屋在阳光下显得格外宁静，海风轻轻吹过，海面泛起微微涟漪。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_boat"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="boxing-fisheye.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>boxing-fisheye</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">两名拳击手正在进行激烈的对战，一名拳击手身穿红色头盔和白色背心，另一名拳击手身穿蓝色头盔和灰色背心。裁判站在拳击台的角落，观察着比赛。观众们围在拳击台周围，观看比赛。背景中可以看到树木和建筑物，灯光照亮了整个场景。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_boxing-fisheye"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="bus.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>bus</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一辆蓝色和白色的公交车停在路边，车门打开，乘客正在上下车。公交车缓缓启动，车轮转动，车身微微晃动。背景中的树木和路灯随风轻轻摇曳，街道上的行人和车辆逐渐消失在视线中。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_bus"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="camel.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>camel</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一只骆驼在动物园的围栏内行走，它的身体随着步伐轻轻摇摆，周围的树木和栅栏在微风中轻轻摇曳。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_camel"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="car-race.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>car-race</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在一场赛车比赛中，车手正驾驶着一辆黑色的赛车在赛道上疾驰。车手的手紧紧握住方向盘，脚踩油门，赛车在赛道上飞驰，车轮在赛道上留下一道道痕迹。背景中的赛道两侧有红色和白色的护栏，远处的观众席上坐满了观众，为比赛增添了热烈的气氛。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_car-race"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="car-roundabout.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>car-roundabout</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一辆灰色的Mini Cooper SUV在城市街道上行驶，车轮转动，车身平稳地向右转弯。背景中的建筑物和树木随着车辆的移动而缓缓向左移动，街道两旁的车辆和行人也逐渐消失在视野中。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_car-roundabout"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="car-shadow.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>car-shadow</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一辆银色的小型SUV正在城市街道上行驶，车轮转动，车身微微倾斜。背景中的建筑物和行人也在移动，街道上的影子随着车辆的行驶而变化。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_car-shadow"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="car-turn.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>car-turn</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一辆银色的SUV汽车在蜿蜒的山路上行驶，车轮转动着，车身微微倾斜。周围的树木和草地随风轻轻摇曳，远处的山脉在阳光下显得更加雄伟壮观。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_car-turn"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="carousel.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>carousel</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在公园的旋转木马游乐场，五颜六色的马匹和动物雕像在链条上摇摆，随着旋转木马的转动，马匹们仿佛在奔跑，尾巴和鬃毛随风飘动，背景中的树木和草地也在微风中轻轻摇曳。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_carousel"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="cat-girl.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>cat-girl</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一个小女孩抱着一只猫，猫在她的怀里安静地躺着。女孩穿着一件色彩斑斓的连衣裙，头发披散在肩上。背景是一片草地，草地上有一些小花和小草，远处可以看到一些树木和灌木丛。女孩轻轻地抚摸着猫的背部，猫似乎很享受这种抚摸。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_cat-girl"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="cats-car.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>cats-car</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">两个小女孩坐在一辆粉色的玩具车里，车里放着一只小猫。她们开心地笑着，小猫在她们的怀里舒适地蜷缩着。随着镜头的移动，可以看到她们周围的玩具和绿色的垃圾桶，背景中还有其他玩具和物品。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_cats-car"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="chamaleon.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>chamaleon</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一只变色龙正悬挂在树枝上，它的四肢紧紧抓住树枝，身体微微前倾，似乎在准备跳跃。背景中，绿色的叶子在微风中轻轻摇曳，为变色龙的悬停动作提供了自然的背景。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_chamaleon"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="classic-car.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>classic-car</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一辆复古汽车在街道上行驶，车轮转动，引擎发出轰鸣声。观众们站在铁栏后面，用相机和手机捕捉这一瞬间。背景中的建筑物和树木随风轻轻摇曳。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_classic-car"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="color-run.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>color-run</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在一场色彩跑活动中，参与者们正在尽情撒粉。一位穿着白色背心的女士正向镜头走来，她的手臂上涂满了橙色的粉末。旁边，一位戴着橙色T恤和口罩的女孩站在原地，双手交叉，似乎在等待轮到自己撒粉。远处，一位穿着橙色T恤的男子正在弯腰从桶中取粉，准备加入这场欢乐的活动。背景中，树木和电线杆随风轻轻摇曳，为这个充满活力的场景增添了几分自然的美感。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_color-run"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="cows.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>cows</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一只黑白相间的奶牛正沿着泥泞的小路缓缓前行，它的尾巴轻轻摆动，耳朵微微颤动，仿佛在感受微风的轻拂。周围的草地和泥土在阳光下显得格外生机勃勃，远处的树木和灌木丛在微风中轻轻摇曳。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_cows"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="crossing.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>crossing</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一对老年夫妇正在斑马线上过马路，一辆白色货车从他们身边驶过。背景中，一些建筑物和电线杆随风轻轻摇曳。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_crossing"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="deer.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>deer</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">两只鹿在雪地里漫步，它们的腿在雪地上留下痕迹，鹿的角轻轻触碰着地面，仿佛在寻找食物。背景中的树木和灌木丛在微风中轻轻摇曳，雪花在空中飘舞，营造出一种宁静而美丽的冬日景象。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_deer"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="disc-jockey.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>disc-jockey</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在昏暗的夜店环境中，DJ站在混音台前，双手熟练地操作着设备。随着音乐节奏的变化，DJ的身体微微摇摆，手臂和手指在空中划出优美的弧线。背景中的灯光忽明忽暗，营造出一种神秘而动感的氛围。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_disc-jockey"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="dog-agility.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>dog-agility</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一只边境牧羊犬正在敏捷训练场上进行障碍赛。它正快速地从红色和白色的杆子间穿梭，前腿弯曲，后腿蹬地，尾巴高高翘起，显示出它的敏捷和速度。背景中，绿色的围栏和建筑物在阳光下显得格外清晰，微风轻拂，草地上泛起阵阵涟漪。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_dog-agility"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="dog-gooses.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>dog-gooses</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一只黑色的狗躺在草地上，三只鸭子在它面前走动。狗的嘴巴微微张开，似乎在观察鸭子。鸭子的翅膀轻轻扇动，步伐稳健地向前移动。背景中，一辆白色的皮卡车停在木制围栏旁，围栏上挂着一面蓝白相间的旗帜。围栏外，几辆汽车和行人穿梭，远处的树木随风轻轻摇曳。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_dog-gooses"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="dogs-scale.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>dogs-scale</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一只小狗正躺在一个粉色的秤上，秤的指针指向500克。另一只小狗站在秤的旁边，似乎在等待轮到自己。背景中可以看到一个电脑显示器、一个日历和一些办公用品。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_dogs-scale"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="drift-chicane.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>drift-chicane</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">这张图片展示了一场漂移比赛的场景。一辆赛车正在赛道上进行漂移，车轮在地面上摩擦产生烟雾。背景中有一个大屏幕正在播放赛车的影像，周围有观众和工作人员。赛道两侧有帐篷和车辆，环境显得非常专业和热闹。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_drift-chicane"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="drift-straight.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>drift-straight</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">这张图片展示了一个赛车场的场景，一辆红色的赛车正在赛道上疾驰。赛车的车轮在赛道上留下了一道道明显的痕迹，显示出它正在高速行驶。背景中可以看到一些白色的帐篷和建筑物，以及一些停放的车辆。整个场景充满了动感和速度感。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_drift-straight"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="drift-turn.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>drift-turn</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在一场激烈的漂移比赛中，一辆赛车正在赛道上进行漂移。赛车手熟练地操控车辆，使其在赛道上划出一道道烟雾，车轮在地面上摩擦，发出刺耳的声响。周围的观众席上挤满了观众，他们兴奋地观看比赛。背景中的广告牌和赛道标志在车轮的转动下显得格外醒目。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_drift-turn"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="drone.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>drone</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在无人机展览会上，两位男士正在操作手机控制无人机。左边的男士专注地看着手机屏幕，而右边的男士则站在一旁，似乎在等待或观察。背景中展示着各种无人机产品，包括飞行时间、充电时间、飞行距离等详细信息。随着手机屏幕的闪烁，无人机缓缓起飞，缓缓上升，背景中的产品展示也随着无人机的上升而逐渐模糊。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_drone"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="elephant.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>elephant</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一只大象在动物园的围栏里散步，周围有岩石和树木。大象的尾巴轻轻摆动，尘土飞扬，背景中的建筑物和树木随风轻轻摇曳。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_elephant"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="flamingo.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>flamingo</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一群火烈鸟在水中漫步，其中一只火烈鸟正在低头觅食，它的长腿在水中轻轻摆动，翅膀微微扇动。背景中的树木和岩石在水中倒影，微风拂过，水面泛起涟漪，火烈鸟的倒影也随之轻轻摇曳。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_flamingo"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="giant-slalom.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>giant-slalom</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一位滑雪者正在进行高山滑雪比赛，他身着红色和白色相间的滑雪服，头戴蓝色头盔，手持滑雪杖，熟练地在雪坡上滑行。他先向左转，再向右转，动作流畅，速度飞快。周围的红色和蓝色旗帜在风中飘动，背景中的树木和山峦在雪地的映衬下显得格外清晰。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_giant-slalom"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="girl-dog.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>girl-dog</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一位穿着蓝色T恤和彩色袜子的女孩坐在轮椅上，旁边跟着一只灰色的狗。女孩向前移动，轮椅的车轮转动，带动女孩向前。狗则在女孩的旁边跟着跑，它的尾巴摇摆，显得非常活泼。背景中可以看到一些停放的车辆和建筑物，阳光明媚，草地上的草随风轻轻摇曳。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_girl-dog"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="goat.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>goat</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一只长着灰色长毛的山羊站在岩石上，背对着镜头。山羊的头转向左侧，似乎在观察远处的景色。山羊的四肢稳稳地踩在岩石上，尾巴微微摆动。背景是一片起伏的山丘，覆盖着稀疏的植被，阳光从上方照射下来，照亮了山羊和周围的岩石。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_goat"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="gold-fish.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>gold-fish</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在蓝色的水族箱中，几条金鱼悠然自得地游动。它们的鳞片在光线的照射下闪烁着金色的光芒，尾巴轻轻摆动，仿佛在水中翩翩起舞。背景中的绿色植物和石头静静地陪伴着它们，为这个宁静的水下世界增添了几分生机。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_gold-fish"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="golf.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>golf</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一名男子手持高尔夫球杆，站在高尔夫球车旁，准备进行挥杆动作。随着他的挥杆，球杆在空中划出一道弧线，球车的车轮随之转动，背景中的树木和草地也因风的吹拂而轻轻摇曳。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_golf"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="guitar-violin.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>guitar-violin</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在一个温馨的室内环境中，两位音乐家正在演奏吉他和小提琴。前景中的小提琴手专注地拉琴，手指在琴弦上快速滑动，琴弓在琴弦上轻轻滑过，发出优美的旋律。背景中的吉他手则全神贯注地弹奏，手指在琴弦上跳跃，琴弦在琴颈上轻轻震动。整个场景充满了音乐的氛围，灯光柔和，营造出一种宁静而温暖的氛围。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_guitar-violin"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="gym.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>gym</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在健身房里，两位女性正在准备进行锻炼。左边的女性穿着黑色背心和短裤，正在弯腰系鞋带，她的腿和手臂在动作中显得灵活而有力。右边的女性穿着黑色背心和白色短裤，她正低头看着自己的脚，似乎在检查鞋子是否系好。她们周围的健身房设备包括哑铃、瑜伽垫和各种健身器材，背景中可以看到砖墙和窗户，阳光透过窗户洒进来，给整个场景增添了一种活力。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_gym"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="helicopter.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>helicopter</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一名穿着反光背心和耳机的工作人员正站在机场跑道上，目送一架蓝色的直升机起飞。直升机的螺旋桨快速旋转，带动机身缓缓上升，背景中的天空和地面逐渐变得模糊，仿佛时间在这一刻静止。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_helicopter"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="hike.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>hike</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一位背着大背包的徒步者正沿着崎岖的山间小径前行。他穿着适合徒步的服装，步伐稳健。周围的岩石和碎石在阳光下闪闪发光，远处的山峰在蓝天的映衬下显得格外雄伟。随着镜头的推进，徒步者的影子在岩石上拉长，周围的植被在微风中轻轻摇曳。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_hike"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="hockey.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>hockey</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一名男子在户外冰球场上进行曲棍球训练，他穿着防护装备，手持曲棍球杆，正在滑冰。他向前滑行，用曲棍球杆击打冰球，冰球在冰面上滚动。背景中可以看到绿色的围栏和一些树木，围栏上有涂鸦。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_hockey"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="horsejump-high.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>horsejump-high</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一位骑手正骑着一匹棕色的马，准备越过一个跳马障碍。马儿的前腿已经抬起，准备跃起，而骑手则保持平衡，目光注视着前方。背景中，蓝天白云下，树木和帐篷点缀着场地，为这个场景增添了一丝宁静。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_horsejump-high"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="horsejump-low.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>horsejump-low</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一位骑手正在骑着一匹白马，白马在沙地上奔跑，四肢有力地摆动，尾巴轻轻摆动。背景中，各种颜色的障碍物整齐地排列在场地周围，随着白马的奔跑，障碍物在背景中缓缓移动。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_horsejump-low"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="horsejump-stick.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>horsejump-stick</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一位穿着白色骑装的骑手正在骑着一匹棕色和白色相间的马，马儿在沙地上奔跑，马蹄扬起尘土。背景是一片修剪整齐的绿色灌木丛，灌木丛后方有一面红色的障碍物。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_horsejump-stick"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="india.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>india</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">印度街头，人们穿着传统服饰，行走在人行道上。车辆和行人穿梭，街道两旁绿树成荫，阳光透过树叶洒下斑驳光影。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_india"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="kid-football.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>kid-football</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一个穿着橙色和黄色条纹球衣的男孩站在户外，球衣上写着"SACA 10"。他戴着一顶橙色的棒球帽，背后是一个黑色和黄色的足球，足球上有一个红色的"X"标志。男孩似乎在准备踢球，足球在他头顶上方悬停。背景中可以看到一些树木和电线，天空呈现出柔和的色调。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_kid-football"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="kite-surf.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>kite-surf</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一位穿着黑色救生衣和白色短裤的风筝冲浪者在碧蓝的海面上滑行，双手紧握着风筝的控制杆，身体微微前倾，双腿在水中划出一道道白色的浪花。海风轻拂，海浪轻轻拍打着他的身体，远处的海岸线若隐若现。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_kite-surf"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="kite-walk.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>kite-walk</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一个穿着潜水服和救生衣的人站在沙滩上，手里拿着风筝线和滑翔板，准备进行风筝冲浪。他正准备走向海边，风筝线在空中飘动，滑翔板在沙滩上滑动，背景中的海水在阳光下波光粼粼。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_kite-walk"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="koala.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>koala</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一只考拉正坐在树枝上，周围是茂密的绿叶。考拉的前爪轻轻抓住树枝，身体微微前倾，似乎在观察周围的环境。背景中的树叶在微风中轻轻摇曳，阳光透过树叶洒在考拉的身上，给它带来温暖的光芒。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_koala"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="lab-coat.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>lab-coat</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">三位穿着实验服的女性站在草地上，背景是围栏和树木。她们似乎在进行某种实验或活动，可能是在户外实验室中。随着视频的播放，她们开始在草地上缓慢行走，每一步都显得小心翼翼。背景中的围栏和树木随着她们的移动而缓缓后退，仿佛整个世界都在为她们让路。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_lab-coat"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="libby.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>libby</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一只德国牧羊犬在花园中奔跑，它的尾巴高高翘起，前腿弯曲，后腿用力蹬地，身体向前倾，快速移动。周围的绿草和树木随风轻轻摇曳，背景中隐约可见一丛紫色的花朵。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_libby"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="lindy-hop.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>lindy-hop</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在一间宽敞的舞蹈教室里，一群年轻人正在热情地跳着林迪舞。他们手牵手，随着音乐的节奏旋转、摆动，脚下的木地板在他们的舞步下发出轻微的摩擦声。背景中，一面墙上挂着一面旗帜，旁边有一个红色的出口标志。教室的角落里，一台摄像机正对着他们，记录下这美好的瞬间。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_lindy-hop"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="loading.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>loading</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在一家大型电器商店里，一名销售人员正在向顾客展示一台三星电视。销售人员穿着蓝色和灰色的制服，站在顾客旁边，手指着电视的包装盒，向顾客解释产品的特点。顾客则站在一旁，仔细聆听销售人员的讲解。背景中，各种品牌的电视和家用电器整齐地摆放在货架上，电视屏幕上播放着广告，显示了各种产品的促销信息。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_loading"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="longboard.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>longboard</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一个穿着黄色T恤和蓝色牛仔裤的男子正在滑板上滑行，他的背包在身后晃动。他的一只手戴着黑色的手套，另一只手放在滑板上。他的滑板在地面上滑行，车轮转动。背景中有一条小路，两旁是绿色的植被，远处可以看到一个骑自行车的人。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_longboard"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="lucia.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>lucia</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一位穿着黑色连衣裙的女士背着黄色的编织包，正沿着铺有砖石的小径缓缓前行。她的头发扎成一个马尾，戴着一副墨镜，显得既休闲又时尚。周围的草地郁郁葱葱，点缀着黄色的小花，微风拂过，草叶轻轻摇曳。远处可以看到一些建筑物和树木，阳光透过树叶洒在地面上，形成斑驳的光影。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_lucia"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="mallard-fly.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>mallard-fly</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一只野鸭在草地上行走，翅膀轻轻扇动，腿部有节奏地摆动。背景中的河流波光粼粼，水流在岩石间穿梭，激起白色的浪花。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_mallard-fly"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="mallard-water.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>mallard-water</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一只野鸭在水中游动，它的翅膀轻轻拍打着水面，激起一圈圈涟漪。鸭子的头部微微转向一侧，似乎在观察周围的环境。周围的水面波光粼粼，反射出天空的蓝色和云朵的形状。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_mallard-water"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="man-bike.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>man-bike</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一个男人骑着摩托车在公路上飞驰，他张开双臂，仿佛在拥抱自由。摩托车的车轮在地面上快速转动，带动车身向前飞速前进。背景中的树木和山丘在摩托车的快速移动下，显得模糊不清，仿佛在为摩托车的疾驰而摇摆。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_man-bike"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="mbike-trick.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>mbike-trick</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一名摩托车手正在公路上进行特技表演，摩托车在地面上划出一圈圈的烟雾，摩托车手熟练地操控着摩托车，车轮在地面上摩擦，产生大量的烟雾。背景中有一座桥和一片草地，天空中有一些云朵。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_mbike-trick"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="miami-surf.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>miami-surf</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在迈阿密的海滩上，海浪翻滚着向岸边涌来。一名冲浪者熟练地驾驭着海浪，身体微微前倾，双臂伸展，保持平衡。他的冲浪板在海浪上划出一道道优美的弧线。远处，其他冲浪者也在等待着合适的浪头，准备加入这场与海浪的舞蹈。海风轻拂，海浪的泡沫在阳光下闪烁，整个场景充满了动感和活力。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_miami-surf"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="monkeys-trees.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>monkeys-trees</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在一片荒野中，两只猴子在树枝间跳跃。一只猴子在树干上攀爬，另一只猴子在树枝上跳跃。背景中的灌木丛随风轻轻摇曳，为场景增添了几分动感。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_monkeys-trees"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="motocross-bumps.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>motocross-bumps</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一位摩托车手正在越野赛道上骑行，赛道两侧有白色的警示带。摩托车手穿着专业的越野装备，头戴头盔，身穿防摔服，脚踏越野靴。摩托车在赛道上快速行驶，车轮在泥土上留下痕迹，尘土飞扬。背景是一片茂密的森林，树木随风轻轻摇曳。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_motocross-bumps"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="motocross-jump.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>motocross-jump</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一位身穿鲜艳骑行服的摩托车手正在一条蜿蜒的越野赛道上飞驰，他的摩托车在尘土飞扬的路面上留下一道道痕迹。摩托车手的姿势稳健，双手紧握车把，双腿有力地蹬着踏板，车轮在地面上快速转动，带动摩托车飞速前进。背景中的树木和灌木丛随风轻轻摇曳，为这紧张刺激的场景增添了一丝自然的宁静。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_motocross-jump"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="motorbike.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>motorbike</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一辆橙色的摩托车在山间公路上行驶，车手和乘客戴着头盔，车轮转动，摩托车向前行驶。背景中的山脉和森林在车行中逐渐向后移动，阳光透过云层洒在公路上，形成斑驳的光影。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_motorbike"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="mtb-race.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>mtb-race</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在一片郁郁葱葱的森林中，两名山地自行车手正在一条蜿蜒的小径上疾驰。前景中的车手握着车把，双腿有力地蹬着踏板，车轮在泥土上飞速转动，带动自行车向前飞驰。背景中的车手也紧随其后，两人都穿着专业的骑行装备，头盔和手套紧紧贴合身体。阳光透过树叶的缝隙洒在地面上，形成斑驳的光影，为整个场景增添了一抹生动的色彩。随着车手们的加速，周围的树木和灌木丛也似乎在快速后退，仿佛整个世界都在为他们的速度让路。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_mtb-race"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="night-race.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>night-race</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在这张夜间的赛车场景中，两辆豪华跑车正沿着赛道疾驰。左边的车在加速，车轮飞速转动，车身微微倾斜，展现出强烈的动力感。右边的车则在减速，车轮平稳转动，车身保持稳定。赛道两侧的护栏在车灯的照射下显得格外醒目，远处的建筑物在夜色中若隐若现，为整个场景增添了一丝神秘感。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_night-race"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="orchid.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>orchid</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一个男人手持一株兰花，兰花的叶子在微风中轻轻摇曳。背景中，其他盆栽植物和书籍在柔和的灯光下显得格外宁静。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_orchid"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="paragliding.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>paragliding</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在一片郁郁葱葱的山谷中，一名滑翔伞运动员正在空中翱翔。他坐在一个红色和白色的滑翔伞上，滑翔伞的翅膀在微风中轻轻扇动。运动员的双腿微微弯曲，双手紧握着控制杆，控制着滑翔伞的方向。山谷中的房屋和树木在背景中缓缓移动，仿佛时间在这一刻静止。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_paragliding"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="paragliding-launch.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>paragliding-launch</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一名滑翔伞运动员正准备起飞，他背着一个大背包，手持滑翔伞的控制杆，站在一片草地上。随着风的吹拂，草地上的草叶轻轻摇曳，远处的山丘和小镇在阳光下显得格外宁静。运动员的滑翔伞缓缓展开，准备在空中翱翔。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_paragliding-launch"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="people-sunset.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>people-sunset</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">夕阳西下，海面上波光粼粼，远处的天空被染成了金黄色。三个人沿着海边的小路缓缓前行，他们的影子被夕阳拉得很长。海风轻拂，海浪轻轻拍打着岸边，发出阵阵涛声。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_people-sunset"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="pigs.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>pigs</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在一片泥泞的地面上，三只猪正在活动。一只黑色的母猪正低头在地上寻找食物，它的鼻子不断嗅探着地面。旁边的一只棕色小猪正在靠近母猪，似乎在寻求母乳。另一只黑白相间的猪则在远处徘徊，似乎在观察周围的环境。背景中可以看到一些枯枝和泥土，显示出这是一个自然的户外环境。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_pigs"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="planes-crossing.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>planes-crossing</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一架中国南方航空的飞机停在机场跑道上，准备起飞。飞机的机翼展开，引擎启动，开始加速。随着飞机的移动，周围的环境也逐渐模糊，背景中的其他飞机和建筑物逐渐消失在视野中。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_planes-crossing"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="planes-water.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>planes-water</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一架大型飞机在雨中缓缓滑行，机翼上的灯光在雨滴中闪烁，背景中的云层厚重，天空阴沉，地面湿滑，反射出飞机的轮廓。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_planes-water"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="rallye.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>rallye</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一辆白色的赛车在尘土飞扬的砾石路上疾驰而过，车轮在地面上留下一道道痕迹。车手熟练地操控着赛车，车身在转弯时倾斜，车轮在砾石上摩擦，激起一片尘土。背景中，观众们聚集在山坡上，有的手持相机，有的举起手机，记录下这一激动人心的时刻。阳光透过树叶洒在山坡上，形成斑驳的光影，微风拂过，草丛轻轻摇曳。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_rallye"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="rhino.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>rhino</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一只犀牛在动物园的围栏中漫步，周围是岩石和树木。犀牛的四肢稳健地移动，每一步都显得沉稳而有力。背景中的树木和岩石在微风中轻轻摇曳，为场景增添了一丝自然的气息。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_rhino"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="rollerblade.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>rollerblade</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一个穿着白色T恤和黑色短裤的女孩正在滑旱冰，她戴着黑色护膝和护肘，滑行时双腿交替摆动，滑轮在地面上滚动。背景是一面涂鸦墙，上面有蓝色和粉色的涂鸦，墙上有三个小窗户。女孩滑行时，背景中的涂鸦墙和窗户在她的身后逐渐移动，仿佛她正在穿越一个充满活力的城市街道。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_rollerblade"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="rollercoaster.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>rollercoaster</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在蓝天白云的映衬下，一辆橙色的过山车在轨道上疾驰而过。车上的乘客们紧紧抓住扶手，随着过山车的快速转弯和加速，他们的身体也随之摆动，仿佛在体验一场惊险刺激的旅程。过山车的车轮在轨道上飞速转动，带动整个过山车在空中划出一道道优美的弧线。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_rollercoaster"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="schoolgirls.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>schoolgirls</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">三个穿着校服的女孩站在学校门口，她们背着书包，准备进入学校。她们的运动方式是缓慢地走向校门，动作细节包括腿部的轻微摆动和书包的自然晃动。背景中的树木和灌木丛随风轻轻摇曳，为场景增添了动态元素。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_schoolgirls"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="scooter-black.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>scooter-black</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在一条繁忙的城市街道上，一辆黑色摩托车在车流中穿梭，车轮转动，车身微微倾斜。摩托车手戴着头盔，双手紧握车把，目光专注地向前方看去。摩托车在车流中穿行，车轮在柏油路上留下一道道痕迹，车身随着道路的起伏而微微晃动。背景中的建筑物和树木在摩托车的快速移动中变得模糊，仿佛在为摩托车让出一条通道。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_scooter-black"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="scooter-board.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>scooter-board</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在一个展览会上，一名男子坐在一个电动滑板车上，双手握着车把，双腿弯曲，准备启动。背景中可以看到其他参观者和展台，地面铺有地毯，环境明亮。男子启动滑板车后，车轮开始转动，他向前滑行，身体微微前倾，显得非常轻松和愉快。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_scooter-board"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="scooter-gray.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>scooter-gray</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在城市街道上，一辆灰色的摩托车正在行驶，车轮转动，车身平稳地向前移动。背景中，停着几辆摩托车，路边的绿植随风轻轻摇曳。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_scooter-gray"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="seasnake.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>seasnake</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一条黑白相间的海蛇在海底游动，周围是绿色的海草和沙地。海蛇的身体在水中灵活地摆动，尾巴轻轻摆动，推动身体向前游动。周围的海草和沙地随着水流轻轻摇曳。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_seasnake"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="sheep.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>sheep</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在一片绿意盎然的草地上，几只羊和小羊羔在树荫下悠闲地吃草。一只棕色的母羊和两只白色的小羊羔紧紧依偎在一起，显得格外温馨。另一只白色的羊站在远处，似乎在观察周围的环境。背景中，树木和篱笆随风轻轻摇曳，营造出一种宁静的田园风光。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_sheep"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="shooting.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>shooting</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一个男人正在攀爬一根绳子，他的身体紧贴着绳子，双手紧紧抓住绳子，双腿用力蹬着，身体向上攀爬。背景中可以看到一个木制的建筑，屋顶是红色的，墙壁是木板，周围有一些模糊的树木和植物。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_shooting"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="skate-jump.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>skate-jump</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一个年轻人正在滑板公园里滑板，他正在尝试跳过一个由木头制成的障碍物。他蹲下身体，向前倾，滑板的前轮稍微抬起，准备跃起。背景是一片树林，树木在微风中轻轻摇曳，阳光透过树叶洒在地上，形成斑驳的光影。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_skate-jump"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="skate-park.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>skate-park</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在滑板公园里，一个滑板手正在混凝土坡道上滑行，他的滑板车轮在坡道上滚动，身体向前倾，手臂摆动以保持平衡。背景中，其他滑板手和观众在坡道上等待或观看，远处的海滩和海洋为这个场景提供了美丽的背景。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_skate-park"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="snowboard.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>snowboard</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一个穿着黑色滑雪服和头盔的人正在雪地上滑雪板。他向前倾，双臂伸展，滑雪板在雪地上滑行，留下一道道痕迹。背景中的岩石和雪地在不断移动，显示出滑雪者的速度和动态。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_snowboard"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="soapbox.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>soapbox</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在一条街道上，一辆蓝色的滑板车正在向一个黄色的斜坡滑行。滑板车上的两个人戴着头盔，似乎在控制着车的方向。斜坡的另一端，一个穿着红色背心的老人正坐在路边的石凳上观看。背景中，一些房屋和树木在微风中轻轻摇曳。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_soapbox"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="soccerball.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>soccerball</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在一个宁静的花园中，一个足球静静地躺在草地上。随着微风拂过，草叶轻轻摇曳，足球在风中微微滚动，仿佛在等待着一场即将到来的比赛。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_soccerball"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="stroller.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>stroller</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一位母亲推着婴儿车在鹅卵石街道上行走。婴儿车里的孩子舒适地坐着，母亲的脚轻轻摆动，推动车轮向前。周围的商店橱窗里展示着各种装饰品，微风轻拂，树叶轻轻摇曳。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_stroller"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="stunt.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>stunt</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一个年轻人正在滑板公园里表演特技。他骑着滑板，从一个斜坡上跃起，滑板在空中划出一道弧线，然后平稳地落在另一个斜坡上。背景中，建筑物和树木随风轻轻摇曳，为这个动态的场景增添了一丝宁静。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_stunt"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="subway.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>subway</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在地铁站台上，人们正有序地上下车。一位穿着黑色连衣裙的女士正走向车厢，她的步伐轻盈而坚定。另一位女士则坐在长椅上，手里拿着手机，似乎在等待着什么。车厢的门缓缓打开，乘客们纷纷涌入车厢，车厢内的灯光照亮了他们的脸庞。站台上的灯光也随着乘客的移动而变化，营造出一种温馨而繁忙的氛围。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_subway"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="surf.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>surf</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一位冲浪者驾驭着色彩鲜艳的帆板在海面上滑行，帆板的帆布在风中轻轻摇曳，冲浪者熟练地操控着帆板，脚下的海浪不断起伏，远处的山峦在薄雾中若隐若现。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_surf"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="swing.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>swing</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一位穿着白色衬衫和蓝色牛仔裤的女性坐在秋千上，双手紧握秋千的链条，准备荡起秋千。秋千的链条在她的推动下开始摆动，带动秋千缓缓上升，然后又缓缓下降。背景中的树木和灌木丛随着秋千的摆动而轻轻摇曳，营造出一种宁静而自然的氛围。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_swing"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="tandem.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>tandem</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">两人在空中滑翔伞，背景是连绵的山脉和一片湖泊。滑翔伞的绳索在风中轻轻摆动，两人紧紧抓住绳索，享受着高空飞行的刺激。周围的云层在风中飘动，远处的山脉在阳光下显得格外壮丽。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_tandem"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="tennis.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>tennis</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一位穿着白色polo衫和黑色短裤的男子正在红土网球场上准备击球。他右手握着网球拍，身体微微前倾，双腿微微弯曲，准备迎接即将到来的网球。背景中可以看到一个蓝色的广告牌，上面写着“WZ.ch/jobs”和“ASVZ”的字样。球场周围有铁丝网和一些树木，阳光洒在球场上，投下长长的影子。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_tennis"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="tennis-vest.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>tennis-vest</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一位穿着深蓝色背心和白色短裤的男子站在红土网球场上，手持网球拍，准备迎接即将到来的球。他的身体微微前倾，目光专注，似乎在等待对手的发球。背景中，蓝色的广告牌和绿色的树木为这个场景增添了一抹色彩。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_tennis-vest"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="tractor.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>tractor</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一辆绿色的Claas Axion 830拖拉机正在一条泥泞的小路上行驶，车轮在泥泞中留下深深的痕迹。拖拉机的后部连接着一个红色的拖车，拖车的门微微打开，似乎在准备卸载或装载货物。背景中，树木和灌木丛在微风中轻轻摇曳，阳光透过树叶洒在地面上，形成斑驳的光影。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_tractor"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="tractor-sand.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>tractor-sand</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在一片沙地上，一名工人驾驶着一辆红色的拖拉机，拖拉机的后部装有网状的设备，正在平整地面。拖拉机的车轮转动，带动设备在沙地上移动，留下一道道痕迹。背景中，树木和帐篷随风轻轻摇曳，远处的房屋和围栏也显得格外宁静。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_tractor-sand"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="train.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>train</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">这是一张火车模型的图片。火车模型正在铁轨上行驶，车轮在铁轨上滚动，带动火车向前移动。火车模型的车身在铁轨上滑动，带动周围的石子和草丛一起移动。背景中的树木和建筑物也在微风中轻轻摇曳。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_train"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="tuk-tuk.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>tuk-tuk</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在一个阳光明媚的午后，三个人坐在一辆嘟嘟车上，车窗外的树木和建筑物在微风中轻轻摇曳。车内的三人似乎在享受着旅程，男孩微笑着看向窗外，女孩低头沉思，而女孩则专注地看着前方。车轮在道路上滚动，带动着车内的空气流动，车窗外的景色不断变化，仿佛在诉说着这个城市的故事。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_tuk-tuk"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="upside-down.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>upside-down</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在一场惊险刺激的过山车之旅中，两名乘客紧紧抓住安全带，随着过山车的高速旋转和翻滚，他们的身体也随之摆动，仿佛在空中翱翔。背景中的绿色草地和远处的树木在过山车的快速移动中变得模糊，形成了一幅动态的画卷。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_upside-down"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="varanus-cage.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>varanus-cage</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一只蜥蜴在木制的栖息架上爬行，它的四肢灵活地移动，身体随着动作微微弯曲。周围的环境包括一些绿色的植物和石头，背景中可以看到一些模糊的灯光和装饰物。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_varanus-cage"></div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-labels">
+                    <div class="video-label">Input Image</div>
+                    <div class="video-label">Generated Video</div>
+                </div>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="walking.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">
+                        <span>walking</span>
+                        
+                    </div>
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在一个繁华的城市街道上，一对年轻男女正在悠闲地散步。男子穿着蓝色西装，女子则穿着白色T恤，肩上背着黑色背包。他们沿着人行道缓缓前行，周围是熙熙攘攘的行人和停靠的车辆。背景中，建筑物和广告牌在阳光下显得格外明亮，偶尔有风吹过，树叶轻轻摇曳。</div>
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div>色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                    <div class="error" id="error_walking"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // 错误处理
+        document.addEventListener('DOMContentLoaded', function() {
+            const videos = document.querySelectorAll('video');
+            videos.forEach(function(video) {
+                video.addEventListener('error', function(e) {
+                    const card = this.closest('.video-card');
+                    const errorDiv = card.querySelector('.error');
+                    if (errorDiv) {
+                        errorDiv.style.display = 'block';
+                        const error = this.error;
+                        if (error) {
+                            errorDiv.textContent = `视频加载失败 (错误代码: ${error.code})`;
+                        } else {
+                            errorDiv.textContent = '无法加载视频';
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
