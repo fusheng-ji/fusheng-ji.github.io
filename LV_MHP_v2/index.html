@@ -8,41 +8,441 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: white; padding: 20px; min-height: 100vh; }
         .container { max-width: 1800px; margin: 0 auto; }
-        h1 { text-align: center; color: #333; font-size: 2.5em; margin-bottom: 40px; }
+        h1 { text-align: center; color: #333; font-size: 2.5em; margin-bottom: 10px; }
+        .subtitle { text-align: center; color: #777; font-size: 0.9em; margin-bottom: 30px; }
         .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-bottom: 40px; }
-        .video-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .video-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; }
         .video-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
-        
-        .video-title { font-size: 1.3em; font-weight: bold; color: #333; padding: 20px 20px 15px 20px; text-align: center; border-bottom: 2px solid #f0f0f0; }
-        
+
+        .video-title { font-size: 1.3em; font-weight: bold; color: #333; padding: 20px 20px 10px 20px; text-align: center; border-bottom: 2px solid #f0f0f0; }
+
+        .failure-badge { position: absolute; top: 12px; left: 12px; background: #f44336; color: #fff; font-size: 0.75em; font-weight: bold; padding: 4px 8px; border-radius: 999px; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+
         .media-labels { display: flex; padding: 0 15px; margin-top: 10px; margin-bottom: 8px; }
         .media-label { flex: 1; font-size: 0.9em; font-weight: bold; color: #555; text-align: center; }
-        
+
         .video-wrapper { position: relative; width: 100%; background: #000; }
         .video-wrapper video { width: 100%; height: auto; display: block; }
-        
+
         .prompt-section { padding: 20px; background: #fafafa; }
         .prompt-label { font-size: 0.9em; font-weight: bold; color: #666; margin-bottom: 8px; }
         .video-prompt { font-size: 0.9em; color: #444; line-height: 1.6; margin-bottom: 15px; padding: 12px; background: white; border-radius: 5px; border-left: 3px solid #4CAF50; }
         .video-negative { margin-top: 10px; }
         .negative-label { font-size: 0.85em; font-weight: bold; color: #999; margin-bottom: 8px; }
         .negative-content { font-size: 0.8em; color: #999; line-height: 1.4; padding: 10px; background: white; border-radius: 5px; border-left: 3px solid #ff9800; }
-        
+
         .image-section { margin-top: 15px; }
         .image-title { font-size: 0.95em; font-weight: bold; color: #666; padding: 10px 20px; background: #f0f0f0; text-align: center; }
         .image-wrapper { position: relative; width: 100%; background: #000; }
         .image-wrapper img { width: 100%; height: auto; display: block; }
         .no-image { padding: 40px 20px; color: #999; text-align: center; font-size: 0.9em; background: #f5f5f5; }
-        
+
         .error { color: #ff4444; font-size: 0.9em; margin: 10px 20px; display: none; }
-        
+
         @media (max-width: 1200px) { .video-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Wan I2V LV-MHP v2 视频展示</h1>
+        <div class="subtitle">红色标记的为 failure case, 并排在前面</div>
         <div class="video-grid">
+            <div class="video-card">
+                <div class="failure-badge">FAILURE CASE</div>
+                <div class="video-title">3595</div>
+                
+                <div class="media-labels">
+                    <div class="media-label">Generated Video</div>
+                    <div class="media-label">Input Image</div>
+                </div>
+                
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="wan_i2v_LV-MHP_v2/3595.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                
+                <div class="prompt-section">
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一对情侣在城市街道上漫步，男子穿着黑色西装，女子穿着红色上衣，女子的手臂环绕在男子的肩膀上，两人一起向前移动，从画面左侧向右侧移动，背景中可以看到建筑物和街道的细节。</div>
+                    
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div class="negative-content">色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                </div>
+                
+                <div class="image-section">
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/3595.jpg" alt="Input 3595" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
+                </div>
+                
+                <div class="error" id="error_3595"></div>
+            </div>
+
+            <div class="video-card">
+                <div class="failure-badge">FAILURE CASE</div>
+                <div class="video-title">3723</div>
+                
+                <div class="media-labels">
+                    <div class="media-label">Generated Video</div>
+                    <div class="media-label">Input Image</div>
+                </div>
+                
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="wan_i2v_LV-MHP_v2/3723.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                
+                <div class="prompt-section">
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在一个空旷的房间中，一对男女手牵手，从画面的左侧向右侧移动，他们的身体随着脚步的迈动而协调地摆动，最终停在了画面的右侧。房间内散落着几个纸箱，背景中有一把椅子和一扇窗户，阳光透过窗户洒进来，照亮了整个房间。</div>
+                    
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div class="negative-content">色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                </div>
+                
+                <div class="image-section">
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/3723.jpg" alt="Input 3723" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
+                </div>
+                
+                <div class="error" id="error_3723"></div>
+            </div>
+
+            <div class="video-card">
+                <div class="failure-badge">FAILURE CASE</div>
+                <div class="video-title">5281</div>
+                
+                <div class="media-labels">
+                    <div class="media-label">Generated Video</div>
+                    <div class="media-label">Input Image</div>
+                </div>
+                
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="wan_i2v_LV-MHP_v2/5281.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                
+                <div class="prompt-section">
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">两位女性在停车场内握手，从左侧向右侧移动，身体协调地靠近对方，手臂摆动，腿部迈步，最终完成握手。背景中的车辆和建筑物随着人物的移动而变化，光影也随之变化。</div>
+                    
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div class="negative-content">色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                </div>
+                
+                <div class="image-section">
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/5281.jpg" alt="Input 5281" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
+                </div>
+                
+                <div class="error" id="error_5281"></div>
+            </div>
+
+            <div class="video-card">
+                <div class="failure-badge">FAILURE CASE</div>
+                <div class="video-title">5282</div>
+                
+                <div class="media-labels">
+                    <div class="media-label">Generated Video</div>
+                    <div class="media-label">Input Image</div>
+                </div>
+                
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="wan_i2v_LV-MHP_v2/5282.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                
+                <div class="prompt-section">
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一位年轻男女在户外咖啡馆中，男子从左侧向右移动，女子从右侧向左移动，两人在咖啡桌旁相遇，女子微笑着与男子击掌，整个场景充满了轻松愉快的氛围。</div>
+                    
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div class="negative-content">色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                </div>
+                
+                <div class="image-section">
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/5282.jpg" alt="Input 5282" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
+                </div>
+                
+                <div class="error" id="error_5282"></div>
+            </div>
+
+            <div class="video-card">
+                <div class="failure-badge">FAILURE CASE</div>
+                <div class="video-title">6093</div>
+                
+                <div class="media-labels">
+                    <div class="media-label">Generated Video</div>
+                    <div class="media-label">Input Image</div>
+                </div>
+                
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="wan_i2v_LV-MHP_v2/6093.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                
+                <div class="prompt-section">
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一个男人和一个男孩在户外拥抱，男人从远处向男孩走来，两人拥抱在一起，男孩微笑着，男人的手臂环绕在男孩的肩膀上，两人一起向画面中心移动，背景是蓝天白云。</div>
+                    
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div class="negative-content">色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                </div>
+                
+                <div class="image-section">
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/6093.jpg" alt="Input 6093" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
+                </div>
+                
+                <div class="error" id="error_6093"></div>
+            </div>
+
+            <div class="video-card">
+                <div class="failure-badge">FAILURE CASE</div>
+                <div class="video-title">6399</div>
+                
+                <div class="media-labels">
+                    <div class="media-label">Generated Video</div>
+                    <div class="media-label">Input Image</div>
+                </div>
+                
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="wan_i2v_LV-MHP_v2/6399.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                
+                <div class="prompt-section">
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">一对情侣在室内亲密互动，男子站在女子身后，女子的手臂环绕在男子的脖子上，两人相视而笑，男子微微向后退，女子则向前倾身，两人之间的距离逐渐拉近，整个场景充满了温馨和浪漫的氛围。</div>
+                    
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div class="negative-content">色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                </div>
+                
+                <div class="image-section">
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/6399.jpg" alt="Input 6399" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
+                </div>
+                
+                <div class="error" id="error_6399"></div>
+            </div>
+
+            <div class="video-card">
+                <div class="failure-badge">FAILURE CASE</div>
+                <div class="video-title">11082</div>
+                
+                <div class="media-labels">
+                    <div class="media-label">Generated Video</div>
+                    <div class="media-label">Input Image</div>
+                </div>
+                
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="wan_i2v_LV-MHP_v2/11082.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                
+                <div class="prompt-section">
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在户外的休闲环境中，六个人物正在进行一场轻松的聚会。他们或坐或站，有的向前移动，有的向后退，有的向左或右移动，整体上呈现出一种随意的动态。人物之间的空间关系也在不断变化，有的靠近镜头，有的远离镜头，有的从画面的一侧移动到另一侧。背景中的植物和建筑也在随着人物的移动而变化，光影效果也随之改变。</div>
+                    
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div class="negative-content">色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                </div>
+                
+                <div class="image-section">
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/11082.jpg" alt="Input 11082" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
+                </div>
+                
+                <div class="error" id="error_11082"></div>
+            </div>
+
+            <div class="video-card">
+                <div class="failure-badge">FAILURE CASE</div>
+                <div class="video-title">21966</div>
+                
+                <div class="media-labels">
+                    <div class="media-label">Generated Video</div>
+                    <div class="media-label">Input Image</div>
+                </div>
+                
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="wan_i2v_LV-MHP_v2/21966.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                
+                <div class="prompt-section">
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">在一个宁静的湖边，两个穿着黄色上衣和黑色裤子的小朋友正在欢快地跳跃和奔跑，他们的身体协调一致，手臂和腿部的动作配合默契，从画面的左侧向右侧移动，最终靠近镜头，整个场景充满了童趣和活力。</div>
+                    
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div class="negative-content">色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                </div>
+                
+                <div class="image-section">
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/21966.jpg" alt="Input 21966" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
+                </div>
+                
+                <div class="error" id="error_21966"></div>
+            </div>
+
+            <div class="video-card">
+                <div class="failure-badge">FAILURE CASE</div>
+                <div class="video-title">22335</div>
+                
+                <div class="media-labels">
+                    <div class="media-label">Generated Video</div>
+                    <div class="media-label">Input Image</div>
+                </div>
+                
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="wan_i2v_LV-MHP_v2/22335.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                
+                <div class="prompt-section">
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">五位女性站在舞台上，她们的姿势各异，有的向前迈步，有的向后退，整体在舞台上移动，背景中的灯光和舞台装饰也在变化。</div>
+                    
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div class="negative-content">色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                </div>
+                
+                <div class="image-section">
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/22335.jpg" alt="Input 22335" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
+                </div>
+                
+                <div class="error" id="error_22335"></div>
+            </div>
+
+            <div class="video-card">
+                <div class="failure-badge">FAILURE CASE</div>
+                <div class="video-title">23317</div>
+                
+                <div class="media-labels">
+                    <div class="media-label">Generated Video</div>
+                    <div class="media-label">Input Image</div>
+                </div>
+                
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="wan_i2v_LV-MHP_v2/23317.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                
+                <div class="prompt-section">
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">七位女性成员穿着统一的黑色条纹连衣裙和白色衬衫，站在白色背景前，整体向右移动，步伐整齐，手臂自然摆动，展现出团队的协调性和默契。</div>
+                    
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div class="negative-content">色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                </div>
+                
+                <div class="image-section">
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/23317.jpg" alt="Input 23317" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
+                </div>
+                
+                <div class="error" id="error_23317"></div>
+            </div>
+
+            <div class="video-card">
+                <div class="failure-badge">FAILURE CASE</div>
+                <div class="video-title">25348</div>
+                
+                <div class="media-labels">
+                    <div class="media-label">Generated Video</div>
+                    <div class="media-label">Input Image</div>
+                </div>
+                
+                <div class="video-wrapper">
+                    <video controls preload="metadata" playsinline webkit-playsinline>
+                        <source src="wan_i2v_LV-MHP_v2/25348.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                
+                <div class="prompt-section">
+                    <div class="prompt-label">Prompt:</div>
+                    <div class="video-prompt">五位女性在灰色背景前，整体向右移动，步伐轻盈，手臂自然摆动，身体微微转向，展现出优雅的舞姿。她们从左到右依次移动，最终站成一排，与背景形成和谐的互动。</div>
+                    
+                    <div class="video-negative">
+                        <div class="negative-label">Negative Prompt:</div>
+                        <div class="negative-content">色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    </div>
+                </div>
+                
+                <div class="image-section">
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/25348.jpg" alt="Input 25348" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
+                </div>
+                
+                <div class="error" id="error_25348"></div>
+            </div>
+
             <div class="video-card">
                 <div class="video-title">60</div>
                 
@@ -69,10 +469,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/60.jpg" alt="Input 60" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/60.jpg" alt="Input 60" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_60"></div>
@@ -104,10 +504,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/353.jpg" alt="Input 353" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/353.jpg" alt="Input 353" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_353"></div>
@@ -139,10 +539,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/703.jpg" alt="Input 703" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/703.jpg" alt="Input 703" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_703"></div>
@@ -174,10 +574,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/779.jpg" alt="Input 779" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/779.jpg" alt="Input 779" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_779"></div>
@@ -209,10 +609,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/898.jpg" alt="Input 898" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/898.jpg" alt="Input 898" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_898"></div>
@@ -244,10 +644,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/1025.jpg" alt="Input 1025" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/1025.jpg" alt="Input 1025" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_1025"></div>
@@ -279,10 +679,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/1054.jpg" alt="Input 1054" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/1054.jpg" alt="Input 1054" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_1054"></div>
@@ -314,10 +714,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/1066.jpg" alt="Input 1066" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/1066.jpg" alt="Input 1066" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_1066"></div>
@@ -349,10 +749,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/1380.jpg" alt="Input 1380" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/1380.jpg" alt="Input 1380" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_1380"></div>
@@ -384,10 +784,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/1440.jpg" alt="Input 1440" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/1440.jpg" alt="Input 1440" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_1440"></div>
@@ -419,10 +819,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/2256.jpg" alt="Input 2256" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/2256.jpg" alt="Input 2256" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_2256"></div>
@@ -454,10 +854,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/2657.jpg" alt="Input 2657" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/2657.jpg" alt="Input 2657" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_2657"></div>
@@ -489,83 +889,13 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/3466.jpg" alt="Input 3466" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/3466.jpg" alt="Input 3466" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_3466"></div>
-            </div>
-
-            <div class="video-card">
-                <div class="video-title">3595</div>
-                
-                <div class="media-labels">
-                    <div class="media-label">Generated Video</div>
-                    <div class="media-label">Input Image</div>
-                </div>
-                
-                <div class="video-wrapper">
-                    <video controls preload="metadata" playsinline webkit-playsinline>
-                        <source src="wan_i2v_LV-MHP_v2/3595.mp4" type="video/mp4">
-                        您的浏览器不支持视频播放。
-                    </video>
-                </div>
-                
-                <div class="prompt-section">
-                    <div class="prompt-label">Prompt:</div>
-                    <div class="video-prompt">一对情侣在城市街道上漫步，男子穿着黑色西装，女子穿着红色上衣，女子的手臂环绕在男子的肩膀上，两人一起向前移动，从画面左侧向右侧移动，背景中可以看到建筑物和街道的细节。</div>
-                    
-                    <div class="video-negative">
-                        <div class="negative-label">Negative Prompt:</div>
-                        <div class="negative-content">色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
-                    </div>
-                </div>
-                
-                <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/3595.jpg" alt="Input 3595" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
-                </div>
-                
-                <div class="error" id="error_3595"></div>
-            </div>
-
-            <div class="video-card">
-                <div class="video-title">3723</div>
-                
-                <div class="media-labels">
-                    <div class="media-label">Generated Video</div>
-                    <div class="media-label">Input Image</div>
-                </div>
-                
-                <div class="video-wrapper">
-                    <video controls preload="metadata" playsinline webkit-playsinline>
-                        <source src="wan_i2v_LV-MHP_v2/3723.mp4" type="video/mp4">
-                        您的浏览器不支持视频播放。
-                    </video>
-                </div>
-                
-                <div class="prompt-section">
-                    <div class="prompt-label">Prompt:</div>
-                    <div class="video-prompt">在一个空旷的房间中，一对男女手牵手，从画面的左侧向右侧移动，他们的身体随着脚步的迈动而协调地摆动，最终停在了画面的右侧。房间内散落着几个纸箱，背景中有一把椅子和一扇窗户，阳光透过窗户洒进来，照亮了整个房间。</div>
-                    
-                    <div class="video-negative">
-                        <div class="negative-label">Negative Prompt:</div>
-                        <div class="negative-content">色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
-                    </div>
-                </div>
-                
-                <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/3723.jpg" alt="Input 3723" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
-                </div>
-                
-                <div class="error" id="error_3723"></div>
             </div>
 
             <div class="video-card">
@@ -594,10 +924,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/3744.jpg" alt="Input 3744" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/3744.jpg" alt="Input 3744" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_3744"></div>
@@ -629,10 +959,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/4242.jpg" alt="Input 4242" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/4242.jpg" alt="Input 4242" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_4242"></div>
@@ -664,10 +994,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/4330.jpg" alt="Input 4330" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/4330.jpg" alt="Input 4330" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_4330"></div>
@@ -699,153 +1029,13 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/4394.jpg" alt="Input 4394" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/4394.jpg" alt="Input 4394" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_4394"></div>
-            </div>
-
-            <div class="video-card">
-                <div class="video-title">5281</div>
-                
-                <div class="media-labels">
-                    <div class="media-label">Generated Video</div>
-                    <div class="media-label">Input Image</div>
-                </div>
-                
-                <div class="video-wrapper">
-                    <video controls preload="metadata" playsinline webkit-playsinline>
-                        <source src="wan_i2v_LV-MHP_v2/5281.mp4" type="video/mp4">
-                        您的浏览器不支持视频播放。
-                    </video>
-                </div>
-                
-                <div class="prompt-section">
-                    <div class="prompt-label">Prompt:</div>
-                    <div class="video-prompt">两位女性在停车场内握手，从左侧向右侧移动，身体协调地靠近对方，手臂摆动，腿部迈步，最终完成握手。背景中的车辆和建筑物随着人物的移动而变化，光影也随之变化。</div>
-                    
-                    <div class="video-negative">
-                        <div class="negative-label">Negative Prompt:</div>
-                        <div class="negative-content">色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
-                    </div>
-                </div>
-                
-                <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/5281.jpg" alt="Input 5281" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
-                </div>
-                
-                <div class="error" id="error_5281"></div>
-            </div>
-
-            <div class="video-card">
-                <div class="video-title">5282</div>
-                
-                <div class="media-labels">
-                    <div class="media-label">Generated Video</div>
-                    <div class="media-label">Input Image</div>
-                </div>
-                
-                <div class="video-wrapper">
-                    <video controls preload="metadata" playsinline webkit-playsinline>
-                        <source src="wan_i2v_LV-MHP_v2/5282.mp4" type="video/mp4">
-                        您的浏览器不支持视频播放。
-                    </video>
-                </div>
-                
-                <div class="prompt-section">
-                    <div class="prompt-label">Prompt:</div>
-                    <div class="video-prompt">一位年轻男女在户外咖啡馆中，男子从左侧向右移动，女子从右侧向左移动，两人在咖啡桌旁相遇，女子微笑着与男子击掌，整个场景充满了轻松愉快的氛围。</div>
-                    
-                    <div class="video-negative">
-                        <div class="negative-label">Negative Prompt:</div>
-                        <div class="negative-content">色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
-                    </div>
-                </div>
-                
-                <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/5282.jpg" alt="Input 5282" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
-                </div>
-                
-                <div class="error" id="error_5282"></div>
-            </div>
-
-            <div class="video-card">
-                <div class="video-title">6093</div>
-                
-                <div class="media-labels">
-                    <div class="media-label">Generated Video</div>
-                    <div class="media-label">Input Image</div>
-                </div>
-                
-                <div class="video-wrapper">
-                    <video controls preload="metadata" playsinline webkit-playsinline>
-                        <source src="wan_i2v_LV-MHP_v2/6093.mp4" type="video/mp4">
-                        您的浏览器不支持视频播放。
-                    </video>
-                </div>
-                
-                <div class="prompt-section">
-                    <div class="prompt-label">Prompt:</div>
-                    <div class="video-prompt">一个男人和一个男孩在户外拥抱，男人从远处向男孩走来，两人拥抱在一起，男孩微笑着，男人的手臂环绕在男孩的肩膀上，两人一起向画面中心移动，背景是蓝天白云。</div>
-                    
-                    <div class="video-negative">
-                        <div class="negative-label">Negative Prompt:</div>
-                        <div class="negative-content">色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
-                    </div>
-                </div>
-                
-                <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/6093.jpg" alt="Input 6093" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
-                </div>
-                
-                <div class="error" id="error_6093"></div>
-            </div>
-
-            <div class="video-card">
-                <div class="video-title">6399</div>
-                
-                <div class="media-labels">
-                    <div class="media-label">Generated Video</div>
-                    <div class="media-label">Input Image</div>
-                </div>
-                
-                <div class="video-wrapper">
-                    <video controls preload="metadata" playsinline webkit-playsinline>
-                        <source src="wan_i2v_LV-MHP_v2/6399.mp4" type="video/mp4">
-                        您的浏览器不支持视频播放。
-                    </video>
-                </div>
-                
-                <div class="prompt-section">
-                    <div class="prompt-label">Prompt:</div>
-                    <div class="video-prompt">一对情侣在室内亲密互动，男子站在女子身后，女子的手臂环绕在男子的脖子上，两人相视而笑，男子微微向后退，女子则向前倾身，两人之间的距离逐渐拉近，整个场景充满了温馨和浪漫的氛围。</div>
-                    
-                    <div class="video-negative">
-                        <div class="negative-label">Negative Prompt:</div>
-                        <div class="negative-content">色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
-                    </div>
-                </div>
-                
-                <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/6399.jpg" alt="Input 6399" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
-                </div>
-                
-                <div class="error" id="error_6399"></div>
             </div>
 
             <div class="video-card">
@@ -874,10 +1064,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/7369.jpg" alt="Input 7369" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/7369.jpg" alt="Input 7369" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_7369"></div>
@@ -909,10 +1099,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/7529.jpg" alt="Input 7529" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/7529.jpg" alt="Input 7529" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_7529"></div>
@@ -944,10 +1134,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/7906.jpg" alt="Input 7906" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/7906.jpg" alt="Input 7906" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_7906"></div>
@@ -979,10 +1169,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/7919.jpg" alt="Input 7919" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/7919.jpg" alt="Input 7919" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_7919"></div>
@@ -1014,10 +1204,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/8058.jpg" alt="Input 8058" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/8058.jpg" alt="Input 8058" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_8058"></div>
@@ -1049,10 +1239,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/8300.jpg" alt="Input 8300" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/8300.jpg" alt="Input 8300" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_8300"></div>
@@ -1084,10 +1274,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/8431.jpg" alt="Input 8431" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/8431.jpg" alt="Input 8431" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_8431"></div>
@@ -1119,10 +1309,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/8863.jpg" alt="Input 8863" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/8863.jpg" alt="Input 8863" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_8863"></div>
@@ -1154,10 +1344,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/9363.jpg" alt="Input 9363" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/9363.jpg" alt="Input 9363" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_9363"></div>
@@ -1189,10 +1379,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/9628.jpg" alt="Input 9628" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/9628.jpg" alt="Input 9628" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_9628"></div>
@@ -1224,10 +1414,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/9715.jpg" alt="Input 9715" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/9715.jpg" alt="Input 9715" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_9715"></div>
@@ -1259,10 +1449,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/10363.jpg" alt="Input 10363" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/10363.jpg" alt="Input 10363" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_10363"></div>
@@ -1294,10 +1484,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/10749.jpg" alt="Input 10749" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/10749.jpg" alt="Input 10749" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_10749"></div>
@@ -1329,48 +1519,13 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/10987.jpg" alt="Input 10987" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
-                </div>
-                
-                <div class="error" id="error_10987"></div>
-            </div>
-
-            <div class="video-card">
-                <div class="video-title">11082</div>
-                
-                <div class="media-labels">
-                    <div class="media-label">Generated Video</div>
-                    <div class="media-label">Input Image</div>
-                </div>
-                
-                <div class="video-wrapper">
-                    <video controls preload="metadata" playsinline webkit-playsinline>
-                        <source src="wan_i2v_LV-MHP_v2/11082.mp4" type="video/mp4">
-                        您的浏览器不支持视频播放。
-                    </video>
-                </div>
-                
-                <div class="prompt-section">
-                    <div class="prompt-label">Prompt:</div>
-                    <div class="video-prompt">在户外的休闲环境中，六个人物正在进行一场轻松的聚会。他们或坐或站，有的向前移动，有的向后退，有的向左或右移动，整体上呈现出一种随意的动态。人物之间的空间关系也在不断变化，有的靠近镜头，有的远离镜头，有的从画面的一侧移动到另一侧。背景中的植物和建筑也在随着人物的移动而变化，光影效果也随之改变。</div>
-                    
-                    <div class="video-negative">
-                        <div class="negative-label">Negative Prompt:</div>
-                        <div class="negative-content">色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/10987.jpg" alt="Input 10987" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
                     </div>
                 </div>
                 
-                <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/11082.jpg" alt="Input 11082" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
-                </div>
-                
-                <div class="error" id="error_11082"></div>
+                <div class="error" id="error_10987"></div>
             </div>
 
             <div class="video-card">
@@ -1399,10 +1554,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/11348.jpg" alt="Input 11348" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/11348.jpg" alt="Input 11348" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_11348"></div>
@@ -1434,10 +1589,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/11391.jpg" alt="Input 11391" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/11391.jpg" alt="Input 11391" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_11391"></div>
@@ -1469,10 +1624,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/11632.jpg" alt="Input 11632" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/11632.jpg" alt="Input 11632" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_11632"></div>
@@ -1504,10 +1659,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/11928.jpg" alt="Input 11928" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/11928.jpg" alt="Input 11928" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_11928"></div>
@@ -1539,10 +1694,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/12038.jpg" alt="Input 12038" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/12038.jpg" alt="Input 12038" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_12038"></div>
@@ -1574,10 +1729,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/12240.jpg" alt="Input 12240" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/12240.jpg" alt="Input 12240" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_12240"></div>
@@ -1609,10 +1764,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/12336.jpg" alt="Input 12336" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/12336.jpg" alt="Input 12336" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_12336"></div>
@@ -1644,10 +1799,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/12401.jpg" alt="Input 12401" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/12401.jpg" alt="Input 12401" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_12401"></div>
@@ -1679,10 +1834,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/12406.jpg" alt="Input 12406" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/12406.jpg" alt="Input 12406" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_12406"></div>
@@ -1714,10 +1869,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/12845.jpg" alt="Input 12845" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/12845.jpg" alt="Input 12845" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_12845"></div>
@@ -1749,10 +1904,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/13141.jpg" alt="Input 13141" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/13141.jpg" alt="Input 13141" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_13141"></div>
@@ -1784,10 +1939,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/13459.jpg" alt="Input 13459" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/13459.jpg" alt="Input 13459" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_13459"></div>
@@ -1819,10 +1974,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/14609.jpg" alt="Input 14609" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/14609.jpg" alt="Input 14609" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_14609"></div>
@@ -1854,10 +2009,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/14617.jpg" alt="Input 14617" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/14617.jpg" alt="Input 14617" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_14617"></div>
@@ -1889,10 +2044,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/14643.jpg" alt="Input 14643" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/14643.jpg" alt="Input 14643" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_14643"></div>
@@ -1924,10 +2079,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/14725.jpg" alt="Input 14725" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/14725.jpg" alt="Input 14725" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_14725"></div>
@@ -1959,10 +2114,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/15362.jpg" alt="Input 15362" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/15362.jpg" alt="Input 15362" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_15362"></div>
@@ -1994,10 +2149,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/15532.jpg" alt="Input 15532" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/15532.jpg" alt="Input 15532" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_15532"></div>
@@ -2029,10 +2184,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/16262.jpg" alt="Input 16262" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/16262.jpg" alt="Input 16262" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_16262"></div>
@@ -2064,10 +2219,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/16410.jpg" alt="Input 16410" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/16410.jpg" alt="Input 16410" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_16410"></div>
@@ -2099,10 +2254,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/16427.jpg" alt="Input 16427" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/16427.jpg" alt="Input 16427" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_16427"></div>
@@ -2134,10 +2289,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/16441.jpg" alt="Input 16441" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/16441.jpg" alt="Input 16441" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_16441"></div>
@@ -2169,10 +2324,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/16500.jpg" alt="Input 16500" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/16500.jpg" alt="Input 16500" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_16500"></div>
@@ -2204,10 +2359,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/16543.jpg" alt="Input 16543" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/16543.jpg" alt="Input 16543" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_16543"></div>
@@ -2239,10 +2394,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/16580.jpg" alt="Input 16580" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/16580.jpg" alt="Input 16580" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_16580"></div>
@@ -2274,10 +2429,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/16820.jpg" alt="Input 16820" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/16820.jpg" alt="Input 16820" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_16820"></div>
@@ -2309,10 +2464,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/17534.jpg" alt="Input 17534" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/17534.jpg" alt="Input 17534" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_17534"></div>
@@ -2344,10 +2499,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/17978.jpg" alt="Input 17978" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/17978.jpg" alt="Input 17978" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_17978"></div>
@@ -2379,10 +2534,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/18000.jpg" alt="Input 18000" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/18000.jpg" alt="Input 18000" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_18000"></div>
@@ -2414,10 +2569,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/18040.jpg" alt="Input 18040" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/18040.jpg" alt="Input 18040" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_18040"></div>
@@ -2449,10 +2604,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/18066.jpg" alt="Input 18066" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/18066.jpg" alt="Input 18066" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_18066"></div>
@@ -2484,10 +2639,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/18226.jpg" alt="Input 18226" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/18226.jpg" alt="Input 18226" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_18226"></div>
@@ -2519,10 +2674,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/18336.jpg" alt="Input 18336" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/18336.jpg" alt="Input 18336" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_18336"></div>
@@ -2554,10 +2709,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/18671.jpg" alt="Input 18671" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/18671.jpg" alt="Input 18671" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_18671"></div>
@@ -2589,10 +2744,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/18813.jpg" alt="Input 18813" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/18813.jpg" alt="Input 18813" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_18813"></div>
@@ -2624,10 +2779,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/19260.jpg" alt="Input 19260" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/19260.jpg" alt="Input 19260" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_19260"></div>
@@ -2659,10 +2814,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/19469.jpg" alt="Input 19469" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/19469.jpg" alt="Input 19469" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_19469"></div>
@@ -2694,10 +2849,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/19909.jpg" alt="Input 19909" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/19909.jpg" alt="Input 19909" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_19909"></div>
@@ -2729,10 +2884,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/20735.jpg" alt="Input 20735" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/20735.jpg" alt="Input 20735" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_20735"></div>
@@ -2764,10 +2919,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/21044.jpg" alt="Input 21044" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/21044.jpg" alt="Input 21044" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_21044"></div>
@@ -2799,10 +2954,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/21265.jpg" alt="Input 21265" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/21265.jpg" alt="Input 21265" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_21265"></div>
@@ -2834,10 +2989,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/21285.jpg" alt="Input 21285" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/21285.jpg" alt="Input 21285" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_21285"></div>
@@ -2871,10 +3026,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/21609.jpg" alt="Input 21609" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/21609.jpg" alt="Input 21609" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_21609"></div>
@@ -2906,48 +3061,13 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/21858.jpg" alt="Input 21858" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
-                </div>
-                
-                <div class="error" id="error_21858"></div>
-            </div>
-
-            <div class="video-card">
-                <div class="video-title">21966</div>
-                
-                <div class="media-labels">
-                    <div class="media-label">Generated Video</div>
-                    <div class="media-label">Input Image</div>
-                </div>
-                
-                <div class="video-wrapper">
-                    <video controls preload="metadata" playsinline webkit-playsinline>
-                        <source src="wan_i2v_LV-MHP_v2/21966.mp4" type="video/mp4">
-                        您的浏览器不支持视频播放。
-                    </video>
-                </div>
-                
-                <div class="prompt-section">
-                    <div class="prompt-label">Prompt:</div>
-                    <div class="video-prompt">在一个宁静的湖边，两个穿着黄色上衣和黑色裤子的小朋友正在欢快地跳跃和奔跑，他们的身体协调一致，手臂和腿部的动作配合默契，从画面的左侧向右侧移动，最终靠近镜头，整个场景充满了童趣和活力。</div>
-                    
-                    <div class="video-negative">
-                        <div class="negative-label">Negative Prompt:</div>
-                        <div class="negative-content">色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/21858.jpg" alt="Input 21858" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
                     </div>
                 </div>
                 
-                <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/21966.jpg" alt="Input 21966" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
-                </div>
-                
-                <div class="error" id="error_21966"></div>
+                <div class="error" id="error_21858"></div>
             </div>
 
             <div class="video-card">
@@ -2976,10 +3096,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/22060.jpg" alt="Input 22060" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/22060.jpg" alt="Input 22060" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_22060"></div>
@@ -3011,10 +3131,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/22131.jpg" alt="Input 22131" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/22131.jpg" alt="Input 22131" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_22131"></div>
@@ -3046,48 +3166,13 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/22329.jpg" alt="Input 22329" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
-                </div>
-                
-                <div class="error" id="error_22329"></div>
-            </div>
-
-            <div class="video-card">
-                <div class="video-title">22335</div>
-                
-                <div class="media-labels">
-                    <div class="media-label">Generated Video</div>
-                    <div class="media-label">Input Image</div>
-                </div>
-                
-                <div class="video-wrapper">
-                    <video controls preload="metadata" playsinline webkit-playsinline>
-                        <source src="wan_i2v_LV-MHP_v2/22335.mp4" type="video/mp4">
-                        您的浏览器不支持视频播放。
-                    </video>
-                </div>
-                
-                <div class="prompt-section">
-                    <div class="prompt-label">Prompt:</div>
-                    <div class="video-prompt">五位女性站在舞台上，她们的姿势各异，有的向前迈步，有的向后退，整体在舞台上移动，背景中的灯光和舞台装饰也在变化。</div>
-                    
-                    <div class="video-negative">
-                        <div class="negative-label">Negative Prompt:</div>
-                        <div class="negative-content">色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/22329.jpg" alt="Input 22329" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
                     </div>
                 </div>
                 
-                <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/22335.jpg" alt="Input 22335" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
-                </div>
-                
-                <div class="error" id="error_22335"></div>
+                <div class="error" id="error_22329"></div>
             </div>
 
             <div class="video-card">
@@ -3116,10 +3201,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/22771.jpg" alt="Input 22771" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/22771.jpg" alt="Input 22771" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_22771"></div>
@@ -3151,10 +3236,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/22930.jpg" alt="Input 22930" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/22930.jpg" alt="Input 22930" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_22930"></div>
@@ -3186,10 +3271,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/23022.jpg" alt="Input 23022" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/23022.jpg" alt="Input 23022" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_23022"></div>
@@ -3221,10 +3306,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/23123.jpg" alt="Input 23123" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/23123.jpg" alt="Input 23123" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_23123"></div>
@@ -3256,48 +3341,13 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/23206.jpg" alt="Input 23206" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
-                </div>
-                
-                <div class="error" id="error_23206"></div>
-            </div>
-
-            <div class="video-card">
-                <div class="video-title">23317</div>
-                
-                <div class="media-labels">
-                    <div class="media-label">Generated Video</div>
-                    <div class="media-label">Input Image</div>
-                </div>
-                
-                <div class="video-wrapper">
-                    <video controls preload="metadata" playsinline webkit-playsinline>
-                        <source src="wan_i2v_LV-MHP_v2/23317.mp4" type="video/mp4">
-                        您的浏览器不支持视频播放。
-                    </video>
-                </div>
-                
-                <div class="prompt-section">
-                    <div class="prompt-label">Prompt:</div>
-                    <div class="video-prompt">七位女性成员穿着统一的黑色条纹连衣裙和白色衬衫，站在白色背景前，整体向右移动，步伐整齐，手臂自然摆动，展现出团队的协调性和默契。</div>
-                    
-                    <div class="video-negative">
-                        <div class="negative-label">Negative Prompt:</div>
-                        <div class="negative-content">色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/23206.jpg" alt="Input 23206" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
                     </div>
                 </div>
                 
-                <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/23317.jpg" alt="Input 23317" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
-                </div>
-                
-                <div class="error" id="error_23317"></div>
+                <div class="error" id="error_23206"></div>
             </div>
 
             <div class="video-card">
@@ -3326,10 +3376,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/23528.jpg" alt="Input 23528" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/23528.jpg" alt="Input 23528" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_23528"></div>
@@ -3361,10 +3411,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/24564.jpg" alt="Input 24564" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/24564.jpg" alt="Input 24564" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_24564"></div>
@@ -3396,10 +3446,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/24853.jpg" alt="Input 24853" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/24853.jpg" alt="Input 24853" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_24853"></div>
@@ -3431,10 +3481,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/24956.jpg" alt="Input 24956" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/24956.jpg" alt="Input 24956" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_24956"></div>
@@ -3466,48 +3516,13 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/25275.jpg" alt="Input 25275" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
-                </div>
-                
-                <div class="error" id="error_25275"></div>
-            </div>
-
-            <div class="video-card">
-                <div class="video-title">25348</div>
-                
-                <div class="media-labels">
-                    <div class="media-label">Generated Video</div>
-                    <div class="media-label">Input Image</div>
-                </div>
-                
-                <div class="video-wrapper">
-                    <video controls preload="metadata" playsinline webkit-playsinline>
-                        <source src="wan_i2v_LV-MHP_v2/25348.mp4" type="video/mp4">
-                        您的浏览器不支持视频播放。
-                    </video>
-                </div>
-                
-                <div class="prompt-section">
-                    <div class="prompt-label">Prompt:</div>
-                    <div class="video-prompt">五位女性在灰色背景前，整体向右移动，步伐轻盈，手臂自然摆动，身体微微转向，展现出优雅的舞姿。她们从左到右依次移动，最终站成一排，与背景形成和谐的互动。</div>
-                    
-                    <div class="video-negative">
-                        <div class="negative-label">Negative Prompt:</div>
-                        <div class="negative-content">色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走</div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/25275.jpg" alt="Input 25275" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
                     </div>
                 </div>
                 
-                <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/25348.jpg" alt="Input 25348" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
-                </div>
-                
-                <div class="error" id="error_25348"></div>
+                <div class="error" id="error_25275"></div>
             </div>
 
             <div class="video-card">
@@ -3536,10 +3551,10 @@
                 </div>
                 
                 <div class="image-section">
-                <div class="image-title">promptHMR result</div>
-                <div class="image-wrapper">
-                    <img src="prompthmr_processed/25583.jpg" alt="Input 25583" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
-                </div>
+                    <div class="image-title">promptHMR result</div>
+                    <div class="image-wrapper">
+                        <img src="prompthmr_processed/25583.jpg" alt="Input 25583" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>图片加载失败</div>'">
+                    </div>
                 </div>
                 
                 <div class="error" id="error_25583"></div>
