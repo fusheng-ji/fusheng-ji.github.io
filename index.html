@@ -14,259 +14,452 @@
     <link rel="stylesheet" href="./render_arts/static/css/bulma-carousel.min.css">
     <script src="./render_arts/static/js/bulma-carousel.min.js"></script>
     
-    <!-- <link rel="stylesheet" type="text/css" href="stylesheet.css"> -->
     <style type="text/css">
       @import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700,700italic,900,900italic,300italic,300);
-      /* @import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons); */
-        /* Color scheme stolen from Sergey Karayev */
-        a {
-        /*color: #b60a1c;*/
+
+      a {
         color: #1772d0;
-        /*color: #bd0a36;*/
         text-decoration:none;
-        }
-        a:focus, a:hover {
+      }
+      a:focus, a:hover {
         color: #f09228;
         text-decoration:none;
-        }
-        body,td,th,tr,p,a {
+      }
+      body,td,th,tr,p,a {
         font-family: 'Roboto', sans-serif;
         font-size: 15px;
         font-weight: 300;
-        }
-        strong {
+      }
+      strong {
         font-family: 'Roboto', sans-serif;
-        /*font-family: 'Lato', Verdana, Helvetica, sans-serif;*/
-        /*font-family: 'Avenir Next';*/
         font-size: 15px;
         font-weight: 400;
-        }
-        heading {
-        /*font-family: 'Lato', Verdana, Helvetica, sans-serif;*/
+      }
+      heading {
         font-family: 'Roboto', sans-serif;
-        /*font-family: 'Avenir Next';*/
-        /*src: url("./fonts/Roboto_Mono_for_Powerline.ttf");*/
         font-size: 24px;
         font-weight: 400;
-        }
-        sub_heading {
-        /*font-family: 'Lato', Verdana, Helvetica, sans-serif;*/
+      }
+      sub_heading {
         font-family: 'Roboto', sans-serif;
-        /*font-family: 'Avenir Next';*/
-        /*src: url("./fonts/Roboto_Mono_for_Powerline.ttf");*/
         font-size: 20px;
         font-weight: 400;
-        }
-        topictitle {
-        /*font-family: 'Lato', Verdana, Helvetica, sans-serif;*/
+      }
+      topictitle {
         font-family: 'Roboto', sans-serif;
-        /*font-family: 'Avenir Next';*/
-        /*src: url("./fonts/Roboto_Mono_for_Powerline.ttf");*/
         font-size: 18px;
         font-weight:500;
-        }
-        .topic-title {
+      }
+      .topic-title {
         font-size: 16px;
         font-weight: 500;
-        }
-        .project-subtitle {
+      }
+      .project-subtitle {
         font-size: 16px;
         font-weight: 500;
-        }
-        .topic-row {
+      }
+      .topic-row {
         display: flex;
         align-items: baseline;
         justify-content: space-between;
         gap: 12px;
-        }
-        .topic-location {
+      }
+      .topic-location {
         display: block;
         font-size: 13px;
         font-weight: 300;
         color: #666;
         white-space: nowrap;
-        }
-        .award-badge {
-        margin-left: 8px;          /* 与前面文字留一点空隙 */
+      }
+      .award-badge {
+        margin-left: 8px;
         font-size: 13px;
-        font-weight: 600;          /* 比正文稍微更粗一点 */
+        font-weight: 600;
         color: #000000;
         white-space: nowrap;
-        }
-        .award-badge a {
+      }
+      .award-badge a {
         color: inherit;
         text-decoration: none;
-        }
-        papertitle {
-        /*font-family: 'Lato', Verdana, Helvetica, sans-serif;*/
+      }
+      papertitle {
         font-family: 'Roboto', sans-serif;
-        /*font-family: 'Avenir Next';*/
-        /*src: url("./fonts/Roboto_Mono_for_Powerline.ttf");*/
         font-size: 16px;
         font-weight:500;
-        }
-        name {
-        /*font-family: 'Lato', Verdana, Helvetica, sans-serif;*/
+      }
+      name {
         font-family: 'Roboto', sans-serif;
-        /*font-family: 'Avenir Next';*/
         font-size: 32px;
         font-weight: 400;
-        }
-        .one
-        {
+      }
+      .one {
         width: 160px;
         height: 140px;
         position: relative;
-        }
-        .two
-        {
+      }
+      .two {
         width: 160px;
         height: 160px;
         position: absolute;
         transition: opacity .2s ease-in-out;
         -moz-transition: opacity .2s ease-in-out;
         -webkit-transition: opacity .2s ease-in-out;
-        }
-        .fade {
-         transition: opacity .2s ease-in-out;
-         -moz-transition: opacity .2s ease-in-out;
-         -webkit-transition: opacity .2s ease-in-out;
-        }
-        span.highlight {
-            background-color: #ffffd0;
-        }
+      }
+      .fade {
+        transition: opacity .2s ease-in-out;
+        -moz-transition: opacity .2s ease-in-out;
+        -webkit-transition: opacity .2s ease-in-out;
+      }
+      span.highlight {
+        background-color: #ffffd0;
+      }
 
-        /* Small colored tags (e.g., for research interests) */
-        .tag {
-        display: inline-block;
-        padding: 3px 10px;
+      /* Global tags: for publications / experiences / projects / thesis */
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px 12px;
         margin-right: 6px;
         border-radius: 999px;
         font-size: 15px;
         font-weight: 500;
         color: #fff;
-        }
-        .tag-blue {
+        text-align: center;
+        width: auto;
+        box-sizing: border-box;
+        white-space: nowrap;
+        flex: 0 0 auto;
+      }
+      .tag-blue {
         background-color: #1772d0;
-        }
-        .tag-green {
+      }
+      .tag-green {
         background-color: #2e8b57;
-        }
-        .tag-orange {
+      }
+      .tag-orange {
         background-color: #e67e22;
-        }
-        .tag-purple {
+      }
+      .tag-purple {
         background-color: #8e44ad;
-        }
-        .tag-yellow {
+      }
+      .tag-yellow {
         background-color: #f1c40f;
-        }
+        color: #333;
+      }
+      .tag-teal {
+        background-color: #20c997;
+      }
 
-        /* Remove bullet dots for all list items */
-        ul, li {
+      /* Research interests only */
+      .research-tags {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px 18px;
+        align-items: center;
+        width: 100%;
+        margin: 14px 0 0 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .research-interest-tag {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin: 0;
+        padding: 4px 12px;
+        border-radius: 999px;
+        font-size: 15px;
+        font-weight: 500;
+        color: #fff;
+        text-align: center;
+        box-sizing: border-box;
+        white-space: nowrap;
+      }
+
+      @media (max-width: 600px) {
+        .research-tags {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      /* Remove bullet dots for all list items */
+      ul, li {
         list-style-type: none;
         margin: 0;
         padding: 0;
-        }
+      }
 
-        .teaser-box img.teaser-img {
-          transition: transform 0.3s ease;
-        }
+      .teaser-box img.teaser-img {
+        transition: transform 0.3s ease;
+      }
 
-        .teaser-box:hover img.teaser-img {
-          transform: scale(3.0);
-        }
+      .teaser-box:hover img.teaser-img {
+        transform: scale(3.0);
+      }
 
-        /* Collaborator rows: name left, affiliation right */
-        .collab-row {
+      /* Collaborator rows: name left, affiliation right */
+      .collab-row {
         display: flex;
         justify-content: space-between;
         align-items: baseline;
         gap: 12px;
         font-size: 13px;
         color: #555;
-        }
-        .collab-name a {
+      }
+      .collab-name a {
         color: inherit;
-        }
-        .collab-org {
+      }
+      .collab-org {
         text-align: right;
         white-space: nowrap;
         margin-right: 300px;
-        }
+      }
 
-        /* Results carousel styles (align with render_arts) */
-        .results-carousel { overflow: hidden; }
-        .results-carousel .item {
-          margin: 5px;
-          overflow: hidden;
-          border: 1px solid #bbb;
-          border-radius: 10px;
-          padding: 0;
-          font-size: 0;
-        }
-        .results-carousel img, .results-carousel video { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
-        .results-carousel video { margin: 0; }
-        /* Limit carousel width like other sections */
-        .carousel-bound { width: 100%; max-width: 1000px; margin: 0 auto; overflow: hidden; }
+      /* Results carousel styles */
+      .results-carousel { overflow: hidden; }
+      .results-carousel .item {
+        margin: 5px;
+        overflow: hidden;
+        border: 1px solid #bbb;
+        border-radius: 10px;
+        padding: 0;
+        font-size: 0;
+      }
+      .results-carousel img, .results-carousel video {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+      }
+      .results-carousel video { margin: 0; }
+      .carousel-bound {
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+        overflow: hidden;
+      }
 
-        /* Simple top navbar */
-        .navbar { position: sticky; top: 0; z-index: 1000; background: #fff; border-bottom: 1px solid #eee; }
-        .navbar-container {
-          /* Fluid width without relying on breakpoints */
-          width: min(1000px, 100%);
-          margin: 0 auto;
-          padding: 10px 2.5%;
-          box-sizing: border-box;
-          position: relative;
-          display: flex; align-items: center; justify-content: space-between;
-        }
-        .navbar-brand { font-weight: 500; font-size: 18px; color: #1772d0; }
-        .navbar-links { display: flex; align-items: center; }
-        .navbar-links a { margin-left: 16px; color: #444; font-weight: 400; }
-        .navbar a:hover { color: #f09228; }
+      /* Simple top navbar */
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: #fff;
+        border-bottom: 1px solid #eee;
+      }
+      .navbar-container {
+        width: min(1000px, 100%);
+        margin: 0 auto;
+        padding: 10px 2.5%;
+        box-sizing: border-box;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .navbar-brand {
+        font-weight: 500;
+        font-size: 18px;
+        color: #1772d0;
+      }
+      .navbar-links {
+        display: flex;
+        align-items: center;
+      }
+      .navbar-links a {
+        margin-left: 16px;
+        color: #444;
+        font-weight: 400;
+      }
+      .navbar a:hover { color: #f09228; }
 
-        /* Mobile: simplest approach — hide navbar */
-        @media (max-width: 768px) {
-          .navbar { display: none; }
-        }
-        body { scroll-behavior: smooth; }
-        
-        /* ClustrMaps width restriction */
-        #clustrmaps-container,
-        #clustrmaps-container iframe,
-        #clustrmaps-container img,
-        #clustrmaps-container > *,
-        [id*="clustrmaps"],
-        iframe[src*="clustrmaps"] {
-          max-width: 300px !important;
-          width: 300px !important;
-        }
-        #clustrmaps-container {
-          margin: 20px auto !important;
-        }
+      @media (max-width: 768px) {
+        .navbar { display: none; }
+      }
+      body { scroll-behavior: smooth; }
+      
+      /* ClustrMaps width restriction */
+      #clustrmaps-container,
+      #clustrmaps-container iframe,
+      #clustrmaps-container img,
+      #clustrmaps-container > *,
+      [id*="clustrmaps"],
+      iframe[src*="clustrmaps"] {
+        max-width: 300px !important;
+        width: 300px !important;
+      }
+      #clustrmaps-container {
+        margin: 20px auto !important;
+      }
 
-        /* Publications: right-aligned icon row (paper/arxiv/github/website etc.) */
-        .paper-meta {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          gap: 12px;
-        }
-        .paper-links {
-          text-align: right;
-        }
-        .paper-links a {
-          margin-left: 12px;
-          vertical-align: middle;
-        }
+      /* Publications: right-aligned icon row */
+      .paper-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+      .paper-links {
+        text-align: right;
+      }
+      .paper-links a {
+        margin-left: 12px;
+        vertical-align: middle;
+      }
 
-      </style>
+      /* Research Timeline Styles */
+      .timeline-container {
+        width: 100%;
+        margin: 28px 0 0 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .timeline-axis {
+        position: relative;
+        width: 100%;
+        height: 18px;
+        margin: 0 0 10px 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .timeline-axis span {
+        position: absolute;
+        top: 0;
+        font-size: 12px;
+        color: #6b7280;
+        white-space: nowrap;
+      }
+
+      .timeline-axis-line {
+        position: relative;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(to right, #d5dbe1, #1772d0, #d5dbe1);
+        border-radius: 999px;
+        margin: 0 0 14px 0;
+      }
+
+      .timeline-axis-line::before,
+      .timeline-axis-line::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #fff;
+        border: 2px solid #1772d0;
+      }
+
+      .timeline-axis-line::before { left: 0; }
+      .timeline-axis-line::after { right: 0; }
+
+      .timeline-rows {
+        display: grid;
+        row-gap: 12px;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      .timeline-row {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      .timeline-lane {
+        position: relative;
+        width: 100%;
+        height: 30px;
+        background: #eef1f4;
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .timeline-range {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 500;
+        white-space: nowrap;
+        padding: 0 10px;
+        box-sizing: border-box;
+      }
+
+      .timeline-range-green { background: #2e8b57; }
+      .timeline-range-purple { background: #8e44ad; }
+      .timeline-range-blue { background: #1772d0; }
+      .timeline-range-orange { background: #e67e22; }
+      .timeline-range-yellow { background: #f1c40f; color: #333; }
+      .timeline-range-teal { background: #20c997; }
+
+      @media (max-width: 768px) {
+        .timeline-lane {
+          height: 28px;
+        }
+        .timeline-range {
+          font-size: 11px;
+        }
+      }
+      /* Perception-Action label + arrow styles */
+      .perception-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-top: 8px;
+      }
+      .perception-arrow {
+        width: 60%;
+        max-width: 900px;
+        height: 28px;
+      }
+      .perception-label {
+        display: inline-block;
+        margin: 6px auto 0;
+        padding: 8px 18px;
+        background: linear-gradient(90deg,#1772d0,#0ea5a4);
+        color: #fff;
+        border-radius: 999px;
+        font-weight: 700;
+        box-shadow: 0 6px 18px rgba(23,114,208,0.08);
+        white-space: nowrap;
+      }
+
+      /* Avatar carousel styles */
+      .avatar-carousel { position: relative; width: 100%; max-width: 260px; margin: 0 auto; border-radius: 12px; overflow: hidden; height: 260px; }
+      .avatar-carousel .avatar-slides { position: relative; width: 100%; height: 100%; }
+      .avatar-carousel .avatar-slides img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; transform: scale(1); transition: opacity 800ms ease, transform 800ms cubic-bezier(.2,.8,.2,1); border-radius: 12px; }
+      .avatar-carousel .avatar-slides img.active { opacity: 1; transform: scale(1.03); }
+      .avatar-carousel .avatar-dots { display:flex; justify-content:center; gap:6px; margin-top:8px; }
+      .avatar-carousel .avatar-dot { width:10px; height:10px; border-radius:50%; background:rgba(0,0,0,0.15); cursor:pointer; transition:background 200ms; }
+      .avatar-carousel .avatar-dot.active { background:#1772d0; }
+      @media (max-width:600px) { .avatar-carousel { max-width:160px; height:160px; } }
+
+      /* icons under avatar should match avatar width */
+      .avatar-icons { max-width:260px; margin:8px auto 0; display:flex; justify-content:space-between; gap:8px; align-items:center; }
+      .avatar-icons img { display:block; max-height:22px; }
+      @media (max-width:600px) { .avatar-icons { max-width:160px; } }
+    </style>
+
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦫</text></svg>">
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <script src="script/functions.js"></script>
     
-    <!-- Bulma Carousel init (aligned with render_arts) -->
+    <!-- Bulma Carousel init -->
     <script>
       document.addEventListener('DOMContentLoaded', function () {
         try {
@@ -285,66 +478,131 @@
       });
     </script>
 
-  </head>
-
-<body>
-  <a id="top"></a>
-  <nav class="navbar">
-    <div class="navbar-container">
-      <a class="navbar-brand" href="#top">🦫 Wenbo Ji</a>
-      <div id="site-nav" class="navbar-links" role="navigation">
-        <a href="#bio">Bio</a>
-        <a href="#Publications">Publications</a>
-        <a href="#projects">Projects</a>
-        <a href="#experiences">Experiences</a>
-        <a href="#awards">Awards</a>
-        <a href="#education">Education</a>
-        <a href="#gallery">Gallery</a>
-      </div>
-    </div>
-  </nav>
   <script>
+    // Avatar carousel: cycles through main photo then avatar_*.png in assets/misc
     (function () {
-      function getOffset() {
-        var nav = document.querySelector('.navbar');
-        var extra = 8; // headroom
-        return (nav ? nav.offsetHeight : 0) + extra;
-      }
-      function scrollToHash(hash, replace) {
-        if (!hash || hash === '#') return;
-        var el = document.querySelector(hash);
-        if (!el) return;
-        var top = el.getBoundingClientRect().top + window.pageYOffset - getOffset();
-        window.scrollTo({ top: top, behavior: 'smooth' });
-        if (replace) {
-          try { history.replaceState(null, '', hash); } catch(e) {}
-        }
-      }
+      var containerId = 'avatarCarousel';
+      function initCarousel() {
+        var wrap = document.getElementById(containerId);
+        if (!wrap) return;
+        var slidesEl = wrap.querySelector('.avatar-slides');
+        var dotsEl = wrap.querySelector('.avatar-dots');
+        // gather image list
+        var imgs = [];
+        imgs.push('assets/images/wenboji_rider.jpg');
+        // known avatar files in assets/misc: avatar_0..avatar_6.png
+        for (var i = 0; i <= 6; i++) imgs.push('assets/misc/avatar_' + i + '.png');
 
-      document.addEventListener('DOMContentLoaded', function () {
-        // offset clicks on navbar links
-        document.querySelectorAll('.navbar a[href^="#"]').forEach(function (a) {
-          a.addEventListener('click', function (e) {
-            var hash = this.getAttribute('href');
-            if (hash && hash.length > 1) {
-              e.preventDefault();
-              scrollToHash(hash, false);
-            }
-          });
+        var nodes = [];
+        imgs.forEach(function (src, idx) {
+          var img = document.createElement('img');
+          img.src = src;
+          img.alt = 'avatar ' + idx;
+          if (idx === 0) img.className = 'active';
+          slidesEl.appendChild(img);
+          nodes.push(img);
+          var dot = document.createElement('button');
+          dot.className = 'avatar-dot' + (idx === 0 ? ' active' : '');
+          dot.setAttribute('data-idx', idx);
+          dot.addEventListener('click', function (e) { goTo(parseInt(this.getAttribute('data-idx'),10)); resetTimer(); });
+          dotsEl.appendChild(dot);
         });
 
-        // offset initial load with hash
-        if (window.location.hash) {
-          setTimeout(function () { scrollToHash(window.location.hash, true); }, 0);
+        var current = 0;
+        var interval = 3500;
+        var timer = null;
+
+        function goTo(i) {
+          if (i === current) return;
+          nodes[current].classList.remove('active');
+          dotsEl.children[current].classList.remove('active');
+          current = (i + nodes.length) % nodes.length;
+          nodes[current].classList.add('active');
+          dotsEl.children[current].classList.add('active');
         }
 
-        // offset on hashchange
-        window.addEventListener('hashchange', function () {
-          scrollToHash(window.location.hash, false);
-        });
-      });
+        function next() { goTo(current + 1); }
+        function resetTimer() { clearInterval(timer); timer = setInterval(next, interval); }
+
+        // ensure images are loaded progressively
+        nodes.forEach(function (n) { n.addEventListener('load', function () {}); });
+
+        timer = setInterval(next, interval);
+        // pause on hover
+        wrap.addEventListener('mouseenter', function () { clearInterval(timer); });
+        wrap.addEventListener('mouseleave', function () { resetTimer(); });
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initCarousel); else initCarousel();
     })();
   </script>
+  </head>
+
+  <body>
+    <a id="top"></a>
+    <nav class="navbar">
+      <div class="navbar-container">
+        <a class="navbar-brand" href="#top">🦫 Wenbo Ji</a>
+        <div id="site-nav" class="navbar-links" role="navigation">
+          <a href="#Publications">Publications</a>
+          <a href="#experiences">Experiences</a>
+          <a href="#projects">Projects</a>
+          <a href="#education">Education</a>
+          <a href="#gallery">Gallery</a>
+        </div>
+      </div>
+    </nav>
+
+    <script>
+      window.toggleblock = function (id) {
+        try {
+          var el = document.getElementById(id);
+          if (!el) return;
+          el.style.display = (el.style.display === 'none' || getComputedStyle(el).display === 'none') ? 'block' : 'none';
+        } catch (e) {
+          console.warn('toggleblock error', e);
+        }
+      };
+
+      (function () {
+        function getOffset() {
+          var nav = document.querySelector('.navbar');
+          var extra = 8;
+          return (nav ? nav.offsetHeight : 0) + extra;
+        }
+        function scrollToHash(hash, replace) {
+          if (!hash || hash === '#') return;
+          var el = document.querySelector(hash);
+          if (!el) return;
+          var top = el.getBoundingClientRect().top + window.pageYOffset - getOffset();
+          window.scrollTo({ top: top, behavior: 'smooth' });
+          if (replace) {
+            try { history.replaceState(null, '', hash); } catch(e) {}
+          }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+          document.querySelectorAll('.navbar a[href^="#"]').forEach(function (a) {
+            a.addEventListener('click', function (e) {
+              var hash = this.getAttribute('href');
+              if (hash && hash.length > 1) {
+                e.preventDefault();
+                scrollToHash(hash, false);
+              }
+            });
+          });
+
+          if (window.location.hash) {
+            setTimeout(function () { scrollToHash(window.location.hash, true); }, 0);
+          }
+
+          window.addEventListener('hashchange', function () {
+            scrollToHash(window.location.hash, false);
+          });
+        });
+      })();
+    </script>
+
+   
   <table style="width:100%;max-width:1000px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
     <tr style="padding:0px">
       <td style="padding:0px">
@@ -381,22 +639,22 @@
               
               <p>I did my B.Sc. in Information and Computing Science at <a href="http://lxy.njtech.edu.cn/" style="color: inherit;">Nanjing Tech University</a>.</p>
 
-              <p>My research interests lie at the intersection of computer vision, computer graphics, and machine learning -- creating virtual human models and representing 3D scenes.</p>
-                
-              <p> If you find any research interests that we might share, feel free to drop me an email.</p>
+              <p>My research interests focus on moving beyond isolated visual subproblems toward integrated models of virtual humans and 3D scenes that can perceive, generate, and reason about interaction in dynamic environments.</p>
 
             </td>
             <td style="padding:2%;width:55%;max-width:60%;vertical-align:middle;">
-              <img style="width:100%;max-width:150%" alt="profile photo" src="assets/images/wenboji_rider.jpg" class="hoverZoomLink">
-              <p style="text-align:center">
-                <a href="mailto:wenboji0420@gmail.com"><img src="assets/misc/email-logo.svg" height="20" style="vertical-align:middle;"></a> &nbsp/&nbsp
-                <a href="assets/doc/WenboJi_CV_English.pdf"><img src="assets/misc/cv-logo.svg" height="20" style="vertical-align:middle;"></a> &nbsp/&nbsp
-                <a href="https://scholar.google.com/citations?user=ZTUMczEAAAAJ&hl=en"><img src="assets/misc/google-scholar.svg" height="20" style="vertical-align:middle;"></a> &nbsp/&nbsp
-                <a href="https://github.com/fusheng-ji/"><img src="assets/misc/github-logo.png" height="20" style="vertical-align:middle;"></a>&nbsp/&nbsp
-                <a href="https://www.linkedin.com/in/%E6%96%87%E5%8D%9A-%E5%B5%87-6950b9187/"><img src="assets/misc/linkedin-logo.svg" height="20" style="vertical-align:middle;"></a>&nbsp/&nbsp
-                <a href="https://orcid.org/0000-0001-7838-8736"><img src="assets/misc/orcid-logo.svg" height="20" style="vertical-align:middle;"></a>
-                <!-- <a href="render_arts/index.html"><img src="assets/misc/blender-logo.svg" height="20" style="vertical-align:middle;"></a> -->
-              </p>
+              <div class="avatar-carousel" id="avatarCarousel">
+                <div class="avatar-slides" aria-hidden="false"></div>
+                <div class="avatar-dots" aria-hidden="false"></div>
+              </div>
+              <div class="avatar-icons">
+                <a href="mailto:wenboji0420@gmail.com"><img src="assets/misc/email-logo.svg" alt="email" height="20"></a>
+                <a href="assets/doc/WenboJi_CV_English.pdf"><img src="assets/misc/cv-logo.svg" alt="cv" height="20"></a>
+                <a href="https://scholar.google.com/citations?user=ZTUMczEAAAAJ&hl=en"><img src="assets/misc/google-scholar.svg" alt="scholar" height="20"></a>
+                <a href="https://github.com/fusheng-ji/"><img src="assets/misc/github-logo.png" alt="github" height="20"></a>
+                <a href="https://www.linkedin.com/in/%E6%96%87%E5%8D%9A-%E5%B5%87-6950b9187/"><img src="assets/misc/linkedin-logo.svg" alt="linkedin" height="20"></a>
+                <a href="https://orcid.org/0000-0001-7838-8736"><img src="assets/misc/orcid-logo.svg" alt="orcid" height="20"></a>
+              </div>
               <p style="text-align:center">
               中文&nbsp/&nbspEnglish&nbsp/&nbspDeutsch
               </p>
@@ -454,69 +712,130 @@
         </tbody></table>
        
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+        <!-- <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
           <tr>
           <td style="padding:20px;width:100%;vertical-align:middle">
-            <heading>Short Bio</heading>
-            <a id="bio"></a>
-            <br><br>
-            I am a second-year master's student in Electrical Engineering and Information Technology at the <a href="https://www.cit.tum.de/en/cit/home/" style="color: inherit;">Technical University of Munich </a>.
-            <br><br>
-            I am doing research internship with <a href="https://tangjiapeng.github.io/">Jiapeng Tang</a> and <a href="https://niessnerlab.org/members/matthias_niessner/profile.html">Prof. Matthias Nießner</a> at <a href="https://niessnerlab.org/">TUM Visual Computing Group</a>.
-            <br><br>
-            I was working as a working student at <a href="https://www.imfusion.com/">ImFusion</a> with 
-                <a href="https://scholar.google.de/citations?hl=en&user=j2REtlAAAAAJ">Mert Asim Karaoglu</a>,
-                <a href="https://www.cs.cit.tum.de/camp/members/benjamin-busam/">Dr. Benjamin Busam</a>,
-                <a href="https://www.professoren.tum.de/en/navab-nassir">Prof. Nassir Navab</a>.
-            <br><br>
-            I was a master's student of <a href="https://cvg.cit.tum.de/">TUM-CVG</a>, 
-                <a href="https://www.mdsi.tum.de/en/di-lab/tum-di-lab/">TUM-DI-LAB</a> working with 
-                <a href="https://cvg.cit.tum.de/members/cremers">Prof. Daniel Cremers</a>, 
-                <a href="https://cvg.cit.tum.de/members/xiya">Dr. Yan Xia</a>, 
-                <a href="https://chuanxiaz.com/">Dr. Chuanxia Zheng</a> and 
-                <a href="https://cvg.cit.tum.de/members/chwe">Weirong Chen</a>.
-            <br><br>
-            I obtained my Master's degree in Computer Science from the <a href="https://see.tongji.edu.cn/index.htm" style="color: inherit;">CAD Research Center, Tongji University</a>.
-            <br><br>
-            I did a research internship at <a href="https://www.zju.edu.cn/" style="color: inherit;">Zhejiang University</a> under the supervision of <a href="https://yiyiliao.github.io/">Prof. Yiyi Liao</a>.
-            <br><br>
-            <!-- Before that, I received my B.Sc degree in Information and Computing Science (Embedded Software) from <a href="http://lxy.njtech.edu.cn/">Department of Mathematics, Nanjing Tech University</a> in 2021. -->
-            Before that, I received my B.Sc degree in Information and Computing Science from <a href="http://lxy.njtech.edu.cn/" style="color: inherit;">Department of Mathematics, Nanjing Tech University</a> in 2021.
-            <br><br>
-            I was born on April 20th, 2000 in <a href="https://en.wikipedia.org/wiki/Huai%27an">Huai'an</a>, China.
-            <br><br>
-            <a href="javascript:toggleblock(&#39;self_intro&#39;)">---- show more ----</a>
-            <div id="self_intro" style="display: none;">
-              An interesting thing about my surname is that in the dialect of my hometown, it's pronounced as "yí" instead of "jī" in Mandarin, which is exactly the same as the German pronunciation of "ji". 
-              <br>
-              Just in case you didn't get it, the letter "j" in German is pronounced as “yott” (rhyming with “thought”). 
-              <br>
-              That is why learning German has been a miraculous experience for me.
-              <br><br>
-              * P.S.: My bachelor's degree is in a branch of mathematics, although it looks more like computer science.
-              <br>
-              I took many mathematics courses during my undergraduate years, such as "Mathematical Analysis", "Numerical Analysis", "ODE", "Optimization And Operations Research", etc. 
+                <heading>Short Bio</heading>
+                <a id="bio"></a>
+                <br><br>
+                I am a second-year master's student in Electrical Engineering and Information Technology at the <a href="https://www.cit.tum.de/en/cit/home/" style="color: inherit;">Technical University of Munich </a>.
+                <br><br>
+                I am doing research internship with <a href="https://tangjiapeng.github.io/">Jiapeng Tang</a> and <a href="https://niessnerlab.org/members/matthias_niessner/profile.html">Prof. Matthias Nießner</a> at <a href="https://niessnerlab.org/">TUM Visual Computing Group</a>.
+                <br><br>
+                I was working as a working student at <a href="https://www.imfusion.com/">ImFusion</a> with 
+                    <a href="https://scholar.google.de/citations?hl=en&user=j2REtlAAAAAJ">Mert Asim Karaoglu</a>,
+                    <a href="https://www.cs.cit.tum.de/camp/members/benjamin-busam/">Dr. Benjamin Busam</a>,
+                    <a href="https://www.professoren.tum.de/en/navab-nassir">Prof. Nassir Navab</a>.
+                <br><br>
+                I was a master's student of <a href="https://cvg.cit.tum.de/">TUM-CVG</a>, 
+                    <a href="https://www.mdsi.tum.de/en/di-lab/tum-di-lab/">TUM-DI-LAB</a> working with 
+                    <a href="https://cvg.cit.tum.de/members/cremers">Prof. Daniel Cremers</a>, 
+                    <a href="https://cvg.cit.tum.de/members/xiya">Dr. Yan Xia</a>, 
+                    <a href="https://chuanxiaz.com/">Dr. Chuanxia Zheng</a> and 
+                    <a href="https://cvg.cit.tum.de/members/chwe">Weirong Chen</a>.
+                <br><br>
+                I obtained my Master's degree in Computer Science from the <a href="https://see.tongji.edu.cn/index.htm" style="color: inherit;">CAD Research Center, Tongji University</a>.
+                <br><br>
+                I did a research internship at <a href="https://www.zju.edu.cn/" style="color: inherit;">Zhejiang University</a> under the supervision of <a href="https://yiyiliao.github.io/">Prof. Yiyi Liao</a>.
+                <br><br>
+                
+                Before that, I received my B.Sc degree in Information and Computing Science from <a href="http://lxy.njtech.edu.cn/" style="color: inherit;">Department of Mathematics, Nanjing Tech University</a> in 2021.
+                <br><br>
+                I was born on April 20th, 2000 in <a href="https://en.wikipedia.org/wiki/Huai%27an">Huai'an</a>, China.
+                <br><br>
+                <a href="javascript:toggleblock(&#39;self_intro&#39;)">---- show more ----</a>
+                <div id="self_intro" style="display: none;">
+                  An interesting thing about my surname is that in the dialect of my hometown, it's pronounced as "yí" instead of "jī" in Mandarin, which is exactly the same as the German pronunciation of "ji". 
+                  <br>
+                  Just in case you didn't get it, the letter "j" in German is pronounced as “yott” (rhyming with “thought”). 
+                  <br>
+                  That is why learning German has been a miraculous experience for me.
+                  <br><br>
+                  * P.S.: My bachelor's degree is in a branch of mathematics, although it looks more like computer science.
+                  <br>
+                  I took many mathematics courses during my undergraduate years, such as "Mathematical Analysis", "Numerical Analysis", "ODE", "Optimization And Operations Research", etc. 
+                </div>
+            </td>
+          </tr>
+        </tbody></table> -->
+
+    <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+      <tbody>
+        <tr>
+          <td style="padding:20px;width:100%;vertical-align:middle">
+            <heading>Research Interests</heading>
+
+            <p class="research-tags">
+              <span class="tag tag-purple">Long-term Tracking</span>
+              <span class="tag tag-green">3D/4D Reconstruction</span>
+              <span class="tag tag-orange">Scene Decomposition</span>
+              <span class="tag tag-blue">Video Generation</span>
+              <span class="tag tag-yellow">Avatar Animation</span>
+              <span class="tag tag-teal">Human Scene Interaction</span>
+            </p>
+
+            
+
+            <div class="perception-wrapper" aria-hidden="false">
+              <svg class="perception-arrow" viewBox="0 0 100 28" preserveAspectRatio="xMidYMid meet" role="img" aria-label="encompass arrow">
+                <line x1="4" y1="6" x2="96" y2="6" stroke="#c7e6ef" stroke-width="2" stroke-linecap="round"/>
+                <polygon points="50,6 42,18 58,18" fill="#20c997" />
+              </svg>
+            </div>
+
+            <div style="text-align:center;">
+              <div class="perception-label">Perception-Action World Models</div>
+            </div>
+
+            <p style="margin-top:12px;color:#444;font-size:16px;font-weight:700;line-height:1.5;text-align:left;width:100%;max-width:none;box-sizing:border-box;">
+              My previous work on 3D reconstruction, scene decomposition, and tracking forms a coherent progression toward a broader goal: developing unified visual models that move beyond explicit intermediate representations and support generation and interaction in dynamic environments.
+            </p>
+
+            <div class="timeline-container">
+              <div class="timeline-axis">
+                <span>2021</span>
+                <span>Now</span>
+              </div>
+
+              <div class="timeline-axis-line"></div>
+
+              <div class="timeline-rows">
+                <div class="timeline-row">
+                  <div class="timeline-lane">
+                    <div class="timeline-range timeline-range-green" data-start="2021-01-01" data-end="now">2021 - Now</div>
+                  </div>
+                </div>
+
+                <div class="timeline-row">
+                  <div class="timeline-lane">
+                    <div class="timeline-range timeline-range-purple" data-start="2024-08-01" data-end="2025-04-30">Aug 2024 - Apr 2025</div>
+                  </div>
+                </div>
+
+                <div class="timeline-row">
+                  <div class="timeline-lane">
+                    <div class="timeline-range timeline-range-orange" data-start="2024-02-01" data-end="2025-08-31">Feb 2024 - Aug 2025</div>
+                  </div>
+                </div>
+
+                <div class="timeline-row">
+                  <div class="timeline-lane">
+                    <div class="timeline-range" data-start="2025-04-01" data-end="now" style="background: linear-gradient(to bottom, #f1c40f 0%, #f1c40f 50%, #1772d0 50%, #1772d0 100%); color:#fff;">Apr 2025 - Now</div>
+                  </div>
+                </div>
+
+                <div class="timeline-row">
+                  <div class="timeline-lane">
+                    <div class="timeline-range timeline-range-teal" data-start="2026-01-01" data-end="now">Jan 2026 - Now</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </td>
         </tr>
-      </tbody></table>
-
-
-    <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-      <tr>
-        <td style="padding:20px;width:100%;vertical-align:middle">
-          <heading>Research Interests</heading>
-          <p>
-            <span class="tag tag-blue">Video Generation</span>
-            <span class="tag tag-yellow">Avatar Animation</span>
-            <span class="tag tag-green">3D/4D Reconstruction</span>
-            <span class="tag tag-orange">Scene Decompostion</span>
-            <span class="tag tag-purple">Long-term Tracking</span>
-          </p>
-        </td>
-      </tr>
-    </tbody></table>
-
+      </tbody>
+    </table>
+    
     <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
       <tr>
         <td style="padding:20px;width:100%;vertical-align:middle">
@@ -914,6 +1233,39 @@
         </td>
         </tr>
       </tbody></table>
+      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+          <!-- write Projects here -->
+            <td style="padding:20px;width:30%;vertical-align:middle">
+                <div style="display:flex;justify-content:center;">
+                    <img src='projects/OpenUserStudyKit/banner.png' width="200">
+                </div>
+            </td>
+
+            <td style="padding:20px;width:70%;vertical-align:middle">
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%;">
+                <sub_heading>OpenUserStudyKit</sub_heading>
+                <div style="text-align:right;">
+                  <papertitle>March 2026</papertitle><br>
+                  <span class="topic-location">Personal Project</span>
+                </div>
+              </div>
+              <br>
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%;">
+                <span class="project-subtitle">Reusable User Study Infrastructure</span>
+                <span>
+                  <!-- <a href="https://fusheng-ji.github.io/lite-avatar-WASM/">
+                    <img src="assets/misc/website_logo.png" height="20" style="vertical-align:middle;">
+                  </a>
+                   &nbsp  -->
+                  <a href="https://github.com/fusheng-ji/OpenUserStudyKit">
+                    <img src="assets/misc/github-logo.png" height="20" style="vertical-align:middle;">
+                  </a>
+                </span>
+              </div>
+              <br>
+              An open-source toolkit for building reusable user study questionnaires and experiment workflows.
+            </td>
+        </tbody></table>
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
           <!-- write Projects here -->
             <td style="padding:20px;width:30%;vertical-align:middle">
@@ -1167,7 +1519,7 @@
       </tr>
       <tr>
         <td style="padding:20px;width:100%;vertical-align:middle;" align="center">
-          <strong>Last Updated on 2026/01/29</strong>
+          <strong>Last Updated on 2026/03/08</strong>
         </td>
       </tr>
       <tr>
@@ -1185,5 +1537,78 @@
       </tr>
     </tbody></table>
     
+  <script>
+    (function () {
+      // Dynamic timeline positioning based on real dates
+      var timelineStart = new Date('2021-01-01');
+      var timelineEnd = new Date(); // "Now"
+      var total = timelineEnd - timelineStart;
+
+      function parseDateString(s) {
+        if (!s) return null;
+        if (s.toLowerCase() === 'now') return timelineEnd;
+        return new Date(s);
+      }
+
+      // non-linear mapping to compress earlier years and emphasize recent years
+      var scaleExponent = 1.6; // >1 compresses early period (increase to emphasize recent more)
+      function mapPctLinearToNonLinear(pct) {
+        var t = Math.max(0, Math.min(1, pct / 100));
+        return Math.pow(t, scaleExponent) * 100;
+      }
+
+      // position ranges (using non-linear mapping)
+      document.querySelectorAll('.timeline-range').forEach(function (el) {
+        var ds = el.getAttribute('data-start');
+        var de = el.getAttribute('data-end');
+        if (!ds) return;
+        var dStart = parseDateString(ds);
+        var dEnd = parseDateString(de) || timelineEnd;
+        if (!(dStart instanceof Date) || isNaN(dStart)) return;
+        if (!(dEnd instanceof Date) || isNaN(dEnd)) dEnd = timelineEnd;
+        if (dEnd < dStart) dEnd = dStart;
+        var leftLinear = ((dStart - timelineStart) / total) * 100;
+        var rightLinear = ((dEnd - timelineStart) / total) * 100;
+        var left = mapPctLinearToNonLinear(leftLinear);
+        var right = mapPctLinearToNonLinear(rightLinear);
+        var width = Math.max(0.5, right - left);
+        // If this range ends at 'now', give it a larger minimum width to emphasize recent work
+        try {
+          if (de && de.toLowerCase && de.toLowerCase() === 'now') {
+            width = Math.max(12, width); // minimum 12% for 'now' items to ensure visibility
+            el.style.zIndex = 2;
+          }
+        } catch (e) {}
+        // prevent overflow beyond 100%
+        if (left + width > 100) left = Math.max(0, 100 - width);
+        el.style.left = Math.max(0, left) + '%';
+        el.style.width = width + '%';
+      });
+
+      // position axis labels: support 2 labels (2021, Now) or 3 labels (with a middle mapped point)
+      var axis = document.querySelector('.timeline-axis');
+      if (axis) {
+        var spans = axis.querySelectorAll('span');
+        if (spans.length === 2) {
+          // left and right aligned
+          spans[0].style.left = '0%';
+          spans[0].style.transform = 'translateX(0)';
+          spans[1].style.left = 'auto';
+          spans[1].style.right = '0';
+          spans[1].style.transform = 'translateX(0)';
+        } else if (spans.length >= 3) {
+          spans[0].style.left = '0%';
+          spans[0].style.transform = 'translateX(0)';
+          var midDate = new Date('2024-01-01');
+          var midPctLinear = ((midDate - timelineStart) / total) * 100;
+          var midPct = mapPctLinearToNonLinear(midPctLinear);
+          spans[1].style.left = Math.max(0, Math.min(100, midPct)) + '%';
+          spans[1].style.transform = 'translateX(-50%)';
+          spans[2].style.left = '100%';
+          spans[2].style.transform = 'translateX(-100%)';
+        }
+      }
+    })();
+  </script>
 </body>
 </html>
