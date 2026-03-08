@@ -802,31 +802,31 @@
               <div class="timeline-rows">
                 <div class="timeline-row">
                   <div class="timeline-lane">
-                    <div class="timeline-range timeline-range-green" data-start="2021-01-01" data-end="now">2021 - Now</div>
+                    <div class="timeline-range timeline-range-green" data-start="2021-01-01" data-end="now" data-desc="3D/4D Reconstruction (2021–Now): learning explicit geometric representations of dynamic scenes" title="3D/4D Reconstruction (2021–Now): learning explicit geometric representations of dynamic scenes">2021 - Now</div>
                   </div>
                 </div>
 
                 <div class="timeline-row">
                   <div class="timeline-lane">
-                    <div class="timeline-range timeline-range-purple" data-start="2024-08-01" data-end="2025-04-30">Aug 2024 - Apr 2025</div>
+                    <div class="timeline-range timeline-range-purple" data-start="2024-08-01" data-end="2025-04-30" data-desc="Long-term Tracking (Aug 2024–Apr 2025): developing persistent identity and association across long temporal spans" title="Long-term Tracking (Aug 2024–Apr 2025): developing persistent identity and association across long temporal spans">Aug 2024 - Apr 2025</div>
                   </div>
                 </div>
 
                 <div class="timeline-row">
                   <div class="timeline-lane">
-                    <div class="timeline-range timeline-range-orange" data-start="2024-02-01" data-end="2025-08-31">Feb 2024 - Aug 2025</div>
+                    <div class="timeline-range timeline-range-orange" data-start="2024-02-01" data-end="2025-08-31" data-desc="Scene Decomposition (Feb 2024–Aug 2025): factorizing scenes into objects, parts, and layers for robust understanding" title="Scene Decomposition (Feb 2024–Aug 2025): factorizing scenes into objects, parts, and layers for robust understanding">Feb 2024 - Aug 2025</div>
                   </div>
                 </div>
 
                 <div class="timeline-row">
                   <div class="timeline-lane">
-                    <div class="timeline-range" data-start="2025-04-01" data-end="now" style="background: linear-gradient(to bottom, #f1c40f 0%, #f1c40f 50%, #1772d0 50%, #1772d0 100%); color:#fff;">Apr 2025 - Now</div>
+                      <div class="timeline-range" data-start="2025-04-01" data-end="now" data-desc="Avatar Animation + Video Generation (2025–Now): shifting from analysis to synthesis and temporal world modeling" title="Avatar Animation + Video Generation (2025–Now): shifting from analysis to synthesis and temporal world modeling" style="background: linear-gradient(to bottom, #f1c40f 0%, #f1c40f 50%, #1772d0 50%, #1772d0 100%); color:#fff;">Apr 2025 - Now</div>
                   </div>
                 </div>
 
                 <div class="timeline-row">
                   <div class="timeline-lane">
-                    <div class="timeline-range timeline-range-teal" data-start="2026-01-01" data-end="now">Jan 2026 - Now</div>
+                      <div class="timeline-range timeline-range-teal" data-start="2026-01-01" data-end="now" data-desc="Human Scene Interaction (2026–Now): integrating geometry, dynamics, and generation toward interaction-centered visual intelligence" title="Human Scene Interaction (2026–Now): integrating geometry, dynamics, and generation toward interaction-centered visual intelligence">Jan 2026 - Now</div>
                   </div>
                 </div>
               </div>
@@ -1608,6 +1608,57 @@
           spans[2].style.transform = 'translateX(-100%)';
         }
       }
+
+      // simple tooltip for timeline ranges (uses data-desc or title)
+      var tooltip = document.createElement('div');
+      tooltip.className = 'timeline-tooltip';
+      tooltip.style.position = 'fixed';
+      tooltip.style.zIndex = 9999;
+      tooltip.style.padding = '8px 10px';
+      tooltip.style.background = 'rgba(0,0,0,0.85)';
+      tooltip.style.color = '#fff';
+      tooltip.style.borderRadius = '6px';
+      tooltip.style.fontSize = '12px';
+      tooltip.style.maxWidth = '320px';
+      tooltip.style.pointerEvents = 'none';
+      tooltip.style.display = 'none';
+      tooltip.style.boxSizing = 'border-box';
+      document.body.appendChild(tooltip);
+
+      function showTooltip(text, evt) {
+        if (!text) return;
+        tooltip.textContent = text;
+        tooltip.style.display = 'block';
+        positionTooltip(evt);
+      }
+
+      function hideTooltip() {
+        tooltip.style.display = 'none';
+      }
+
+      function positionTooltip(evt) {
+        var pad = 12;
+        var x = evt.clientX + pad;
+        var y = evt.clientY + pad;
+        var rect = tooltip.getBoundingClientRect();
+        var vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+        var vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+        if (x + rect.width + 8 > vw) x = Math.max(pad, evt.clientX - rect.width - pad);
+        if (y + rect.height + 8 > vh) y = Math.max(pad, evt.clientY - rect.height - pad);
+        tooltip.style.left = x + 'px';
+        tooltip.style.top = y + 'px';
+      }
+
+      document.querySelectorAll('.timeline-range').forEach(function (el) {
+        el.addEventListener('mouseenter', function (ev) {
+          var txt = el.getAttribute('data-desc') || el.getAttribute('title') || '';
+          showTooltip(txt, ev);
+        });
+        el.addEventListener('mousemove', function (ev) {
+          if (tooltip.style.display !== 'none') positionTooltip(ev);
+        });
+        el.addEventListener('mouseleave', function () { hideTooltip(); });
+      });
     })();
   </script>
 </body>
