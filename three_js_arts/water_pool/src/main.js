@@ -22,7 +22,7 @@ document.body.appendChild(renderer.domElement);
 // use ACES tone mapping and sRGB output for better dynamic range and correct color response
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.0;
-renderer.outputEncoding = THREE.sRGBEncoding;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
 
 const hemi = new THREE.HemisphereLight(0xf9fbff, 0xd7e1ea, 0.72);
 scene.add(hemi);
@@ -191,13 +191,14 @@ fetch(duckUrl).then(r => r.text()).then(text => {
 
     // try to load textures from Duck folder and apply to meshes
     const texLoader = new THREE.TextureLoader();
-    const duckFolder = new URL('../Duck/', import.meta.url).href;
+    // 修改纹理路径为相对于根目录的绝对路径
+    const duckFolder = '/three_js_arts/water_pool/Duck/';
     const maps = {
-      map: new URL('Duck_albedo.jpg', duckFolder).href,
-      normalMap: new URL('Duck_normal.png', duckFolder).href,
-      roughnessMap: new URL('Duck_roughness.jpg', duckFolder).href,
-      metalnessMap: new URL('Duck_metallic.jpg', duckFolder).href,
-      aoMap: new URL('Duck_AO.jpg', duckFolder).href,
+      map: `${duckFolder}Duck_albedo.jpg`,
+      normalMap: `${duckFolder}Duck_normal.png`,
+      roughnessMap: `${duckFolder}Duck_roughness.jpg`,
+      metalnessMap: `${duckFolder}Duck_metallic.jpg`,
+      aoMap: `${duckFolder}Duck_AO.jpg`,
     };
 
     const loaded = {};
