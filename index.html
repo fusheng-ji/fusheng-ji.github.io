@@ -9,14 +9,11 @@
     <meta name="author" content="Wenbo Ji">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <!-- jQuery and Bulma Carousel assets -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bulma Carousel assets -->
     <link rel="stylesheet" href="./render_arts/static/css/bulma-carousel.min.css">
-    <script src="./render_arts/static/js/bulma-carousel.min.js"></script>
+    <script defer src="./render_arts/static/js/bulma-carousel.min.js"></script>
     
     <style type="text/css">
-      @import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700,700italic,900,900italic,300italic,300);
-
       a {
         color: #2a6fbb;
         text-decoration: none;
@@ -134,47 +131,106 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        padding: 3px 12px;
+        padding: 7px 14px;
         margin-right: 6px;
+        border: 1px solid transparent;
         border-radius: 999px;
         font-family: 'Lato', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
         font-size: 15px;
-        font-weight: 400;
+        font-weight: 600;
         line-height: 1.5;
-        color: #ffffff;
+        color: #44576b;
         text-align: center;
         width: auto;
         box-sizing: border-box;
         white-space: nowrap;
         flex: 0 0 auto;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.78);
       }
-      .tag-blue {
-        background-color: #1772d0;
+      .tag-blue,
+      .research-interest-tag-blue {
+        color: #436785;
+        background: #ebf2f8;
+        border-color: #d9e5f0;
       }
-      .tag-green {
-        background-color: #2e8b57;
+      .tag-green,
+      .research-interest-tag-green {
+        color: #416c5c;
+        background: #edf5f0;
+        border-color: #d7e7dd;
       }
-      .tag-orange {
-        background-color: #e67e22;
+      .tag-orange,
+      .research-interest-tag-orange {
+        color: #946138;
+        background: #faf1e7;
+        border-color: #efdcc7;
       }
-      .tag-purple {
-        background-color: #8e44ad;
+      .tag-purple,
+      .research-interest-tag-purple {
+        color: #6f5587;
+        background: #f4edf8;
+        border-color: #e6d8f0;
       }
-      .tag-yellow {
-        background-color: #f1c40f;
+      .tag-yellow,
+      .research-interest-tag-yellow {
+        color: #8c6e1e;
+        background: #fbf6e3;
+        border-color: #f0e5bc;
       }
-      .tag-teal {
-        background-color: #20c997;
+      .tag-teal,
+      .research-interest-tag-teal {
+        color: #3d7a71;
+        background: #eaf5f2;
+        border-color: #d4ebe3;
+      }
+      .tag-slate {
+        color: #4d6277;
+        background: #eef2f6;
+        border-color: #dbe3ea;
+      }
+      .tag-wrap {
+        max-width: 280px;
+        white-space: normal;
+        line-height: 1.35;
       }
 
-      /* Research interests only */
+      /* Research interests */
+      .research-interests-panel {
+        position: relative;
+        margin-top: 14px;
+        padding: 30px 32px 32px;
+        border: 1px solid #dbe3ec;
+        border-radius: 28px;
+        background:
+          radial-gradient(circle at top right, rgba(207, 220, 232, 0.34), transparent 32%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(248, 250, 252, 0.98) 100%);
+        box-shadow: 0 18px 42px rgba(15, 23, 42, 0.05);
+        overflow: hidden;
+      }
+
+      .research-interests-panel > * {
+        position: relative;
+      }
+
+      .research-interests-panel heading {
+        display: block;
+        margin: 0;
+      }
+
+      .research-interests-summary {
+        max-width: 860px;
+        margin: 14px 0 0;
+        color: #516275;
+        line-height: 1.8;
+      }
+
       .research-tags {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px 18px;
-        align-items: center;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        align-items: stretch;
         width: 100%;
-        margin: 14px 0 0 0;
+        margin: 24px 0 0;
         padding: 0;
         box-sizing: border-box;
       }
@@ -184,20 +240,162 @@
         align-items: center;
         justify-content: center;
         width: 100%;
+        min-height: 56px;
         margin: 0;
-        padding: 4px 12px;
-        border-radius: 999px;
+        padding: 12px 18px;
+        border: 1px solid transparent;
+        border-radius: 18px;
         font-size: 15px;
-        font-weight: 500;
-        color: #fff;
+        font-weight: 600;
+        line-height: 1.45;
         text-align: center;
         box-sizing: border-box;
-        white-space: nowrap;
+        white-space: normal;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+      }
+
+      @media (max-width: 900px) {
+        .research-tags {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
       }
 
       @media (max-width: 600px) {
+        .research-interests-panel {
+          padding: 24px 18px 24px;
+          border-radius: 24px;
+        }
+
         .research-tags {
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+
+        .research-interest-tag {
+          min-height: 50px;
+          padding: 12px 16px;
+        }
+      }
+
+      /* News */
+      .news-panel {
+        position: relative;
+        margin-top: 6px;
+        padding: 28px 30px 24px;
+        border: 1px solid #dbe3ec;
+        border-radius: 28px;
+        background:
+          radial-gradient(circle at top right, rgba(207, 220, 232, 0.24), transparent 32%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(248, 250, 252, 0.98) 100%);
+        box-shadow: 0 18px 42px rgba(15, 23, 42, 0.05);
+      }
+
+      .news-panel-head {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .news-panel-head heading {
+        margin: 0;
+      }
+
+      .news-panel-note {
+        flex: 0 0 auto;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #7b8a99;
+      }
+
+      .news-list {
+        display: grid;
+        gap: 0;
+      }
+
+      .news-item {
+        display: grid;
+        grid-template-columns: 104px minmax(0, 1fr);
+        gap: 18px;
+        align-items: start;
+        padding: 14px 0;
+        border-top: 1px solid #e7edf3;
+      }
+
+      .news-list .news-item:first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+
+      .news-date {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: fit-content;
+        min-height: 32px;
+        padding: 5px 12px;
+        border: 1px solid #dbe3ea;
+        border-radius: 999px;
+        background: #eef2f6;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        color: #4d6277;
+        box-sizing: border-box;
+      }
+
+      .news-body {
+        margin: 0;
+        color: #516275;
+        line-height: 1.75;
+      }
+
+      .news-body strong {
+        font-size: inherit;
+      }
+
+      .news-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 16px;
+        padding: 8px 14px;
+        border: 1px solid #dbe3ea;
+        border-radius: 999px;
+        background: #f7f9fb;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: #4d6277;
+      }
+
+      .news-archive {
+        margin-top: 10px;
+      }
+
+      .news-list-archived .news-item {
+        opacity: 0.92;
+      }
+
+      @media (max-width: 700px) {
+        .news-panel {
+          padding: 24px 18px 20px;
+          border-radius: 24px;
+        }
+
+        .news-panel-head {
+          flex-direction: column;
+          align-items: flex-start;
+          margin-bottom: 16px;
+        }
+
+        .news-item {
+          grid-template-columns: 1fr;
+          gap: 10px;
+          padding: 12px 0;
         }
       }
 
@@ -208,6 +406,205 @@
         padding: 0;
       }
 
+      .section-table {
+        width: 100%;
+        border: 0;
+        border-spacing: 0;
+        border-collapse: separate;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .section-cell {
+        padding: 20px;
+        width: 100%;
+        vertical-align: middle;
+      }
+
+      .page-shell {
+        width: 100%;
+        max-width: 1100px;
+        border: 0;
+        border-spacing: 0;
+        border-collapse: separate;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .shell-cell {
+        padding: 0;
+      }
+
+      .hero-name-cell {
+        padding: 1.25%;
+        width: 100%;
+        vertical-align: middle;
+        text-align: center;
+      }
+
+      .hero-bio-cell {
+        padding: 2.5%;
+        width: 65%;
+        vertical-align: top;
+      }
+
+      .hero-media-cell {
+        padding: 2.5% 2% 2%;
+        width: 55%;
+        max-width: 60%;
+        vertical-align: top;
+      }
+
+      .hero-bio-cell p:first-child,
+      .hero-media-cell p:first-child {
+        margin-top: 0;
+      }
+
+      .hero-bio-cell p:last-child,
+      .hero-media-cell p:last-child {
+        margin-bottom: 0;
+      }
+
+      .hero-status-note {
+        margin: 16px 0 20px;
+        padding: 10px 14px;
+        border-left: 3px solid #1772d0;
+        background: #f5f8fc;
+        color: #2f3e4d;
+        font-size: 15px;
+        line-height: 1.55;
+      }
+
+      .hero-status-note strong {
+        font-size: inherit;
+        color: inherit;
+      }
+
+      .hero-media-cell .hero-status-note {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: fit-content;
+        max-width: 260px;
+        margin: 16px auto 0;
+        padding: 10px 14px;
+        border: 1px solid #dbe4ec;
+        border-left: 0;
+        border-radius: 16px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(246, 249, 252, 0.98) 100%);
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
+        text-align: center;
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 1.35;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #4d6277;
+      }
+
+      @media (max-width: 600px) {
+        .hero-media-cell .hero-status-note {
+          max-width: 160px;
+          padding: 9px 12px;
+          font-size: 11px;
+        }
+      }
+
+      .entry-media-cell {
+        padding: 20px;
+        width: 30%;
+        vertical-align: middle;
+      }
+
+      .entry-content-cell {
+        padding: 20px;
+        width: 70%;
+        vertical-align: middle;
+      }
+
+      .entry-content-cell-left {
+        padding: 20px;
+        width: 70%;
+        vertical-align: middle;
+        text-align: left;
+      }
+
+      .education-content-cell {
+        padding: 20px;
+        width: 50%;
+        vertical-align: middle;
+      }
+
+      .side-meta-cell {
+        padding: 20px;
+        width: 20%;
+        vertical-align: top;
+        text-align: right;
+      }
+
+      .award-title-cell {
+        padding: 20px 20px 20px 50px;
+        width: 80%;
+        vertical-align: top;
+      }
+
+      .center-flex {
+        display: flex;
+        justify-content: center;
+      }
+
+      .center-flex-10 {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+      }
+
+      .center-flex-20 {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .center-flex-30 {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+      }
+
+      .center-flex-40 {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 40px;
+      }
+
+      .split-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .split-row-full {
+        width: 100%;
+      }
+
+      .text-right {
+        text-align: right;
+      }
+
+      .text-center {
+        text-align: center;
+      }
+
+      .meta-icon {
+        vertical-align: middle;
+      }
+
+      .teaser-box {
+        display: flex;
+        justify-content: center;
+      }
+
       .teaser-box img.teaser-img {
         transition: transform 0.3s ease;
       }
@@ -216,22 +613,178 @@
         transform: scale(3.0);
       }
 
-      /* Collaborator rows: name left, affiliation right */
+      /* Mentor list for experiences */
+      .collab-section {
+        margin-top: 16px;
+      }
+      .collab-heading {
+        margin: 0 0 8px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #7b8a99;
+      }
+      .experience-type {
+        display: inline-block;
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #5d6f82;
+        line-height: 1.5;
+      }
+      .experience-entry {
+        margin-bottom: 24px;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        overflow: visible;
+      }
+      .experience-entry .entry-media-cell {
+        width: 26%;
+        padding: 16px 14px 16px 0;
+        vertical-align: top;
+        background: transparent;
+        border-right: 0;
+      }
+      .experience-entry .entry-content-cell {
+        width: 74%;
+        padding: 16px 0 20px 28px;
+        vertical-align: top;
+        border-left: 1px solid #e3eaf0;
+      }
+      .experience-entry .split-row {
+        align-items: flex-start;
+        gap: 18px;
+      }
+      .experience-entry sub_heading {
+        display: block;
+        max-width: 640px;
+        line-height: 1.2;
+      }
+      .experience-side-meta {
+        flex: 0 0 auto;
+        min-width: 180px;
+        color: #708295;
+      }
+      .experience-side-meta papertitle {
+        display: block;
+        font-size: 15px;
+        font-weight: 700;
+        color: #34485c;
+      }
+      .experience-detail-row {
+        margin-top: 2px;
+      }
+      .experience-tags {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 10px;
+      }
+      .experience-entry .tag {
+        margin-right: 0;
+      }
+      .experience-logo-stack {
+        display: grid;
+        gap: 16px;
+        align-content: center;
+        justify-items: center;
+        width: min(100%, 220px);
+        margin: 0 auto;
+      }
+      .experience-logo-card {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: clamp(64px, 7vw, 82px);
+        width: 100%;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        overflow: hidden;
+      }
+      .experience-logo-card img {
+        display: block;
+        width: 100% !important;
+        height: 100% !important;
+        max-width: none;
+        max-height: none;
+        object-fit: contain;
+        object-position: center center;
+      }
+      @media (max-width: 768px) {
+        .experience-entry,
+        .experience-entry tbody,
+        .experience-entry tr {
+          display: block;
+          width: 100%;
+        }
+        .experience-entry .entry-media-cell,
+        .experience-entry .entry-content-cell {
+          display: block;
+          width: 100%;
+          box-sizing: border-box;
+        }
+        .experience-entry .entry-media-cell {
+          padding: 8px 0 18px;
+          border-bottom: 0;
+        }
+        .experience-logo-stack {
+          width: min(100%, 240px);
+        }
+        .experience-logo-card {
+          height: clamp(56px, 16vw, 76px);
+        }
+        .experience-entry .entry-content-cell {
+          padding: 20px 0 22px;
+          border-left: 0;
+        }
+        .experience-side-meta {
+          min-width: 0;
+        }
+        .experience-tags {
+          justify-content: flex-start;
+        }
+      }
+      .collab-list {
+        display: grid;
+        gap: 8px;
+      }
       .collab-row {
         display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        gap: 12px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        padding: 8px 0;
+        border-top: 1px solid #e7edf3;
         font-size: 13px;
         color: #555;
+      }
+      .collab-list .collab-row:first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+      .collab-name {
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.4;
+        color: #314559;
       }
       .collab-name a {
         color: inherit;
       }
       .collab-org {
-        text-align: right;
-        white-space: nowrap;
-        margin-right: 300px;
+        font-size: 12px;
+        line-height: 1.45;
+        color: #7b8a99;
+        text-align: left;
+        white-space: normal;
+        margin-right: 0;
       }
 
       /* Results carousel styles */
@@ -253,9 +806,307 @@
       .results-carousel video { margin: 0; }
       .carousel-bound {
         width: 100%;
-        max-width: 1000px;
+        max-width: 1100px;
         margin: 0 auto;
         overflow: hidden;
+      }
+
+      .project-showcase-carousel .item {
+        font-size: 16px;
+        background: #fff;
+        height: 100%;
+      }
+
+      .project-showcase-card {
+        display: grid;
+        grid-template-columns: minmax(220px, 40%) 1fr;
+        height: 100%;
+        border-radius: inherit;
+        overflow: hidden;
+      }
+
+      #threejs-carousel.project-showcase-carousel .item {
+        background: #030406;
+        border-color: #1a212c;
+      }
+
+      #threejs-carousel.project-showcase-carousel .project-showcase-card {
+        background: linear-gradient(90deg, #000 0%, #040608 36%, #0b0f14 100%);
+      }
+
+      .project-showcase-carousel .slider-container,
+      .project-showcase-carousel .slider-item {
+        height: var(--project-showcase-window-height, auto);
+      }
+
+      #threejs-carousel.project-showcase-carousel .slider {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .project-showcase-media {
+        min-width: 0;
+        height: 100%;
+        background: #eef3f7;
+      }
+
+      #threejs-carousel.project-showcase-carousel .project-showcase-media {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: #000;
+      }
+
+      #threejs-carousel.project-showcase-carousel .project-showcase-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center center;
+      }
+
+      .project-showcase-media img {
+        width: 100%;
+        height: 100%;
+        aspect-ratio: auto;
+        object-fit: cover;
+        display: block;
+      }
+
+      .project-showcase-content {
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        gap: 10px;
+        padding: 18px 20px 16px;
+        box-sizing: border-box;
+      }
+
+      #threejs-carousel.project-showcase-carousel .project-showcase-content {
+        color: #eef2f7;
+      }
+
+      .project-showcase-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .project-showcase-title {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 1.35;
+        color: #111;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+      }
+
+      #threejs-carousel.project-showcase-carousel .project-showcase-title {
+        color: #f5f7fb;
+      }
+
+      .project-showcase-side-meta {
+        flex: 0 0 auto;
+        text-align: right;
+        font-size: 13px;
+        line-height: 1.5;
+        color: #667085;
+      }
+
+      #threejs-carousel.project-showcase-carousel .project-showcase-side-meta {
+        color: #c4ced9;
+      }
+
+      #threejs-carousel.project-showcase-carousel .project-showcase-side-meta .topic-location {
+        color: #8e9aab;
+      }
+
+      .project-showcase-subtitle {
+        margin: 0;
+        font-size: 15px;
+        line-height: 1.45;
+        color: #3f4b59;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+      }
+
+      #threejs-carousel.project-showcase-carousel .project-showcase-subtitle {
+        color: #d4dbe5;
+      }
+
+      .project-showcase-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .project-showcase-tech {
+        min-width: 0;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #596273;
+        white-space: normal;
+      }
+
+      #threejs-carousel.project-showcase-carousel .project-showcase-tech {
+        color: #a2adbb;
+      }
+
+      .project-showcase-link {
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border: 1px solid #d9e2ec;
+        border-radius: 999px;
+        background: #f7f9fb;
+        position: relative;
+        z-index: 3;
+        transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+      }
+
+      .project-showcase-link:hover {
+        background: #eef4fb;
+        border-color: #c7d5e5;
+        transform: translateY(-1px);
+      }
+
+      #threejs-carousel.project-showcase-carousel .project-showcase-link {
+        border-color: #2b3442;
+        background: #11161d;
+      }
+
+      #threejs-carousel.project-showcase-carousel .project-showcase-link:hover {
+        background: #18212b;
+        border-color: #415168;
+      }
+
+      .project-showcase-carousel .meta-icon {
+        width: auto;
+        max-width: none;
+        height: 20px;
+        aspect-ratio: auto;
+        object-fit: contain;
+      }
+
+      #threejs-carousel.project-showcase-carousel .meta-icon {
+        filter: invert(1) grayscale(1) brightness(1.1);
+      }
+
+      #threejs-carousel.project-showcase-carousel .slider-pagination {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 14px;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        flex-wrap: nowrap;
+        padding: 0 18px;
+        z-index: 4;
+        pointer-events: none;
+      }
+
+      #threejs-carousel.project-showcase-carousel .slider-page {
+        width: 10px;
+        height: 10px;
+        margin: 0;
+        display: block;
+        flex: 0 0 auto;
+        border: 1px solid rgba(255, 255, 255, 0.78);
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow: 0 8px 18px rgba(9, 17, 26, 0.18);
+        transform: none;
+        transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+        pointer-events: auto;
+      }
+
+      #threejs-carousel.project-showcase-carousel .slider-page:hover,
+      #threejs-carousel.project-showcase-carousel .slider-page.is-active {
+        background: #1772d0;
+        border-color: #1772d0;
+        transform: scale(1.08);
+      }
+
+      .gallery-tab-panels .slider,
+      .gallery-tab-panels .slider * {
+        -webkit-user-select: none;
+        user-select: none;
+      }
+
+      .gallery-tab-panels .slider {
+        touch-action: pan-y pinch-zoom;
+        cursor: grab;
+      }
+
+      .gallery-tab-panels .slider img {
+        -webkit-user-drag: none;
+      }
+
+      .gallery-tab-panels .slider.is-dragging,
+      .gallery-tab-panels .slider.is-dragging * {
+        cursor: grabbing !important;
+      }
+
+      .gallery-tab-panels .slider-navigation-previous,
+      .gallery-tab-panels .slider-navigation-next {
+        display: none !important;
+      }
+
+      @media (max-width: 768px) {
+        .project-showcase-card {
+          grid-template-columns: minmax(128px, 38%) 1fr;
+        }
+
+        .project-showcase-content {
+          gap: 8px;
+          padding: 12px 14px;
+        }
+
+        .project-showcase-title {
+          font-size: 16px;
+        }
+
+        .project-showcase-side-meta {
+          font-size: 11px;
+        }
+
+        .project-showcase-subtitle {
+          font-size: 13px;
+          line-height: 1.45;
+        }
+
+        .project-showcase-tech {
+          font-size: 12px;
+        }
+
+        .project-showcase-link {
+          width: 32px;
+          height: 32px;
+        }
+
+        #threejs-carousel.project-showcase-carousel .slider-pagination {
+          gap: 7px;
+          bottom: 12px;
+          padding: 0 16px;
+        }
+
+        #threejs-carousel.project-showcase-carousel .slider-page {
+          width: 9px;
+          height: 9px;
+        }
       }
 
       /* Simple top navbar */
@@ -263,11 +1114,12 @@
         position: sticky;
         top: 0;
         z-index: 1000;
-        background: #fff;
-        border-bottom: 1px solid #eee;
+        background: rgba(244, 246, 248, 0.94);
+        border-bottom: 1px solid #d7dee6;
+        backdrop-filter: blur(10px);
       }
       .navbar-container {
-        width: min(1000px, 100%);
+        width: min(1100px, 100%);
         margin: 0 auto;
         padding: 10px 2.5%;
         box-sizing: border-box;
@@ -298,7 +1150,14 @@
       @media (max-width: 768px) {
         .navbar { display: none; }
       }
-      body { scroll-behavior: smooth; }
+      html,
+      body {
+        background: #f4f6f8;
+      }
+
+      body {
+        scroll-behavior: smooth;
+      }
       
       /* ClustrMaps width restriction */
       #clustrmaps-container,
@@ -327,6 +1186,263 @@
       .paper-links a {
         margin-left: 12px;
         vertical-align: middle;
+      }
+      .publication-entry topictitle,
+      .thesis-entry topictitle {
+        display: block;
+        max-width: 720px;
+        line-height: 1.25;
+      }
+      .publication-title-stack {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .publication-meta-row {
+        margin-top: 8px;
+        color: #708295;
+      }
+      .publication-meta-row papertitle {
+        display: block;
+        font-size: 15px;
+        font-weight: 700;
+        color: #34485c;
+      }
+      .publication-meta-row .entry-side-note {
+        margin-top: 4px;
+      }
+      .publication-entry .experience-detail-row {
+        margin-top: 16px;
+        align-items: center;
+      }
+      .publication-entry .entry-block {
+        margin-top: 16px;
+      }
+      .thesis-entry .experience-detail-row {
+        margin-top: 24px;
+      }
+      .project-entry topictitle {
+        display: block;
+        max-width: 720px;
+        line-height: 1.25;
+      }
+      .project-entry .entry-visual-stack {
+        width: 100%;
+        max-width: 280px;
+      }
+      .project-entry .entry-visual {
+        min-height: 140px;
+      }
+      .project-entry .entry-visual.is-split {
+        min-height: 0;
+        aspect-ratio: 1 / 1;
+      }
+      .project-entry .entry-visual img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center center;
+      }
+      .project-entry .entry-visual-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: stretch;
+        gap: 12px;
+        width: 100%;
+      }
+      .project-entry .entry-visual-grid .entry-visual img {
+        object-fit: contain;
+      }
+      .project-title-stack {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 18px;
+      }
+      .project-meta-row {
+        flex: 0 0 auto;
+        min-width: 120px;
+        text-align: right;
+        color: #708295;
+      }
+      .project-meta-row papertitle {
+        display: block;
+        font-size: 15px;
+        font-weight: 700;
+        color: #34485c;
+      }
+      .project-entry .experience-detail-row {
+        margin-top: 12px;
+      }
+      .education-entry topictitle,
+      .award-entry topictitle {
+        display: block;
+        max-width: 720px;
+        line-height: 1.25;
+      }
+      .education-entry .experience-detail-row,
+      .award-entry .experience-detail-row {
+        margin-top: 12px;
+        align-items: center;
+      }
+      .education-entry .experience-logo-card {
+        height: clamp(72px, 8vw, 92px);
+      }
+      .award-entry .entry-media-cell {
+        vertical-align: top;
+      }
+      .award-marker-shell {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: min(100%, 220px);
+        margin: 0 auto;
+      }
+      .award-marker-card {
+        width: 100%;
+        margin: 0 auto;
+        border: 1px solid #dbe4ec;
+        border-radius: 22px;
+        overflow: hidden;
+        background: #f6f0e4;
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
+        box-sizing: border-box;
+      }
+      .award-marker-card img {
+        display: block;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        object-position: center center;
+      }
+      .award-marker-card.is-warm {
+        border-color: #e8d9cc;
+        background: #f7efe2;
+      }
+      .award-marker-card.is-cool {
+        border-color: #d9e3e7;
+        background: #eef4f5;
+      }
+      @media (max-width: 560px) {
+        .project-title-stack {
+          flex-direction: column;
+          gap: 8px;
+        }
+        .project-meta-row {
+          min-width: 0;
+          text-align: left;
+        }
+        .project-entry .entry-visual-stack {
+          max-width: 100%;
+        }
+        .project-entry .entry-visual-grid {
+          grid-template-columns: 1fr;
+        }
+        .award-marker-shell {
+          width: min(100%, 240px);
+          min-height: 92px;
+        }
+        .award-marker-card {
+          width: min(100%, 220px);
+          min-height: 84px;
+        }
+      }
+      .entry-visual-stack {
+        display: grid;
+        gap: 16px;
+        width: min(100%, 220px);
+        margin: 0 auto;
+        justify-items: center;
+      }
+      .entry-visual {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        overflow: hidden;
+      }
+      .publication-entry .entry-visual,
+      .thesis-entry .entry-visual.is-teaser {
+        min-height: 140px;
+      }
+      .thesis-entry .entry-visual.is-logo {
+        height: 72px;
+      }
+      .publication-entry .entry-visual img,
+      .thesis-entry .entry-visual img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center center;
+      }
+      .entry-byline {
+        max-width: 760px;
+        font-size: 15px;
+        line-height: 1.65;
+        color: #4a5b6d;
+      }
+      .entry-block {
+        margin-top: 16px;
+      }
+      .entry-label {
+        margin: 0 0 6px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #7b8a99;
+      }
+      .entry-summary {
+        margin: 14px 0 0;
+        color: #526476;
+        line-height: 1.75;
+      }
+      .entry-block .entry-summary {
+        margin-top: 0;
+      }
+      .entry-links {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 18px;
+        margin-top: 14px;
+      }
+      .entry-block .entry-links {
+        margin-top: 0;
+      }
+      .entry-links a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .experience-detail-row .entry-links {
+        margin-top: 0;
+      }
+      .experience-detail-row .entry-links .meta-icon {
+        max-height: 20px;
+        width: auto;
+      }
+      .experience-detail-row .entry-links .meta-icon.ieee-inline-logo {
+        height: 38px;
+        max-height: 38px;
+      }
+      .entry-side-note {
+        display: block;
+        margin-top: 6px;
+        font-size: 12px;
+        line-height: 1.45;
+        color: #7b8a99;
+      }
+      .publication-award a {
+        color: #2a6fbb;
+        font-weight: 700;
+      }
+      @media (max-width: 768px) {
+        .entry-visual-stack {
+          width: min(100%, 240px);
+        }
       }
 
       /* Research Timeline Styles */
@@ -433,29 +1549,90 @@
           font-size: 11px;
         }
       }
-      /* Perception-Action label + arrow styles */
+      /* Perception-Action label + bridge */
       .perception-wrapper {
         display: flex;
         justify-content: center;
         align-items: center;
         width: 100%;
-        margin-top: 8px;
+        height: 42px;
+        margin: 18px 0 14px;
+        position: relative;
       }
-      .perception-arrow {
-        width: 60%;
-        max-width: 900px;
-        height: 28px;
+      .perception-wrapper::before {
+        content: "";
+        position: absolute;
+        top: 7px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(220px, 44%);
+        height: 1px;
+        background: linear-gradient(90deg, rgba(148, 163, 184, 0), rgba(148, 163, 184, 0.88), rgba(148, 163, 184, 0));
+      }
+      .perception-wrapper::after {
+        content: "";
+        position: absolute;
+        top: 7px;
+        left: 50%;
+        width: 1px;
+        height: 35px;
+        background: linear-gradient(180deg, rgba(215, 225, 234, 0), rgba(215, 225, 234, 0.98));
+        transform: translateX(-50%);
+      }
+      .perception-node {
+        position: relative;
+        z-index: 1;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #ffffff;
+        border: 4px solid #d5e3ef;
+        box-shadow: 0 0 0 6px rgba(244, 247, 250, 0.96), 0 8px 18px rgba(55, 79, 104, 0.08);
+      }
+      .research-focus-card {
+        width: fit-content;
+        max-width: min(100%, 520px);
+        margin: 0 auto;
+        padding: 14px 22px 16px;
+        border: 1px solid #d8e3ee;
+        border-radius: 22px;
+        background: linear-gradient(135deg, #edf4fb 0%, #eef8f8 100%);
+        box-shadow: 0 14px 28px rgba(47, 72, 95, 0.08);
+        text-align: center;
+      }
+      .research-focus-eyebrow {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #708398;
       }
       .perception-label {
-        display: inline-block;
-        margin: 6px auto 0;
-        padding: 8px 18px;
-        background: linear-gradient(90deg,#1772d0,#0ea5a4);
-        color: #fff;
-        border-radius: 999px;
+        display: block;
+        margin: 0;
+        padding: 0;
+        color: #27455f;
         font-weight: 700;
-        box-shadow: 0 6px 18px rgba(23,114,208,0.08);
-        white-space: nowrap;
+        font-size: 20px;
+        line-height: 1.35;
+      }
+      .research-focus-note {
+        margin: 8px 0 0;
+        font-size: 14px;
+        color: #607387;
+        line-height: 1.6;
+      }
+      @media (max-width: 600px) {
+        .research-focus-card {
+          width: 100%;
+          padding: 14px 16px 16px;
+          border-radius: 20px;
+        }
+        .perception-label {
+          font-size: 18px;
+        }
       }
 
       /* Avatar carousel styles */
@@ -469,181 +1646,511 @@
       @media (max-width:600px) { .avatar-carousel { max-width:160px; height:160px; } }
 
       /* icons under avatar should match avatar width */
-      .avatar-icons { max-width:260px; margin:8px auto 0; display:flex; justify-content:space-between; gap:8px; align-items:center; }
-      .avatar-icons img { display:block; max-height:22px; }
-      @media (max-width:600px) { .avatar-icons { max-width:160px; } }
+      .avatar-icons {
+        width: 100%;
+        max-width: 260px;
+        margin: 18px auto 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 0;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .avatar-icons a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: auto;
+        min-height: 24px;
+        flex: 0 0 auto;
+      }
+      .avatar-icons img {
+        display: block;
+        width: auto;
+        height: 22.5px;
+        max-height: none;
+      }
+      @media (max-width:600px) {
+        .avatar-icons {
+          width: 100%;
+          max-width: 160px;
+        }
+        .avatar-icons a {
+          min-height: 24px;
+        }
+        .avatar-icons img {
+          height: 16.5px;
+        }
+      }
 
       /* Blog section inspired by Vincent's blog block */
+      .gallery-tablist-wrap {
+        width: 100%;
+        margin: 18px 0;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-behavior: smooth;
+        scroll-padding: 0 4px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+
+      .gallery-tablist-wrap::-webkit-scrollbar {
+        display: none;
+      }
+
+      .gallery-tablist {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        min-width: max-content;
+        padding: 4px;
+        border: 1px solid #d9e2ec;
+        border-radius: 999px;
+        background: #f7f9fb;
+      }
+
+      .gallery-tab-indicator {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 0;
+        border-radius: 999px;
+        background: #1772d0;
+        box-shadow: 0 8px 18px rgba(23, 114, 208, 0.14);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.26s ease, width 0.26s ease, height 0.26s ease, opacity 0.18s ease;
+      }
+
+      .gallery-tab-indicator.is-instant {
+        transition: none;
+      }
+
+      .gallery-tab-button {
+        position: relative;
+        z-index: 1;
+        flex: 0 0 auto;
+        border: 0;
+        background: transparent;
+        color: #44576b;
+        border-radius: 999px;
+        padding: 8px 16px;
+        font-family: 'Lato', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 15px;
+        line-height: 1.4;
+        white-space: nowrap;
+        cursor: pointer;
+        transition: color 0.18s ease, transform 0.18s ease;
+      }
+
+      .gallery-tab-button:not(.is-active):hover {
+        color: #1772d0;
+      }
+
+      .gallery-tab-button.is-active {
+        color: #fff;
+      }
+
+      .gallery-tab-button:focus-visible {
+        outline: 2px solid #1772d0;
+        outline-offset: 2px;
+      }
+
+      .gallery-tab-panel {
+        width: 100%;
+        transform-origin: top center;
+        will-change: transform, opacity;
+      }
+
+      .gallery-tab-panel[hidden] {
+        display: none !important;
+      }
+
+      .gallery-tab-panels {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        transition: height 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .gallery-tab-panels.is-instant {
+        transition: none;
+      }
+
+      .gallery-tab-panel.is-animating.is-from-right {
+        animation: gallery-panel-slide-in-right 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .gallery-tab-panel.is-animating.is-from-left {
+        animation: gallery-panel-slide-in-left 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      @keyframes gallery-panel-slide-in-right {
+        from {
+          opacity: 0.3;
+          transform: translateX(72px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes gallery-panel-slide-in-left {
+        from {
+          opacity: 0.3;
+          transform: translateX(-72px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .gallery-tablist-wrap {
+          margin: 16px -4px 14px;
+          padding: 0 4px 8px;
+          scroll-snap-type: x proximity;
+        }
+
+        .gallery-tablist {
+          gap: 3px;
+        }
+
+        .gallery-tab-button {
+          padding: 8px 14px;
+          font-size: 14px;
+          scroll-snap-align: start;
+        }
+
+        .gallery-tab-panel {
+          padding-top: 2px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .gallery-tablist-wrap {
+          scroll-behavior: auto;
+        }
+
+        .gallery-tab-indicator,
+        .gallery-tab-button,
+        .gallery-tab-panel {
+          transition: none;
+          animation: none;
+        }
+      }
+
+      .blog-panel {
+        position: relative;
+        margin-top: 6px;
+        padding: 28px 30px 30px;
+        border: 1px solid #dbe3ec;
+        border-radius: 28px;
+        background:
+          radial-gradient(circle at top left, rgba(233, 241, 248, 0.38), transparent 34%),
+          radial-gradient(circle at bottom right, rgba(250, 241, 231, 0.44), transparent 42%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.97) 0%, rgba(248, 250, 252, 0.99) 100%);
+        box-shadow: 0 18px 42px rgba(15, 23, 42, 0.05);
+        overflow: hidden;
+      }
+
+      .blog-panel > * {
+        position: relative;
+      }
+
+      .blog-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 24px;
+        margin-bottom: 20px;
+      }
+
+      .blog-header-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-width: 680px;
+      }
+
+      .blog-header-copy heading {
+        display: block;
+        line-height: 1.08;
+      }
+
       .blog-section-note {
-        margin-top: 4px;
-        color: #666;
-        font-size: 13px;
+        margin: 0;
+        color: #607387;
+        font-size: 15px;
+        line-height: 1.75;
       }
 
       .blog-list {
-        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
       }
 
-      .blog-card-row {
-        transition: background-color 0.18s ease;
+      .footer-table {
+        width: 100%;
+        border: 0;
+        border-spacing: 0;
+        border-collapse: separate;
+      }
+
+      .footer-top-cell {
+        padding: 20px;
+        width: 100%;
+        vertical-align: top;
+      }
+
+      .blog-card {
+        min-width: 0;
       }
 
       .blog-card-link {
-        display: block;
-        padding: 18px 20px;
-        border: 1px solid #ececec;
-        border-radius: 14px;
-        background: #fcfcfb;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 20px 22px 18px;
+        border: 1px solid #dbe4ec;
+        border-radius: 24px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.99) 0%, rgba(244, 248, 251, 0.97) 100%);
+        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.05);
         text-decoration: none;
         color: inherit;
+        box-sizing: border-box;
+        overflow: hidden;
+        transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      }
+
+      .blog-card-link::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(90deg, rgba(23, 114, 208, 0.16), rgba(217, 130, 43, 0.24), rgba(23, 114, 208, 0.08));
       }
 
       .blog-card-link:hover {
-        background: #f8fafc;
-        border-color: #d9e2ec;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(240, 246, 251, 0.98) 100%);
+        border-color: #ccd9e6;
+        box-shadow: 0 18px 34px rgba(47, 72, 95, 0.1);
+        transform: translateY(-3px);
+      }
+
+      .blog-card-link:focus-visible {
+        outline: 2px solid #1772d0;
+        outline-offset: 3px;
+      }
+
+      .blog-card-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 18px;
+      }
+
+      .blog-card-top-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
       }
 
       .blog-card-date {
-        display: block;
-        margin-bottom: 8px;
-        font-size: 13px;
-        font-weight: 400;
-        color: #666;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: fit-content;
+        min-height: 30px;
+        padding: 5px 12px;
+        border: 1px solid #dbe3ea;
+        border-radius: 999px;
+        background: #eef2f6;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: #4d6277;
+        box-sizing: border-box;
+      }
+
+      .blog-card-reading {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 30px;
+        padding: 5px 12px;
+        border: 1px solid #d8e3ee;
+        border-radius: 999px;
+        background: #edf4fb;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: #436785;
+        box-sizing: border-box;
+      }
+
+      .blog-card-arrow {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border: 1px solid #dbe4ec;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.9);
+        font-size: 16px;
+        color: #5c7084;
+        box-shadow: 0 10px 20px rgba(15, 23, 42, 0.04);
+        transition: transform 0.2s ease, color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      }
+
+      .blog-card-link:hover .blog-card-arrow {
+        transform: translate(2px, -2px);
+        color: #1772d0;
+        border-color: #ccd9e6;
+        background: rgba(255, 255, 255, 0.98);
       }
 
       .blog-card-title {
         display: block;
-        margin: 0 0 8px 0;
-        font-size: 20px;
-        font-weight: 500;
+        margin: 0;
+        font-size: 21px;
+        font-weight: 600;
         line-height: 1.35;
-        color: #111;
+        color: #2f3e4d;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
       }
 
       .blog-card-desc {
-        margin: 0;
+        margin: 12px 0 0;
         font-size: 15px;
-        line-height: 1.7;
-        color: #444;
+        line-height: 1.75;
+        color: #5d7084;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+        overflow: hidden;
       }
 
-      .blog-card-meta {
-        margin-top: 10px;
-        font-size: 13px;
-        color: #777;
-      }
-
-      .blog-head-row {
+      .blog-card-bottom {
         display: flex;
+        align-items: center;
         justify-content: space-between;
-        align-items: baseline;
         gap: 12px;
+        margin-top: auto;
+        padding-top: 18px;
+        border-top: 1px solid #e7edf3;
+      }
+
+      .blog-card-cta {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #4d6277;
+        transition: color 0.2s ease;
+      }
+
+      .blog-card-link:hover .blog-card-cta {
+        color: #1772d0;
+      }
+
+      .blog-card-accent {
+        font-size: 12px;
+        color: #7b8a99;
       }
 
       .blog-view-all {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border: 1px solid #d9e2ec;
+        border-radius: 999px;
+        background: #f8fafc;
+        color: #2f3e4d;
         font-size: 14px;
+        font-weight: 500;
+        line-height: 1;
         white-space: nowrap;
+        transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+      }
+
+      .blog-view-all::after {
+        content: "\2192";
+        font-size: 14px;
+      }
+
+      .blog-view-all:hover {
+        background: #eef4fb;
+        border-color: #c7d5e5;
+        color: #1772d0;
+        transform: translateY(-1px);
       }
 
       .blog-loading,
       .blog-error,
       .blog-empty {
-        padding: 20px;
-        color: #666;
+        grid-column: 1 / -1;
+        padding: 20px 22px;
+        border: 1px dashed #d7e2eb;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.72);
+        color: #607387;
+      }
+
+      @media (max-width: 900px) {
+        .blog-list {
+          grid-template-columns: 1fr;
+        }
       }
 
       @media (max-width: 768px) {
+        .blog-panel {
+          padding: 24px 18px 24px;
+          border-radius: 24px;
+        }
+
         .blog-card-title {
           font-size: 18px;
         }
 
-        .blog-head-row {
+        .blog-header {
           flex-direction: column;
           align-items: flex-start;
+          gap: 12px;
+        }
+
+        .blog-card-link {
+          padding: 18px 18px 16px;
+          border-radius: 22px;
+        }
+
+        .blog-card-top {
+          margin-bottom: 16px;
         }
       }
     </style>
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦫</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <script src="script/functions.js"></script>
-    
-    <!-- Bulma Carousel init -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        try {
-          var options = {
-            slidesToScroll: 1,
-            slidesToShow: 2,
-            loop: true,
-            infinite: true,
-            autoplay: false,
-            autoplaySpeed: 3000
-          };
-          bulmaCarousel.attach('.carousel', options);
-        } catch (e) {
-          console.warn('Carousel init failed:', e);
-        }
-      });
-    </script>
-
-  <script>
-    // Avatar carousel: cycles through main photo then avatar_*.png in assets/misc
-    (function () {
-      var containerId = 'avatarCarousel';
-      function initCarousel() {
-        var wrap = document.getElementById(containerId);
-        if (!wrap) return;
-        var slidesEl = wrap.querySelector('.avatar-slides');
-        var dotsEl = wrap.querySelector('.avatar-dots');
-        // gather image list
-        var imgs = [];
-        imgs.push('assets/images/wenboji_rider.jpg');
-        // known avatar files in assets/misc: avatar_0..avatar_6.png
-        for (var i = 0; i <= 6; i++) imgs.push('assets/misc/avatar_' + i + '.png');
-
-        var nodes = [];
-        imgs.forEach(function (src, idx) {
-          var img = document.createElement('img');
-          img.src = src;
-          img.alt = 'avatar ' + idx;
-          if (idx === 0) img.className = 'active';
-          slidesEl.appendChild(img);
-          nodes.push(img);
-          var dot = document.createElement('button');
-          dot.className = 'avatar-dot' + (idx === 0 ? ' active' : '');
-          dot.setAttribute('data-idx', idx);
-          dot.addEventListener('click', function (e) { goTo(parseInt(this.getAttribute('data-idx'),10)); resetTimer(); });
-          dotsEl.appendChild(dot);
-        });
-
-        var current = 0;
-        var interval = 3500;
-        var timer = null;
-
-        function goTo(i) {
-          if (i === current) return;
-          nodes[current].classList.remove('active');
-          dotsEl.children[current].classList.remove('active');
-          current = (i + nodes.length) % nodes.length;
-          nodes[current].classList.add('active');
-          dotsEl.children[current].classList.add('active');
-        }
-
-        function next() { goTo(current + 1); }
-        function resetTimer() { clearInterval(timer); timer = setInterval(next, interval); }
-
-        // ensure images are loaded progressively
-        nodes.forEach(function (n) { n.addEventListener('load', function () {}); });
-
-        timer = setInterval(next, interval);
-        // pause on hover
-        wrap.addEventListener('mouseenter', function () { clearInterval(timer); });
-        wrap.addEventListener('mouseleave', function () { resetTimer(); });
-      }
-      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initCarousel); else initCarousel();
-    })();
-  </script>
+    <script defer src="script/functions.js"></script>
   </head>
 
   <body>
@@ -663,63 +2170,13 @@
       </div>
     </nav>
 
-    <script>
-      window.toggleblock = function (id) {
-        try {
-          var el = document.getElementById(id);
-          if (!el) return;
-          el.style.display = (el.style.display === 'none' || getComputedStyle(el).display === 'none') ? 'block' : 'none';
-        } catch (e) {
-          console.warn('toggleblock error', e);
-        }
-      };
-
-      (function () {
-        function getOffset() {
-          var nav = document.querySelector('.navbar');
-          var extra = 8;
-          return (nav ? nav.offsetHeight : 0) + extra;
-        }
-        function scrollToHash(hash, replace) {
-          if (!hash || hash === '#') return;
-          var el = document.querySelector(hash);
-          if (!el) return;
-          var top = el.getBoundingClientRect().top + window.pageYOffset - getOffset();
-          window.scrollTo({ top: top, behavior: 'smooth' });
-          if (replace) {
-            try { history.replaceState(null, '', hash); } catch(e) {}
-          }
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-          document.querySelectorAll('.navbar a[href^="#"]').forEach(function (a) {
-            a.addEventListener('click', function (e) {
-              var hash = this.getAttribute('href');
-              if (hash && hash.length > 1) {
-                e.preventDefault();
-                scrollToHash(hash, false);
-              }
-            });
-          });
-
-          if (window.location.hash) {
-            setTimeout(function () { scrollToHash(window.location.hash, true); }, 0);
-          }
-
-          window.addEventListener('hashchange', function () {
-            scrollToHash(window.location.hash, false);
-          });
-        });
-      })();
-    </script>
-
    
-  <table style="width:100%;max-width:1000px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+  <table class="page-shell"><tbody>
     <tr style="padding:0px">
-      <td style="padding:0px">
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+      <td class="shell-cell">
+        <table class="section-table"><tbody>
           <tr style="padding:0px">
-            <td style="padding:1.25%;width:100%;vertical-align:middle;text-align:center;">
+            <td class="hero-name-cell">
               <p style="text-align:center;margin:0;">
                 <name>Wenbo Ji&nbsp;&nbsp;&nbsp;<ruby>嵇<rt>jī&nbsp/&nbspyí</rt></ruby>文博</name>
               </p>
@@ -727,51 +2184,40 @@
           </tr>
         </tbody></table>
         
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+        <table class="section-table"><tbody>
           <tr style="padding:0px">
-            <td style="padding:2.5%;width:65%;vertical-align:middle">
-              <p>I am a third-year master's student in Electrical Engineering and Information Technology at the <a href="https://www.cit.tum.de/en/cit/home/" style="color: inherit;">Technical University of Munich</a>.</p>
-              <p>I am doing research internship with <a href="https://tangjiapeng.github.io/">Jiapeng Tang</a> and <a href="https://niessnerlab.org/members/matthias_niessner/profile.html">Prof. Matthias Nießner</a> at <a href="https://niessnerlab.org/">TUM Visual Computing Group</a>.</p>
-              <p>I was working as a working student at <a href="https://www.imfusion.com/">ImFusion</a> with 
+            <td class="hero-bio-cell">
+              <p>I am currently pursuing a second M.Sc. in Electrical Engineering and Information Technology at the <a href="https://www.cit.tum.de/en/cit/home/" style="color: inherit;">Technical University of Munich</a>. At TUM, I am working on my master's thesis on human motion video diffusion with <a href="https://ychgoaround.github.io/">Yu Chi</a>, <a href="https://tangjiapeng.github.io/">Jiapeng Tang</a>, and <a href="https://niessnerlab.org/members/matthias_niessner/profile.html">Prof. Matthias Nießner</a> at the <a href="https://niessnerlab.org/">TUM Visual Computing Group</a>. In parallel, I am an intern at <a href="https://www.agile-robots.com/en/" style="color: inherit;">Agile Robots SE</a>, where I work with Mahdi Hamad on video-action world models for robot dexterous manipulation.</p>
+
+              <p>My previous research and industry experience includes a research internship at <a href="https://niessnerlab.org/">TUM Visual Computing</a> with <a href="https://tangjiapeng.github.io/">Jiapeng Tang</a> and <a href="https://niessnerlab.org/members/matthias_niessner/profile.html">Prof. Matthias Nießner</a>, a working student position at <a href="https://www.imfusion.com/">ImFusion</a> with 
                 <a href="https://scholar.google.de/citations?hl=en&user=j2REtlAAAAAJ">Mert Asim Karaoglu</a>,
-                <a href="https://www.cs.cit.tum.de/camp/members/benjamin-busam/">Dr. Benjamin Busam</a>,
-                <a href="https://www.professoren.tum.de/en/navab-nassir">Prof. Nassir Navab</a>.</p>
-
-              <p>I was a master's student of <a href="https://cvg.cit.tum.de/">TUM-CVG</a>, 
-                <a href="https://www.mdsi.tum.de/en/di-lab/tum-di-lab/">TUM-DI-LAB</a> working with 
+                <a href="https://www.cs.cit.tum.de/camp/members/benjamin-busam/">Prof. Benjamin Busam</a>,
+                <a href="https://www.professoren.tum.de/en/navab-nassir">Prof. Nassir Navab</a>, as well as research at <a href="https://cvg.cit.tum.de/">TUM-CVG</a> and 
+                <a href="https://www.robots.ox.ac.uk/~vgg/">Oxford VGG</a> with 
                 <a href="https://cvg.cit.tum.de/members/cremers">Prof. Daniel Cremers</a>, 
-                <a href="https://cvg.cit.tum.de/members/xiya">Dr. Yan Xia</a>, 
-                <a href="https://chuanxiaz.com/">Dr. Chuanxia Zheng</a> and 
-                <a href="https://cvg.cit.tum.de/members/chwe">Weirong Chen</a>.</p>
-
-              <p>I did a research internship at <a href="https://www.zju.edu.cn/" style="color: inherit;">Zhejiang University</a> under the supervision of <a href="https://yiyiliao.github.io/">Prof. Yiyi Liao</a>.</p>
+                <a href="https://cvg.cit.tum.de/members/xiya">Prof. Yan Xia</a>, 
+                <a href="https://chuanxiaz.com/">Prof. Chuanxia Zheng</a> and 
+                <a href="https://cvg.cit.tum.de/members/chwe">Weirong Chen</a>. I also completed a research internship at <a href="https://www.zju.edu.cn/" style="color: inherit;">Zhejiang University</a> under the supervision of <a href="https://yiyiliao.github.io/">Prof. Yiyi Liao</a>.</p>
               
-              <p>I obtained my Master's degree in Computer Science from the <a href="https://see.tongji.edu.cn/index.htm" style="color: inherit;">Tongji University</a>.</p>
-              
-              <p>I did my B.Sc. in Information and Computing Science at <a href="http://lxy.njtech.edu.cn/" style="color: inherit;">Nanjing Tech University</a>.</p>
+              <p>Before joining TUM, I earned an M.Sc. in Computer Science from <a href="https://see.tongji.edu.cn/index.htm" style="color: inherit;">Tongji University</a> and a B.Sc. in Information and Computing Science from <a href="http://lxy.njtech.edu.cn/" style="color: inherit;">Nanjing Tech University</a>.</p>
 
               <!-- <p>My research interests focus on moving beyond isolated visual subproblems toward integrated models of virtual humans and 3D scenes that can perceive, generate, and reason about interaction in dynamic environments.</p> -->
 
             </td>
-            <td style="padding:2%;width:55%;max-width:60%;vertical-align:middle;">
+            <td class="hero-media-cell">
               <div class="avatar-carousel" id="avatarCarousel">
                 <div class="avatar-slides" aria-hidden="false"></div>
                 <div class="avatar-dots" aria-hidden="false"></div>
               </div>
               <div class="avatar-icons">
-                <a href="mailto:wenboji0420@gmail.com"><img src="assets/misc/email-logo.svg" alt="email" height="20"></a>
-                <a href="assets/doc/WenboJi_CV_English.pdf"><img src="assets/misc/cv-logo.svg" alt="cv" height="20"></a>
-                <a href="https://scholar.google.com/citations?user=ZTUMczEAAAAJ&hl=en"><img src="assets/misc/google-scholar.svg" alt="scholar" height="20"></a>
-                <a href="https://github.com/fusheng-ji/"><img src="assets/misc/github-logo.png" alt="github" height="20"></a>
-                <a href="https://www.linkedin.com/in/wenbo-ji-6950b9187"><img src="assets/misc/linkedin-logo.svg" alt="linkedin" height="20"></a>
-                <a href="https://orcid.org/0000-0001-7838-8736"><img src="assets/misc/orcid-logo.svg" alt="orcid" height="20"></a>
+                <a href="mailto:wenboji0420@gmail.com" aria-label="Email Wenbo Ji"><img src="assets/misc/email-logo.svg" alt="Email" height="20"></a>
+                <a href="assets/doc/WenboJi_CV_English.pdf" aria-label="Open CV PDF"><img src="assets/misc/cv-logo.svg" alt="CV" height="20"></a>
+                <a href="https://scholar.google.com/citations?user=ZTUMczEAAAAJ&hl=en" aria-label="Open Google Scholar profile"><img src="assets/misc/google-scholar.svg" alt="Google Scholar" height="20"></a>
+                <a href="https://github.com/fusheng-ji/" aria-label="Open GitHub profile"><img src="assets/misc/github-logo.png" alt="GitHub" height="20"></a>
+                <a href="https://www.linkedin.com/in/wenbo-ji-6950b9187" aria-label="Open LinkedIn profile"><img src="assets/misc/linkedin-logo.svg" alt="LinkedIn" height="20"></a>
+                <a href="https://orcid.org/0000-0001-7838-8736" aria-label="Open ORCID profile"><img src="assets/misc/orcid-logo.svg" alt="ORCID" height="20"></a>
               </div>
-              <p style="text-align:center">
-              中文&nbsp/&nbspEnglish&nbsp/&nbspDeutsch
-              </p>
-              <p style="text-align:center">
-                <strong style="color: #e60000; font-weight: 900;">I'm looking for 27Fall PHD position.</strong>
-              </p>
+              <p class="hero-status-note"><strong>Seeking Ph.D. opportunities for Fall 2027 entry</strong></p>
             </td>
           </tr>
         </tbody></table>
@@ -782,142 +2228,120 @@
             <!-- write logos here -->
             <tr>
               <td width="10%" valign="middle" align="center">
-                <a href="https://cvg.cit.tum.de/"><img height="75" src="assets/institution_logo/tum.png"></a>
+                <a href="https://cvg.cit.tum.de/" aria-label="Open Technical University of Munich website"><img height="75" src="assets/institution_logo/tum.png" alt="Technical University of Munich logo"></a>
               </td>
               <td width="10%" valign="middle" align="center">
-                <a href="https://see.tongji.edu.cn/index.htm"><img height="75" src="assets/institution_logo/tju.png"></a>
+                <a href="https://see.tongji.edu.cn/index.htm" aria-label="Open Tongji University website"><img height="75" src="assets/institution_logo/tju.png" alt="Tongji University logo"></a>
               </td>
               <td width="10%" valign="middle" align="center">
-                <a href="http://lxy.njtech.edu.cn/"><img height="75" src="assets/institution_logo/njtech.png"></a>
+                <a href="http://lxy.njtech.edu.cn/" aria-label="Open Nanjing Tech University website"><img height="75" src="assets/institution_logo/njtech.png" alt="Nanjing Tech University logo"></a>
               </td>
             </tr>
           </tbody></table>
 
-        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20"><tbody>
-          <a id="news"></a>
+        <table class="section-table"><tbody>
           <tr>
-            <td>
-              <heading>News</heading>
-            <ul>
-              <li><strong>[10/2025]</strong> Our paper <a href="https://openaccess.thecvf.com/content/ICCV2025W/E2E3D/html/Xia_CSG-Fusion_Consistent_Sparse-View_Gaussian_Splatting_via_Matching-based_Fusion_ICCVW_2025_paper.html">CSG-Fusion</a> received the 🏆 <strong>Best Paper Award</strong> at the ICCV 2025 Workshop E2E3D! </li>
-              <br>
-              <li><strong>[08/2025]</strong> Our paper <a href="https://openaccess.thecvf.com/content/ICCV2025W/E2E3D/html/Xia_CSG-Fusion_Consistent_Sparse-View_Gaussian_Splatting_via_Matching-based_Fusion_ICCVW_2025_paper.html">CSG-Fusion</a> is accepted by ICCV 2025 Workshop E2E3D. </li>
-              <br>
-              <li><strong>[07/2025]</strong> I graduated from <a href="https://see.tongji.edu.cn/index.htm" style="color: inherit;">Tongji University</a> with a Master's degree in Computer Science! 🎓 </li>
-              <br>
-              <li><strong>[06/2025]</strong> Our paper <a href="https://arxiv.org/abs/2504.09904">LiteTracker</a> is accepted by MICCAI 2025. </li>
-              <br>
-              <li><strong>[01/2025]</strong> Our paper <a href="https://ieeexplore.ieee.org/document/11127468/">Re0</a> is accepted by ICRA 2025. </li>
-              <br>
-              <a href="javascript:toggleblock(&#39;old_news&#39;)">---- show more ----</a>
-              <div id="old_news" style="display: none;">
-                <li><strong>[08/2024]</strong> I will join <a href="https://www.imfusion.com/">Imfusion</a> as a working student on the topic of Dense Video Point Tracking.</li>
-                <br>
-                <li><strong>[01/2024]</strong> I will join <a href="https://cvg.cit.tum.de/">TUM-CVG</a>, <a href="https://www.mdsi.tum.de/en/di-lab/tum-di-lab/">TUM-DI-LAB</a> under the co-supervision of <a href="https://cvg.cit.tum.de/members/xiya"> Dr. Yan Xia</a> and <a href="https://chuanxiaz.com/">Dr. Chuanxia Zheng</a>.</li>
-                <br>  
-                <li><strong>[05/2023]</strong> I will join <a href="https://www.cit.tum.de/en/cit/home/" style="color: inherit;">Technische University München</a> in the winter semester 23/24 as a Master student in Electrical Engineering, see you in München🍻! </li>
+            <td class="section-cell">
+              <a id="news"></a>
+              <div class="news-panel">
+                <div class="news-panel-head">
+                  <heading>News</heading>
+                </div>
+
+                <div class="news-list">
+                  <div class="news-item">
+                    <div class="news-date">10/2025</div>
+                    <p class="news-body">Our paper <a href="https://openaccess.thecvf.com/content/ICCV2025W/E2E3D/html/Xia_CSG-Fusion_Consistent_Sparse-View_Gaussian_Splatting_via_Matching-based_Fusion_ICCVW_2025_paper.html">CSG-Fusion</a> received the 🏆 <strong>Best Paper Award</strong> at the ICCV 2025 Workshop E2E3D.</p>
+                  </div>
+                  <div class="news-item">
+                    <div class="news-date">08/2025</div>
+                    <p class="news-body">Our paper <a href="https://openaccess.thecvf.com/content/ICCV2025W/E2E3D/html/Xia_CSG-Fusion_Consistent_Sparse-View_Gaussian_Splatting_via_Matching-based_Fusion_ICCVW_2025_paper.html">CSG-Fusion</a> is accepted by ICCV 2025 Workshop E2E3D.</p>
+                  </div>
+                  <div class="news-item">
+                    <div class="news-date">07/2025</div>
+                    <p class="news-body">I graduated from <a href="https://see.tongji.edu.cn/index.htm" style="color: inherit;">Tongji University</a> with a Master's degree in Computer Science. 🎓</p>
+                  </div>
+                  <div class="news-item">
+                    <div class="news-date">06/2025</div>
+                    <p class="news-body">Our paper <a href="https://arxiv.org/abs/2504.09904">LiteTracker</a> is accepted by MICCAI 2025.</p>
+                  </div>
+                  <div class="news-item">
+                    <div class="news-date">01/2025</div>
+                    <p class="news-body">Our paper <a href="https://ieeexplore.ieee.org/document/11127468/">Re0</a> is accepted by ICRA 2025.</p>
+                  </div>
+                </div>
+
+                <a class="news-toggle" href="#old_news" data-toggle-target="old_news" aria-controls="old_news" aria-expanded="false">Show older news</a>
+
+                <div id="old_news" class="news-archive" style="display: none;">
+                  <div class="news-list news-list-archived">
+                    <div class="news-item">
+                      <div class="news-date">08/2024</div>
+                      <p class="news-body">I will join <a href="https://www.imfusion.com/">Imfusion</a> as a working student on the topic of Dense Video Point Tracking.</p>
+                    </div>
+                    <div class="news-item">
+                      <div class="news-date">01/2024</div>
+                      <p class="news-body">I will join <a href="https://cvg.cit.tum.de/">TUM-CVG</a>, <a href="https://www.mdsi.tum.de/en/di-lab/tum-di-lab/">TUM-DI-LAB</a> under the co-supervision of <a href="https://cvg.cit.tum.de/members/xiya">Dr. Yan Xia</a> and <a href="https://chuanxiaz.com/">Dr. Chuanxia Zheng</a>.</p>
+                    </div>
+                    <div class="news-item">
+                      <div class="news-date">05/2023</div>
+                      <p class="news-body">I will join <a href="https://www.cit.tum.de/en/cit/home/" style="color: inherit;">Technische University München</a> in the winter semester 23/24 as a Master student in Electrical Engineering, see you in München🍻!</p>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </ul>
             </td>
           </tr>
         </tbody></table>
        
-
-        <!-- <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <tr>
-          <td style="padding:20px;width:100%;vertical-align:middle">
-                <heading>Short Bio</heading>
-                <a id="bio"></a>
-                <br><br>
-                I am a second-year master's student in Electrical Engineering and Information Technology at the <a href="https://www.cit.tum.de/en/cit/home/" style="color: inherit;">Technical University of Munich </a>.
-                <br><br>
-                I am doing research internship with <a href="https://tangjiapeng.github.io/">Jiapeng Tang</a> and <a href="https://niessnerlab.org/members/matthias_niessner/profile.html">Prof. Matthias Nießner</a> at <a href="https://niessnerlab.org/">TUM Visual Computing Group</a>.
-                <br><br>
-                I was working as a working student at <a href="https://www.imfusion.com/">ImFusion</a> with 
-                    <a href="https://scholar.google.de/citations?hl=en&user=j2REtlAAAAAJ">Mert Asim Karaoglu</a>,
-                    <a href="https://www.cs.cit.tum.de/camp/members/benjamin-busam/">Dr. Benjamin Busam</a>,
-                    <a href="https://www.professoren.tum.de/en/navab-nassir">Prof. Nassir Navab</a>.
-                <br><br>
-                I was a master's student of <a href="https://cvg.cit.tum.de/">TUM-CVG</a>, 
-                    <a href="https://www.mdsi.tum.de/en/di-lab/tum-di-lab/">TUM-DI-LAB</a> working with 
-                    <a href="https://cvg.cit.tum.de/members/cremers">Prof. Daniel Cremers</a>, 
-                    <a href="https://cvg.cit.tum.de/members/xiya">Dr. Yan Xia</a>, 
-                    <a href="https://chuanxiaz.com/">Dr. Chuanxia Zheng</a> and 
-                    <a href="https://cvg.cit.tum.de/members/chwe">Weirong Chen</a>.
-                <br><br>
-                I obtained my Master's degree in Computer Science from the <a href="https://see.tongji.edu.cn/index.htm" style="color: inherit;">CAD Research Center, Tongji University</a>.
-                <br><br>
-                I did a research internship at <a href="https://www.zju.edu.cn/" style="color: inherit;">Zhejiang University</a> under the supervision of <a href="https://yiyiliao.github.io/">Prof. Yiyi Liao</a>.
-                <br><br>
-                
-                Before that, I received my B.Sc degree in Information and Computing Science from <a href="http://lxy.njtech.edu.cn/" style="color: inherit;">Department of Mathematics, Nanjing Tech University</a> in 2021.
-                <br><br>
-                I was born on April 20th, 2000 in <a href="https://en.wikipedia.org/wiki/Huai%27an">Huai'an</a>, China.
-                <br><br>
-                <a href="javascript:toggleblock(&#39;self_intro&#39;)">---- show more ----</a>
-                <div id="self_intro" style="display: none;">
-                  An interesting thing about my surname is that in the dialect of my hometown, it's pronounced as "yí" instead of "jī" in Mandarin, which is exactly the same as the German pronunciation of "ji". 
-                  <br>
-                  Just in case you didn't get it, the letter "j" in German is pronounced as “yott” (rhyming with “thought”). 
-                  <br>
-                  That is why learning German has been a miraculous experience for me.
-                  <br><br>
-                  * P.S.: My bachelor's degree is in a branch of mathematics, although it looks more like computer science.
-                  <br>
-                  I took many mathematics courses during my undergraduate years, such as "Mathematical Analysis", "Numerical Analysis", "ODE", "Optimization And Operations Research", etc. 
-                </div>
-            </td>
-          </tr>
-        </tbody></table> -->
-    
-    <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+    <table class="section-table"><tbody>
       <tr>
-        <td style="padding:20px;width:100%;vertical-align:middle">
+        <td class="section-cell">
           <a id="blog"></a>
-          <div class="blog-head-row">
-            <heading>Blog</heading>
-            <a class="blog-view-all" href="https://fusheng-ji.github.io/blog/">View all posts</a>
+          <div class="blog-panel">
+            <div class="blog-header">
+              <div class="blog-header-copy">
+                <heading>Blog</heading>
+                <p class="blog-section-note">Thoughts on research, 3D, video generation, and the occasional in-between.</p>
+              </div>
+              <a class="blog-view-all" href="https://fusheng-ji.github.io/blog/">View all posts</a>
+            </div>
+
+            <div id="blog-list" class="blog-list" aria-live="polite">
+              <div class="blog-loading">Loading blog posts...</div>
+            </div>
           </div>
-          <p class="blog-section-note">Thoughts on research, 3D, video generation, and the occasional in-between.</p>
         </td>
       </tr>
     </tbody></table>
-
-    <table id="blog-list" class="blog-list" style="width:100%;border:0px;border-spacing:0px 14px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <table class="section-table">
       <tbody>
         <tr>
-          <td class="blog-loading" style="padding:20px;">Loading blog posts...</td>
-        </tr>
-      </tbody>
-    </table>
-    <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-      <tbody>
-        <tr>
-          <td style="padding:20px;width:100%;vertical-align:middle">
-            <heading>Research Interests</heading>
-            <p>
-              My research interests focus on moving beyond isolated visual subproblems toward integrated models of virtual humans and 3D scenes that can perceive, generate, and reason about interaction in dynamic environments.
-            </p>
-            <p class="research-tags">
-              <span class="tag tag-purple">Long-term Tracking</span>
-              <span class="tag tag-green">3D/4D Reconstruction</span>
-              <span class="tag tag-orange">Scene Decomposition</span>
-              <span class="tag tag-blue">Video Generation</span>
-              <span class="tag tag-yellow">Avatar Animation</span>
-              <span class="tag tag-teal">Human Scene Interaction</span>
-            </p>
+          <td class="section-cell">
+            <div class="research-interests-panel">
+              <heading>Research Interests</heading>
+              <p class="research-interests-summary">
+                My research interests focus on moving beyond isolated visual subproblems toward integrated models of virtual humans and 3D scenes that can perceive, generate, and reason about interaction in dynamic environments.
+              </p>
 
-            
+              <div class="research-tags" aria-label="Research interest areas">
+                <span class="research-interest-tag research-interest-tag-purple">Long-term Tracking</span>
+                <span class="research-interest-tag research-interest-tag-green">3D/4D Reconstruction</span>
+                <span class="research-interest-tag research-interest-tag-orange">Scene Decomposition</span>
+                <span class="research-interest-tag research-interest-tag-blue">Video Generation</span>
+                <span class="research-interest-tag research-interest-tag-yellow">Avatar Animation</span>
+                <span class="research-interest-tag research-interest-tag-teal">Human Scene Interaction</span>
+              </div>
 
-            <div class="perception-wrapper" aria-hidden="false">
-              <svg class="perception-arrow" viewBox="0 0 100 28" preserveAspectRatio="xMidYMid meet" role="img" aria-label="encompass arrow">
-                <line x1="4" y1="6" x2="96" y2="6" stroke="#c7e6ef" stroke-width="2" stroke-linecap="round"/>
-                <polygon points="50,6 42,18 58,18" fill="#20c997" />
-              </svg>
-            </div>
+              <div class="perception-wrapper" aria-hidden="true">
+                <span class="perception-node"></span>
+              </div>
 
-            <div style="text-align:center;">
-              <div class="perception-label">Perception-Action World Models</div>
+              <div class="research-focus-card">
+                <span class="research-focus-eyebrow">Integrative Direction</span>
+                <div class="perception-label">Perception-Action World Models</div>
+                <p class="research-focus-note">Bridging geometry, generation, tracking, and interaction into a single modeling direction.</p>
+              </div>
             </div>
 
             <!-- <div class="timeline-container">
@@ -965,9 +2389,9 @@
       </tbody>
     </table>
     
-    <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+    <table class="section-table"><tbody>
       <tr>
-        <td style="padding:20px;width:100%;vertical-align:middle">
+        <td class="section-cell">
           <a id="Publications"></a>
           <heading>Publications</heading>
           <p style="margin-top:4px; color:#666; font-size:13px;">
@@ -978,732 +2402,891 @@
       </tr>
     </tbody></table>
 
-     <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-
-      <tr onmouseout="urf_stop()" onmouseover="urf_start()">
-          <td style="padding:20px;width:30%;vertical-align:middle">
-
-            <div class="teaser-box" style="display:flex;justify-content:center">
-              <img src='papers/CSG_Fusion_ICCV2025Workshop_E2E3D/teaser.png' class="teaser-img" width="200">
+     <table class="section-table experience-entry publication-entry"><tbody>
+      <tr>
+        <td class="entry-media-cell">
+          <div class="entry-visual-stack">
+            <div class="entry-visual">
+              <img src='papers/CSG_Fusion_ICCV2025Workshop_E2E3D/teaser.png' class="teaser-img" width="200" loading="lazy" decoding="async" alt="CSG-Fusion teaser image">
             </div>
-          </td>
+          </div>
+        </td>
 
-          <td style="padding:20px;width:70%;vertical-align:middle">
+        <td class="entry-content-cell">
+          <div class="publication-title-stack">
             <topictitle>CSG-Fusion: Consistent Sparse-View Gaussian Splatting via Matching-based Fusion</topictitle>
-            <br><br>
-            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
-              <span>
-                Yan Xia*† , <strong><u>Wenbo Ji*</u></strong>, Weirong Chen, Daniel Cremers
+            <div class="publication-meta-row">
+              <papertitle><em>ICCV Workshop E2E3D</em>, 2025</papertitle>
+              <span class="entry-side-note publication-award">
+                <a href="papers/CSG_Fusion_ICCV2025Workshop_E2E3D/CSG_fusion_certificate.pdf">Best Paper Award</a>
               </span>
-              <span class="tag tag-green">3D/4D Reconstruction</span>
             </div>
-            <p></p>
-            <div class="paper-meta">
-              <strong>
-                <em>ICCV Workshop E2E3D</em>, 2025
-                <span class="award-badge">
-                  <a href="papers/CSG_Fusion_ICCV2025Workshop_E2E3D/CSG_fusion_certificate.pdf">
-                    <strong>Best Paper Award</strong>
-                  </a>
-                </span>
-              </strong>
-              <div class="paper-links">
-                <a href="papers/CSG_Fusion_ICCV2025Workshop_E2E3D/CSG_fusion_poster.pdf">
-                  <img src="assets/misc/poster-logo.svg" height="20" style="vertical-align:middle;">
-                </a>
-                <a href="https://openaccess.thecvf.com/content/ICCV2025W/E2E3D/html/Xia_CSG-Fusion_Consistent_Sparse-View_Gaussian_Splatting_via_Matching-based_Fusion_ICCVW_2025_paper.html">
-                  <img src="assets/misc/paper_logo.svg" height="16" style="vertical-align:middle;">
-                </a>
-              </div>
+          </div>
+          <div class="split-row experience-detail-row">
+            <div class="entry-links" aria-label="Publication links">
+              <a href="papers/CSG_Fusion_ICCV2025Workshop_E2E3D/CSG_fusion_poster.pdf">
+                <img src="assets/misc/poster-logo.svg" height="20" class="meta-icon" decoding="async" alt="Poster">
+              </a>
+              <a href="https://openaccess.thecvf.com/content/ICCV2025W/E2E3D/html/Xia_CSG-Fusion_Consistent_Sparse-View_Gaussian_Splatting_via_Matching-based_Fusion_ICCVW_2025_paper.html">
+                <img src="assets/misc/paper_logo.svg" height="16" class="meta-icon" decoding="async" alt="Paper">
+              </a>
             </div>
-            <p>
-            A feed-forward framework that mindfully integrates pixel-aligned pointmap to reduce redundant primitives and produce compact and consistent 3D structures.</p>
-          </td>
-      </tr> 
+            <span class="tag tag-green">3D/4D Reconstruction</span>
+          </div>
+          <div class="entry-block">
+            <p class="entry-label">Authors</p>
+            <div class="entry-byline">Yan Xia*†, <strong><u>Wenbo Ji*</u></strong>, Weirong Chen, Daniel Cremers</div>
+          </div>
+          <div class="entry-block">
+            <p class="entry-label">Overview</p>
+            <p class="entry-summary">
+              A feed-forward framework that mindfully integrates pixel-aligned pointmap to reduce redundant primitives and produce compact and consistent 3D structures.
+            </p>
+          </div>
+        </td>
+      </tr>
+    </tbody></table>
 
-      <tr onmouseout="urf_stop()" onmouseover="urf_start()">
-        <td style="padding:20px;width:30%;vertical-align:middle">
-
-            <div class="teaser-box" style="display:flex;justify-content:center">
-              <img src='papers/LiteTracker_MICCAI2025/teaser.svg' class="teaser-img" width="200">
+    <table class="section-table experience-entry publication-entry"><tbody>
+      <tr>
+        <td class="entry-media-cell">
+          <div class="entry-visual-stack">
+            <div class="entry-visual">
+              <img src='papers/LiteTracker_MICCAI2025/teaser.svg' class="teaser-img" width="200" loading="lazy" decoding="async" alt="LiteTracker teaser image">
             </div>
-          </td>
+          </div>
+        </td>
 
-          <td style="padding:20px;width:70%;vertical-align:middle">
+        <td class="entry-content-cell">
+          <div class="publication-title-stack">
             <topictitle>LiteTracker: Leveraging Temporal Causality for Accurate Low-latency Tissue Tracking</topictitle>
-            <br><br>
-            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
-              <span>
-                Mert Asim Karaoglu, <strong><u>Wenbo Ji</u></strong>, Ahmed Abbas,<br>
-                Nassir Navab, Benjamin Busam, Alexander Ladikos† 
-              </span>
-              <span class="tag tag-purple">Long-term Tracking</span>
+            <div class="publication-meta-row">
+              <papertitle><em>MICCAI</em>, 2025</papertitle>
             </div>
-            <p></p>
-            <div class="paper-meta">
-              <strong><em>MICCAI</em>, 2025</strong>
-              <div class="paper-links">
+          </div>
+          <div class="split-row experience-detail-row">
+            <div class="entry-links" aria-label="Publication links">
               <a href="https://arxiv.org/abs/2504.09904">
-                <img src="assets/misc/arxiv_logo.svg" height="20" style="vertical-align:middle;">
+                <img src="assets/misc/arxiv_logo.svg" height="20" class="meta-icon" decoding="async" alt="arXiv">
               </a>
               <a href="https://papers.miccai.org/miccai-2025/paper/2578_paper.pdf">
-                <img src="assets/misc/paper_logo.svg" height="16" style="vertical-align:middle;">
+                <img src="assets/misc/paper_logo.svg" height="16" class="meta-icon" decoding="async" alt="Paper">
               </a>
               <a href="https://www.youtube.com/watch?v=aDK18yXq0AA">
-                <img src="assets/misc/yotube_logo.png" height="16" style="vertical-align:middle;">
+                <img src="assets/misc/yotube_logo.png" height="16" class="meta-icon" decoding="async" alt="Video">
               </a>
               <a href="https://github.com/ImFusionGmbH/lite-tracker">
-                <img src="assets/misc/github-logo.png" height="20" style="vertical-align:middle;">
+                <img src="assets/misc/github-logo.png" height="20" class="meta-icon" decoding="async" alt="GitHub">
               </a>
-              </div>
             </div>
-            <p>
-            A low-latency method for tissue online tracking in endoscopic video streams, introduces a set of training-free runtime optimizations on a state-of-the-art long-term point tracking method.</p>
-          </td>
-        </tr> 
+            <span class="tag tag-purple">Long-term Tracking</span>
+          </div>
+          <div class="entry-block">
+            <p class="entry-label">Authors</p>
+            <div class="entry-byline">Mert Asim Karaoglu, <strong><u>Wenbo Ji</u></strong>, Ahmed Abbas, Nassir Navab, Benjamin Busam, Alexander Ladikos†</div>
+          </div>
+          <div class="entry-block">
+            <p class="entry-label">Overview</p>
+            <p class="entry-summary">
+              A low-latency method for tissue online tracking in endoscopic video streams, introduces a set of training-free runtime optimizations on a state-of-the-art long-term point tracking method.
+            </p>
+          </div>
+        </td>
+      </tr>
+    </tbody></table>
 
-
-
-        <tr onmouseout="urf_stop()" onmouseover="urf_start()">
-          <td style="padding:20px;width:30%;vertical-align:middle">
-            <div class="teaser-box" style="display:flex;justify-content:center">
-              <img src='papers/Re0_ICRA2025/segmentation_result.svg' class="teaser-img" width="200">
+    <table class="section-table experience-entry publication-entry"><tbody>
+      <tr>
+        <td class="entry-media-cell">
+          <div class="entry-visual-stack">
+            <div class="entry-visual">
+              <img src='papers/Re0_ICRA2025/segmentation_result.svg' class="teaser-img" width="200" loading="lazy" decoding="async" alt="RE0 teaser image">
             </div>
-          </td>
+          </div>
+        </td>
 
-          <td style="padding:20px;width:70%;vertical-align:middle">
+        <td class="entry-content-cell">
+          <div class="publication-title-stack">
             <topictitle>RE0: Recognize Everything with 3D Zero-shot Instance Segmentation</topictitle>
-            <br><br>
-            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
-              <span>
-                Xiaohan Yan*, Zijian Jiang*, Yinghao Shuai*, Nan Wang, Xiaowei Song, <br>
-                <strong><u>Wenbo Ji</u></strong>, Ge Wu, Jinyu He, Gang Wei, Zhicheng Wang† 
-              </span>
-              <span class="tag tag-orange">Scene Decompostion</span>
+            <div class="publication-meta-row">
+              <papertitle><em>ICRA</em>, 2025</papertitle>
             </div>
-            <p></p>
-            <div class="paper-meta">
-              <strong><em>ICRA</em>, 2025</strong>
-              <div class="paper-links">
-                <a href="https://ieeexplore.ieee.org/document/11127468/">
-                  <img src="assets/misc/ieee-logo.svg" height="40" style="vertical-align:middle;">
-                </a>
-                <a href="https://recognizeeverything.github.io/">
-                  <img src="assets/misc/website_logo.png" height="20" style="vertical-align:middle;">
-                </a>
-                <a href="https://github.com/RecognizeEverything/Re0">
-                  <img src="assets/misc/github-logo.png" height="20" style="vertical-align:middle;">
-                </a>
-              </div>
+          </div>
+          <div class="split-row experience-detail-row">
+            <div class="entry-links" aria-label="Publication links">
+              <a href="https://ieeexplore.ieee.org/document/11127468/">
+                <img src="assets/misc/ieee-logo.svg" height="40" class="meta-icon ieee-inline-logo" decoding="async" alt="IEEE">
+              </a>
+              <a href="https://recognizeeverything.github.io/">
+                <img src="assets/misc/website_logo.png" height="20" class="meta-icon" decoding="async" alt="Project website">
+              </a>
+              <a href="https://github.com/RecognizeEverything/Re0">
+                <img src="assets/misc/github-logo.png" height="20" class="meta-icon" decoding="async" alt="GitHub">
+              </a>
             </div>
-            <p>
-            Given 3D point clouds and multi-view RGB-D images with poses, Re0 leverages the 3D geometric information, projection relationships and CLIP semantic features for 3D zero-shot instance segmentation.</p>
-          </td>
-        </tr> 
-      </tbody></table>
+            <span class="tag tag-orange">Scene Decompostion</span>
+          </div>
+          <div class="entry-block">
+            <p class="entry-label">Authors</p>
+            <div class="entry-byline">Xiaohan Yan*, Zijian Jiang*, Yinghao Shuai*, Nan Wang, Xiaowei Song, <strong><u>Wenbo Ji</u></strong>, Ge Wu, Jinyu He, Gang Wei, Zhicheng Wang†</div>
+          </div>
+          <div class="entry-block">
+            <p class="entry-label">Overview</p>
+            <p class="entry-summary">
+              Given 3D point clouds and multi-view RGB-D images with poses, Re0 leverages the 3D geometric information, projection relationships and CLIP semantic features for 3D zero-shot instance segmentation.
+            </p>
+          </div>
+        </td>
+      </tr>
+    </tbody></table>
      
       
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+      <table class="section-table"><tbody>
         <tr>
-        <td style="padding:20px;width:100%;vertical-align:middle">
+        <td class="section-cell">
           <heading>Thesis</heading>
         </td>
         </tr>
       </tbody></table>
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        <td style="padding:20px;width:30%;vertical-align:middle">
-            <div style="display:flex;justify-content:center;margin-bottom:10px;">
-                <img src="assets/institution_logo/tju.png" width="160">
-            </div>
-            <div class="teaser-box" style="display:flex;justify-content:center">
-                <img src="thesis/tongji/pipeline.svg" class="teaser-img" width="180">
+      <table class="section-table experience-entry thesis-entry"><tbody><tr>
+        <td class="entry-media-cell">
+            <div class="entry-visual-stack">
+              <div class="entry-visual is-logo">
+                <img src="assets/institution_logo/tju.png" width="160" loading="lazy" decoding="async" alt="Tongji University logo">
+              </div>
+              <div class="entry-visual is-teaser">
+                <img src="thesis/tongji/pipeline.svg" class="teaser-img" width="180" loading="lazy" decoding="async" alt="Thesis reconstruction pipeline diagram">
+              </div>
             </div>
         </td>
 
-        <td style="padding:20px;width:70%;vertical-align:middle;text-align:left;">
-          <topictitle>4D Half Gaussian Splatting based Endoscopic Stereo Scene Reconstruction</topictitle>
-          <br><br>
-          <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
-            <p style="margin:0;">
-              <strong>Tongji University Master's Thesis, 2025</strong>
-            </p>
+        <td class="entry-content-cell">
+          <div class="split-row">
+            <topictitle>Endoscopic Scene Reconstruction with 4D Half Gaussian Splatting</topictitle>
+            <span class="text-right experience-side-meta">
+              <papertitle>2025</papertitle>
+            </span>
+          </div>
+          <div class="split-row experience-detail-row">
+            <span class="experience-type">Master's Thesis</span>
             <span class="tag tag-green">3D/4D Reconstruction</span>
           </div>
-          <p>
+          <div class="entry-block">
+            <p class="entry-label">Overview</p>
+          <p class="entry-summary">
             Given stereo endoscopic videos of deformable tissues, this thesis proposes a 4D deformable half-Gaussian splatting framework with depth-prior initialization, temporal–spatial encoding, and lightweight Gaussian pruning for high-fidelity, real-time surgical scene reconstruction.
           </p>
+          </div>
         </td>
-      </tbody></table>
+      </tr></tbody></table>
 
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+      <table class="section-table"><tbody>
         <tr>
-        <td style="padding:20px;width:100%;vertical-align:middle">
+        <td class="section-cell">
           <a id="experiences"></a>
           <heading>Experiences</heading>
         </td>
         </tr>
         </tbody></table>
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <!-- Research Internship @ TUM Visual Computing -->
-            <td style="padding:20px;width:30%;vertical-align:middle">
-                <div style="display:flex;justify-content:center;margin-bottom:20px;">
-                    <img src='assets/institution_logo/visual_computing_lab.svg' width="200">
-                </div>
-                <div style="display:flex;justify-content:center;">
-                    <img src='assets/institution_logo/tum.png' width="200">
+        <table class="section-table experience-entry"><tbody>
+          <!-- Internship @ Agile Robots SE -->
+            <td class="entry-media-cell">
+                <div class="experience-logo-stack">
+                  <div class="experience-logo-card">
+                    <img src='assets/institution_logo/Agile_Robots_logo.svg' width="200" loading="lazy" decoding="async" alt="Agile Robots SE logo">
+                  </div>
                 </div>
             </td>
   
-            <td style="padding:20px;width:70%;vertical-align:middle">
-                <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
-                  <sub_heading>Master Thesis</sub_heading>
-                  <span style="text-align:right;">
-                    <papertitle>March 2026 - Now</papertitle><br>
-                    <span class="topic-location">Munich, Germany</span>
+            <td class="entry-content-cell">
+                <div class="split-row">
+                  <sub_heading>Video-Action World Model for Robot Dexterous Manipulation</sub_heading>
+                  <span class="text-right experience-side-meta">
+                    <papertitle>Apr 2026 - Now</papertitle>
                   </span>
                 </div>
                 <br>
-                <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
-                  <span class="topic-title">Topic - Human Motion Video Diffusion</span>
-                  <span>
+                <div class="split-row experience-detail-row">
+                  <span class="experience-type">Internship</span>
+                  <span class="tag tag-slate tag-wrap">Perception-Action World Models</span>
+                </div>
+                <div class="collab-section">
+                  <div class="collab-heading">Mentors</div>
+                  <div class="collab-list">
+                    <div class="collab-row">
+                      <span class="collab-name">Mahdi Hamad</span>
+                      <span class="collab-org">Agile Robots SE</span>
+                    </div>
+                  </div>
+                </div>
+            </td>
+        </tbody></table>
+
+        <table class="section-table experience-entry"><tbody>
+          <!-- Research Internship @ TUM Visual Computing -->
+            <td class="entry-media-cell">
+                <div class="experience-logo-stack">
+                  <div class="experience-logo-card">
+                    <img src='assets/institution_logo/visual_computing_lab.svg' width="200" loading="lazy" decoding="async" alt="TUM Visual Computing Lab logo">
+                  </div>
+                  <div class="experience-logo-card">
+                    <img src='assets/institution_logo/tum.png' width="200" loading="lazy" decoding="async" alt="Technical University of Munich logo">
+                  </div>
+                </div>
+            </td>
+  
+            <td class="entry-content-cell">
+                <div class="split-row">
+                  <sub_heading>Human Motion Video Diffusion</sub_heading>
+                  <span class="text-right experience-side-meta">
+                    <papertitle>March 2026 - Now</papertitle>
+                  </span>
+                </div>
+                <br>
+                <div class="split-row experience-detail-row">
+                  <span class="experience-type">Master Thesis</span>
+                  <span class="experience-tags">
                     <span class="tag tag-blue">Video Generation</span>
                     <span class="tag tag-teal">Human Scene Interaction</span>
                   </span>
                 </div>
-                <br>
-                <div class="collab-row">
-                  <span class="collab-name">
-                    <a href="https://ychgoaround.github.io/">Yu Chi</a>
-                  </span>
-                </div>
-                <div class="collab-row">
-                  <span class="collab-name">
-                    <a href="https://tangjiapeng.github.io/">Jiapeng Tang</a>
-                  </span>
-                </div>
-                <div class="collab-row">
-                  <span class="collab-name">
-                    <a href="https://niessnerlab.org/members/matthias_niessner/profile.html">Prof. Matthias Nießner</a>
-                  </span>
+                <div class="collab-section">
+                  <div class="collab-heading">Mentors</div>
+                  <div class="collab-list">
+                    <div class="collab-row">
+                      <span class="collab-name">
+                        <a href="https://ychgoaround.github.io/">Yu Chi</a>,
+                        <a href="https://tangjiapeng.github.io/">Jiapeng Tang</a>,
+                        <a href="https://niessnerlab.org/members/matthias_niessner/profile.html">Prof. Matthias Nießner</a>
+                      </span>
+                      <span class="collab-org">TUM Visual Computing</span>
+                    </div>
+                  </div>
                 </div>
             </td>
         </tbody></table>
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+        <table class="section-table experience-entry"><tbody>
           <!-- Research Internship @ TUM Visual Computing -->
-            <td style="padding:20px;width:30%;vertical-align:middle">
-                <div style="display:flex;justify-content:center;margin-bottom:20px;">
-                    <img src='assets/institution_logo/visual_computing_lab.svg' width="200">
-                </div>
-                <div style="display:flex;justify-content:center;">
-                    <img src='assets/institution_logo/tum.png' width="200">
+            <td class="entry-media-cell">
+                <div class="experience-logo-stack">
+                  <div class="experience-logo-card">
+                    <img src='assets/institution_logo/visual_computing_lab.svg' width="200" loading="lazy" decoding="async" alt="TUM Visual Computing Lab logo">
+                  </div>
+                  <div class="experience-logo-card">
+                    <img src='assets/institution_logo/tum.png' width="200" loading="lazy" decoding="async" alt="Technical University of Munich logo">
+                  </div>
                 </div>
             </td>
   
-            <td style="padding:20px;width:70%;vertical-align:middle">
-                <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
-                  <sub_heading>Research Internship</sub_heading>
-                  <span style="text-align:right;">
-                    <papertitle>April 2025 - March 2026</papertitle><br>
-                    <span class="topic-location">Munich, Germany</span>
+            <td class="entry-content-cell">
+                <div class="split-row">
+                  <sub_heading>Human Head Avatar Animation</sub_heading>
+                  <span class="text-right experience-side-meta">
+                    <papertitle>April 2025 - March 2026</papertitle>
                   </span>
                 </div>
                 <br>
-                <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
-                  <span class="topic-title">Topic - Human Head Avatar Animation</span>
-                  <span>
+                <div class="split-row experience-detail-row">
+                  <span class="experience-type">Research Internship</span>
+                  <span class="experience-tags">
                     <span class="tag tag-blue">Video Generation</span>
                     <span class="tag tag-yellow">Avatar Animation</span>
                   </span>
                 </div>
-                <br>
-                <div class="collab-row">
-                  <span class="collab-name">
-                    <a href="https://tangjiapeng.github.io/">Jiapeng Tang</a>
-                  </span>
-                </div>
-                <div class="collab-row">
-                  <span class="collab-name">
-                    <a href="https://niessnerlab.org/members/matthias_niessner/profile.html">Prof. Matthias Nießner</a>
-                  </span>
+                <div class="collab-section">
+                  <div class="collab-heading">Mentors</div>
+                  <div class="collab-list">
+                    <div class="collab-row">
+                      <span class="collab-name">
+                        <a href="https://tangjiapeng.github.io/">Jiapeng Tang</a>,
+                        <a href="https://niessnerlab.org/members/matthias_niessner/profile.html">Prof. Matthias Nießner</a>
+                      </span>
+                      <span class="collab-org">TUM Visual Computing</span>
+                    </div>
+                  </div>
                 </div>
             </td>
         </tbody></table>
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+        <table class="section-table experience-entry"><tbody>
           <!-- Research Internship @ ImFusion / TUM CAMP -->
-            <td style="padding:20px;width:30%;vertical-align:middle">
-                <div style="display:flex;justify-content:center;margin-bottom:40px;">
-                    <img src='assets/institution_logo/imfusion.png' width="200">
-                </div>
-                <div style="display:flex;justify-content:center;">
-                    <img src='assets/institution_logo/tum_camp.png' width="150">
+            <td class="entry-media-cell">
+                <div class="experience-logo-stack">
+                  <div class="experience-logo-card">
+                    <img src='assets/institution_logo/imfusion.png' width="200" loading="lazy" decoding="async" alt="ImFusion logo">
+                  </div>
+                  <div class="experience-logo-card">
+                    <img src='assets/institution_logo/tum_camp.png' width="150" loading="lazy" decoding="async" alt="TUM CAMP logo">
+                  </div>
                 </div>
             </td>
   
-            <td style="padding:20px;width:70%;vertical-align:middle">
-                <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
-                  <sub_heading>Research Internship</sub_heading>
-                  <span style="text-align:right;">
-                    <papertitle>Aug 2024 - April 2025</papertitle><br>
-                    <span class="topic-location">Munich, Germany</span>
+            <td class="entry-content-cell">
+                <div class="split-row">
+                  <sub_heading>Dense Point Tracking</sub_heading>
+                  <span class="text-right experience-side-meta">
+                    <papertitle>Aug 2024 - April 2025</papertitle>
                   </span>
                 </div>
                 <br>
-                <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
-                  <span class="topic-title">Topic - Dense Point Tracking</span>
+                <div class="split-row experience-detail-row">
+                  <span class="experience-type">Research Internship</span>
                   <span class="tag tag-purple">Long-term Tracking</span>
                 </div>
-                <br>
-                <div class="collab-row">
-                  <span class="collab-name">
-                    <a href="https://scholar.google.de/citations?hl=en&user=j2REtlAAAAAJ">Mert Asim Karaoglu</a>
-                  </span>
-                  <span class="collab-org">Imfusion &amp; TUM CAMP</span>
-                </div>
-                <div class="collab-row">
-                  <span class="collab-name">
-                    <a href="https://www.cs.cit.tum.de/camp/members/benjamin-busam/">Dr. Benjamin Busam</a>
-                  </span>
-                  <span class="collab-org">TUM CAMP</span>
-                </div>
-                <div class="collab-row">
-                  <span class="collab-name">
-                    <a href="https://www.professoren.tum.de/en/navab-nassir">Prof. Nassir Navab</a>
-                  </span>
-                  <span class="collab-org">TUM CAMP</span>
-                </div>
-                <div class="collab-row">
-                  <span class="collab-name">
-                    <a href="https://scholar.google.de/citations?user=0fUQE3EAAAAJ&hl=en">Dr. Alexander Ladikos</a>
-                  </span>
-                  <span class="collab-org">Imfusion</span>
+                <div class="collab-section">
+                  <div class="collab-heading">Mentors</div>
+                  <div class="collab-list">
+                    <div class="collab-row">
+                      <span class="collab-name">
+                        <a href="https://scholar.google.de/citations?hl=en&user=j2REtlAAAAAJ">Mert Asim Karaoglu</a>
+                      </span>
+                      <span class="collab-org">Imfusion &amp; TUM CAMP</span>
+                    </div>
+                    <div class="collab-row">
+                      <span class="collab-name">
+                        <a href="https://www.cs.cit.tum.de/camp/members/benjamin-busam/">Prof. Benjamin Busam</a>,
+                        <a href="https://www.professoren.tum.de/en/navab-nassir">Prof. Nassir Navab</a>
+                      </span>
+                      <span class="collab-org">TUM CAMP</span>
+                    </div>
+                    <div class="collab-row">
+                      <span class="collab-name">
+                        <a href="https://scholar.google.de/citations?user=0fUQE3EAAAAJ&hl=en">Dr. Alexander Ladikos</a>
+                      </span>
+                      <span class="collab-org">Imfusion</span>
+                    </div>
+                  </div>
                 </div>
             </td>
         </tbody></table>
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+        <table class="section-table experience-entry"><tbody>
           <!-- Guided Research @ Oxford/TUM -->
-            <td style="padding:20px;width:30%;vertical-align:middle">
-                <div style="display:flex;justify-content:center;margin-bottom:30px;">
-                    <img src='assets/institution_logo/oxford.png' width="200">
-                </div>
-                <div style="display:flex;justify-content:center;">
-                    <img src='assets/institution_logo/tum.png' width="200">
+            <td class="entry-media-cell">
+                <div class="experience-logo-stack">
+                  <div class="experience-logo-card">
+                    <img src='assets/institution_logo/oxford.png' width="200" loading="lazy" decoding="async" alt="University of Oxford logo">
+                  </div>
+                  <div class="experience-logo-card">
+                    <img src='assets/institution_logo/tum.png' width="200" loading="lazy" decoding="async" alt="Technical University of Munich logo">
+                  </div>
+                  <div class="experience-logo-card">
+                    <img src='assets/institution_logo/TUM_DI_Lab.svg' width="200" loading="lazy" decoding="async" alt="TUM DI Lab logo">
+                  </div>
                 </div>
             </td>
   
-            <td style="padding:20px;width:70%;vertical-align:middle">
-                <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
-                  <sub_heading>Guided Research</sub_heading>
-                  <span style="text-align:right;">
-                    <papertitle>Feb 2024 - Aug 2025</papertitle><br>
-                    <span class="topic-location">Munich, Germany</span>
+            <td class="entry-content-cell">
+                <div class="split-row">
+                  <sub_heading>3D Scene Decomposition</sub_heading>
+                  <span class="text-right experience-side-meta">
+                    <papertitle>Feb 2024 - Aug 2025</papertitle>
                   </span>
                 </div>
                 <br>
-                <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
-                  <span class="topic-title">Topic - 3D Scene Decomposition</span>
-                  <span>
+                <div class="split-row experience-detail-row">
+                  <span class="experience-type">Guided Research</span>
+                  <span class="experience-tags">
                     <span class="tag tag-green">3D/4D Reconstruction</span>
                     <span class="tag tag-orange">Scene Decompostion</span>
                   </span>
                 </div>
-                <br>
-                <div class="collab-row">
-                  <span class="collab-name">
-                    <a href="https://cvg.cit.tum.de/members/cremers">Prof. Daniel Cremers</a>
-                  </span>
-                  <span class="collab-org">TUM CVG</span>
-                </div>
-                <div class="collab-row">
-                  <span class="collab-name">
-                    <a href="https://chuanxiaz.com/">Dr. Chuanxia Zheng</a>
-                  </span>
-                  <span class="collab-org">Oxford VGG</span>
-                </div>
-                <div class="collab-row">
-                  <span class="collab-name">
-                    <a href="https://cvg.cit.tum.de/members/xiya">Dr. Yan Xia</a>
-                  </span>
-                  <span class="collab-org">TUM CVG</span>
-                </div>
-                <div class="collab-row">
-                  <span class="collab-name">
-                    <a href="https://chiaki530.github.io/">Weirong Chen</a>
-                  </span>
-                  <span class="collab-org">TUM CVG</span>
+                <div class="collab-section">
+                  <div class="collab-heading">Mentors</div>
+                  <div class="collab-list">
+                    <div class="collab-row">
+                      <span class="collab-name">
+                        <a href="https://cvg.cit.tum.de/members/cremers">Prof. Daniel Cremers</a>,
+                        <a href="https://cvg.cit.tum.de/members/xiya">Prof. Yan Xia</a>,
+                        <a href="https://chiaki530.github.io/">Weirong Chen</a>
+                      </span>
+                      <span class="collab-org">TUM CVG</span>
+                    </div>
+                    <div class="collab-row">
+                      <span class="collab-name">
+                        <a href="https://chuanxiaz.com/">Prof. Chuanxia Zheng</a>
+                      </span>
+                      <span class="collab-org">Oxford VGG</span>
+                    </div>
+                  </div>
                 </div>
             </td>
         </tbody></table>
 
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+        <table class="section-table experience-entry"><tbody>
           <!-- Research Assistant @ ZJU -->
-            <td style="padding:20px;width:30%;vertical-align:middle">
-                <div style="display:flex;justify-content:center;">
-                    <img src='assets/institution_logo/zju.png' width="200">
+            <td class="entry-media-cell">
+                <div class="experience-logo-stack">
+                  <div class="experience-logo-card">
+                    <img src='assets/institution_logo/zju.png' width="200" loading="lazy" decoding="async" alt="Zhejiang University logo">
+                  </div>
                 </div>
             </td>
   
-            <td style="padding:20px;width:70%;vertical-align:middle">
-              <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
-                <sub_heading>Research Assistant</sub_heading>
-                <span style="text-align:right;">
-                  <papertitle>July 2023 - Sep 2023</papertitle><br>
-                  <span class="topic-location">Hangzhou, China</span>
+            <td class="entry-content-cell">
+              <div class="split-row">
+                <sub_heading>Large Scale 3D Scene Reconstruction</sub_heading>
+                <span class="text-right experience-side-meta">
+                  <papertitle>July 2023 - Sep 2023</papertitle>
                 </span>
               </div>
               <br>
-              <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
-                <span class="topic-title">Topic - Large Scale 3D Scene Reconstruction</span>
+              <div class="split-row experience-detail-row">
+                <span class="experience-type">Research Assistant</span>
                 <span class="tag tag-green">3D/4D Reconstruction</span>
               </div>
-              <br>
-              <div class="collab-row">
-                <span class="collab-name">
-                  <a href="https://yiyiliao.github.io/">Prof. Yiyi Liao</a>
-                </span>
+              <div class="collab-section">
+                <div class="collab-heading">Mentors</div>
+                <div class="collab-list">
+                  <div class="collab-row">
+                    <span class="collab-name">
+                      <a href="https://yiyiliao.github.io/">Prof. Yiyi Liao</a>
+                    </span>
+                    <span class="collab-org">Zhejiang University</span>
+                  </div>
+                </div>
               </div>
             </td>
         </tbody></table>
- 
-      
-      <!-- <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+      <table class="section-table"><tbody>
         <tr>
-        <td style="padding:20px;width:100%;vertical-align:middle">
-          <heading>Professional Services</heading>
-        </td>
-        </tr>
-      </tbody></table>
-      <table style="padding-left:20px;width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        <tr>
-          <td>
-          • Conference Reviewer: CVPR
-          </td>
-        </tr>
-      </tbody></table> -->
-       
-      <!-- <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        <tr>
-        <td style="padding:20px;width:100%;vertical-align:middle">
-          <heading>Teaching Experiences</heading>
-        </td>
-        </tr>
-      </tbody></table>
-      <table style="padding-left:20px;width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        <tr>
-          <td>
-            Not yet.😭
-          </td>
-        </tr>
-      </tbody></table> -->
-
-
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        <tr>
-        <td style="padding:20px;width:100%;vertical-align:middle">
+        <td class="section-cell">
           <a id="projects"></a>
           <heading>Projects</heading>
         </td>
         </tr>
       </tbody></table>
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <!-- write Projects here -->
-            <td style="padding:20px;width:30%;vertical-align:middle">
-                <div style="display:flex;justify-content:center;">
-                    <img src='projects/OpenUserStudyKit/banner.png' width="200">
-                </div>
-            </td>
+      <table class="section-table experience-entry project-entry"><tbody><tr>
+        <td class="entry-media-cell">
+          <div class="entry-visual-stack">
+            <div class="entry-visual">
+              <img src='projects/OpenUserStudyKit/banner.png' width="200" loading="lazy" decoding="async" alt="OpenUserStudyKit banner">
+            </div>
+          </div>
+        </td>
 
-            <td style="padding:20px;width:70%;vertical-align:middle">
-              <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%;">
-                <sub_heading>OpenUserStudyKit</sub_heading>
-                <div style="text-align:right;">
-                  <papertitle>March 2026</papertitle><br>
-                  <span class="topic-location">Personal Project</span>
-                </div>
-              </div>
-              <br>
-              <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%;">
-                <span class="project-subtitle">Reusable User Study Infrastructure</span>
-                <span>
-                  <a href="https://fusheng-ji.github.io/OpenUserStudyKit/">
-                    <img src="assets/misc/website_logo.png" height="20" style="vertical-align:middle;">
-                  </a>
-                   &nbsp 
-                  <a href="https://github.com/fusheng-ji/OpenUserStudyKit">
-                    <img src="assets/misc/github-logo.png" height="20" style="vertical-align:middle;">
-                  </a>
-                </span>
-              </div>
-              <br>
-              An open-source toolkit for building reusable user study questionnaires and experiment workflows.
-            </td>
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <!-- write Projects here -->
-            <td style="padding:20px;width:30%;vertical-align:middle">
-                <div style="display:flex;justify-content:center;">
-                    <img src='projects/liteavatar_wasm/banner.png' width="200">
-                </div>
-            </td>
+        <td class="entry-content-cell">
+          <div class="project-title-stack">
+            <topictitle>OpenUserStudyKit</topictitle>
+            <div class="project-meta-row">
+              <papertitle>March 2026</papertitle>
+            </div>
+          </div>
+          <div class="split-row experience-detail-row">
+            <span class="experience-type">Personal Project</span>
+            <div class="entry-links" aria-label="Project links">
+              <a href="https://fusheng-ji.github.io/OpenUserStudyKit/">
+                <img src="assets/misc/website_logo.png" height="20" class="meta-icon" decoding="async" alt="Project website">
+              </a>
+              <a href="https://github.com/fusheng-ji/OpenUserStudyKit">
+                <img src="assets/misc/github-logo.png" height="20" class="meta-icon" decoding="async" alt="GitHub">
+              </a>
+            </div>
+          </div>
+          <div class="entry-block">
+            <p class="entry-label">Focus</p>
+            <p class="entry-summary">Reusable User Study Infrastructure</p>
+          </div>
+          <div class="entry-block">
+            <p class="entry-label">Overview</p>
+            <p class="entry-summary">An open-source toolkit for building reusable user study questionnaires and experiment workflows.</p>
+          </div>
+        </td>
+      </tr></tbody></table>
 
-            <td style="padding:20px;width:70%;vertical-align:middle">
-              <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%;">
-                <sub_heading>LiteAvatar - WASM version</sub_heading>
-                <div style="text-align:right;">
-                  <papertitle>Jan 2026</papertitle><br>
-                  <span class="topic-location">Personal Project</span>
-                </div>
+      <table class="section-table experience-entry project-entry"><tbody><tr>
+        <td class="entry-media-cell">
+          <div class="entry-visual-stack">
+            <div class="entry-visual">
+              <img src='projects/liteavatar_wasm/banner.png' width="200" loading="lazy" decoding="async" alt="LiteAvatar WASM banner">
+            </div>
+          </div>
+        </td>
+
+        <td class="entry-content-cell">
+          <div class="project-title-stack">
+            <topictitle>LiteAvatar - WASM Version</topictitle>
+            <div class="project-meta-row">
+              <papertitle>Jan 2026</papertitle>
+            </div>
+          </div>
+          <div class="split-row experience-detail-row">
+            <span class="experience-type">Personal Project</span>
+            <div class="entry-links" aria-label="Project links">
+              <a href="https://fusheng-ji.github.io/lite-avatar-WASM/">
+                <img src="assets/misc/website_logo.png" height="20" class="meta-icon" decoding="async" alt="Project website">
+              </a>
+              <a href="https://github.com/fusheng-ji/lite-avatar-WASM">
+                <img src="assets/misc/github-logo.png" height="20" class="meta-icon" decoding="async" alt="GitHub">
+              </a>
+            </div>
+          </div>
+          <div class="entry-block">
+            <p class="entry-label">Focus</p>
+            <p class="entry-summary">2D Audio-driven Human Avatar Animation</p>
+          </div>
+          <div class="entry-block">
+            <p class="entry-label">Overview</p>
+            <p class="entry-summary">A lightweight audio-driven 2D avatar solution that runs entirely in the browser using WASM based on <a href="https://github.com/HumanAIGC/lite-avatar" style="color: inherit;">Lite-avatar</a>. No backend server required.</p>
+          </div>
+        </td>
+      </tr></tbody></table>
+
+      <!--
+      <table class="section-table experience-entry project-entry"><tbody><tr>
+        <td class="entry-media-cell">
+          <div class="entry-visual-stack">
+            <div class="entry-visual-grid">
+              <div class="entry-visual is-split">
+                <img src='projects/gaussian_avatar_animation/teaser1.gif' loading="lazy" decoding="async" alt="Gaussian Avatar Animation teaser 1">
               </div>
-              <br>
-              <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%;">
-                <span class="project-subtitle">2D Audio-driven Human Avatar Animation</span>
-                <span>
-                  <a href="https://fusheng-ji.github.io/lite-avatar-WASM/">
-                    <img src="assets/misc/website_logo.png" height="20" style="vertical-align:middle;">
-                  </a>
-                   &nbsp 
-                  <a href="https://github.com/fusheng-ji/lite-avatar-WASM">
-                    <img src="assets/misc/github-logo.png" height="20" style="vertical-align:middle;">
-                  </a>
-                </span>
+              <div class="entry-visual is-split">
+                <img src='projects/gaussian_avatar_animation/teaser2.gif' loading="lazy" decoding="async" alt="Gaussian Avatar Animation teaser 2">
               </div>
-              <br>
-              A lightweight audio-driven 2D avatar solution that runs entirely in the browser using WASM based on <a href="https://github.com/HumanAIGC/lite-avatar" style="color: inherit;">Lite-avatar</a>. No backend server required.
-            </td>
-        </tbody></table>
-       <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <!-- write Projects here -->
-            <td style="padding:20px;width:30%;vertical-align:middle">
-                <div style="display:flex;justify-content:center;">
-                    <img src='projects/gaussian_avatar_animation/teaser1.gif' height="100">
-                    <img src='projects/gaussian_avatar_animation/teaser2.gif' height="100">
-                </div>
-            </td>
-  
-            <td style="padding:20px;width:70%;vertical-align:middle">
-              <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%;">
-                <sub_heading>Gaussian Avatar Animation</sub_heading>
-                <div style="text-align:right;">
-                  <papertitle>Aug 2025</papertitle><br>
-                  <span class="topic-location">Personal Project</span>
-                </div>
+            </div>
+          </div>
+        </td>
+
+        <td class="entry-content-cell">
+          <div class="project-title-stack">
+            <topictitle>Gaussian Avatar Animation</topictitle>
+            <div class="project-meta-row">
+              <papertitle>Aug 2025</papertitle>
+            </div>
+          </div>
+          <div class="split-row experience-detail-row">
+            <span class="experience-type">Personal Project</span>
+            <div class="entry-links" aria-label="Project links">
+              <a href="https://github.com/fusheng-ji/Gaussian_Avatar_Animation">
+                <img src="assets/misc/github-logo.png" height="20" class="meta-icon" decoding="async" alt="GitHub">
+              </a>
+            </div>
+          </div>
+          <div class="entry-block">
+            <p class="entry-label">Focus</p>
+            <p class="entry-summary">Multi-view 3D Human Avatar Reconstruction</p>
+          </div>
+          <div class="entry-block">
+            <p class="entry-label">Overview</p>
+            <p class="entry-summary">Based on <a href="https://github.com/graphdeco-inria/gaussian-splatting" style="color: inherit;">Gaussian-Splatting</a> and <a href="https://github.com/apple/ml-hugs.git" style="color: inherit;">ML-HUGS</a>, this project models animatable human avatars from only a few images using Gaussian Splatting.</p>
+          </div>
+        </td>
+      </tr></tbody></table>
+
+      <table class="section-table experience-entry project-entry"><tbody><tr>
+        <td class="entry-media-cell">
+          <div class="entry-visual-stack">
+            <div class="entry-visual-grid">
+              <div class="entry-visual is-split">
+                <img src='projects/tum_cv_challenge_ss24/pic/cover_origin_preview.png' loading="lazy" decoding="async" alt="Tour into the Picture original image">
               </div>
-              <br>
-              <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%;">
-                <span class="project-subtitle">Multi-view 3D Human Avatar Reconstruction</span>
-                <span>
-                  <a href="https://github.com/fusheng-ji/Gaussian_Avatar_Animation">
-                    <img src="assets/misc/github-logo.png" height="20" style="vertical-align:middle;">
-                  </a>
-                </span>
+              <div class="entry-visual is-split">
+                <img src='projects/tum_cv_challenge_ss24/pic/cover_cutted_preview.png' loading="lazy" decoding="async" alt="Tour into the Picture cutout image">
               </div>
-              <br>
-              Base on <a href="https://github.com/graphdeco-inria/gaussian-splatting" style="color: inherit;">Gaussian-Splatting</a>, <a href="https://github.com/apple/ml-hugs.git" style="color: inherit;">ML-HUGS</a>, modeling animatable human avatars from only Few pictures based on Gaussian Splatting.
-            </td>
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <!-- write Projects here -->
-              <td style="padding:20px;width:30%;vertical-align:middle">
-                  <div style="display:flex;justify-content:center;">
-                      <img src='projects/tum_cv_challenge_ss24/pic/cover_origin.png' width="100">
-                    <img src='projects/tum_cv_challenge_ss24/pic/cover_cutted.png' width="100">
-                  </div>
-              </td>
-    
-              <td style="padding:20px;width:70%;vertical-align:middle">
-                <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%;">
-                  <sub_heading>Tour into the Picture</sub_heading>
-                  <div style="text-align:right;">
-                    <papertitle>June 2024</papertitle><br>
-                    <span class="topic-location">Course Project</span>
-                  </div>
-                </div>
-                <br>
-                <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%;">
-                  <span class="project-subtitle">Single Image Scene Reconstruction</span>
-                  <span>
-                    <a href="projects/tum_cv_challenge_ss24/index.html">
-                      <img src="assets/misc/website_logo.png" height="20" style="vertical-align:middle;">
-                    </a>
-                    &nbsp 
-                    <a href="https://github.com/fusheng-ji/TUM_CV_Challenge_SS24">
-                      <img src="assets/misc/github-logo.png" height="20" style="vertical-align:middle;">
-                    </a>
-                  </span>
-                </div>
-                <br>
-                Base on <a href="https://dl.acm.org/doi/10.1145/258734.258854" style="color: inherit;">Tour into the Picture (SIGGRAPH '97)</a>, using a spidery mesh interface to make animation from a single image.
-              </td>
-        </tbody></table>
+            </div>
+          </div>
+        </td>
+
+        <td class="entry-content-cell">
+          <div class="project-title-stack">
+            <topictitle>Tour into the Picture</topictitle>
+            <div class="project-meta-row">
+              <papertitle>June 2024</papertitle>
+            </div>
+          </div>
+          <div class="split-row experience-detail-row">
+            <span class="experience-type">Course Project</span>
+            <div class="entry-links" aria-label="Project links">
+              <a href="projects/tum_cv_challenge_ss24/index.html">
+                <img src="assets/misc/website_logo.png" height="20" class="meta-icon" decoding="async" alt="Project website">
+              </a>
+              <a href="https://github.com/fusheng-ji/TUM_CV_Challenge_SS24">
+                <img src="assets/misc/github-logo.png" height="20" class="meta-icon" decoding="async" alt="GitHub">
+              </a>
+            </div>
+          </div>
+          <div class="entry-block">
+            <p class="entry-label">Focus</p>
+            <p class="entry-summary">Single Image Scene Reconstruction</p>
+          </div>
+          <div class="entry-block">
+            <p class="entry-label">Overview</p>
+            <p class="entry-summary">Based on <a href="https://dl.acm.org/doi/10.1145/258734.258854" style="color: inherit;">Tour into the Picture (SIGGRAPH '97)</a>, this project uses a spidery mesh interface to create animation from a single image.</p>
+          </div>
+        </td>
+      </tr></tbody></table>
+      -->
 
 
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+      <table class="section-table"><tbody>
         <tr>
-        <td style="padding:20px;width:100%;vertical-align:middle">
+        <td class="section-cell">
           <a id="awards"></a>
           <heading>Selected Awards</heading>
         </td>
         </tr>
       </tbody></table>
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        <tr>
-          <td style="padding:20px;padding-left:50px;width:80%;vertical-align:top">
-            <papertitle>Deutscher Akademischer Austauschdienst (DAAD) Scholarship</papertitle>
-          </td>
-          <td style="padding:20px;width:20%;vertical-align:top;text-align:right;">
-            <papertitle>2023 - 2024</papertitle><br>
-            <span class="topic-location">Munich, Germany</span>
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:20px;padding-left:50px;width:80%;vertical-align:top">
-            <papertitle>National Encouragement Scholarship</papertitle>
-          </td>
-          <td style="padding:20px;width:20%;vertical-align:top;text-align:right;">
-            <papertitle>2019 - 2020</papertitle><br>
-            <span class="topic-location">Nanjing, China</span>
-          </td>
-        </tr>
-      </tbody></table>
+      <table class="section-table experience-entry award-entry"><tbody><tr>
+        <td class="entry-media-cell">
+          <div class="award-marker-shell">
+            <div class="award-marker-card is-warm" aria-hidden="true">
+              <img src="assets/misc/placeholder_0.jpg" loading="lazy" decoding="async" alt="">
+            </div>
+          </div>
+        </td>
 
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+        <td class="entry-content-cell">
+          <div class="split-row">
+            <topictitle>Deutscher Akademischer Austauschdienst (DAAD) Scholarship</topictitle>
+            <span class="text-right experience-side-meta">
+              <papertitle>2023 - 2024</papertitle>
+              <span class="topic-location">Munich, Germany</span>
+            </span>
+          </div>
+          <div class="split-row experience-detail-row">
+            <span class="experience-type">Recognition</span>
+            <span class="tag tag-orange">Scholarship</span>
+          </div>
+        </td>
+      </tr></tbody></table>
+
+      <table class="section-table experience-entry award-entry"><tbody><tr>
+        <td class="entry-media-cell">
+          <div class="award-marker-shell">
+            <div class="award-marker-card is-cool" aria-hidden="true">
+              <img src="assets/misc/placeholder_1.jpg" loading="lazy" decoding="async" alt="">
+            </div>
+          </div>
+        </td>
+
+        <td class="entry-content-cell">
+          <div class="split-row">
+            <topictitle>National Encouragement Scholarship</topictitle>
+            <span class="text-right experience-side-meta">
+              <papertitle>2019 - 2020</papertitle>
+              <span class="topic-location">Nanjing, China</span>
+            </span>
+          </div>
+          <div class="split-row experience-detail-row">
+            <span class="experience-type">Recognition</span>
+            <span class="tag tag-orange">Scholarship</span>
+          </div>
+        </td>
+      </tr></tbody></table>
+
+      <table class="section-table"><tbody>
         <tr>
-        <td style="padding:20px;width:100%;vertical-align:middle">
+        <td class="section-cell">
           <a id="education"></a>
           <heading>Education</heading>
         </td>
         </tr>
       </tbody></table>
-      
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        <!-- write Projects here -->
-          <td style="padding:20px;width:30%;vertical-align:middle">
-              <div style="display:flex;justify-content:center;">
-                  <img src='assets/institution_logo/tum.png' width="200">
-              </div>
-          </td>
 
-          <td style="padding:20px;width:50%;vertical-align:middle">
-            <topictitle>Technical University of Munich</topictitle> 
-            <br><br>
-            <papertitle>M.Sc - Electrical Engineering and Information Technology</papertitle> 
-          </td>
-          <td style="padding:20px;width:20%;vertical-align:top;text-align:right;">
-            <papertitle>2023 - Now</papertitle><br>
-            <span class="topic-location">Munich, Germany</span>
-          </td>
-      </tbody></table>
-      
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        <!-- write Projects here -->
-          <td style="padding:20px;width:30%;vertical-align:middle">
-              <div style="display:flex;justify-content:center;">
-                  <img src='assets/institution_logo/tju.png' width="200">
-              </div>
-          </td>
-
-          <td style="padding:20px;width:50%;vertical-align:middle">
-            <topictitle>Tongji University</topictitle> 
-            <br><br>
-            <papertitle>M.Sc - Computer Science</papertitle> 
-          </td>
-          <td style="padding:20px;width:20%;vertical-align:top;text-align:right;">
-            <papertitle>2021 - 2025</papertitle><br>
-            <span class="topic-location">Shanghai, China</span>
-          </td>
-      </tbody></table>
-
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        <!-- write Projects here -->
-          <td style="padding:20px;width:30%;vertical-align:middle">
-              <div style="display:flex;justify-content:center;">
-                  <img src='assets/institution_logo/njtech.png' width="200">
-              </div>
-          </td>
-
-          <td style="padding:20px;width:50%;vertical-align:middle">
-            <topictitle>Nanjing Tech University</topictitle> 
-            <br><br>
-            <papertitle>B.Sc - Information and Computing Science (Embedded Software)</papertitle> 
-          </td>
-          <td style="padding:20px;width:20%;vertical-align:top;text-align:right;">
-            <papertitle>2017 - 2021</papertitle><br>
-            <span class="topic-location">Nanjing, China</span>
-          </td>
-      </tbody></table>
-
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        <tr>
-        <td style="padding:20px;width:100%;vertical-align:middle">
-          <a id="gallery"></a>
-          <heading>Through My Lens</heading>
+      <table class="section-table experience-entry education-entry"><tbody><tr>
+        <td class="entry-media-cell">
+          <div class="experience-logo-stack">
+            <div class="experience-logo-card">
+              <img src='assets/institution_logo/tum.png' width="200" loading="lazy" decoding="async" alt="Technical University of Munich logo">
+            </div>
+          </div>
         </td>
-        </tr>
-      </tbody></table>
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-        <tbody>
-          <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle">
-              <!-- Bulma Results Carousel (bounded like other sections) -->
-              <div class="carousel-bound">
-                <div id="photograph-carousel" class="carousel results-carousel">
-                  <div class="item"><img src="./assets/photograph/frankfurt.jpg" alt="Photograph 1"></div>
-                  <div class="item"><img src="./assets/photograph/IMG_8982.jpeg" alt="Photograph 2"></div>
-                  <div class="item"><img src="./assets/photograph/IMG_6895.jpeg" alt="Photograph 3"></div>
-                  <div class="item"><img src="./assets/photograph/IMG_7124.jpeg" alt="Photograph 4"></div>
-                  <div class="item"><img src="./assets/photograph/IMG_7353.jpeg" alt="Photograph 5"></div>
-                  <div class="item"><img src="./assets/photograph/IMG_7432.jpeg" alt="Photograph 6"></div>
-                  <div class="item"><img src="./assets/photograph/IMG_8213.jpeg" alt="Photograph 7"></div>
-                  <div class="item"><img src="./assets/photograph/IMG_8512.jpeg" alt="Photograph 8"></div>
-                  <div class="item"><img src="./assets/photograph/IMG_8514.jpeg" alt="Photograph 9"></div>
-                  <div class="item"><img src="./assets/photograph/IMG_8520.jpeg" alt="Photograph 10"></div>
-                  <div class="item"><img src="./assets/photograph/IMG_8521.jpeg" alt="Photograph 11"></div>
-                  <div class="item"><img src="./assets/photograph/IMG_8677.jpeg" alt="Photograph 12"></div>
-                  <div class="item"><img src="./assets/photograph/IMG_8679.jpeg" alt="Photograph 13"></div>
-                  <div class="item"><img src="./assets/photograph/IMG_8689.jpeg" alt="Photograph 14"></div>
-                  <div class="item"><img src="./assets/photograph/IMG_8700.jpeg" alt="Photograph 15"></div>
-                  <div class="item"><img src="./assets/photograph/IMG_8772.jpeg" alt="Photograph 16"></div>
-                  <div class="item"><img src="./assets/photograph/IMG_8775.jpeg" alt="Photograph 17"></div>
-                  <div class="item"><img src="./assets/photograph/IMG_8903.jpeg" alt="Photograph 18"></div>
+
+        <td class="entry-content-cell">
+          <div class="split-row">
+            <topictitle>Technical University of Munich</topictitle>
+            <span class="text-right experience-side-meta">
+              <papertitle>2023 - Now</papertitle>
+              <span class="topic-location">Munich, Germany</span>
+            </span>
+          </div>
+          <div class="split-row experience-detail-row">
+            <span class="experience-type">Education</span>
+            <span class="tag tag-slate">M.Sc.</span>
+          </div>
+          <div class="entry-block">
+            <p class="entry-label">Program</p>
+            <p class="entry-summary">Electrical Engineering and Information Technology</p>
+          </div>
+        </td>
+      </tr></tbody></table>
+
+      <table class="section-table experience-entry education-entry"><tbody><tr>
+        <td class="entry-media-cell">
+          <div class="experience-logo-stack">
+            <div class="experience-logo-card">
+              <img src='assets/institution_logo/tju.png' width="200" loading="lazy" decoding="async" alt="Tongji University logo">
+            </div>
+          </div>
+        </td>
+
+        <td class="entry-content-cell">
+          <div class="split-row">
+            <topictitle>Tongji University</topictitle>
+            <span class="text-right experience-side-meta">
+              <papertitle>2021 - 2025</papertitle>
+              <span class="topic-location">Shanghai, China</span>
+            </span>
+          </div>
+          <div class="split-row experience-detail-row">
+            <span class="experience-type">Education</span>
+            <span class="tag tag-slate">M.Sc.</span>
+          </div>
+          <div class="entry-block">
+            <p class="entry-label">Program</p>
+            <p class="entry-summary">Computer Science</p>
+          </div>
+        </td>
+      </tr></tbody></table>
+
+      <table class="section-table experience-entry education-entry"><tbody><tr>
+        <td class="entry-media-cell">
+          <div class="experience-logo-stack">
+            <div class="experience-logo-card">
+              <img src='assets/institution_logo/njtech.png' width="200" loading="lazy" decoding="async" alt="Nanjing Tech University logo">
+            </div>
+          </div>
+        </td>
+
+        <td class="entry-content-cell">
+          <div class="split-row">
+            <topictitle>Nanjing Tech University</topictitle>
+            <span class="text-right experience-side-meta">
+              <papertitle>2017 - 2021</papertitle>
+              <span class="topic-location">Nanjing, China</span>
+            </span>
+          </div>
+          <div class="split-row experience-detail-row">
+            <span class="experience-type">Education</span>
+            <span class="tag tag-slate">B.Sc.</span>
+          </div>
+          <div class="entry-block">
+            <p class="entry-label">Program</p>
+            <p class="entry-summary">Information and Computing Science (Embedded Software)</p>
+          </div>
+        </td>
+      </tr></tbody></table>
+
+      <table class="section-table"><tbody>
+        <tr>
+          <td class="section-cell">
+            <span id="gallery"></span>
+            <span id="blender-gallery"></span>
+            <span id="threejs-arts"></span>
+            <heading>Gallery</heading>
+
+            <div class="gallery-tablist-wrap">
+              <div class="gallery-tablist" role="tablist" aria-label="Gallery sections" data-gallery-tabs>
+                <span class="gallery-tab-indicator" aria-hidden="true"></span>
+                <button type="button" class="gallery-tab-button is-active" id="gallery-tab-lens" role="tab" aria-selected="true" aria-controls="gallery-panel-lens" tabindex="0" data-gallery-tab="lens">Through My Lens</button>
+                <button type="button" class="gallery-tab-button" id="gallery-tab-blender" role="tab" aria-selected="false" aria-controls="gallery-panel-blender" tabindex="-1" data-gallery-tab="blender">Blender Arts</button>
+                <button type="button" class="gallery-tab-button" id="gallery-tab-threejs" role="tab" aria-selected="false" aria-controls="gallery-panel-threejs" tabindex="-1" data-gallery-tab="threejs">Three.js Arts</button>
+              </div>
+            </div>
+
+            <div class="gallery-tab-panels">
+              <div class="gallery-tab-panel" id="gallery-panel-lens" role="tabpanel" aria-labelledby="gallery-tab-lens" data-gallery-panel="lens">
+                <div class="carousel-bound">
+                  <div id="photograph-carousel" class="carousel results-carousel" data-navigation="false" data-navigation-swipe="true">
+                    <div class="item"><img src="./assets/photograph/frankfurt.jpg" alt="Photograph 1" loading="lazy" decoding="async"></div>
+                    <div class="item"><img src="./assets/photograph/IMG_8982.jpeg" alt="Photograph 2" loading="lazy" decoding="async"></div>
+                    <div class="item"><img src="./assets/photograph/IMG_6895.jpeg" alt="Photograph 3" loading="lazy" decoding="async"></div>
+                    <div class="item"><img src="./assets/photograph/IMG_7124.jpeg" alt="Photograph 4" loading="lazy" decoding="async"></div>
+                    <div class="item"><img src="./assets/photograph/IMG_7353.jpeg" alt="Photograph 5" loading="lazy" decoding="async"></div>
+                    <div class="item"><img src="./assets/photograph/IMG_7432.jpeg" alt="Photograph 6" loading="lazy" decoding="async"></div>
+                    <div class="item"><img src="./assets/photograph/IMG_8213.jpeg" alt="Photograph 7" loading="lazy" decoding="async"></div>
+                    <div class="item"><img src="./assets/photograph/IMG_8512.jpeg" alt="Photograph 8" loading="lazy" decoding="async"></div>
+                    <div class="item"><img src="./assets/photograph/IMG_8514.jpeg" alt="Photograph 9" loading="lazy" decoding="async"></div>
+                    <div class="item"><img src="./assets/photograph/IMG_8520.jpeg" alt="Photograph 10" loading="lazy" decoding="async"></div>
+                    <div class="item"><img src="./assets/photograph/IMG_8521.jpeg" alt="Photograph 11" loading="lazy" decoding="async"></div>
+                    <div class="item"><img src="./assets/photograph/IMG_8677.jpeg" alt="Photograph 12" loading="lazy" decoding="async"></div>
+                    <div class="item"><img src="./assets/photograph/IMG_8679.jpeg" alt="Photograph 13" loading="lazy" decoding="async"></div>
+                    <div class="item"><img src="./assets/photograph/IMG_8689.jpeg" alt="Photograph 14" loading="lazy" decoding="async"></div>
+                    <div class="item"><img src="./assets/photograph/IMG_8700.jpeg" alt="Photograph 15" loading="lazy" decoding="async"></div>
+                    <div class="item"><img src="./assets/photograph/IMG_8772.jpeg" alt="Photograph 16" loading="lazy" decoding="async"></div>
+                    <div class="item"><img src="./assets/photograph/IMG_8775.jpeg" alt="Photograph 17" loading="lazy" decoding="async"></div>
+                    <div class="item"><img src="./assets/photograph/IMG_8903.jpeg" alt="Photograph 18" loading="lazy" decoding="async"></div>
+                  </div>
                 </div>
               </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
 
-      <!-- Render Arts Gallery Section -->
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        <tr>
-        <td style="padding:20px;width:100%;vertical-align:middle">
-          <a id="gallery"></a>
-          <heading>Blender Arts Gallery</heading>
-          <p style="margin-top:4px; color:#666; font-size:13px;">
-            Some of my 3D artwork and renders created with Blender.
-          </p>
-        </td>
-        </tr>
-      </tbody></table>
+              <div class="gallery-tab-panel" id="gallery-panel-blender" role="tabpanel" aria-labelledby="gallery-tab-blender" data-gallery-panel="blender" hidden>
+                <div class="carousel-bound">
+                  <div id="results-carousel" class="carousel results-carousel" data-navigation="false" data-navigation-swipe="true">
+                    <div class="item"><img src="./render_arts/static/images/river0.png" alt="River Scene 1" loading="lazy" decoding="async"></div>
+                    <div class="item"><img src="./render_arts/static/images/river1.png" alt="River Scene 2" loading="lazy" decoding="async"></div>
+                    <div class="item"><img src="./render_arts/static/images/river2.png" alt="River Scene 3" loading="lazy" decoding="async"></div>
+                    <div class="item"><img src="./render_arts/static/images/river3.png" alt="River Scene 4" loading="lazy" decoding="async"></div>
+                    <div class="item"><img src="./render_arts/static/images/house.png" alt="House Render" loading="lazy" decoding="async"></div>
+                    <div class="item">
+                      <video poster="" autoplay controls muted loop playsinline preload="metadata" aria-label="Alien Ball animation">
+                        <source src="./render_arts/static/videos/Alien_Ball.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        <tr>
-          <td style="padding:20px;width:100%;vertical-align:middle">
-            <!-- Bulma Results Carousel (bounded like other sections) -->
-            <div class="carousel-bound">
-              <div id="results-carousel" class="carousel results-carousel">
-                <div class="item"><img src="./render_arts/static/images/river0.png" alt="River Scene 1"></div>
-                <div class="item"><img src="./render_arts/static/images/river1.png" alt="River Scene 2"></div>
-                <div class="item"><img src="./render_arts/static/images/river2.png" alt="River Scene 3"></div>
-                <div class="item"><img src="./render_arts/static/images/river3.png" alt="River Scene 4"></div>
-                <div class="item"><img src="./render_arts/static/images/house.png" alt="House Render"></div>
-                <div class="item">
-                  <video poster="" autoplay controls muted loop playsinline>
-                    <source src="./render_arts/static/videos/Alien_Ball.mp4" type="video/mp4">
-                  </video>
+              <div class="gallery-tab-panel" id="gallery-panel-threejs" role="tabpanel" aria-labelledby="gallery-tab-threejs" data-gallery-panel="threejs" hidden>
+                <div class="carousel-bound">
+                  <div id="threejs-carousel" class="carousel results-carousel project-showcase-carousel" data-slides-to-show="1" data-slides-to-scroll="1" data-loop="false" data-infinite="false" data-navigation="false" data-navigation-swipe="true" data-pagination="true">
+                    <div class="item">
+                      <div class="project-showcase-card">
+                        <div class="project-showcase-media">
+                          <img src='three_js_arts/jelly_receipt/banner.png' loading="lazy" decoding="async" alt="Interactive Thermal Receipt Simulation banner">
+                        </div>
+
+                        <div class="project-showcase-content">
+                          <div class="project-showcase-head">
+                            <div class="project-showcase-title">Interactive Thermal Receipt Simulation</div>
+                            <div class="project-showcase-side-meta">
+                              <span>March 2026</span><br>
+                              <span class="topic-location">Personal Project</span>
+                            </div>
+                          </div>
+
+                          <p class="project-showcase-subtitle">Receipt Deformation Simulation</p>
+
+                          <div class="project-showcase-footer">
+                            <span class="project-showcase-tech">Three.js + WebGL + Verlet Cloth</span>
+                            <a class="project-showcase-link" href="https://fusheng-ji.github.io/three_js_arts/jelly_receipt/index.html" target="_blank" rel="noopener noreferrer" aria-label="Open Interactive Thermal Receipt Simulation">
+                              <img src="assets/misc/website_logo.png" height="20" class="meta-icon" decoding="async" alt="Project website">
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="item">
+                      <div class="project-showcase-card">
+                        <div class="project-showcase-media">
+                          <img src='three_js_arts/water_pool/banner.png' loading="lazy" decoding="async" alt="Duck Pool water simulation banner">
+                        </div>
+
+                        <div class="project-showcase-content">
+                          <div class="project-showcase-head">
+                            <div class="project-showcase-title">Duck Pool: Interactive Water Simulation</div>
+                            <div class="project-showcase-side-meta">
+                              <span>March 2026</span><br>
+                              <span class="topic-location">Personal Project</span>
+                            </div>
+                          </div>
+
+                          <p class="project-showcase-subtitle">Dive into an interactive water simulation where ducks float, collide, and create ripples.</p>
+
+                          <div class="project-showcase-footer">
+                            <span class="project-showcase-tech">Three.js + CPU Simulation</span>
+                            <a class="project-showcase-link" href="https://fusheng-ji.github.io/three_js_arts/water_pool/index.html" target="_blank" rel="noopener noreferrer" aria-label="Open Duck Pool: Interactive Water Simulation">
+                              <img src="assets/misc/website_logo.png" height="20" class="meta-icon" decoding="async" alt="Project website">
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1711,90 +3294,19 @@
         </tr>
       </tbody></table>
 
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        <tr>
-        <td style="padding:20px;width:100%;vertical-align:middle">
-          <a id="projects"></a>
-          <heading>Three.js Arts</heading>
-        </td>
-        </tr>
-      </tbody></table>
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <!-- write Projects here -->
-           <tr onmouseout="urf_stop()" onmouseover="urf_start()">
-            <td style="padding:20px;width:30%;vertical-align:middle">
-                <div class="teaser-box" style="display:flex;justify-content:center">
-                  <img src='three_js_arts/jelly_receipt/banner.png' class="teaser-img" width="200">
-                </div>
-            </td>
-          
-            <td style="padding:20px;width:70%;vertical-align:middle">
-              <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%;">
-                <sub_heading>Interactive Thermal Receipt Simulation</sub_heading>
-                <div style="text-align:right;">
-                  <papertitle>March 2026</papertitle><br>
-                  <span class="topic-location">Personal Project</span>
-                </div>
-              </div>
-              <br>
-              <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%;">
-                <span class="project-subtitle">Receipt Deformation Simulation</span>
-                <span>
-                  <a href="https://fusheng-ji.github.io/three_js_arts/jelly_receipt/index.html">
-                    <img src="assets/misc/website_logo.png" height="20" style="vertical-align:middle;">
-                  </a>
-                </span>
-              </div>
-              <br>
-              Three.js + WebGL + Verlet Cloth
-            </td>
-            
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <!-- write Projects here -->
-           <tr onmouseout="urf_stop()" onmouseover="urf_start()">
-            <td style="padding:20px;width:30%;vertical-align:middle">
-                <div class="teaser-box" style="display:flex;justify-content:center">
-                  <img src='three_js_arts/water_pool/banner.png' class="teaser-img" width="200">
-                </div>
-            </td>
-          
-            <td style="padding:20px;width:70%;vertical-align:middle">
-              <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%;">
-                <sub_heading>Duck Pool: Interactive Water Simulation</sub_heading>
-                <div style="text-align:right;">
-                  <papertitle>March 2026</papertitle><br>
-                  <span class="topic-location">Personal Project</span>
-                </div>
-              </div>
-              <br>
-              <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%;">
-                <span class="project-subtitle">Dive into an interactive water simulation where ducks float, collide, and create ripples.</span>
-                <span>
-                  <a href="https://fusheng-ji.github.io/three_js_arts/water_pool/index.html">
-                    <img src="assets/misc/website_logo.png" height="20" style="vertical-align:middle;">
-                  </a>
-                </span>
-              </div>
-              <br>
-              Three.js + CPU Simulation
-            </td>
-            
-        </tbody></table>
-
-    <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate"><tbody>
+    <table class="footer-table"><tbody>
       <tr>
-        <td style="padding:20px;width:100%;vertical-align:top;" align="center">
-          <img src='assets/misc/apple.gif' width="100"><img src='assets/misc/apple.gif' width="100"><img src='assets/misc/apple.gif' width="100"><br>
+        <td class="footer-top-cell text-center">
+          <img src='assets/misc/apple.gif' width="100" loading="lazy" decoding="async" alt="" aria-hidden="true"><img src='assets/misc/apple.gif' width="100" loading="lazy" decoding="async" alt="" aria-hidden="true"><img src='assets/misc/apple.gif' width="100" loading="lazy" decoding="async" alt="" aria-hidden="true"><br>
         </td>
       </tr>
       <tr>
-        <td style="padding:20px;width:100%;vertical-align:middle;" align="center">
+        <td class="section-cell text-center">
           <strong>Last Updated on 2026/04/20</strong>
         </td>
       </tr>
       <tr>
-        <td style="padding:20px;width:100%;vertical-align:middle;" align="center">
+        <td class="section-cell text-center">
           <!-- ClustrMaps Visitor Counter -->
           <div id="clustrmaps-container" style="margin: 20px 0; width: 300px; max-width: 300px; margin-left: auto; margin-right: auto;">
             <script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=a&t=tt&d=A3Lr06S0gyk9s6lMChccz_7rcZGeQ2GqqPnn2byeTic&co=2d78ad&cmo=3acc3a&cmn=ff5353&ct=ffffff'></script>
@@ -1802,219 +3314,11 @@
         </td>
       </tr>
       <tr>
-        <td style="padding:20px;width:100%;vertical-align:middle;" align="center">
-          <img src='assets/misc/south_park.svg' width="300">
+        <td class="section-cell text-center">
+          <img src='assets/misc/south_park.svg' width="300" loading="lazy" decoding="async" alt="" aria-hidden="true">
       </td>
       </tr>
     </tbody></table>
     
-  <script>
-    (function () {
-      // Dynamic timeline positioning based on real dates
-      var timelineStart = new Date('2021-01-01');
-      var timelineEnd = new Date(); // "Now"
-      var total = timelineEnd - timelineStart;
-
-      function parseDateString(s) {
-        if (!s) return null;
-        if (s.toLowerCase() === 'now') return timelineEnd;
-        return new Date(s);
-      }
-
-      // non-linear mapping to compress earlier years and emphasize recent years
-      var scaleExponent = 1.6; // >1 compresses early period (increase to emphasize recent more)
-      function mapPctLinearToNonLinear(pct) {
-        var t = Math.max(0, Math.min(1, pct / 100));
-        return Math.pow(t, scaleExponent) * 100;
-      }
-
-      // position ranges (using non-linear mapping)
-      document.querySelectorAll('.timeline-range').forEach(function (el) {
-        var ds = el.getAttribute('data-start');
-        var de = el.getAttribute('data-end');
-        if (!ds) return;
-        var dStart = parseDateString(ds);
-        var dEnd = parseDateString(de) || timelineEnd;
-        if (!(dStart instanceof Date) || isNaN(dStart)) return;
-        if (!(dEnd instanceof Date) || isNaN(dEnd)) dEnd = timelineEnd;
-        if (dEnd < dStart) dEnd = dStart;
-        var leftLinear = ((dStart - timelineStart) / total) * 100;
-        var rightLinear = ((dEnd - timelineStart) / total) * 100;
-        var left = mapPctLinearToNonLinear(leftLinear);
-        var right = mapPctLinearToNonLinear(rightLinear);
-        var width = Math.max(0.5, right - left);
-        // If this range ends at 'now', give it a larger minimum width to emphasize recent work
-        try {
-          if (de && de.toLowerCase && de.toLowerCase() === 'now') {
-            width = Math.max(12, width); // minimum 12% for 'now' items to ensure visibility
-            el.style.zIndex = 2;
-          }
-        } catch (e) {}
-        // prevent overflow beyond 100%
-        if (left + width > 100) left = Math.max(0, 100 - width);
-        el.style.left = Math.max(0, left) + '%';
-        el.style.width = width + '%';
-      });
-
-      // position axis labels: support 2 labels (2021, Now) or 3 labels (with a middle mapped point)
-      var axis = document.querySelector('.timeline-axis');
-      if (axis) {
-        var spans = axis.querySelectorAll('span');
-        if (spans.length === 2) {
-          // left and right aligned
-          spans[0].style.left = '0%';
-          spans[0].style.transform = 'translateX(0)';
-          spans[1].style.left = 'auto';
-          spans[1].style.right = '0';
-          spans[1].style.transform = 'translateX(0)';
-        } else if (spans.length >= 3) {
-          spans[0].style.left = '0%';
-          spans[0].style.transform = 'translateX(0)';
-          var midDate = new Date('2024-01-01');
-          var midPctLinear = ((midDate - timelineStart) / total) * 100;
-          var midPct = mapPctLinearToNonLinear(midPctLinear);
-          spans[1].style.left = Math.max(0, Math.min(100, midPct)) + '%';
-          spans[1].style.transform = 'translateX(-50%)';
-          spans[2].style.left = '100%';
-          spans[2].style.transform = 'translateX(-100%)';
-        }
-      }
-
-      // simple tooltip for timeline ranges (uses data-desc or title)
-      var tooltip = document.createElement('div');
-      tooltip.className = 'timeline-tooltip';
-      tooltip.style.position = 'fixed';
-      tooltip.style.zIndex = 9999;
-      tooltip.style.padding = '8px 10px';
-      tooltip.style.background = 'rgba(0,0,0,0.85)';
-      tooltip.style.color = '#fff';
-      tooltip.style.borderRadius = '6px';
-      tooltip.style.fontSize = '12px';
-      tooltip.style.maxWidth = '320px';
-      tooltip.style.pointerEvents = 'none';
-      tooltip.style.display = 'none';
-      tooltip.style.boxSizing = 'border-box';
-      document.body.appendChild(tooltip);
-
-      function showTooltip(text, evt) {
-        if (!text) return;
-        tooltip.textContent = text;
-        tooltip.style.display = 'block';
-        positionTooltip(evt);
-      }
-
-      function hideTooltip() {
-        tooltip.style.display = 'none';
-      }
-
-      function positionTooltip(evt) {
-        var pad = 12;
-        var x = evt.clientX + pad;
-        var y = evt.clientY + pad;
-        var rect = tooltip.getBoundingClientRect();
-        var vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-        var vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
-        if (x + rect.width + 8 > vw) x = Math.max(pad, evt.clientX - rect.width - pad);
-        if (y + rect.height + 8 > vh) y = Math.max(pad, evt.clientY - rect.height - pad);
-        tooltip.style.left = x + 'px';
-        tooltip.style.top = y + 'px';
-      }
-
-      document.querySelectorAll('.timeline-range').forEach(function (el) {
-        el.addEventListener('mouseenter', function (ev) {
-          var txt = el.getAttribute('data-desc') || el.getAttribute('title') || '';
-          showTooltip(txt, ev);
-        });
-        el.addEventListener('mousemove', function (ev) {
-          if (tooltip.style.display !== 'none') positionTooltip(ev);
-        });
-        el.addEventListener('mouseleave', function () { hideTooltip(); });
-      });
-    })();
-  </script>
-
-  <script>
-    async function loadBlogCards() {
-      const table = document.getElementById("blog-list");
-      if (!table) return;
-
-      try {
-        const response = await fetch("https://fusheng-ji.github.io/blog/posts.json", {
-          cache: "no-cache"
-        });
-
-        if (!response.ok) {
-          throw new Error(`Failed to fetch posts.json: ${response.status}`);
-        }
-
-        const posts = await response.json();
-        const latestPosts = posts.slice(0, 2);
-
-        if (!latestPosts.length) {
-          table.innerHTML = `
-            <tbody>
-              <tr><td class="blog-empty" style="padding:20px;">No blog posts yet.</td></tr>
-            </tbody>
-          `;
-          return;
-        }
-
-        table.innerHTML = `
-          <tbody>
-            ${latestPosts.map(post => {
-              const blogBase = "https://fusheng-ji.github.io/blog";
-              const fullUrl = `${blogBase}${post.url.startsWith("/") ? post.url : "/" + post.url}`;
-              const title = escapeHtml(post.title || "Untitled");
-              const desc = escapeHtml(post.description || "");
-              const date = formatDate(post.date);
-              const reading = post.readingTime ? `${escapeHtml(String(post.readingTime))} min read` : "";
-
-              return `
-                <tr class="blog-card-row">
-                  <td style="padding:0 20px 0 20px;">
-                    <a class="blog-card-link" href="${fullUrl}">
-                      <span class="blog-card-date">${date}</span>
-                      <span class="blog-card-title">${title}</span>
-                      ${desc ? `<p class="blog-card-desc">${desc}</p>` : ""}
-                      ${(date || reading) ? `<div class="blog-card-meta">${reading}</div>` : ""}
-                    </a>
-                  </td>
-                </tr>
-              `;
-            }).join("")}
-          </tbody>
-        `;
-      } catch (err) {
-        console.error(err);
-        table.innerHTML = `
-          <tbody>
-            <tr><td class="blog-error" style="padding:20px;">Unable to load blog posts.</td></tr>
-          </tbody>
-        `;
-      }
-    }
-
-    function formatDate(dateString) {
-      const date = new Date(dateString);
-      if (Number.isNaN(date.getTime())) return dateString || "";
-      return date.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric"
-      });
-    }
-
-    function escapeHtml(str) {
-      return str
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#39;");
-    }
-
-    document.addEventListener("DOMContentLoaded", loadBlogCards);
-  </script>
-
 </body>
 </html>
