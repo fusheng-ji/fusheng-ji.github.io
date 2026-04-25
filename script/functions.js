@@ -542,7 +542,9 @@
       setPanelsHeight(previousHeight, true);
       animatePanel(activePanel, direction, config.instantPanel || config.instantScroll);
       updateIndicator(activeButton, config.instantIndicator || config.instantScroll);
-      scrollActiveTabIntoView(activeButton, config.instantScroll);
+      if (config.scrollTabIntoView) {
+        scrollActiveTabIntoView(activeButton, config.instantScroll);
+      }
       window.requestAnimationFrame(function () {
         syncPanelsHeight(config.instantPanel || config.instantScroll);
       });
@@ -575,7 +577,10 @@
 
     buttons.forEach(function (button, index) {
       button.addEventListener('click', function () {
-        activateTab(button.getAttribute('data-gallery-tab'), { updateHash: true });
+        activateTab(button.getAttribute('data-gallery-tab'), {
+          scrollTabIntoView: true,
+          updateHash: true
+        });
       });
 
       button.addEventListener('keydown', function (event) {
@@ -596,6 +601,7 @@
         event.preventDefault();
         activateTab(buttons[nextIndex].getAttribute('data-gallery-tab'), {
           focusTab: true,
+          scrollTabIntoView: true,
           updateHash: true
         });
       });
