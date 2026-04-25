@@ -1,6 +1,27 @@
 (function () {
   'use strict';
 
+  function initInitialScrollPosition() {
+    try {
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'manual';
+      }
+    } catch (error) {
+      console.warn('Unable to disable scroll restoration:', error);
+    }
+
+    function scrollToTopIfNoHash() {
+      if (window.location.hash) return;
+      window.scrollTo(0, 0);
+    }
+
+    scrollToTopIfNoHash();
+    window.addEventListener('pageshow', scrollToTopIfNoHash);
+    window.addEventListener('load', function () {
+      window.requestAnimationFrame(scrollToTopIfNoHash);
+    });
+  }
+
   function onReady(callback) {
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', callback);
@@ -981,6 +1002,8 @@
       list.setAttribute('aria-busy', 'false');
     }
   }
+
+  initInitialScrollPosition();
 
   onReady(function () {
     initGalleryTabs();
