@@ -75,6 +75,40 @@
     });
   }
 
+  function initMobileNavbar() {
+    var navbar = document.querySelector('.navbar');
+    var toggle = document.querySelector('.navbar-toggle');
+    var navLinks = getElement('site-nav');
+    if (!navbar || !toggle || !navLinks) return;
+
+    function setOpen(isOpen) {
+      navbar.classList.toggle('is-open', isOpen);
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      toggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+    }
+
+    toggle.addEventListener('click', function () {
+      setOpen(!navbar.classList.contains('is-open'));
+    });
+
+    navLinks.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        setOpen(false);
+      });
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        setOpen(false);
+      }
+    });
+
+    document.addEventListener('click', function (event) {
+      if (!navbar.classList.contains('is-open') || navbar.contains(event.target)) return;
+      setOpen(false);
+    });
+  }
+
   function isElementVisible(element) {
     return Boolean(element && element.offsetParent !== null);
   }
@@ -1010,6 +1044,7 @@
     initBulmaCarousel();
     initAvatarCarousel();
     initToggleLinks();
+    initMobileNavbar();
     initSmoothScroll();
     initTimeline();
     loadBlogCards();
