@@ -297,7 +297,7 @@
       instantScroll: true,
       instantIndicator: true,
       instantPanel: true,
-      scrollTabIntoView: true
+      scrollTabIntoView: Boolean(hashToTab[window.location.hash])
     });
 
     function refreshActiveIndicator() {
