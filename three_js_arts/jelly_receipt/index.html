@@ -3,7 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thermal Receipt Physics Demo</title>
+  <meta name="author" content="Wenbo Ji">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Interactive Three.js thermal receipt physics demo by Wenbo Ji, using WebGL and a Verlet cloth simulation to bend and fold a receipt in the browser.">
+  <link rel="canonical" href="https://fusheng-ji.github.io/three_js_arts/jelly_receipt/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fusheng-ji.github.io/three_js_arts/jelly_receipt/">
+  <meta property="og:title" content="Thermal Receipt Physics Demo | Wenbo Ji">
+  <meta property="og:description" content="Interactive WebGL receipt simulation with Three.js and Verlet cloth physics.">
+  <meta property="og:image" content="https://fusheng-ji.github.io/three_js_arts/jelly_receipt/banner.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Thermal Receipt Physics Demo | Wenbo Ji">
+  <meta name="twitter:description" content="Interactive WebGL receipt simulation with Three.js and Verlet cloth physics.">
+  <meta name="twitter:image" content="https://fusheng-ji.github.io/three_js_arts/jelly_receipt/banner.png">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>J</text></svg>">
+  <title>Thermal Receipt Physics Demo | Wenbo Ji</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Thermal Receipt Physics Demo",
+    "url": "https://fusheng-ji.github.io/three_js_arts/jelly_receipt/",
+    "image": "https://fusheng-ji.github.io/three_js_arts/jelly_receipt/banner.png",
+    "applicationCategory": "BrowserApplication",
+    "operatingSystem": "Any",
+    "creator": {
+      "@type": "Person",
+      "name": "Wenbo Ji",
+      "url": "https://fusheng-ji.github.io/"
+    },
+    "description": "Interactive browser demo that uses Three.js, WebGL, and Verlet cloth physics to simulate a bendable thermal receipt."
+  }
+  </script>
   <style>
     html, body {
       margin: 0;
@@ -29,6 +60,7 @@
       border-radius: 14px;
       padding: 12px 14px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
       line-height: 1.45;
       max-width: 360px;

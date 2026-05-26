@@ -1,5 +1,28 @@
 import * as THREE from '../../../libs/three.module.js';
 
+function createProceduralNormalMap() {
+  const size = 8;
+  const data = new Uint8Array(size * size * 4);
+
+  for (let y = 0; y < size; y += 1) {
+    for (let x = 0; x < size; x += 1) {
+      const i = (y * size + x) * 4;
+      const ripple = Math.sin((x / size) * Math.PI * 2) * Math.cos((y / size) * Math.PI * 2);
+      data[i] = 128 + Math.round(ripple * 10);
+      data[i + 1] = 128 + Math.round(Math.cos((x + y) / size * Math.PI * 2) * 8);
+      data[i + 2] = 128;
+      data[i + 3] = 255;
+    }
+  }
+
+  const texture = new THREE.DataTexture(data, size, size, THREE.RGBAFormat);
+  texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat.set(6, 6);
+  texture.needsUpdate = true;
+
+  return texture;
+}
+
 export class WaterSurface {
   constructor({
     width,
@@ -21,7 +44,7 @@ export class WaterSurface {
     this.uniforms = {
       time: { value: 0 },
       lightDir: { value: lightDirection.clone().normalize() },
-      normalMap: { value: null },
+      normalMap: { value: createProceduralNormalMap() },
       normalScale: { value: 1.0 }
     };
 
@@ -131,17 +154,6 @@ export class WaterSurface {
     this.mesh = new THREE.Mesh(this.geometry, this.material);
     this.mesh.position.y = waterLevel;
     this.mesh.receiveShadow = true;
-
-    // load a normals texture to add micro normal detail (tile and animate it)
-    const texLoader = new THREE.TextureLoader();
-    const normalTex = texLoader.load(new URL('../../../libs/waternormals.jpg', import.meta.url).href, (t) => {
-      t.wrapS = t.wrapT = THREE.RepeatWrapping;
-      t.repeat.set(6, 6);
-      this.uniforms.normalMap.value = t;
-      this.uniforms.normalScale.value = 1.0;
-    }, undefined, () => {
-      // ignore failures
-    });
   }
 
   update(sim, time) {

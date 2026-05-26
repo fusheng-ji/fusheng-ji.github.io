@@ -6,12 +6,15 @@
 
   <head>
     <style>
-      .centered {
+        .centered {
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             line-height: 1.2;
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: .5rem;
             /* width: 60%; */
         }
         .centered img {
@@ -67,10 +70,41 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Wenbo Ji">
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Tour into the Picture course project by Wenbo Ji and collaborators for TUM CV Challenge SS24, using a spidery mesh interface to animate and reconstruct a simple 3D scene from a single image.">
+    <link rel="canonical" href="https://fusheng-ji.github.io/projects/tum_cv_challenge_ss24/">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://fusheng-ji.github.io/projects/tum_cv_challenge_ss24/">
+    <meta property="og:title" content="Tour into the Picture | TUM CV Challenge SS24">
+    <meta property="og:description" content="Single-image scene reconstruction and animation project using a spidery mesh interface, developed for TUM CV Challenge SS24.">
+    <meta property="og:image" content="https://fusheng-ji.github.io/projects/tum_cv_challenge_ss24/pic/Cover.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tour into the Picture | TUM CV Challenge SS24">
+    <meta name="twitter:description" content="Single-image scene reconstruction and animation project using a spidery mesh interface.">
+    <meta name="twitter:image" content="https://fusheng-ji.github.io/projects/tum_cv_challenge_ss24/pic/Cover.png">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐱</text></svg>">
-    <title>
-      TUM CV Challenge SS24 - Wenbo Ji
-    </title>
+    <title>Tour into the Picture | TUM CV Challenge SS24 - Wenbo Ji</title>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "name": "Tour into the Picture",
+      "url": "https://fusheng-ji.github.io/projects/tum_cv_challenge_ss24/",
+      "image": "https://fusheng-ji.github.io/projects/tum_cv_challenge_ss24/pic/Cover.png",
+      "description": "A TUM CV Challenge SS24 project that uses a spidery mesh interface to infer simple scene geometry and animate a single image.",
+      "creator": [
+        {"@type": "Person", "name": "Wenbo Ji", "url": "https://fusheng-ji.github.io/"},
+        {"@type": "Person", "name": "Xiang Ji"},
+        {"@type": "Person", "name": "Hongru Li"},
+        {"@type": "Person", "name": "Yuming Li"},
+        {"@type": "Person", "name": "Shilin Zhang"}
+      ],
+      "about": ["single image scene reconstruction", "computer vision", "camera animation", "spidery mesh interface"],
+      "isPartOf": "TUM CV Challenge SS24",
+      "codeRepository": "https://github.com/fusheng-ji/TUM_CV_Challenge_SS24"
+    }
+    </script>
     <!-- Bootstrap -->
     <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -87,12 +121,12 @@
         <div class="row">
           <div class="col-12">
             
-            <h2 class="centered">
+            <h1 class="centered">
               <div>
                 Tour in Picture
                 <br> using a spidery mesh interface to make animation from a single image
               </div>
-          </h2>
+          </h1>
             <h4 style="color:#5a6268;"> TUM CV Challenge SS24 </h4>
             <hr>
             <h6>
@@ -127,8 +161,8 @@
   </section>
 
   <p class="text-center">
-    <img src="./pic/cover_origin.png" height="500">
-    <img src="./pic/cover_cutted.png" height="500">
+    <img src="./pic/cover_origin.png" height="500" alt="Original input image for Tour into the Picture">
+    <img src="./pic/cover_cutted.png" height="500" alt="Foreground cutout result for Tour into the Picture">
   </p>
  
   <section>
@@ -145,7 +179,7 @@
             <br><br>
             This method enables flexible image editing, such as inpainting, moving the camera, and extending the Image Space, which requires a deep understanding of the scene's 3D structure and real-time rendering of spatially consistent views.
           </p>
-          <img src="./pic/decomp.svg" alt="" width="1000" >
+          <img src="./pic/decomp.svg" alt="Scene decomposition into foreground, background planes, and vanishing point geometry" width="1000" >
         </div>
       </div>
     </div>
@@ -167,7 +201,7 @@
             <br><br>
             Finally, users can determine the proximity of objects in the scene, effectively setting camera parameters to position foreground objects as desired. 
           </p>
-          <img src="./pic/algorithm.png" alt="" width="1000">
+          <img src="./pic/algorithm.png" alt="Tour into the Picture GUI workflow for extracting a scene model from one image" width="1000">
         </div>
       </div>
     </div>
@@ -185,7 +219,7 @@
               Overview of Our Method: Step 1: Data Selection, Step 2: Image Decomposition, Step 3: Fitting Perspective Projection, and Step 4: Camera Positioning.
             </div>
             <br><br>
-            <img src="./pic/pipeline.png" alt="" width="1000">
+            <img src="./pic/pipeline.png" alt="Pipeline: data selection, image decomposition, perspective projection fitting, and camera positioning" width="1000">
             <br>
             <br>
             
@@ -201,16 +235,16 @@
             <h2>Experimental Results </h2>
             <hr style="margin-top:0px">
             <h3 class="new_h3"> Costume Data - Chilli room</h3>
-            <img src="./pic/chilli_room.png" alt="" width="1000" >
+            <img src="./pic/chilli_room.png" alt="Tour into the Picture result on a chilli room image" width="1000" >
             <hr style="margin-top:0px">
             <h3 class="new_h3"> Complex sipmle - Simple room </h3>
-            <img src="./pic/simple_room.png" alt="" width="1000" >
+            <img src="./pic/simple_room.png" alt="Tour into the Picture result on a simple room image" width="1000" >
             <hr style="margin-top:0px">
             <h3 class="new_h3"> Complex middle - Museum </h3>
-            <img src="./pic/museum.png" alt="" width="1000" >
+            <img src="./pic/museum.png" alt="Tour into the Picture result on a museum image" width="1000" >
             <hr style="margin-top:0px">
             <h3 class="new_h3"> Complex middle - Shopping mall </h3>
-            <img src="./pic/shopping_mall.png" alt="" width="1000" >
+            <img src="./pic/shopping_mall.png" alt="Tour into the Picture result on a shopping mall image" width="1000" >
             
       </div>
     </div>

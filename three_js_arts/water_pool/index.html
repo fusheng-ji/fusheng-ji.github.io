@@ -3,7 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Duck Pool</title>
+  <meta name="author" content="Wenbo Ji">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Duck Pool is an interactive Three.js water simulation by Wenbo Ji, featuring CPU height-field waves, caustics, and floating rubber ducks in the browser.">
+  <link rel="canonical" href="https://fusheng-ji.github.io/three_js_arts/water_pool/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fusheng-ji.github.io/three_js_arts/water_pool/">
+  <meta property="og:title" content="Duck Pool | Three.js Water Simulation - Wenbo Ji">
+  <meta property="og:description" content="Interactive browser water simulation with CPU height-field waves, caustics, and floating rubber ducks.">
+  <meta property="og:image" content="https://fusheng-ji.github.io/three_js_arts/water_pool/banner.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Duck Pool | Three.js Water Simulation - Wenbo Ji">
+  <meta name="twitter:description" content="Interactive browser water simulation with CPU height-field waves, caustics, and floating rubber ducks.">
+  <meta name="twitter:image" content="https://fusheng-ji.github.io/three_js_arts/water_pool/banner.png">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💧</text></svg>">
+  <title>Duck Pool | Three.js Water Simulation - Wenbo Ji</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Duck Pool",
+    "url": "https://fusheng-ji.github.io/three_js_arts/water_pool/",
+    "image": "https://fusheng-ji.github.io/three_js_arts/water_pool/banner.png",
+    "applicationCategory": "BrowserApplication",
+    "operatingSystem": "Any",
+    "creator": {
+      "@type": "Person",
+      "name": "Wenbo Ji",
+      "url": "https://fusheng-ji.github.io/"
+    },
+    "description": "Interactive Three.js water simulation with CPU height-field waves, caustics, and floating rubber ducks."
+  }
+  </script>
   <style>
     html, body {
       margin: 0;
@@ -24,6 +55,7 @@
       border-radius: 14px;
       padding: 12px 14px;
       box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+      -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
       line-height: 1.45;
       max-width: 420px;
@@ -34,6 +66,29 @@
       margin: 0 0 6px;
       font-size: 15px;
     }
+    .compat-message {
+      display: none;
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      z-index: 20;
+      width: 90%;
+      max-width: 520px;
+      transform: translateX(-50%);
+      box-sizing: border-box;
+      padding: 12px 14px;
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.94);
+      color: #243342;
+      box-shadow: 0 14px 32px rgba(0,0,0,0.12);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .no-module .no-module-message,
+    .no-webgl .no-webgl-message {
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -41,6 +96,22 @@
     <h1>Duck Pool</h1>
     <div>CPU height-field drives the water surface and caustics. Click the water to spawn floating rubber ducks that collide with each other.</div>
   </div>
-  <script type="module" src="./src/main.js"></script>
+  <noscript>
+    <div class="compat-message" style="display:block">Duck Pool needs JavaScript and WebGL to run. The project page remains available, but the interactive simulation is disabled.</div>
+  </noscript>
+  <div class="compat-message no-module-message">Duck Pool needs a browser with JavaScript modules. Please use a current Chrome, Edge, Firefox, Safari, iOS Safari, or Android Chrome.</div>
+  <div class="compat-message no-webgl-message">Duck Pool needs WebGL support. The browser loaded the page, but the interactive water simulation cannot run here.</div>
+  <script nomodule>
+    document.body.className += (document.body.className ? ' ' : '') + 'no-module';
+  </script>
+  <script type="module">
+    var canvas = document.createElement('canvas');
+    var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (!gl) {
+      document.body.classList.add('no-webgl');
+    } else {
+      import('./src/main.js');
+    }
+  </script>
 </body>
 </html>

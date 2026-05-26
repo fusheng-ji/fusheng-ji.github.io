@@ -1,0 +1,37 @@
+/* Cross-browser fallbacks. Modern declarations in later files override these when supported. */
+.navbar-container,
+.page-shell,
+.section-table {
+  width: 100%;
+}
+.navbar-container {
+  max-width: 1100px;
+}
+.experience-logo-card,
+.publication-entry .entry-visual,
+.thesis-entry .entry-visual.is-teaser,
+.project-entry .entry-visual,
+.project-showcase-media,
+.avatar-carousel {
+  min-height: 1px;
+}
+.project-showcase-media,
+.results-carousel img,
+.results-carousel video {
+  height: auto;
+}
+.avatar-carousel {
+  height: 260px;
+}
+a:focus,
+button:focus,
+.gallery-tab-button:focus,
+.blog-card-link:focus {
+  outline: 2px solid #2a6fbb;
+  outline-offset: 3px;
+}
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .navbar {
+    background: rgba(224, 226, 229, 0.72);
+  }
+}

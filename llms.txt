@@ -1,0 +1,49 @@
+# Wenbo Ji
+
+> Personal research portfolio for Wenbo Ji, a visual computing researcher and M.Sc. student at the Technical University of Munich.
+
+## Canonical Site
+
+- Home: https://fusheng-ji.github.io/
+- CV: https://fusheng-ji.github.io/assets/doc/WenboJi_CV_English.pdf
+- Blog: https://fusheng-ji.github.io/blog/
+- Google Scholar: https://scholar.google.com/citations?user=ZTUMczEAAAAJ&hl=en
+- ORCID: https://orcid.org/0000-0001-7838-8736
+- GitHub: https://github.com/fusheng-ji/
+- LinkedIn: https://www.linkedin.com/in/wenbo-ji-6950b9187
+
+## Identity
+
+Wenbo Ji works on visual computing, 3D/4D reconstruction, long-term tracking, scene decomposition, video generation, avatar animation, human-scene interaction, and video-action world models for robot dexterous manipulation.
+
+He is pursuing a second M.Sc. in Electrical Engineering and Information Technology at the Technical University of Munich. He works with the TUM Visual Computing Group and is an intern at Agile Robots SE.
+
+## Research Topics
+
+- Visual computing
+- 3D and 4D reconstruction
+- Gaussian splatting
+- Long-term video and tissue tracking
+- Scene decomposition and 3D zero-shot instance segmentation
+- Human motion video diffusion
+- Avatar animation
+- Human-scene interaction
+- Robot dexterous manipulation and video-action world models
+
+## Selected Publications
+
+- CSG-Fusion: Consistent Sparse-View Gaussian Splatting via Matching-based Fusion. ICCV 2025 Workshop E2E3D. Best Paper Award. https://openaccess.thecvf.com/content/ICCV2025W/E2E3D/html/Xia_CSG-Fusion_Consistent_Sparse-View_Gaussian_Splatting_via_Matching-based_Fusion_ICCVW_2025_paper.html
+- LiteTracker: Leveraging Temporal Causality for Accurate Low-latency Tissue Tracking. MICCAI 2025. https://arxiv.org/abs/2504.09904
+- RE0: Recognize Everything with 3D Zero-shot Instance Segmentation. ICRA 2025. https://ieeexplore.ieee.org/document/11127468/
+
+## Selected Projects
+
+- OpenUserStudyKit: reusable infrastructure for user study questionnaires and experiment workflows. https://fusheng-ji.github.io/OpenUserStudyKit/
+- LiteAvatar - WASM Version: browser-only audio-driven 2D avatar animation using WebAssembly. https://fusheng-ji.github.io/lite-avatar-WASM/
+- Tour into the Picture: single-image scene reconstruction and animation course project. https://fusheng-ji.github.io/projects/tum_cv_challenge_ss24/
+- Thermal Receipt Physics Demo: Three.js and WebGL receipt cloth simulation. https://fusheng-ji.github.io/three_js_arts/jelly_receipt/
+- Duck Pool: Three.js water simulation with CPU height-field waves, caustics, and floating ducks. https://fusheng-ji.github.io/three_js_arts/water_pool/
+
+## Contact
+
+- Email: wenboji0420@gmail.com

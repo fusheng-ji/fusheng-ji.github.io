@@ -1,0 +1,159 @@
+a {
+  color: #2a6fbb;
+  text-decoration: none;
+}
+a:focus,
+a:hover {
+  color: #d9822b;
+  text-decoration: none;
+}
+body, td, th, tr, p, a, li, span {
+  font-family: 'Lato', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.65;
+  color: #44576b;
+}
+
+strong {
+  font-family: 'Lato', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #2f3e4d;
+}
+
+heading {
+  font-family: 'Lato', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #2f3e4d;
+}
+
+sub_heading {
+  font-family: 'Lato', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #2f3e4d;
+}
+
+topictitle {
+  font-family: 'Lato', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: #2f3e4d;
+}
+
+papertitle {
+  font-family: 'Lato', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2f3e4d;
+}
+
+name {
+  font-family: 'Lato', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: #2f3e4d;
+}
+.topic-location {
+  display: block;
+  font-size: 13px;
+  font-weight: 300;
+  color: #666;
+  white-space: nowrap;
+}
+.inherit-link,
+.inherit-link:focus,
+.inherit-link:hover {
+  color: inherit;
+}
+
+.hero-name-line {
+  margin: 0;
+  text-align: center;
+}
+
+.semantic-heading {
+  margin: 0;
+  font: inherit;
+  line-height: inherit;
+}
+
+.semantic-heading heading {
+  display: block;
+}
+
+.publication-note {
+  margin-top: 4px;
+  color: #666;
+  font-size: 13px;
+}
+
+/* Global tags: for publications / experiences / projects / thesis */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 14px;
+  margin-right: 6px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-family: 'Lato', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #44576b;
+  text-align: center;
+  width: auto;
+  box-sizing: border-box;
+  white-space: nowrap;
+  flex: 0 0 auto;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.78);
+}
+.tag-blue,
+.research-interest-tag-blue {
+  color: #436785;
+  background: #ebf2f8;
+  border-color: #d9e5f0;
+}
+.tag-green,
+.research-interest-tag-green {
+  color: #416c5c;
+  background: #edf5f0;
+  border-color: #d7e7dd;
+}
+.tag-orange,
+.research-interest-tag-orange {
+  color: #946138;
+  background: #faf1e7;
+  border-color: #efdcc7;
+}
+.tag-purple,
+.research-interest-tag-purple {
+  color: #6f5587;
+  background: #f4edf8;
+  border-color: #e6d8f0;
+}
+.tag-yellow,
+.research-interest-tag-yellow {
+  color: #8c6e1e;
+  background: #fbf6e3;
+  border-color: #f0e5bc;
+}
+.tag-teal,
+.research-interest-tag-teal {
+  color: #3d7a71;
+  background: #eaf5f2;
+  border-color: #d4ebe3;
+}
+.tag-slate {
+  color: #4d6277;
+  background: #eef2f6;
+  border-color: #dbe3ea;
+}
+.tag-wrap {
+  max-width: 280px;
+  white-space: normal;
+  line-height: 1.35;
+}
