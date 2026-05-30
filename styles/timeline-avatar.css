@@ -207,9 +207,9 @@
   margin: 18px auto 0;
   display: flex;
   flex-wrap: nowrap;
-  gap: 0;
+  gap: 14px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 .avatar-icons a {
   display: flex;
@@ -229,6 +229,7 @@
   .avatar-icons {
     width: 100%;
     max-width: 160px;
+    gap: 8px;
   }
   .avatar-icons a {
     min-height: 24px;
