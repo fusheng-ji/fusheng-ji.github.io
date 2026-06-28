@@ -22,6 +22,34 @@
   overflow: hidden;
 }
 
+.gallery-section {
+  table-layout: fixed;
+  max-width: 100%;
+}
+
+.gallery-section .section-cell {
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.gallery-section .gallery-tab-panels,
+.gallery-section .gallery-tab-panel,
+.gallery-section .carousel-bound,
+.gallery-section .results-carousel,
+.gallery-section .slider {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.gallery-section .slider-container,
+.gallery-section .slider-item,
+.gallery-section .item {
+  min-width: 0;
+  box-sizing: border-box;
+}
+
 .project-showcase-carousel .item {
   font-size: 16px;
   background: #fff;
