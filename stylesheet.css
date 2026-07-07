@@ -1,8 +1,9 @@
 @import url("./styles/compat.css");
 @import url("./styles/base.css");
-@import url("./styles/home-sections.css?v=20260628-width");
+@import url("./styles/home-sections.css?v=20260707-css-consolidated");
 @import url("./styles/gallery-carousel.css?v=20260628-gallerywidth");
-@import url("./styles/navigation.css");
+@import url("./styles/navigation.css?v=20260707-overflow-fix");
+@import url("./styles/site-glass.css?v=20260707-mobile-plain");
 @import url("./styles/entries.css");
 @import url("./styles/timeline-avatar.css");
-@import url("./styles/blog-gallery.css?v=20260628-blogwidth");
+@import url("./styles/blog-gallery.css?v=20260707-css-consolidated");

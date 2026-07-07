@@ -6,24 +6,40 @@
 
   function initAvatarCarousel() {
     var wrap = Site.getElement('avatarCarousel');
-    if (!wrap) return;
+    if (!wrap || wrap.getAttribute('data-avatar-ready') === 'true') return;
 
     var slidesEl = wrap.querySelector('.avatar-slides');
     var dotsEl = wrap.querySelector('.avatar-dots');
     if (!slidesEl || !dotsEl) return;
 
-    var imageSources = ['assets/images/wenboji_rider.jpg'];
-    for (var i = 0; i <= 6; i += 1) {
-      imageSources.push('assets/misc/avatar_' + i + '.png');
+    var slides = Site.toArray(slidesEl.querySelectorAll('img'));
+    var dots = Site.toArray(dotsEl.querySelectorAll('.avatar-dot'));
+    if (!slides.length) return;
+
+    var current = 0;
+    var index;
+
+    for (index = 0; index < slides.length; index += 1) {
+      if (Site.hasClass(slides[index], 'active')) {
+        current = index;
+        break;
+      }
     }
 
-    var slideFragment = document.createDocumentFragment();
-    var dotFragment = document.createDocumentFragment();
-    var slides = [];
-    var dots = [];
-    var current = 0;
-    var intervalMs = 3500;
     var timerId = null;
+
+    function ensureLoaded(index) {
+      var img = slides[index];
+      if (!img || !Site.Media || !Site.Media.activateImage) return;
+      Site.Media.activateImage(img);
+    }
+
+    function preloadWindow(index) {
+      ensureLoaded(index);
+      if (slides.length > 1) {
+        ensureLoaded((index + 1) % slides.length);
+      }
+    }
 
     function goTo(index) {
       if (!slides.length) return;
@@ -32,11 +48,12 @@
       if (nextIndex === current) return;
 
       Site.removeClass(slides[current], 'active');
-      Site.removeClass(dots[current], 'active');
+      if (dots[current]) Site.removeClass(dots[current], 'active');
 
       current = nextIndex;
+      preloadWindow(current);
       Site.addClass(slides[current], 'active');
-      Site.addClass(dots[current], 'active');
+      if (dots[current]) Site.addClass(dots[current], 'active');
     }
 
     function next() {
@@ -51,38 +68,35 @@
 
     function startTimer() {
       stopTimer();
-      if (slides.length < 2) return;
-      timerId = window.setInterval(next, intervalMs);
+      if (slides.length < 2 || (Site.prefersReducedMotion && Site.prefersReducedMotion())) return;
+      timerId = window.setInterval(next, 3500);
     }
 
-    imageSources.forEach(function (src, index) {
-      var img = document.createElement('img');
-      img.src = src;
-      img.alt = index === 0 ? 'Wenbo Ji portrait' : 'Avatar illustration ' + index;
-      img.decoding = 'async';
-      img.loading = index === 0 ? 'eager' : 'lazy';
-      if (index === 0) Site.addClass(img, 'active');
-      slideFragment.appendChild(img);
-      slides.push(img);
+    dots.forEach(function (dot, index) {
+      if (index >= slides.length) {
+        Site.removeNode(dot);
+        return;
+      }
 
-      var dot = document.createElement('button');
-      dot.type = 'button';
-      dot.className = 'avatar-dot' + (index === 0 ? ' active' : '');
-      dot.setAttribute('aria-label', 'Show avatar ' + (index + 1));
       dot.addEventListener('click', function () {
         goTo(index);
         startTimer();
       });
-      dotFragment.appendChild(dot);
-      dots.push(dot);
     });
 
-    slidesEl.appendChild(slideFragment);
-    dotsEl.appendChild(dotFragment);
+    if (dots.length > slides.length) {
+      dots.slice(slides.length).forEach(Site.removeNode);
+      dots = dots.slice(0, slides.length);
+    }
 
+    Site.addClass(slides[current], 'active');
+    if (dots[current]) Site.addClass(dots[current], 'active');
+
+    preloadWindow(current);
     startTimer();
     wrap.addEventListener('mouseenter', stopTimer);
     wrap.addEventListener('mouseleave', startTimer);
+    wrap.setAttribute('data-avatar-ready', 'true');
   }
 
   Site.initAvatarCarousel = initAvatarCarousel;

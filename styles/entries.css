@@ -124,6 +124,9 @@ iframe[src*="clustrmaps"] {
 .education-entry .experience-logo-card {
   height: clamp(72px, 8vw, 92px);
 }
+.education-mobile-line {
+  display: none;
+}
 .award-entry {
   margin-bottom: 14px;
 }
@@ -265,9 +268,4 @@ iframe[src*="clustrmaps"] {
 .publication-award a {
   color: #2a6fbb;
   font-weight: 700;
-}
-@media (max-width: 768px) {
-  .entry-visual-stack {
-    width: min(100%, 240px);
-  }
 }

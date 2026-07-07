@@ -30,8 +30,3 @@ button:focus,
   outline: 2px solid #2a6fbb;
   outline-offset: 3px;
 }
-@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-  .navbar {
-    background: rgba(224, 226, 229, 0.72);
-  }
-}

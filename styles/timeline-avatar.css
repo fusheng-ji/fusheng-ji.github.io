@@ -1,109 +1,3 @@
-/* Research Timeline Styles */
-.timeline-container {
-  width: 100%;
-  margin: 28px 0 0 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.timeline-axis {
-  position: relative;
-  width: 100%;
-  height: 18px;
-  margin: 0 0 10px 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.timeline-axis span {
-  position: absolute;
-  top: 0;
-  font-size: 12px;
-  color: #6b7280;
-  white-space: nowrap;
-}
-
-.timeline-axis-line {
-  position: relative;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(to right, #d5dbe1, #1772d0, #d5dbe1);
-  border-radius: 999px;
-  margin: 0 0 14px 0;
-}
-
-.timeline-axis-line::before,
-.timeline-axis-line::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #fff;
-  border: 2px solid #1772d0;
-}
-
-.timeline-axis-line::before { left: 0; }
-.timeline-axis-line::after { right: 0; }
-
-.timeline-rows {
-  display: grid;
-  row-gap: 12px;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-.timeline-row {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-.timeline-lane {
-  position: relative;
-  width: 100%;
-  height: 30px;
-  background: #eef1f4;
-  border-radius: 999px;
-  overflow: hidden;
-}
-
-.timeline-range {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 500;
-  white-space: nowrap;
-  padding: 0 10px;
-  box-sizing: border-box;
-}
-
-.timeline-range-green { background: #2e8b57; }
-.timeline-range-purple { background: #8e44ad; }
-.timeline-range-orange { background: #e67e22; }
-.timeline-range-teal { background: #20c997; }
-.timeline-range-synthesis {
-  background: linear-gradient(to bottom, #f1c40f 0%, #f1c40f 50%, #1772d0 50%, #1772d0 100%);
-  color: #fff;
-}
-
-@media (max-width: 768px) {
-  .timeline-lane {
-    height: 28px;
-  }
-  .timeline-range {
-    font-size: 11px;
-  }
-}
 /* Perception-Action label + bridge */
 .perception-wrapper {
   display: flex;
@@ -198,9 +92,8 @@
 .avatar-carousel .avatar-dots { display:flex; justify-content:center; gap:6px; margin-top:8px; }
 .avatar-carousel .avatar-dot { width:10px; height:10px; border-radius:50%; background:rgba(0,0,0,0.15); cursor:pointer; transition:background 200ms; }
 .avatar-carousel .avatar-dot.active { background:#1772d0; }
-@media (max-width:600px) { .avatar-carousel { max-width:160px; height:160px; } }
 
-/* icons under avatar should match avatar width */
+/* icons under avatar — desktop defaults; mobile overrides in site-runtime.css */
 .avatar-icons {
   width: 100%;
   max-width: 260px;
@@ -224,17 +117,4 @@
   width: auto;
   height: 22.5px;
   max-height: none;
-}
-@media (max-width:600px) {
-  .avatar-icons {
-    width: 100%;
-    max-width: 160px;
-    gap: 8px;
-  }
-  .avatar-icons a {
-    min-height: 24px;
-  }
-  .avatar-icons img {
-    height: 16.5px;
-  }
 }

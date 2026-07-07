@@ -1,0 +1,151 @@
+/* SiteGlass — hybrid backdrop + SVG edge chromatic aberration */
+
+.site-glass {
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgba(120, 140, 168, 0.18);
+  background: hsl(0 0% 100% / var(--site-glass-frost, 0.05));
+  box-shadow:
+    0 18px 38px rgba(8, 12, 20, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.site-glass--dark {
+  border-color: rgba(90, 110, 140, 0.34);
+  background: hsl(0 0% 0% / var(--site-glass-frost, 0.3));
+  box-shadow:
+    inset 0 1px 0 rgba(160, 180, 210, 0.14),
+    inset 0 -1px 0 rgba(8, 12, 20, 0.28);
+  color: #f2f6fb;
+}
+
+/* Keep nav pinned while scrolling — do not set position:relative on .site-glass (breaks sticky). */
+.navbar.site-glass {
+  position: sticky;
+  top: 10px;
+  z-index: 1000;
+}
+
+@media (min-width: 901px) {
+  .navbar.site-glass {
+    top: 10px;
+  }
+}
+
+.site-glass-layers {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.site-glass-backdrop {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.site-glass-edge {
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  pointer-events: none;
+  padding: var(--site-glass-edge-width, 5px);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+}
+
+.site-glass-rim {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.58),
+    inset 0 -1px 0 rgba(120, 140, 168, 0.14),
+    inset 0 0 18px rgba(255, 255, 255, 0.05);
+}
+
+.site-glass--chromatic .site-glass-rim {
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.62),
+    inset 0 -1px 0 rgba(120, 140, 168, 0.12),
+    inset 0 0 22px rgba(255, 255, 255, 0.07),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.site-glass-filter-defs {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.site-glass .site-glass-layers,
+.site-glass .site-glass-filter-defs {
+  position: absolute !important;
+  inset: 0;
+  z-index: 0 !important;
+  pointer-events: none;
+}
+
+.site-glass > .navbar-container,
+.site-glass > .site-glass-content,
+.site-glass:not(.navbar) > :not(.site-glass-layers):not(.site-glass-filter-defs) {
+  position: relative;
+  z-index: 2;
+}
+
+.navbar.site-glass[data-site-glass-ready="true"] {
+  border-color: rgba(120, 140, 168, 0.16);
+  background: hsl(0 0% 100% / var(--site-glass-frost, 0.05));
+}
+
+.navbar.site-glass[data-site-glass-ready="true"] .navbar-links .nav-link-chip.is-nav-glass-active {
+  overflow: hidden;
+  border-color: rgba(130, 148, 172, 0.32);
+  background: hsl(215 16% 24% / var(--site-glass-frost, 0.16));
+  color: #f6f9fc;
+  box-shadow:
+    inset 0 1px 0 rgba(200, 214, 232, 0.16),
+    inset 0 -1px 0 rgba(8, 12, 20, 0.18);
+}
+
+.navbar.site-glass[data-site-glass-ready="true"] .navbar-links .nav-link-chip.is-nav-glass-active .nav-link-label {
+  position: relative;
+  z-index: 2;
+}
+
+@supports not (
+  (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+) {
+  .site-glass {
+    background: rgba(244, 246, 248, 0.88);
+  }
+}
+
+@media (prefers-reduced-motion: reduce), (prefers-reduced-transparency: reduce) {
+  .site-glass,
+  .navbar.site-glass[data-site-glass-ready="true"] {
+    background: rgba(244, 246, 248, 0.92) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .site-glass-backdrop,
+  .site-glass-edge {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}

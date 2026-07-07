@@ -7,6 +7,7 @@
   Site.initInitialScrollPosition();
 
   Site.ready(function () {
+    if (Site.Media && Site.Media.init) Site.Media.init();
     if (Site.initGalleryTabs) Site.initGalleryTabs();
     if (Site.Carousels) Site.Carousels.init();
     if (Site.initAvatarCarousel) Site.initAvatarCarousel();
@@ -15,7 +16,7 @@
     Site.initMobileNavbar();
     Site.initHeroBioDisclosure();
     Site.initSmoothScroll();
-    if (Site.initTimeline) Site.initTimeline();
+    if (Site.initSiteGlassNav) Site.initSiteGlassNav();
     if (Site.loadBlogCards) Site.loadBlogCards();
   });
 }(window));

@@ -50,6 +50,150 @@
     return Array.isArray(instances) ? instances : [instances];
   }
 
+  function getCarouselEagerImageCount(carousel) {
+    if (!carousel || !Site.closest(carousel, '.gallery-tab-panels')) {
+      return Infinity;
+    }
+
+    return 2;
+  }
+
+  function loadCarouselSlideImage(item) {
+    if (!item) return;
+
+    var img = item.querySelector('img');
+    if (!img) return;
+
+    var src = img.getAttribute('data-carousel-src');
+    if (!src || img.getAttribute('data-carousel-loaded') === 'true') return;
+
+    img.src = src;
+    img.setAttribute('data-carousel-loaded', 'true');
+  }
+
+  function getCarouselLogicalIndex(instance) {
+    if (!instance || !instance.state || typeof instance.state.index !== 'number') {
+      return 0;
+    }
+
+    var length = instance.state.length || 0;
+    if (!length) return 0;
+
+    return ((instance.state.index % length) + length) % length;
+  }
+
+  function loadVisibleCarouselImages(carousel) {
+    var visibleSlides = Site.toArray(
+      carousel.querySelectorAll('.slider .is-current, .slider .is-slide-next, .slider .is-slide-previous')
+    );
+
+    if (visibleSlides.length) {
+      visibleSlides.forEach(function (slide) {
+        loadCarouselSlideImage(slide.querySelector('.item'));
+      });
+      return;
+    }
+
+    Site.toArray(carousel.querySelectorAll(':scope > .item')).forEach(function (item, index) {
+      if (index < 2) loadCarouselSlideImage(item);
+    });
+  }
+
+  function loadCarouselImageWindow(carousel, instance) {
+    if (!carousel) return;
+
+    loadVisibleCarouselImages(carousel);
+
+    if (!instance || !instance.state) return;
+
+    var items = Site.toArray(carousel.querySelectorAll(':scope > .item'));
+    if (!items.length) {
+      items = Site.toArray(carousel.querySelectorAll('.item'));
+    }
+    if (!items.length) return;
+
+    var index = getCarouselLogicalIndex(instance);
+    var slidesToShow = getCarouselNumberOption(carousel, 'slidesToShow', 2);
+    var preloadBehind = 1;
+    var preloadAhead = 1;
+    var start = Math.max(0, index - preloadBehind);
+    var end = Math.min(items.length - 1, index + slidesToShow - 1 + preloadAhead);
+
+    for (var i = start; i <= end; i += 1) {
+      loadCarouselSlideImage(items[i]);
+    }
+  }
+
+  function prepareCarouselLazyImages(carousel) {
+    if (!carousel || Site.getData(carousel, 'lazyImagesPrepared') === 'true') {
+      return;
+    }
+
+    var eagerCount = getCarouselEagerImageCount(carousel);
+    if (!isFinite(eagerCount)) return;
+
+    Site.toArray(carousel.querySelectorAll(':scope > .item')).forEach(function (item, index) {
+      var img = item.querySelector('img');
+      if (!img || index < eagerCount) return;
+
+      var src = img.getAttribute('src');
+      if (!src) return;
+
+      img.removeAttribute('src');
+      img.setAttribute('data-carousel-src', src);
+    });
+
+    Site.setData(carousel, 'lazyImagesPrepared', 'true');
+  }
+
+  function bindCarouselLazyEvents(carousel, instance) {
+    if (!carousel || !instance || typeof instance.on !== 'function') return;
+
+    instance.on('after:show', function () {
+      loadCarouselImageWindow(carousel, instance);
+    });
+  }
+
+  function wrapCarouselLazyLoading(carousel, instance) {
+    if (!carousel || !instance || Site.getData(carousel, 'lazyImagesHooked') === 'true') {
+      return;
+    }
+
+    if (!isFinite(getCarouselEagerImageCount(carousel))) {
+      return;
+    }
+
+    prepareCarouselLazyImages(carousel);
+    loadCarouselImageWindow(carousel, instance);
+    bindCarouselLazyEvents(carousel, instance);
+
+    Site.requestFrame(function () {
+      loadCarouselImageWindow(carousel, instance);
+    });
+
+    ['next', 'previous', 'goTo'].forEach(function (methodName) {
+      if (typeof instance[methodName] !== 'function') return;
+
+      var original = instance[methodName];
+      instance[methodName] = function () {
+        var result = original.apply(this, arguments);
+        loadCarouselImageWindow(carousel, instance);
+        return result;
+      };
+    });
+
+    var wrapper = instance.wrapper;
+    if (wrapper) {
+      wrapper.addEventListener('click', function () {
+        window.requestAnimationFrame(function () {
+          loadCarouselImageWindow(carousel, instance);
+        });
+      });
+    }
+
+    Site.setData(carousel, 'lazyImagesHooked', 'true');
+  }
+
   function initGalleryMouseDrag(carousel) {
     if (
       !carousel ||
@@ -197,6 +341,10 @@
 
     Site.toArray(root.querySelectorAll('.carousel')).forEach(function (carousel) {
       if (Site.getData(carousel, 'carouselInitialized') === 'true') {
+        normalizeCarouselInstances(carousel._bulmaCarouselInstances).forEach(function (instance) {
+          wrapCarouselLazyLoading(carousel, instance);
+          loadCarouselImageWindow(carousel, instance);
+        });
         initGalleryMouseDrag(carousel);
         return;
       }
@@ -206,10 +354,14 @@
       }
 
       try {
+        prepareCarouselLazyImages(carousel);
         carousel._bulmaCarouselInstances = normalizeCarouselInstances(
           window.bulmaCarousel.attach(carousel, getCarouselOptions(carousel))
         );
         Site.setData(carousel, 'carouselInitialized', 'true');
+        normalizeCarouselInstances(carousel._bulmaCarouselInstances).forEach(function (instance) {
+          wrapCarouselLazyLoading(carousel, instance);
+        });
         dedupeCarouselUi(carousel);
         initGalleryMouseDrag(carousel);
       } catch (error) {

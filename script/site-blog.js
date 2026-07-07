@@ -82,7 +82,7 @@
   }
 
   function getCardsPerView() {
-    if (typeof window.matchMedia === 'function' && window.matchMedia('(max-width: 768px)').matches) {
+    if (typeof window.matchMedia === 'function' && window.matchMedia('(max-width: 900px)').matches) {
       return 1;
     }
 
@@ -164,12 +164,29 @@
       });
     }
 
+    function updateCardBasis() {
+      if (!viewport) return;
+
+      if (!isTouchCarousel()) {
+        carousel.style.removeProperty('--blog-card-basis');
+        return;
+      }
+
+      var viewportWidth = viewport.getBoundingClientRect().width;
+      var cardBasis = (viewportWidth - state.gap * (state.cardsPerView - 1)) / state.cardsPerView;
+
+      carousel.style.setProperty('--blog-card-basis', Math.max(0, cardBasis) + 'px');
+    }
+
     function updateTrack() {
       var card = cards[0];
       var offset = 0;
 
+      updateCardBasis();
+
       if (card) {
-        offset = getStartIndex(state.page) * (card.getBoundingClientRect().width + state.gap);
+        var cardWidth = card.getBoundingClientRect().width;
+        offset = getStartIndex(state.page) * (cardWidth + state.gap);
       }
 
       track.style.transform = 'translate3d(' + (-offset) + 'px, 0, 0)';
@@ -197,6 +214,56 @@
       updateTrack();
     }
 
+    function isTouchCarousel() {
+      return typeof window.matchMedia === 'function' && window.matchMedia('(max-width: 900px)').matches;
+    }
+
+    function bindTouchSwipe() {
+      if (!viewport) return;
+
+      var startX = 0;
+      var startY = 0;
+      var tracking = false;
+      var blockClick = false;
+
+      viewport.addEventListener('touchstart', function (event) {
+        if (!isTouchCarousel() || !event.touches || event.touches.length !== 1) return;
+        startX = event.touches[0].clientX;
+        startY = event.touches[0].clientY;
+        tracking = true;
+      }, { passive: true });
+
+      viewport.addEventListener('touchend', function (event) {
+        if (!tracking) return;
+        tracking = false;
+
+        var touch = event.changedTouches && event.changedTouches[0];
+        if (!touch) return;
+
+        var deltaX = touch.clientX - startX;
+        var deltaY = touch.clientY - startY;
+
+        if (Math.abs(deltaX) < 48 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+
+        blockClick = true;
+        window.setTimeout(function () {
+          blockClick = false;
+        }, 320);
+
+        if (deltaX < 0) {
+          goToPage(state.page + 1);
+        } else {
+          goToPage(state.page - 1);
+        }
+      }, { passive: true });
+
+      viewport.addEventListener('click', function (event) {
+        if (!blockClick) return;
+        event.preventDefault();
+        event.stopPropagation();
+      }, true);
+    }
+
     if (previousButton) {
       previousButton.addEventListener('click', function () {
         goToPage(state.page - 1);
@@ -210,6 +277,7 @@
     }
 
     window.addEventListener('resize', Site.debounce ? Site.debounce(refresh, 120) : refresh);
+    bindTouchSwipe();
     refresh();
   }
 
