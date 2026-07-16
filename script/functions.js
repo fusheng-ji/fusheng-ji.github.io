@@ -10,7 +10,6 @@
     if (Site.Media && Site.Media.init) Site.Media.init();
     if (Site.initGalleryTabs) Site.initGalleryTabs();
     if (Site.Carousels) Site.Carousels.init();
-    if (Site.initAvatarCarousel) Site.initAvatarCarousel();
     Site.initToggleLinks();
     Site.initLogoFallback();
     Site.initMobileNavbar();

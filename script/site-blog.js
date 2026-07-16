@@ -25,10 +25,20 @@
   }
 
   function getPostUrl(post) {
-    var blogBase = 'https://fusheng-ji.github.io/blog';
+    var blogBase = '/blog';
     var rawUrl = post && post.url ? String(post.url) : '';
 
-    if (/^https?:\/\//.test(rawUrl)) return rawUrl;
+    if (/^https?:\/\//.test(rawUrl)) {
+      try {
+        var parsed = new URL(rawUrl);
+        if (parsed.hostname === 'fusheng-ji.github.io') {
+          return parsed.pathname + parsed.search + parsed.hash;
+        }
+      } catch (error) {
+        return rawUrl;
+      }
+      return rawUrl;
+    }
     return blogBase + (rawUrl.indexOf('/') === 0 ? rawUrl : '/' + rawUrl);
   }
 
@@ -50,9 +60,6 @@
       '    </div>',
       '    <span class="blog-card-title">' + title + '</span>',
       description ? '    <p class="blog-card-desc">' + description + '</p>' : '',
-      '    <div class="blog-card-bottom">',
-      '      <span class="blog-card-cta">Read article</span>',
-      '    </div>',
       '  </a>',
       '</article>'
     ].join('\n');

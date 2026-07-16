@@ -109,14 +109,6 @@
     return false;
   };
 
-  window.hideblock = function hideblock(blockId) {
-    var block = getElement(blockId);
-    if (!block) return false;
-
-    block.style.display = 'none';
-    return false;
-  };
-
   function initInitialScrollPosition() {
     try {
       if ('scrollRestoration' in window.history) {

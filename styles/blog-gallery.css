@@ -398,29 +398,6 @@
   overflow: hidden;
 }
 
-.blog-card-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 12px;
-  margin-top: auto;
-  padding-top: 18px;
-  border-top: 1px solid #e7edf3;
-}
-
-.blog-card-cta {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #4d6277;
-  transition: color 0.2s ease;
-}
-
-.blog-card-link:hover .blog-card-cta {
-  color: #1772d0;
-}
-
 .blog-carousel-controls {
   display: flex;
   align-items: center;
@@ -510,11 +487,6 @@
   line-height: 1;
   white-space: nowrap;
   transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
-}
-
-.blog-view-all::after {
-  content: "\2192";
-  font-size: 14px;
 }
 
 .blog-view-all:hover {

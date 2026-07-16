@@ -8,13 +8,12 @@
 - CV: https://fusheng-ji.github.io/assets/doc/WenboJi_CV_English.pdf
 - Blog: https://fusheng-ji.github.io/blog/
 - Google Scholar: https://scholar.google.com/citations?user=ZTUMczEAAAAJ&hl=en
-- ORCID: https://orcid.org/0000-0001-7838-8736
 - GitHub: https://github.com/fusheng-ji/
 - LinkedIn: https://www.linkedin.com/in/wenbo-ji-6950b9187
 
 ## Identity
 
-Wenbo Ji works on visual computing, 3D/4D reconstruction, long-term tracking, scene decomposition, video generation, avatar animation, human-scene interaction, and video-action world models for robot dexterous manipulation.
+Wenbo Ji works on visual computing, 3D/4D reconstruction, long-term tracking, scene decomposition, video generation, avatar animation, human-scene interaction, and video world models for robot dexterous manipulation.
 
 He is pursuing a second M.Sc. in Electrical Engineering and Information Technology at the Technical University of Munich. He works with the TUM Visual Computing Group and is an intern at Agile Robots SE.
 
@@ -28,7 +27,7 @@ He is pursuing a second M.Sc. in Electrical Engineering and Information Technolo
 - Human motion video diffusion
 - Avatar animation
 - Human-scene interaction
-- Robot dexterous manipulation and video-action world models
+- Robot dexterous manipulation and video world models
 
 ## Selected Publications
 

@@ -125,16 +125,27 @@
   }
 
   function prepareCarouselLazyImages(carousel) {
-    if (!carousel || Site.getData(carousel, 'lazyImagesPrepared') === 'true') {
-      return;
-    }
+    if (!carousel) return;
 
     var eagerCount = getCarouselEagerImageCount(carousel);
     if (!isFinite(eagerCount)) return;
 
+    if (Site.getData(carousel, 'lazyImagesPrepared') === 'true') {
+      Site.toArray(carousel.querySelectorAll(':scope > .item')).forEach(function (item, index) {
+        if (index >= eagerCount) return;
+        loadCarouselSlideImage(item);
+      });
+      return;
+    }
+
     Site.toArray(carousel.querySelectorAll(':scope > .item')).forEach(function (item, index) {
       var img = item.querySelector('img');
-      if (!img || index < eagerCount) return;
+      if (!img) return;
+
+      if (index < eagerCount) {
+        loadCarouselSlideImage(item);
+        return;
+      }
 
       var src = img.getAttribute('src');
       if (!src) return;

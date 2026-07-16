@@ -5,9 +5,6 @@
   padding: 30px 32px 32px;
   border-radius: 28px;
   overflow: hidden;
-}
-
-.research-interests-panel {
   border: 1px solid #dbe3ec;
   background:
     radial-gradient(circle at top right, rgba(207, 220, 232, 0.34), transparent 32%),
@@ -24,11 +21,68 @@
   margin: 0;
 }
 
-.research-interests-summary {
+.research-arc {
+  list-style: none;
   max-width: 860px;
-  margin: 14px 0 0;
+  margin: 18px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+  position: relative;
+}
+
+.research-arc-item {
+  display: grid;
+  grid-template-columns: 14px 3.6rem minmax(0, 1fr);
+  column-gap: 12px;
+  align-items: start;
+  position: relative;
+  padding: 10px 0 14px;
+}
+
+.research-arc-item:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 22px;
+  bottom: -2px;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    rgba(148, 163, 184, 0.55) 0%,
+    rgba(213, 227, 239, 0.95) 100%
+  );
+}
+
+.research-arc-dot {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  width: 12px;
+  height: 12px;
+  margin-top: 5px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px solid #d5e3ef;
+  box-shadow:
+    0 0 0 4px rgba(244, 247, 250, 0.96),
+    0 4px 10px rgba(55, 79, 104, 0.08);
+}
+
+.research-arc-label {
+  margin-top: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #708398;
+  line-height: 1.4;
+}
+
+.research-arc-text {
+  margin: 0;
   color: #516275;
-  line-height: 1.8;
+  line-height: 1.7;
 }
 
 .research-tags {
@@ -240,41 +294,11 @@ ul, li {
   display: none;
 }
 
-.hero-status-note {
-  margin: 16px 0 20px;
-  padding: 10px 14px;
-  border-left: 3px solid #1772d0;
-  background: #f5f8fc;
-  color: #2f3e4d;
-  font-size: 15px;
-  line-height: 1.55;
-}
-
-.hero-status-note strong {
-  font-size: inherit;
-  color: inherit;
-}
-
-.hero-media-cell .hero-status-note {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: fit-content;
-  max-width: 260px;
-  margin: 16px auto 0;
-  padding: 10px 14px;
-  border: 1px solid #dbe4ec;
-  border-left: 0;
-  border-radius: 16px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(246, 249, 252, 0.98) 100%);
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
-  text-align: center;
-  font-size: 13px;
+.hero-bio-cell .hero-phd-line {
+  margin: 14px 0 0;
+  color: #2a6fbb;
   font-weight: 700;
-  line-height: 1.35;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #4d6277;
+  line-height: 1.65;
 }
 
 .entry-media-cell {

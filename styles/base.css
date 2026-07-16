@@ -74,6 +74,23 @@ name {
   text-align: center;
 }
 
+.hero-name-line .name-ruby {
+  ruby-align: center;
+  ruby-position: over;
+}
+
+.hero-name-line .name-ruby rt {
+  font-family: 'Lato', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 0.42em;
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  color: #4a6074;
+  text-transform: none;
+  white-space: nowrap;
+}
+
 .semantic-heading {
   margin: 0;
   font: inherit;
@@ -147,7 +164,8 @@ name {
   background: #eaf5f2;
   border-color: #d4ebe3;
 }
-.tag-slate {
+.tag-slate,
+.research-interest-tag-slate {
   color: #4d6277;
   background: #eef2f6;
   border-color: #dbe3ea;
