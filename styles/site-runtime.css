@@ -880,3 +880,20 @@ video[data-src] {
     padding: 20px 14px;
   }
 }
+
+.career-entry .experience-logo-card img[alt="Agile Robots SE logo"],
+.career-entry .experience-logo-card img.experience-logo-wrd {
+  width: auto !important;
+  height: 36px !important;
+  max-width: 100%;
+  max-height: none;
+  margin-inline: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 900px) {
+  .career-entry .experience-logo-card img[alt="Agile Robots SE logo"],
+  .career-entry .experience-logo-card img.experience-logo-wrd {
+    height: 42px !important;
+  }
+}
