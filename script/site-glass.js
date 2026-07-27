@@ -55,9 +55,9 @@
       gOffset: readNumber(element, 'g-offset', DEFAULTS.gOffset),
       bOffset: readNumber(element, 'b-offset', DEFAULTS.bOffset),
       scale: readNumber(element, 'scale', DEFAULTS.scale),
-    frost: readNumber(element, 'frost', DEFAULTS.frost),
-    backdropBlur: readNumber(element, 'backdrop-blur', DEFAULTS.backdropBlur),
-    saturate: readNumber(element, 'saturate', DEFAULTS.saturate)
+      frost: readNumber(element, 'frost', DEFAULTS.frost),
+      backdropBlur: readNumber(element, 'backdrop-blur', DEFAULTS.backdropBlur),
+      saturate: readNumber(element, 'saturate', DEFAULTS.saturate)
     };
   }
 
@@ -171,7 +171,9 @@
   function applyBackdrop(element, parts, config, metrics) {
     var blurPx = config.backdropBlur;
     var saturatePct = Math.round(config.saturate * 100);
-    var baseFilter = 'blur(' + blurPx + 'px) saturate(' + saturatePct + '%)';
+    var baseFilter =
+      'blur(var(--site-glass-backdrop-blur, ' + blurPx + 'px)) ' +
+      'saturate(var(--site-glass-saturate, ' + saturatePct + '%))';
     var frostAlpha = Math.max(0, Math.min(1, config.frost));
     var isDark = element.getAttribute('data-glass-dark') === 'true';
     var chromaticEnabled = element.getAttribute('data-chromatic') !== 'false';
@@ -179,6 +181,8 @@
 
     element.style.setProperty('--site-glass-frost', String(frostAlpha));
     element.style.setProperty('--site-glass-edge-width', edgeWidthPx + 'px');
+    element.style.setProperty('--site-glass-backdrop-blur', blurPx + 'px');
+    element.style.setProperty('--site-glass-saturate', saturatePct + '%');
     element.classList.toggle('site-glass--dark', isDark);
 
     parts.backdrop.style.display = '';
@@ -260,6 +264,9 @@
 
     element.style.removeProperty('--site-glass-frost');
     element.style.removeProperty('--site-glass-radius');
+    element.style.removeProperty('--site-glass-edge-width');
+    element.style.removeProperty('--site-glass-backdrop-blur');
+    element.style.removeProperty('--site-glass-saturate');
     if (!element.getAttribute('data-site-glass-nav')) {
       element.style.removeProperty('border-radius');
     }

@@ -36,9 +36,7 @@
 .profile-portrait {
   min-height: 1px;
 }
-.project-showcase-media,
-.results-carousel img,
-.results-carousel video {
+.project-showcase-media {
   height: auto;
 }
 .profile-portrait {

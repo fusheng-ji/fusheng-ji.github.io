@@ -1,7 +1,7 @@
 /* Blog section inspired by Vincent's blog block */
 .gallery-tablist-wrap {
   width: 100%;
-  margin: 18px 0;
+  margin: 18px 0 14px;
   overflow-x: auto;
   overflow-y: hidden;
   scroll-behavior: smooth;
@@ -18,30 +18,37 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 32px;
   min-width: max-content;
-  padding: 4px;
-  border: 1px solid #d9e2ec;
-  border-radius: 999px;
-  background: #f7f9fb;
+  padding: 0;
+  border-bottom: 0;
+  background: transparent;
 }
 
 .gallery-tab-indicator {
   position: absolute;
-  top: 0;
+  bottom: 1px;
   left: 0;
   width: 0;
-  height: 0;
+  height: 2px;
   border-radius: 999px;
-  background: #1772d0;
-  box-shadow: 0 8px 18px rgba(23, 114, 208, 0.14);
+  background: linear-gradient(90deg, #6e9bc4, #286aa5);
+  box-shadow: 0 1px 3px rgba(40, 106, 165, 0.18);
   opacity: 0;
   pointer-events: none;
-  transition: transform 0.26s ease, width 0.26s ease, height 0.26s ease, opacity 0.18s ease;
+  transform-origin: left center;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.18s ease;
 }
 
 .gallery-tab-indicator.is-instant {
   transition: none;
+}
+
+.gallery-tab-indicator.is-magnetic {
+  transition: opacity 0.18s ease;
+  will-change: transform, width;
 }
 
 .gallery-tab-button {
@@ -50,34 +57,67 @@
   flex: 0 0 auto;
   border: 0;
   background: transparent;
-  color: #44576b;
-  border-radius: 999px;
-  padding: 8px 16px;
+  color: #73808d;
+  border-radius: 0;
+  padding: 9px 0 13px;
   font-family: 'Lato', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
-  font-size: 15px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.005em;
   line-height: 1.4;
   white-space: nowrap;
   cursor: pointer;
-  transition: color 0.18s ease, transform 0.18s ease;
+  opacity: 0.86;
+  transition: color 0.16s ease, opacity 0.16s ease;
+}
+
+.gallery-tab-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -9px;
+  width: 2px;
+  height: 12px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #80add3, #286aa5);
+  opacity: 0;
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
 .gallery-tab-button:not(.is-active):hover {
-  color: #1772d0;
+  color: #273747;
+  opacity: 1;
 }
 
 .gallery-tab-button.is-active {
-  color: #fff;
+  color: #1f3446;
+  opacity: 1;
+}
+
+.gallery-tab-button:focus {
+  outline: none;
 }
 
 .gallery-tab-button:focus-visible {
-  outline: 2px solid #1772d0;
-  outline-offset: 2px;
+  outline: none;
+  color: #1f3446;
+}
+
+.gallery-tab-button:focus-visible::before {
+  opacity: 1;
+}
+
+@supports not selector(:focus-visible) {
+  .gallery-tab-button:focus {
+    outline: 1px dotted rgba(40, 106, 165, 0.9);
+    outline-offset: 4px;
+  }
 }
 
 .gallery-tab-panel {
   width: 100%;
   transform-origin: top center;
-  will-change: transform, opacity;
 }
 
 .gallery-tab-panel[hidden] {
@@ -87,26 +127,23 @@
 .gallery-tab-panels {
   position: relative;
   width: 100%;
-  overflow: hidden;
-  transition: height 0.38s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.gallery-tab-panels.is-instant {
-  transition: none;
+  overflow: visible;
 }
 
 .gallery-tab-panel.is-animating.is-from-right {
-  animation: gallery-panel-slide-in-right 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+  animation: gallery-panel-slide-in-right 0.22s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .gallery-tab-panel.is-animating.is-from-left {
-  animation: gallery-panel-slide-in-left 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+  animation: gallery-panel-slide-in-left 0.22s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @keyframes gallery-panel-slide-in-right {
   from {
-    opacity: 0.3;
-    transform: translateX(72px);
+    opacity: 0.7;
+    transform: translateX(10px);
   }
   to {
     opacity: 1;
@@ -116,8 +153,8 @@
 
 @keyframes gallery-panel-slide-in-left {
   from {
-    opacity: 0.3;
-    transform: translateX(-72px);
+    opacity: 0.7;
+    transform: translateX(-10px);
   }
   to {
     opacity: 1;
@@ -133,14 +170,14 @@
   }
 
   .gallery-tablist {
-    gap: 3px;
+    gap: 26px;
   }
 
   .gallery-tab-button {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
-    padding: 8px 14px;
+    padding: 8px 0 10px;
     font-size: 14px;
     scroll-snap-align: start;
   }
