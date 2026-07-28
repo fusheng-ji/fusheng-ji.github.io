@@ -19,6 +19,21 @@ body {
   flex-direction: column;
   align-items: flex-start;
 }
+.document-title-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 18px;
+  width: 100%;
+}
+.document-title-row topictitle {
+  min-width: 0;
+}
+.publication-meta-row.document-year {
+  margin-top: 0;
+  text-align: right;
+  white-space: nowrap;
+}
 .publication-meta-row {
   margin-top: 8px;
   color: #708295;
@@ -32,15 +47,65 @@ body {
 .publication-meta-row .entry-side-note {
   margin-top: 4px;
 }
-.publication-entry .experience-detail-row {
-  margin-top: 16px;
+.publication-meta-row-inline {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: nowrap;
+  gap: 10px;
+}
+.publication-meta-row-inline papertitle,
+.publication-meta-row-inline .entry-side-note {
+  white-space: nowrap;
+}
+.publication-meta-row-inline .entry-side-note {
+  margin-top: 0;
+}
+#publications-mount .publication-title-stack {
+  width: 100%;
+}
+#publications-mount .publication-meta-row {
+  display: flex;
   align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+#publications-mount .publication-meta-row papertitle {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  font-size: 15px;
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: #5d6f82;
+}
+#publications-mount .publication-meta-row papertitle em {
+  font-style: normal;
+}
+#publications-mount .publication-meta-row .entry-side-note {
+  margin-top: 0;
+}
+#publications-mount .publication-meta-row .entry-links {
+  flex: 0 0 auto;
+  justify-content: flex-end;
+  gap: 8px;
+  margin: 0 0 0 auto;
 }
 .publication-entry .entry-block {
   margin-top: 16px;
 }
-.thesis-entry .experience-detail-row {
-  margin-top: 24px;
+.experience-entry .document-meta-row {
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin-top: 10px;
+}
+.document-meta-row .entry-links {
+  flex: 0 0 auto;
+  justify-content: flex-end;
+  margin: 0 0 0 auto;
 }
 .project-entry topictitle {
   display: block;
@@ -54,26 +119,12 @@ body {
 .project-entry .entry-visual {
   min-height: 140px;
 }
-.project-entry .entry-visual.is-split {
-  min-height: 0;
-  aspect-ratio: 1 / 1;
-}
 .project-entry .entry-visual img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
   object-position: center center;
-}
-.project-entry .entry-visual-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: stretch;
-  gap: 12px;
-  width: 100%;
-}
-.project-entry .entry-visual-grid .entry-visual img {
-  object-fit: contain;
 }
 .project-title-stack {
   display: flex;
@@ -171,9 +222,6 @@ body {
   .project-entry .entry-visual-stack {
     max-width: 100%;
   }
-  .project-entry .entry-visual-grid {
-    grid-template-columns: 1fr;
-  }
   .award-entry .award-meta-cell {
     text-align: left;
   }
@@ -234,35 +282,13 @@ body {
 }
 .entry-contrib {
   margin: 0;
-  padding-left: 1.15em;
+  padding-left: 0;
+  list-style: none;
   color: #526476;
   line-height: 1.65;
 }
 .entry-contrib li + li {
   margin-top: 6px;
-}
-.other-projects {
-  margin-top: 8px;
-  padding: 14px 18px;
-  border: 1px solid #e7edf3;
-  border-radius: 16px;
-  background: #fbfcfd;
-}
-.other-projects summary {
-  cursor: pointer;
-  font-weight: 700;
-  color: #2f3e4d;
-}
-.other-projects-list {
-  margin-top: 12px;
-}
-.other-projects-list p {
-  margin: 0 0 8px;
-  color: #526476;
-  line-height: 1.6;
-}
-.other-projects-list p:last-child {
-  margin-bottom: 0;
 }
 .entry-links {
   display: flex;
@@ -279,74 +305,107 @@ body {
   align-items: center;
   justify-content: center;
 }
-.technical-report-actions {
-  gap: 10px;
+
+#publications-mount,
+#projects-mount,
+#technical-report-mount {
+  --resource-logo-size: 24px;
+  --resource-hit-size: 36px;
+  --resource-logo-gap: 8px;
 }
-.technical-report-actions .report-action {
-  min-height: 44px;
-  padding: 10px 16px;
+
+#publications-mount .entry-links,
+#projects-mount .entry-links,
+#technical-report-mount .entry-links {
+  align-items: center;
+  gap: var(--resource-logo-gap);
+}
+
+#publications-mount .entry-links a,
+#projects-mount .entry-links a,
+#technical-report-mount .entry-links a {
+  flex: 0 0 var(--resource-hit-size);
+  width: var(--resource-hit-size);
+  height: var(--resource-hit-size);
+  min-width: var(--resource-hit-size);
+  min-height: var(--resource-hit-size);
+  padding: calc((var(--resource-hit-size) - var(--resource-logo-size)) / 2);
   box-sizing: border-box;
-  border: 1px solid transparent;
-  border-radius: 12px;
-  font-size: 14px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  box-shadow: none;
+}
+
+#publications-mount .entry-links .meta-icon,
+#projects-mount .entry-links .meta-icon,
+#technical-report-mount .entry-links .meta-icon {
+  display: block;
+  width: var(--resource-logo-size) !important;
+  height: var(--resource-logo-size) !important;
+  max-width: var(--resource-logo-size) !important;
+  max-height: var(--resource-logo-size) !important;
+  object-fit: contain;
+  object-position: center;
+}
+
+.publication-entry .entry-links a {
+  gap: 7px;
+  min-height: 34px;
+  padding: 5px 10px;
+  border: 1px solid #dbe5ee;
+  border-radius: 999px;
+  background: rgba(248, 250, 252, 0.9);
+  color: #49647e;
+  font-size: 12px;
   font-weight: 700;
-  line-height: 1.2;
-  text-decoration: none;
-  cursor: pointer;
+  line-height: 1;
   transition:
     color 160ms ease,
-    background-color 160ms ease,
     border-color 160ms ease,
-    box-shadow 160ms ease,
+    background-color 160ms ease,
     transform 160ms ease;
 }
-.technical-report-actions .report-action-primary,
-.technical-report-actions .report-action-primary:visited {
-  color: #ffffff;
-  background: #2a6fbb;
-  border-color: #2a6fbb;
+
+#publications-mount .publication-entry .entry-links a {
+  gap: 0;
 }
-.technical-report-actions .report-action-primary:hover {
-  color: #ffffff;
-  background: #205e9f;
-  border-color: #205e9f;
-  box-shadow: 0 6px 14px rgba(42, 111, 187, 0.2);
-  transform: translateY(-1px);
-}
-.technical-report-actions .report-action-secondary,
-.technical-report-actions .report-action-secondary:visited {
-  color: #2a6fbb;
-  background: #ffffff;
-  border-color: #b9cee3;
-}
-.technical-report-actions .report-action-secondary:hover {
+
+.publication-entry .entry-links a:hover,
+.publication-entry .entry-links a:focus-visible {
   color: #205e9f;
+  border-color: #aac4dc;
   background: #eef5fb;
-  border-color: #7ea9d3;
   transform: translateY(-1px);
 }
-.technical-report-actions .report-action:focus-visible {
-  outline: 2px solid rgba(42, 111, 187, 0.72);
-  outline-offset: 3px;
+
+#publications-mount .publication-entry .entry-links a:hover,
+#publications-mount .publication-entry .entry-links a:focus-visible {
+  border-color: transparent;
+  background: transparent;
+  color: inherit;
+}
+
+.publication-entry .entry-links a:focus-visible {
+  outline: 2px solid rgba(42, 111, 187, 0.58);
+  outline-offset: 2px;
+}
+#projects-mount .entry-links a:focus-visible,
+#technical-report-mount .entry-links a:focus-visible {
+  outline: 2px solid rgba(42, 111, 187, 0.58);
+  outline-offset: 2px;
 }
 @media (prefers-reduced-motion: reduce) {
-  .technical-report-actions .report-action {
+  .publication-entry .entry-links a {
     transition: none;
   }
-  .technical-report-actions .report-action:hover {
+  .publication-entry .entry-links a:hover {
     transform: none;
   }
 }
 .experience-detail-row .entry-links {
   margin-top: 0;
-}
-.experience-detail-row .entry-links .meta-icon {
-  max-height: 20px;
-  width: auto;
-}
-.experience-detail-row .entry-links .meta-icon.ieee-inline-logo {
-  height: 38px;
-  max-height: 38px;
 }
 .entry-side-note {
   display: block;
@@ -358,4 +417,295 @@ body {
 .publication-award a {
   color: #2a6fbb;
   font-weight: 700;
+}
+
+/* Entry and document responsive behavior. */
+.career-entry .experience-logo-card img[alt="Agile Robots SE logo"],
+.career-entry .experience-logo-card img.experience-logo-wrd {
+  width: auto !important;
+  height: 36px !important;
+  max-width: 100%;
+  max-height: none;
+  margin-inline: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 900px) {
+  .experience-side-meta papertitle {
+    font-size: 17px;
+  }
+
+  .entry-label,
+  .experience-type {
+    font-size: 16px;
+  }
+
+  .collab-heading {
+    font-size: 12px;
+  }
+
+  .entry-summary,
+  .entry-byline,
+  .collab-row,
+  .education-mobile-line {
+    font-size: 18px;
+  }
+
+  .entry-summary,
+  .entry-byline {
+    line-height: 1.62;
+  }
+
+  .collab-name,
+  .collab-org {
+    font-size: 14px;
+  }
+
+  .topic-location {
+    font-size: 12px;
+  }
+
+  .experience-entry .tag,
+  .publication-entry .tag,
+  .project-entry .tag,
+  .thesis-entry .tag {
+    font-size: 14px;
+  }
+
+  .education-entry + .education-entry,
+  .award-entry + .award-entry {
+    padding-top: 20px;
+    border-top: 1px solid #dfe6ec;
+  }
+
+  .experience-entry.award-entry > tbody > tr {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .experience-entry.award-entry > tbody > tr > .entry-content-cell {
+    order: 1;
+    padding-top: 0;
+    padding-bottom: 6px;
+  }
+
+  .experience-entry.award-entry > tbody > tr > .award-meta-cell {
+    order: 2;
+    padding-top: 0;
+    padding-bottom: 14px;
+    text-align: left;
+  }
+
+  .award-entry .experience-detail-row {
+    display: none;
+  }
+
+  .education-mobile-line {
+    display: block;
+    margin: 0 0 6px;
+    color: #34485c;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .education-entry .entry-content-cell > .split-row {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .education-entry .entry-content-cell > .split-row topictitle {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .education-entry .entry-content-cell > .split-row .experience-side-meta {
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 0;
+    text-align: right;
+    white-space: normal;
+  }
+
+  .education-entry .experience-detail-row,
+  .education-entry .education-degree {
+    display: none;
+  }
+
+  .education-entry .education-note {
+    display: block;
+    margin-top: 8px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: #607387;
+  }
+
+  .entry-media-tags .tag {
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  .education-entry .experience-side-meta .topic-location {
+    display: none;
+  }
+
+  #publications-mount .publication-entry .publication-meta-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 8px 10px;
+    width: 100%;
+  }
+
+  #publications-mount .publication-entry .publication-meta-row .entry-links {
+    flex: 0 0 100%;
+    justify-content: flex-start;
+    gap: var(--resource-logo-gap);
+    margin: 8px 0 0;
+  }
+
+  #publications-mount,
+  #projects-mount,
+  #technical-report-mount {
+    --resource-hit-size: 44px;
+  }
+
+  .experience-entry,
+  .experience-entry tbody,
+  .experience-entry tr {
+    display: block;
+    width: 100%;
+  }
+
+  .experience-entry .entry-media-cell,
+  .experience-entry .entry-content-cell,
+  .award-entry .award-meta-cell {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .split-row,
+  .experience-entry .split-row,
+  .project-title-stack,
+  .thesis-entry .experience-detail-row,
+  .education-entry .experience-detail-row,
+  .award-entry .experience-detail-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .experience-entry .document-meta-row,
+  .thesis-entry .document-meta-row {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .text-right,
+  .experience-side-meta,
+  .project-meta-row {
+    text-align: left;
+  }
+
+  .experience-side-meta,
+  .project-meta-row {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .experience-entry {
+    margin-bottom: 22px;
+  }
+
+  .publication-entry + .publication-entry,
+  .project-entry + .project-entry,
+  .career-entry + .career-entry {
+    padding-top: 20px;
+    border-top: 1px solid #dfe6ec;
+  }
+
+  .experience-entry .entry-media-cell {
+    padding: 6px 0 12px;
+    border-bottom: 0;
+  }
+
+  .award-entry .award-meta-cell {
+    padding: 4px 0 6px;
+    text-align: left;
+  }
+
+  .experience-entry .entry-content-cell {
+    padding: 12px 0 18px;
+    border-left: 0;
+  }
+
+  .award-entry .entry-content-cell {
+    border-left: 0;
+    padding: 10px 0 18px;
+  }
+
+  .experience-logo-stack {
+    width: min(100%, 240px);
+  }
+
+  .experience-logo-stack,
+  .entry-visual-stack,
+  .project-entry .entry-visual-stack {
+    width: min(100%, 260px);
+    max-width: 260px;
+  }
+
+  .experience-logo-card {
+    height: clamp(50px, 15vw, 72px);
+  }
+
+  .career-entry .experience-logo-stack {
+    gap: 14px;
+    width: min(100%, 260px);
+  }
+
+  .career-entry .experience-logo-card {
+    height: auto;
+    min-height: 0;
+  }
+
+  .career-entry .experience-logo-card img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: none;
+  }
+
+  .entry-visual,
+  .publication-entry .entry-visual,
+  .thesis-entry .entry-visual.is-teaser,
+  .project-entry .entry-visual {
+    min-height: 118px;
+  }
+
+  .entry-links {
+    justify-content: flex-start;
+    gap: 10px 14px;
+  }
+
+  .entry-media-tags {
+    justify-content: center;
+  }
+
+  .entry-block,
+  .collab-section {
+    margin-top: 14px;
+  }
+
+  .career-entry .experience-logo-card img[alt="Agile Robots SE logo"],
+  .career-entry .experience-logo-card img.experience-logo-wrd {
+    height: 42px !important;
+  }
 }

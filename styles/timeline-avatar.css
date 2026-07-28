@@ -1,89 +1,3 @@
-/* Perception-Action label + bridge */
-.perception-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 42px;
-  margin: 18px 0 14px;
-  position: relative;
-}
-.perception-wrapper::before {
-  content: "";
-  position: absolute;
-  top: 7px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(220px, 44%);
-  height: 1px;
-  background: linear-gradient(90deg, rgba(148, 163, 184, 0), rgba(148, 163, 184, 0.88), rgba(148, 163, 184, 0));
-}
-.perception-wrapper::after {
-  content: "";
-  position: absolute;
-  top: 7px;
-  left: 50%;
-  width: 1px;
-  height: 35px;
-  background: linear-gradient(180deg, rgba(215, 225, 234, 0), rgba(215, 225, 234, 0.98));
-  transform: translateX(-50%);
-}
-.perception-node {
-  position: relative;
-  z-index: 1;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #ffffff;
-  border: 4px solid #d5e3ef;
-  box-shadow: 0 0 0 6px rgba(244, 247, 250, 0.96), 0 8px 18px rgba(55, 79, 104, 0.08);
-}
-.research-focus-card {
-  width: fit-content;
-  max-width: min(100%, 520px);
-  margin: 0 auto;
-  padding: 14px 22px 16px;
-  border: 1px solid #d8e3ee;
-  border-radius: 22px;
-  background: linear-gradient(135deg, #edf4fb 0%, #eef8f8 100%);
-  box-shadow: 0 14px 28px rgba(47, 72, 95, 0.08);
-  text-align: center;
-}
-.research-focus-eyebrow {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #708398;
-}
-.perception-label {
-  display: block;
-  margin: 0;
-  padding: 0;
-  color: #27455f;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 1.35;
-}
-.research-focus-note {
-  margin: 8px 0 0;
-  font-size: 14px;
-  color: #607387;
-  line-height: 1.6;
-}
-@media (max-width: 600px) {
-  .research-focus-card {
-    width: 100%;
-    padding: 14px 16px 16px;
-    border-radius: 20px;
-  }
-  .perception-label {
-    font-size: 18px;
-  }
-}
-
 /* Static profile portrait. */
 .profile-portrait {
   box-sizing: border-box;
@@ -105,7 +19,7 @@
   object-fit: cover;
 }
 
-/* icons under avatar — desktop defaults; mobile overrides in site-runtime.css */
+/* Icons under the avatar; responsive overrides live with the hero in home-sections.css. */
 .avatar-icons {
   width: 100%;
   max-width: 260px;

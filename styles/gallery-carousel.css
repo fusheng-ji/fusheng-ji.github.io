@@ -658,3 +658,9 @@ body.is-gallery-lightbox-open {
     background: rgba(7, 9, 12, 0.98);
   }
 }
+
+@media (max-width: 900px) {
+  .gallery-section {
+    display: none;
+  }
+}

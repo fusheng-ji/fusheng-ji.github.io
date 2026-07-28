@@ -5,3 +5,15 @@
 .Trashes
 .fseventsd
 .TemporaryItems
+
+# Local JavaScript dependencies
+node_modules/
+
+# Local source media archives (optimized derivatives are published)
+assets/photograph/originals/
+projects/infralens/banner.png
+projects/OpenUserStudyKit/banner.png
+projects/OpenUserStudyKit/banner-gptimage2.png
+projects/liteavatar_wasm/banner.png
+projects/liteavatar_wasm/banner-gptimage2.png
+papers/CSG_Fusion_ICCV2025Workshop_E2E3D/teaser.png

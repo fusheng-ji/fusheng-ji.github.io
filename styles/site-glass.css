@@ -169,7 +169,6 @@
 }
 
 .site-glass > .navbar-container,
-.site-glass > .site-glass-content,
 .site-glass:not(.navbar) > :not(.site-glass-layers):not(.site-glass-filter-defs) {
   position: relative;
   z-index: 2;
