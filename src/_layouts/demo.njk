@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Wenbo Ji">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="{{ description }}">
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:title" content="{{ title }}">
+  <meta property="og:description" content="{{ description }}">
+  <meta property="og:image" content="{{ site.url }}{{ socialImage }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ title }}">
+  <meta name="twitter:description" content="{{ description }}">
+  <meta name="twitter:image" content="{{ site.url }}{{ socialImage }}">
+  <link rel="icon" href="/assets/images/logo.svg" type="image/svg+xml">
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="{{ stylesheet | asset }}">
+  {% if vendorScript %}<script src="{{ vendorScript }}"></script>{% endif %}
+  <script type="module" src="{{ script | asset }}"></script>
+</head>
+<body>
+  {{ content | safe }}
+</body>
+</html>

@@ -1,0 +1,30 @@
+{% import "components/ui.njk" as ui with context %}
+<section class="document-section" aria-labelledby="{{ document.id }}">
+  {{ ui.sectionHeading(document.id, document.sectionTitle) }}
+  <article class="section-table experience-entry {{ document.className }}">
+    <div class="entry-media-cell">
+      {{ ui.mediaStack(document.media) }}
+      <div class="entry-media-tags">{{ ui.researchTag(document.area, researchAreas) }}</div>
+    </div>
+    <div class="entry-content-cell">
+      <div class="publication-title-stack document-title-row">
+        <h3 class="entry-title">{{ document.title }}</h3>
+        <div class="publication-meta-row document-year"><span class="entry-meta">{{ document.year }}</span></div>
+      </div>
+      <div class="split-row experience-detail-row document-meta-row">
+        <span class="experience-type">{{ document.type }}</span>
+        {{ ui.resourceLinks(document.links, site, document.title + " resources") }}
+      </div>
+      {% if document.authors %}
+        <div class="entry-block">
+          <p class="entry-label">Authors</p>
+          {{ ui.authors(document.authors) }}
+        </div>
+      {% endif %}
+      <div class="entry-block">
+        <p class="entry-label">Overview</p>
+        <p class="entry-summary">{{ document.summary }}</p>
+      </div>
+    </div>
+  </article>
+</section>

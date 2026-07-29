@@ -1,0 +1,43 @@
+---
+permalink: /llms.txt
+eleventyExcludeFromCollections: true
+---
+# {{ site.owner.name }}
+
+> {{ site.description }}
+
+Canonical profile: {{ site.url }}/
+
+## Research areas
+{% for area in researchAreas %}
+- {{ area.label }}
+{% endfor %}
+
+## Selected publications
+{% for publication in publications %}
+- {{ publication.title }} — {{ publication.venue }}, {{ publication.year }}
+  {{ publication.summary }}
+  {% for link in publication.links %}{{ link.label }}: {{ link.url }}
+  {% endfor %}
+{% endfor %}
+
+## Experiences
+{% for experience in experiences %}
+- {{ experience.title }} — {{ experience.type }}, {{ experience.date }}
+  {% for contribution in experience.contributions %}{{ contribution | striptags | safe }} {% endfor %}
+{% endfor %}
+
+## Projects
+{% for project in projects %}
+- {{ project.title }} — {{ project.focus }}
+  {{ project.summary | striptags | safe }}
+  {% for link in project.links %}{{ link.label }}: {{ link.url }}
+  {% endfor %}
+{% endfor %}
+
+## Other pages
+- Blog: {{ site.url }}/blog/
+- Rendering work: {{ site.url }}/render_arts/
+- TUM CV Challenge SS24: {{ site.url }}/projects/tum_cv_challenge_ss24/
+- Thermal Receipt Physics Demo: {{ site.url }}/three_js_arts/jelly_receipt/
+- Duck Pool Water Simulation: {{ site.url }}/three_js_arts/water_pool/

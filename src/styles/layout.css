@@ -1,0 +1,118 @@
+.page-shell {
+  display: block;
+}
+
+.shell-cell {
+  display: block;
+}
+
+.section-table {
+  display: block;
+}
+
+.section-cell {
+  display: block;
+  box-sizing: border-box;
+}
+
+/* Match the legacy table geometry while keeping the semantic grid as the sole width owner. */
+.hero-intro-table {
+  display: grid;
+  grid-template-columns: minmax(0, 64.15fr) minmax(240px, 35.85fr);
+  align-items: stretch;
+  container-type: inline-size;
+}
+
+.hero-bio-cell,
+.hero-media-cell {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+}
+
+.hero-bio-cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: min(2.375vw, 25.7px);
+}
+
+.hero-media-cell {
+  padding: min(2.375vw, 25.7px) min(1.9vw, 20.56px);
+}
+
+.hero-bio-cell > p {
+  margin-block: 0;
+}
+
+.hero-media-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.experience-entry {
+  display: grid;
+  grid-template-columns: minmax(0, 26fr) minmax(0, 74fr);
+  width: 100%;
+}
+
+.experience-entry > .entry-media-cell,
+.experience-entry > .entry-content-cell,
+.experience-entry > .award-meta-cell {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+}
+
+.award-entry {
+  grid-template-columns: minmax(0, 26fr) minmax(0, 74fr);
+}
+
+.footer-table {
+  display: grid;
+  gap: 0;
+}
+
+@supports (width: 1cqw) {
+  .hero-bio-cell {
+    padding: 2.5cqw;
+  }
+
+  .hero-media-cell {
+    padding: 2.5cqw 2cqw;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-intro-table,
+  .experience-entry,
+  .award-entry {
+    display: block;
+  }
+
+  .hero-bio-cell,
+  .hero-media-cell,
+  .experience-entry > .entry-media-cell,
+  .experience-entry > .entry-content-cell,
+  .award-entry > .award-meta-cell {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .award-entry {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .award-entry > .entry-content-cell {
+    order: 1;
+  }
+
+  .award-entry > .award-meta-cell {
+    order: 2;
+  }
+}

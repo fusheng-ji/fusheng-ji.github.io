@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="{{ site.language }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title or site.title }}</title>
+  <meta name="description" content="{{ description or site.description }}">
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  <link rel="icon" href="/assets/images/logo.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ title or site.title }}">
+  <meta property="og:description" content="{{ description or site.description }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:image" content="{{ site.url }}{{ site.owner.portrait.src }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ 'site.css' | asset }}">
+  <script type="application/ld+json">{{ metadata.jsonLd | json | safe }}</script>
+  <script type="module" src="{{ 'site.js' | asset }}"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <span id="top" aria-hidden="true"></span>
+  {% include "components/navbar.njk" %}
+  <main id="main-content">
+    <div class="page-shell">
+      <div class="shell-cell">
+        {{ content | safe }}
+        {% include "components/footer.njk" %}
+      </div>
+    </div>
+  </main>
+</body>
+</html>

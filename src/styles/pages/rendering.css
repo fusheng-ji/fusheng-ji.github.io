@@ -1,0 +1,154 @@
+:root {
+  --ink: #2f3e4d;
+  --body: #44576b;
+  --surface: #fff;
+  --paper: #f5f7f9;
+  --line: #dfe6ec;
+  --link: #2a6fbb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--paper);
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--body);
+  font-family: Lato, "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+a {
+  color: var(--link);
+}
+
+.render-nav {
+  display: flex;
+  justify-content: center;
+  padding: 18px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.render-nav a {
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.render-header {
+  padding: 52px 20px 38px;
+  text-align: center;
+  background: var(--surface);
+}
+
+.render-header h1 {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(34px, 6vw, 48px);
+}
+
+.render-shell {
+  width: min(100% - 32px, 960px);
+  margin: 0 auto;
+  padding: 28px 0 64px;
+}
+
+.render-showcase {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 42px;
+}
+
+.render-showcase img,
+.render-showcase video,
+.render-media img,
+.render-media video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  background: #e8edf2;
+}
+
+.render-showcase > * {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.render-project {
+  padding: 30px 0 42px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+
+.render-project h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 24px;
+}
+
+.render-meta {
+  margin: 4px 0 18px;
+  color: #68798a;
+}
+
+.render-media {
+  display: grid;
+  gap: 12px;
+}
+
+.render-media.is-gallery {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.render-project-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.render-button {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: #273746;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.render-button:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 3px;
+}
+
+.render-footer {
+  padding: 28px;
+  text-align: center;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+}
+
+@media (max-width: 700px) {
+  .render-showcase,
+  .render-media.is-gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .render-header {
+    padding-block: 38px 28px;
+  }
+}

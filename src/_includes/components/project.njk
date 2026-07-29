@@ -1,0 +1,15 @@
+{% import "components/ui.njk" as ui with context %}
+<article class="section-table experience-entry project-entry" id="{{ project.id }}">
+  <div class="entry-media-cell">
+    <div class="entry-visual-stack"><div class="entry-visual">{{ ui.image(project.media, false, "teaser-img") }}</div></div>
+  </div>
+  <div class="entry-content-cell">
+    <div class="project-title-stack">
+      <h3 class="entry-title">{{ project.title }}</h3>
+      <div class="project-meta-row"><span class="entry-meta">{{ project.date }}</span></div>
+    </div>
+    <div class="split-row experience-detail-row">{{ ui.resourceLinks(project.links, site, project.title + " resources") }}</div>
+    <div class="entry-block"><p class="entry-label">Focus</p><p class="entry-summary">{{ project.focus }}</p></div>
+    <div class="entry-block"><p class="entry-label">Overview</p><p class="entry-summary">{{ project.summary | safe }}</p></div>
+  </div>
+</article>

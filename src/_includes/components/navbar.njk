@@ -1,0 +1,17 @@
+<nav class="navbar" aria-label="Primary navigation" data-site-glass-nav data-site-glass data-site-glass-id="site-nav" data-radius="0" data-scale="-115" data-r-offset="0" data-g-offset="6" data-b-offset="12" data-blur="18" data-frost="0.04" data-backdrop-blur="10" data-saturate="1.22" data-border="0.08" data-edge="0.13">
+  <div class="navbar-container">
+    <a class="navbar-brand" href="#top" aria-label="Wenbo Ji home">
+      <img src="/assets/images/logo.svg" alt="Wenbo Ji" width="148" height="41">
+    </a>
+    <button class="navbar-toggle" type="button" aria-label="Open navigation menu" aria-controls="site-nav" aria-expanded="false">
+      <span class="navbar-toggle-lines" aria-hidden="true"></span>
+    </button>
+    <div id="site-nav" class="navbar-links">
+      {% for item in site.navigation %}
+        <a href="{{ item.url }}" {% if item.external %}target="_blank" rel="noopener noreferrer"{% endif %}>
+          <span class="nav-link-chip"><span class="nav-link-label">{{ item.label }}</span></span>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</nav>

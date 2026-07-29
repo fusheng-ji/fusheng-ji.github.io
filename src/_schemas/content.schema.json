@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fusheng-ji.github.io/schemas/content.schema.json",
+  "$defs": {
+    "media": {
+      "type": "object",
+      "required": ["src", "width", "height", "alt"],
+      "properties": {
+        "src": { "type": "string", "minLength": 1 },
+        "srcset": { "type": "string" },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "alt": { "type": "string", "minLength": 1 },
+        "className": { "type": "string" },
+        "type": { "enum": ["image", "video"] },
+        "poster": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "resourceLink": {
+      "type": "object",
+      "required": ["type", "url", "label"],
+      "properties": {
+        "type": { "type": "string", "minLength": 1 },
+        "url": { "type": "string", "minLength": 1 },
+        "label": { "type": "string", "minLength": 1 },
+        "external": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "author": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "featured": { "type": "boolean" },
+        "equal": { "type": "boolean" },
+        "corresponding": { "type": "boolean" },
+        "lineBreakBefore": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "publication": {
+      "type": "object",
+      "required": ["id", "title", "venue", "year", "area", "media", "authors", "summary", "links"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "title": { "type": "string", "minLength": 1 },
+        "venue": { "type": "string", "minLength": 1 },
+        "year": { "type": "integer", "minimum": 2000 },
+        "area": { "type": "string" },
+        "media": { "$ref": "#/$defs/media" },
+        "authors": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/author" } },
+        "summary": { "type": "string", "minLength": 1 },
+        "links": { "type": "array", "items": { "$ref": "#/$defs/resourceLink" } },
+        "award": {
+          "type": "object",
+          "required": ["label", "url"],
+          "properties": {
+            "label": { "type": "string", "minLength": 1 },
+            "url": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "experience": {
+      "type": "object",
+      "required": ["id", "title", "date", "type", "area", "logos", "contributions", "mentors"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "title": { "type": "string", "minLength": 1 },
+        "date": { "type": "string", "minLength": 1 },
+        "type": { "type": "string", "minLength": 1 },
+        "area": { "type": "string" },
+        "logos": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/media" } },
+        "contributions": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "mentors": { "type": "array", "minItems": 1 }
+      },
+      "additionalProperties": false
+    }
+  }
+}

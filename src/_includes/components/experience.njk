@@ -1,0 +1,41 @@
+{% import "components/ui.njk" as ui with context %}
+<article class="section-table experience-entry career-entry" id="{{ experience.id }}">
+  <div class="entry-media-cell">
+    <div class="experience-logo-stack">
+      {% for logo in experience.logos %}
+        <div class="experience-logo-card">
+          <img src="{{ logo.src }}" width="{{ logo.width }}" height="{{ logo.height }}" loading="lazy" decoding="async" alt="{{ logo.alt }}" class="{{ logo.className or '' }}">
+        </div>
+      {% endfor %}
+    </div>
+    <div class="entry-media-tags">{{ ui.researchTag(experience.area, researchAreas) }}</div>
+  </div>
+  <div class="entry-content-cell">
+    <div class="split-row">
+      <h3 class="entry-title">{{ experience.title }}</h3>
+      <span class="text-right experience-side-meta"><span class="entry-meta">{{ experience.date }}</span></span>
+    </div>
+    <div class="split-row experience-detail-row"><span class="experience-type">{{ experience.type }}</span></div>
+    <div class="entry-block">
+      <p class="entry-label">Contributions</p>
+      <ul class="entry-contrib">
+        {% for contribution in experience.contributions %}<li>{{ contribution | safe }}</li>{% endfor %}
+      </ul>
+    </div>
+    <div class="collab-section">
+      <div class="collab-heading">Mentors</div>
+      <div class="collab-list">
+        {% for mentor in experience.mentors %}
+          <div class="collab-row">
+            <span class="collab-name">
+              {% for person in mentor.people %}
+                {% if person.url %}<a href="{{ person.url }}">{{ person.name }}</a>{% else %}{{ person.name }}{% endif %}{% if not loop.last %}, {% endif %}
+              {% endfor %}
+            </span>
+            <span class="collab-org">{{ mentor.organization }}</span>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</article>

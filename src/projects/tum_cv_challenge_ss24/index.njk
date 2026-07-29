@@ -1,0 +1,98 @@
+---
+permalink: /projects/tum_cv_challenge_ss24/index.html
+eleventyExcludeFromCollections: true
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Wenbo Ji">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Tour into the Picture course project by Wenbo Ji and collaborators for TUM CV Challenge SS24, using a spidery mesh interface to animate and reconstruct a simple 3D scene from a single image.">
+  <link rel="canonical" href="{{ site.url }}/projects/tum_cv_challenge_ss24/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="{{ site.url }}/projects/tum_cv_challenge_ss24/">
+  <meta property="og:title" content="Tour into the Picture | TUM CV Challenge SS24">
+  <meta property="og:description" content="Single-image scene reconstruction and animation project using a spidery mesh interface.">
+  <meta property="og:image" content="{{ site.url }}/projects/tum_cv_challenge_ss24/pic/Cover_1280.webp">
+  <link rel="icon" href="/assets/images/logo.svg" type="image/svg+xml">
+  <title>Tour into the Picture | TUM CV Challenge SS24 - Wenbo Ji</title>
+  <link rel="stylesheet" href="{{ 'challenge.css' | asset }}">
+</head>
+<body>
+  <header class="challenge-hero">
+    <h1>Tour in Picture<br>using a spidery mesh interface to make animation from a single image</h1>
+    <p class="challenge-venue">TUM CV Challenge SS24</p>
+    <p class="challenge-authors">
+      <a href="/">Wenbo Ji</a>,
+      <a href="https://github.com/DJX2024">Xiang Ji</a>,
+      <a href="https://github.com/hongru88">Hongru Li</a>,
+      <a href="https://yuming1227.github.io/">Yuming Li</a>,
+      <a href="https://github.com/shilinzhang42">Shilin Zhang</a>
+    </p>
+    <p>Group 31<br>Technical University of Munich</p>
+    <div class="challenge-actions">
+      <a class="challenge-button" href="https://github.com/fusheng-ji/fusheng-ji.github.io/releases/download/site-assets-v1/TUM-CV-Challenge-SS24.pdf" target="_blank" rel="noopener noreferrer">Poster</a>
+      <a class="challenge-button" href="https://github.com/fusheng-ji/TUM_CV_Challenge_SS24" target="_blank" rel="noopener noreferrer">Code</a>
+    </div>
+  </header>
+
+  <main class="challenge-shell">
+    <div class="challenge-cover">
+      <img class="challenge-image" src="/projects/tum_cv_challenge_ss24/pic/cover_origin_640.webp" srcset="/projects/tum_cv_challenge_ss24/pic/cover_origin_640.webp 640w, /projects/tum_cv_challenge_ss24/pic/cover_origin_1280.webp 1280w" sizes="(max-width: 700px) 100vw, 50vw" width="1280" height="1280" alt="Original input image for Tour into the Picture">
+      <img class="challenge-image" src="/projects/tum_cv_challenge_ss24/pic/cover_cutted_640.webp" srcset="/projects/tum_cv_challenge_ss24/pic/cover_cutted_640.webp 640w, /projects/tum_cv_challenge_ss24/pic/cover_cutted_1280.webp 1280w" sizes="(max-width: 700px) 100vw, 50vw" width="1280" height="1065" alt="Foreground cutout result for Tour into the Picture">
+    </div>
+
+    <section class="challenge-section">
+      <h2>Motivation</h2>
+      <p>Based on “Tour into the Picture” (TIP) [2], we aim to develop autonomous algorithms that infer two key structures from a single 2D image: the regular, program-like textures or patterns on 2D planes and the 3D positioning of these planes within the scene.</p>
+      <p>For example, from a single Metro Station image, we can infer the camera pose, partition the image into distinct planes (walls, floor, ceiling, and far plane), and recognize repeated patterns.</p>
+      <p>This method enables flexible image editing, such as inpainting, moving the camera, and extending the Image Space, which requires a deep understanding of the scene’s 3D structure and real-time rendering of spatially consistent views.</p>
+      <img class="challenge-image" src="/projects/tum_cv_challenge_ss24/pic/decomp_640.webp" srcset="/projects/tum_cv_challenge_ss24/pic/decomp_640.webp 640w, /projects/tum_cv_challenge_ss24/pic/decomp_1280.webp 1280w" width="1280" height="319" loading="lazy" decoding="async" alt="Scene decomposition into foreground, background planes, and vanishing point geometry">
+    </section>
+
+    <section class="challenge-section">
+      <h2>Introduction</h2>
+      <p>The project aims to develop a graphical user interface (GUI) that allows users to extract a simple scene model from a single 2D image, facilitating easy animation and scene manipulation.</p>
+      <p>With our GUI, users can intuitively distinguish between foreground and background objects. The background geometry is approximated using simple polygons, forming a polyhedral model with the vanishing point at its base.</p>
+      <p>Specifying the vanishing point is also user-driven, ensuring that the virtual vanishing point aligns with the user’s perception.</p>
+      <p>Finally, users can determine the proximity of objects in the scene, effectively setting camera parameters to position foreground objects as desired.</p>
+      <img class="challenge-image" src="/projects/tum_cv_challenge_ss24/pic/algorithm_640.webp" srcset="/projects/tum_cv_challenge_ss24/pic/algorithm_640.webp 640w, /projects/tum_cv_challenge_ss24/pic/algorithm_1280.webp 1280w" width="1280" height="585" loading="lazy" decoding="async" alt="Tour into the Picture GUI workflow for extracting a scene model from one image">
+    </section>
+
+    <section class="challenge-section">
+      <h2>Method</h2>
+      <p>Overview of Our Method: Step 1: Data Selection, Step 2: Image Decomposition, Step 3: Fitting Perspective Projection, and Step 4: Camera Positioning.</p>
+      <img class="challenge-image" src="/projects/tum_cv_challenge_ss24/pic/pipeline_640.webp" srcset="/projects/tum_cv_challenge_ss24/pic/pipeline_640.webp 640w, /projects/tum_cv_challenge_ss24/pic/pipeline_1280.webp 1280w" width="768" height="1280" loading="lazy" decoding="async" alt="Pipeline: data selection, image decomposition, perspective projection fitting, and camera positioning">
+    </section>
+
+    <section class="challenge-section">
+      <h2>Experimental Results</h2>
+      <div class="challenge-results">
+        {% set results = [
+          ["Costume Data - Chilli room", "chilli_room", "Tour into the Picture result on a chilli room image"],
+          ["Complex sipmle - Simple room", "simple_room", "Tour into the Picture result on a simple room image"],
+          ["Complex middle - Museum", "museum", "Tour into the Picture result on a museum image"],
+          ["Complex middle - Shopping mall", "shopping_mall", "Tour into the Picture result on a shopping mall image"]
+        ] %}
+        {% for item in results %}
+          <article class="challenge-result">
+            <h3>{{ item[0] }}</h3>
+            <img class="challenge-image" src="/projects/tum_cv_challenge_ss24/pic/{{ item[1] }}_640.webp" srcset="/projects/tum_cv_challenge_ss24/pic/{{ item[1] }}_640.webp 640w, /projects/tum_cv_challenge_ss24/pic/{{ item[1] }}_1280.webp 1280w" width="1280" height="400" loading="lazy" decoding="async" alt="{{ item[2] }}">
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="challenge-section">
+      <h2>References</h2>
+      <pre class="challenge-references"><code>[1] Zhiqing Cao, Xin Sun, and Jiaoying Shi. Tour into the picture using relative depth calculation. VRCAI, 2004.
+[2] Youichi Horry, Ken-Ichi Anjyo, and Kiyoshi Arai. Tour into the picture: using a spidery mesh interface to make animation from a single image. SIGGRAPH, 1997.
+[3] Jian Liu, Kuangrong Hao, Huan Liu, and Yongsheng Ding. An improved algorithm based on TIP using a vanishing line. ICIST, 2013.
+[4] Guihang Wang, Xuejin Chen, and Si Chen. Cut-and-fold: Automatic 3D modeling from a single image. ICMEW, 2014.</code></pre>
+    </section>
+  </main>
+  <footer class="challenge-footer">Last update 2024.07.09</footer>
+</body>
+</html>

@@ -1,0 +1,57 @@
+---
+permalink: /404.html
+eleventyExcludeFromCollections: true
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="author" content="Wenbo Ji">
+  <meta name="description" content="404 page for Wenbo Ji's personal research portfolio. Use the navigation links to return to publications, projects, blog, CV, or gallery pages.">
+  <link rel="canonical" href="{{ site.url }}/404.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.url }}/404.html">
+  <meta property="og:title" content="404 - Wenbo Ji">
+  <meta property="og:description" content="The requested page was not found on Wenbo Ji's personal research portfolio.">
+  <meta property="og:image" content="{{ site.url }}/assets/images/logo.svg">
+  <link rel="icon" href="/assets/images/logo.svg" type="image/svg+xml">
+  <title>404 - Wenbo Ji</title>
+  <link rel="stylesheet" href="{{ 'page-404.css' | asset }}">
+  <script type="module" src="{{ 'page-404.js' | asset }}"></script>
+</head>
+<body>
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="navbar-container">
+      <a class="navbar-brand" href="/" aria-label="Wenbo Ji home"><img src="/assets/images/logo.svg" alt="Wenbo Ji" width="148" height="41"></a>
+      <button class="navbar-toggle" type="button" aria-label="Open navigation menu" aria-controls="site-nav" aria-expanded="false"><span class="navbar-toggle-lines" aria-hidden="true"></span></button>
+      <div id="site-nav" class="navbar-links">
+        <a href="/assets/doc/WenboJi_CV_English.pdf" target="_blank" rel="noopener noreferrer">CV</a>
+        <a href="/blog/" target="_blank" rel="noopener noreferrer">Blog</a>
+        <a href="/#Publications">Publications</a>
+        <a href="/#experiences">Experiences</a>
+        <a href="/#projects">Projects</a>
+        <a href="/#education">Education</a>
+        <a href="/#gallery">Gallery</a>
+      </div>
+    </div>
+  </nav>
+  <main class="page-shell">
+    <section class="not-found-layout" aria-label="404 page">
+      <div class="card-stage">
+        <div class="holo-card" id="holoCard">
+          <div class="card-face">
+            <div class="card-border" aria-hidden="true"></div>
+            <div class="corner-mark top" aria-hidden="true">404</div>
+            <div class="corner-mark bottom" aria-hidden="true">404</div>
+            <div class="card-diamond" aria-hidden="true"></div>
+            <span class="card-number" role="img" aria-label="404">404</span>
+            <div class="card-caption" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

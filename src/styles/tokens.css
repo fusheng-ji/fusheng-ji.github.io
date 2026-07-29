@@ -1,0 +1,20 @@
+:root {
+  --color-page: #f4f6f8;
+  --color-surface: #fff;
+  --color-text: #44576b;
+  --color-heading: #2f3e4d;
+  --color-muted: #607387;
+  --color-link: #2a6fbb;
+  --color-link-hover: #d9822b;
+  --color-rule: #e3eaf0;
+  --font-sans: "Lato", "Avenir Next", "Helvetica Neue", arial, sans-serif;
+  --content-width: 1100px;
+  --page-gutter: 2.5%;
+  --font-size-meta: 13px;
+  --resource-logo-size: 24px;
+  --resource-hit-size: 36px;
+  --resource-logo-gap: 8px;
+  --focus-ring: 2px solid #2a6fbb;
+  --focus-offset: 3px;
+  --transition-fast: 180ms ease;
+}

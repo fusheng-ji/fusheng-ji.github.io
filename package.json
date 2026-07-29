@@ -1,0 +1,36 @@
+{
+  "name": "wenbo-ji-personal-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Eleventy source for Wenbo Ji's research portfolio.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.22.0"
+  },
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "node scripts/build-assets.mjs && eleventy",
+    "check": "npm run validate:data && npm run validate:html && npm run lint:js && npm run lint:css && npm run check:links && npm run check:size",
+    "validate:data": "node scripts/validate-data.mjs",
+    "validate:html": "html-validate \"_site/**/*.html\"",
+    "lint:js": "eslint \"src/**/*.js\" \"scripts/**/*.mjs\"",
+    "lint:css": "stylelint \"src/styles/**/*.css\"",
+    "check:links": "node scripts/check-links.mjs",
+    "check:size": "node scripts/check-size.mjs",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "3.1.6",
+    "@playwright/test": "1.62.0",
+    "ajv": "8.20.0",
+    "esbuild": "0.28.1",
+    "eslint": "10.8.0",
+    "html-validate": "11.6.0",
+    "prettier": "3.9.6",
+    "sharp": "^0.35.3",
+    "stylelint": "17.14.1"
+  },
+  "overrides": {
+    "@11ty/recursive-copy": "5.0.2"
+  }
+}

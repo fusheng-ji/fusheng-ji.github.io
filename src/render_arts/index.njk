@@ -1,0 +1,56 @@
+---
+permalink: /render_arts/index.html
+eleventyExcludeFromCollections: true
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Wenbo Ji">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Rendering and Blender artwork by Wenbo Ji, including stylized environments, materials, and animation experiments.">
+  <link rel="canonical" href="{{ site.url }}/render_arts/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.url }}/render_arts/">
+  <meta property="og:title" content="Rendering Work | Wenbo Ji">
+  <meta property="og:description" content="A collection of Blender rendering work and visual experiments by Wenbo Ji.">
+  <meta property="og:image" content="{{ site.url }}/render_arts/static/images/river0_1280.webp">
+  <link rel="icon" href="/assets/images/logo.svg" type="image/svg+xml">
+  <title>Rendering Work | Wenbo Ji</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ 'rendering.css' | asset }}">
+  <script type="module" src="{{ 'rendering.js' | asset }}"></script>
+</head>
+<body>
+  <nav class="render-nav" aria-label="Primary navigation"><a href="/">← Wenbo Ji</a></nav>
+  <header class="render-header"><h1>My Rendering Work</h1></header>
+  <main class="render-shell">
+    <section class="render-showcase" aria-label="Selected rendering work">
+      <video data-autoplay controls muted loop playsinline preload="metadata" poster="/render_arts/static/images/alien_ball_poster.jpg"><source src="/render_arts/static/videos/alien-ball-1080p.mp4" type="video/mp4"></video>
+      <img src="/render_arts/static/images/geo_640.webp" width="640" height="360" alt="Metal planet Blender rendering">
+      <img src="/render_arts/static/images/river0_640.webp" width="640" height="360" alt="Dandelion river Blender rendering">
+    </section>
+    {% for project in renderingProjects %}
+      <article class="render-project" id="{{ project.id }}">
+        <h2>{{ project.title }}</h2>
+        <p class="render-meta">{{ project.meta }}</p>
+        {% if project.video %}
+          <div class="render-media"><video controls muted loop playsinline preload="metadata" poster="{{ project.video.poster }}" width="{{ project.video.width }}" height="{{ project.video.height }}"><source src="{{ project.video.src }}" type="video/mp4"></video></div>
+        {% else %}
+          <div class="render-media {{ 'is-gallery' if project.media.length > 1 }}">
+            {% for media in project.media %}<img src="{{ media.src }}" width="{{ media.width }}" height="{{ media.height }}" loading="lazy" decoding="async" alt="{{ media.alt }}">{% endfor %}
+          </div>
+        {% endif %}
+        <div class="render-project-links">
+          <a class="render-button" href="{{ project.project }}" target="_blank" rel="noopener noreferrer">Project File</a>
+          <a class="render-button" href="{{ project.tutorial }}" target="_blank" rel="noopener noreferrer">Tutorial Video</a>
+        </div>
+      </article>
+    {% endfor %}
+  </main>
+  <footer class="render-footer"><a href="https://github.com/fusheng-ji" target="_blank" rel="noopener noreferrer">GitHub</a></footer>
+</body>
+</html>

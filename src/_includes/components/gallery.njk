@@ -1,0 +1,102 @@
+{% import "components/ui.njk" as ui with context %}
+<section class="section-table gallery-section" aria-labelledby="gallery">
+  <div class="section-cell">
+    <span id="blender-gallery" aria-hidden="true"></span>
+    <span id="threejs-arts" aria-hidden="true"></span>
+    <h2 class="semantic-heading section-heading" id="gallery">Gallery</h2>
+
+    <div class="gallery-tablist-wrap">
+      <div class="gallery-tablist" role="tablist" aria-label="Gallery sections" data-gallery-tabs>
+        <span class="gallery-tab-indicator" aria-hidden="true"></span>
+        {% for tab in gallery.tabs %}
+          <button type="button" class="gallery-tab-button {{ 'is-active' if loop.first }}" id="gallery-tab-{{ tab.id }}" role="tab" aria-selected="{{ 'true' if loop.first else 'false' }}" aria-controls="gallery-panel-{{ tab.id }}" tabindex="{{ '0' if loop.first else '-1' }}" data-gallery-tab="{{ tab.id }}">{{ tab.label }}</button>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="gallery-tab-panels">
+      <div class="gallery-tab-panel" id="gallery-panel-lens" role="tabpanel" aria-labelledby="gallery-tab-lens" data-gallery-panel="lens">
+        <div class="gallery-stack-shell">
+          <div id="photograph-carousel" class="gallery-stack" role="region" data-gallery-stack data-gallery-kind="media" data-gallery-label="Through My Lens" tabindex="0" aria-label="Through My Lens interactive card stack">
+            {% for media in gallery.lens %}
+              <article class="gallery-card" data-gallery-card>
+                <img src="{{ media.src if loop.first else '/assets/images/placeholder.svg' }}" {% if not loop.first %}data-gallery-src="{{ media.src }}"{% endif %} width="{{ media.width }}" height="{{ media.height }}" alt="{{ media.alt }}" loading="lazy" decoding="async">
+              </article>
+            {% endfor %}
+          </div>
+          {{ ui.galleryControls("Through My Lens", gallery.lens.length) }}
+        </div>
+      </div>
+
+      <div class="gallery-tab-panel" id="gallery-panel-blender" role="tabpanel" aria-labelledby="gallery-tab-blender" data-gallery-panel="blender" hidden>
+        <div class="gallery-stack-shell">
+          <div id="results-carousel" class="gallery-stack" role="region" data-gallery-stack data-gallery-kind="media" data-gallery-label="Blender Arts" tabindex="0" aria-label="Blender Arts interactive card stack">
+            {% for media in gallery.blender %}
+              <article class="gallery-card" data-gallery-card>
+                {% if media.type == "video" %}
+                  <video muted loop playsinline preload="none" poster="{{ media.poster }}" width="{{ media.width }}" height="{{ media.height }}" data-gallery-video-preview data-gallery-description="{{ media.alt }}">
+                    <source src="{{ media.src }}" type="video/mp4">
+                  </video>
+                  <span class="gallery-video-preview-label" aria-hidden="true"><span class="gallery-video-preview-icon">▶</span><span>Video preview</span></span>
+                {% else %}
+                  <img src="/assets/images/placeholder.svg" data-gallery-src="{{ media.src }}" width="{{ media.width }}" height="{{ media.height }}" alt="{{ media.alt }}" loading="lazy" decoding="async">
+                {% endif %}
+              </article>
+            {% endfor %}
+          </div>
+          {{ ui.galleryControls("Blender Arts", gallery.blender.length) }}
+        </div>
+      </div>
+
+      <div class="gallery-tab-panel" id="gallery-panel-threejs" role="tabpanel" aria-labelledby="gallery-tab-threejs" data-gallery-panel="threejs" hidden>
+        <div class="gallery-stack-shell">
+          <div id="threejs-carousel" class="gallery-stack gallery-stack--projects" role="region" data-gallery-stack data-gallery-kind="project" data-gallery-label="Three.js Arts" tabindex="0" aria-label="Three.js Arts interactive card stack">
+            {% for item in gallery.threejs %}
+              <article class="gallery-card gallery-card--project" data-gallery-card>
+                <div class="project-showcase-card">
+                  <div class="project-showcase-media">
+                    <img src="/assets/images/placeholder.svg" data-gallery-src="{{ item.media.src }}" width="{{ item.media.width }}" height="{{ item.media.height }}" loading="lazy" decoding="async" alt="{{ item.media.alt }}">
+                  </div>
+                  <div class="project-showcase-content">
+                    <div class="project-showcase-head">
+                      <div class="project-showcase-title">{{ item.title }}</div>
+                      <div class="project-showcase-side-meta"><span>{{ item.date }}</span></div>
+                    </div>
+                    <p class="project-showcase-subtitle">{{ item.subtitle }}</p>
+                    <div class="project-showcase-footer">
+                      <span class="project-showcase-tech">{{ item.tech }}</span>
+                      <a class="project-showcase-link" href="{{ item.url }}" target="_blank" rel="noopener noreferrer" aria-label="Open {{ item.title }}">
+                        <img src="{{ site.resourceTypes.project.icon }}" width="24" height="24" class="meta-icon" decoding="async" alt="">
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            {% endfor %}
+          </div>
+          {{ ui.galleryControls("Three.js Arts", gallery.threejs.length) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gallery-lightbox" data-gallery-lightbox role="dialog" aria-modal="true" aria-labelledby="gallery-lightbox-title" hidden>
+  <div class="gallery-lightbox-backdrop" data-gallery-lightbox-close aria-hidden="true"></div>
+  <div class="gallery-lightbox-frame" role="document">
+    <header class="gallery-lightbox-header">
+      <div>
+        <h3 class="gallery-lightbox-title" id="gallery-lightbox-title" data-gallery-lightbox-title>Gallery</h3>
+        <p class="gallery-lightbox-count" data-gallery-lightbox-count>01 / 01</p>
+      </div>
+      <button type="button" class="gallery-lightbox-button gallery-lightbox-close" data-gallery-lightbox-action="close" aria-label="Close gallery viewer"><span aria-hidden="true">×</span></button>
+    </header>
+    <div class="gallery-lightbox-media" data-gallery-lightbox-surface>
+      <img src="/assets/images/placeholder.svg" data-gallery-lightbox-image alt="" hidden>
+      <video data-gallery-lightbox-video controls muted playsinline preload="metadata" hidden></video>
+    </div>
+    <button type="button" class="gallery-lightbox-button gallery-lightbox-previous" data-gallery-lightbox-action="previous" aria-label="Previous gallery item"><span aria-hidden="true">←</span></button>
+    <button type="button" class="gallery-lightbox-button gallery-lightbox-next" data-gallery-lightbox-action="next" aria-label="Next gallery item"><span aria-hidden="true">→</span></button>
+    <p class="gallery-visually-hidden" data-gallery-lightbox-live aria-live="polite"></p>
+  </div>
+</div>

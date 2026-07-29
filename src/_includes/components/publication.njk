@@ -1,0 +1,29 @@
+{% import "components/ui.njk" as ui with context %}
+<article class="section-table experience-entry publication-entry" id="{{ publication.id }}">
+  <div class="entry-media-cell">
+    <div class="entry-visual-stack">
+      <div class="entry-visual">{{ ui.image(publication.media, false, "teaser-img") }}</div>
+    </div>
+    <div class="entry-media-tags">{{ ui.researchTag(publication.area, researchAreas) }}</div>
+  </div>
+  <div class="entry-content-cell">
+    <div class="publication-title-stack">
+      <h3 class="entry-title">{{ publication.title }}</h3>
+      <div class="publication-meta-row {{ 'publication-meta-row-inline' if publication.award }}">
+        <span class="entry-meta">{{ publication.venue }}, {{ publication.year }}</span>
+        {% if publication.award %}
+          <span class="entry-side-note publication-award"><a href="{{ publication.award.url }}">{{ publication.award.label }}</a></span>
+        {% endif %}
+        {{ ui.resourceLinks(publication.links, site, publication.title + " resources") }}
+      </div>
+    </div>
+    <div class="entry-block">
+      <p class="entry-label">Authors</p>
+      {{ ui.authors(publication.authors) }}
+    </div>
+    <div class="entry-block">
+      <p class="entry-label">Overview</p>
+      <p class="entry-summary">{{ publication.summary }}</p>
+    </div>
+  </div>
+</article>
