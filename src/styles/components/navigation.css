@@ -227,6 +227,11 @@
 .navbar-links .nav-link-label {
   position: relative;
   z-index: 2;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.65;
+  color: #44576b;
 }
 
 .navbar-links a:focus-visible {
@@ -442,6 +447,10 @@
     line-height: 1.2;
     color: #3f5062;
     box-sizing: border-box;
+  }
+
+  .navbar-links .nav-link-label {
+    font-size: 17px;
   }
 
   .navbar-links a:focus-visible {

@@ -8,6 +8,7 @@
 @import url("./components/timeline-avatar.css");
 @import url("./components/blog-gallery.css");
 @import url("./components/gallery-carousel.css");
+@import url("./components/footer.css");
 
 @media (prefers-reduced-motion: reduce) {
   *,

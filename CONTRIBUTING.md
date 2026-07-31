@@ -1,8 +1,14 @@
 # Contributing
 
-This is a personal research portfolio, so content changes are maintained by
-Wenbo Ji. Reusable engineering improvements and well-scoped bug fixes are
-welcome.
+This repository is Wenbo Ji's personal research portfolio. Biography,
+research, publication, experience, and media changes are maintained by Wenbo
+Ji and are not open for general contribution.
+
+For reusable components, template features, customization questions, or bugs
+that apply to academic homepages generally, contribute to
+[fusheng-ji/academic-homepage-template](https://github.com/fusheng-ji/academic-homepage-template)
+instead. This repository accepts only narrowly scoped fixes for behavior that
+is specific to the deployed personal site.
 
 ## Development
 

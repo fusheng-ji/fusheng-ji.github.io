@@ -303,13 +303,6 @@
   will-change: transform;
 }
 
-.footer-table {
-  width: 100%;
-  border: 0;
-  border-spacing: 0;
-  border-collapse: separate;
-}
-
 .blog-card {
   flex: 0 0 calc((100% - (var(--blog-card-gap) * (var(--blog-cards-per-view) - 1))) / var(--blog-cards-per-view));
   min-width: 0;

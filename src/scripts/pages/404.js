@@ -1,4 +1,5 @@
 import { Site } from "../modules/core.js";
+import "../modules/glass-nav.js";
 var root = document.documentElement;
       var targetX = 0;
       var targetY = 0;
@@ -67,6 +68,7 @@ var root = document.documentElement;
       }
 Site.initLogoFallback();
       Site.initMobileNavbar();
+      Site.initSiteGlassNav?.();
 
       if (window.matchMedia) {
         var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");

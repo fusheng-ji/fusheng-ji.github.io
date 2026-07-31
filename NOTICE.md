@@ -1,7 +1,10 @@
 # Content and media notice
 
-The MIT License in this repository applies only to the site template, CSS,
+The MIT License in this repository applies only to the site code, CSS,
 JavaScript, Eleventy configuration, validation scripts, and build tooling.
+
+The independently maintained reusable distribution is available at
+https://github.com/fusheng-ji/academic-homepage-template.
 
 Unless a file states otherwise, the following are **not** licensed under MIT:
 

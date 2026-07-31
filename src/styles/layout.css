@@ -72,11 +72,6 @@
   grid-template-columns: minmax(0, 26fr) minmax(0, 74fr);
 }
 
-.footer-table {
-  display: grid;
-  gap: 0;
-}
-
 @supports (width: 1cqw) {
   .hero-bio-cell {
     padding: 2.5cqw;

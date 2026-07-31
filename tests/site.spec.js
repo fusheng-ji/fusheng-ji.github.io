@@ -16,6 +16,169 @@ test("public pages are reachable", async ({ page }) => {
   }
 });
 
+async function readNavigation(page, path) {
+  await page.goto(path, { waitUntil: "networkidle" });
+  await page.evaluate(() => document.fonts?.ready);
+
+  return page.locator(".navbar").evaluate((navbar) => {
+    const readStyle = (element, properties) => {
+      const style = getComputedStyle(element);
+      return Object.fromEntries(
+        properties.map((property) => [property, style[property]]),
+      );
+    };
+    const links = Array.from(navbar.querySelectorAll(".navbar-links > a"));
+    const firstChip = links[0].querySelector(".nav-link-chip");
+    const firstLabel = links[0].querySelector(".nav-link-label");
+    const brandImage = navbar.querySelector(".navbar-brand img");
+    const toggle = navbar.querySelector(".navbar-toggle");
+    const linkContainer = navbar.querySelector(".navbar-links");
+    const bounds = navbar.getBoundingClientRect();
+
+    return {
+      attributes: {
+        glassNav: navbar.hasAttribute("data-site-glass-nav"),
+        glass: navbar.hasAttribute("data-site-glass"),
+        glassReady: navbar.getAttribute("data-site-glass-ready"),
+      },
+      brandHref: navbar.querySelector(".navbar-brand").getAttribute("href"),
+      links: links.map((link) => ({
+        label: link.textContent.trim(),
+        href: link.getAttribute("href"),
+        target: link.getAttribute("target"),
+        rel: link.getAttribute("rel"),
+        chipCount: link.querySelectorAll(":scope > .nav-link-chip").length,
+        labelCount: link.querySelectorAll(
+          ":scope > .nav-link-chip > .nav-link-label",
+        ).length,
+      })),
+      geometry: {
+        width: bounds.width,
+        height: bounds.height,
+        top: bounds.top,
+      },
+      navbarStyle: readStyle(navbar, [
+        "position",
+        "top",
+        "minHeight",
+        "maxWidth",
+        "marginTop",
+        "marginBottom",
+        "paddingLeft",
+        "paddingRight",
+        "borderRadius",
+        "backgroundImage",
+        "boxShadow",
+        "backdropFilter",
+      ]),
+      linkContainerStyle: readStyle(linkContainer, [
+        "display",
+        "visibility",
+        "gap",
+        "gridTemplateColumns",
+      ]),
+      chipStyle: readStyle(firstChip, [
+        "display",
+        "minHeight",
+        "paddingTop",
+        "paddingRight",
+        "borderRadius",
+      ]),
+      labelStyle: readStyle(firstLabel, [
+        "fontFamily",
+        "fontSize",
+        "fontWeight",
+        "lineHeight",
+        "color",
+      ]),
+      brandImageStyle: readStyle(brandImage, ["width", "height"]),
+      toggleStyle: readStyle(toggle, [
+        "display",
+        "width",
+        "height",
+        "borderRadius",
+      ]),
+    };
+  });
+}
+
+test("404 navigation matches the homepage navigation system", async ({
+  page,
+}) => {
+  const homepage = await readNavigation(page, "/");
+  const notFound = await readNavigation(page, "/404.html");
+
+  expect(notFound.attributes).toEqual(homepage.attributes);
+  expect(notFound.brandHref).toBe("/");
+  expect(homepage.brandHref).toBe("#top");
+  expect(notFound.links.map(({ label }) => label)).toEqual(
+    homepage.links.map(({ label }) => label),
+  );
+  expect(notFound.links.map(({ href }) => href)).toEqual(
+    homepage.links.map(({ href }) => (href.startsWith("#") ? `/${href}` : href)),
+  );
+  expect(
+    notFound.links.map(({ target, rel, chipCount, labelCount }) => ({
+      target,
+      rel,
+      chipCount,
+      labelCount,
+    })),
+  ).toEqual(
+    homepage.links.map(({ target, rel, chipCount, labelCount }) => ({
+      target,
+      rel,
+      chipCount,
+      labelCount,
+    })),
+  );
+  expect(notFound.navbarStyle).toEqual(homepage.navbarStyle);
+  expect(notFound.linkContainerStyle).toEqual(homepage.linkContainerStyle);
+  expect(notFound.chipStyle).toEqual(homepage.chipStyle);
+  expect(notFound.labelStyle).toEqual(homepage.labelStyle);
+  expect(notFound.brandImageStyle).toEqual(homepage.brandImageStyle);
+  expect(notFound.toggleStyle).toEqual(homepage.toggleStyle);
+  expect(Math.abs(notFound.geometry.width - homepage.geometry.width)).toBeLessThanOrEqual(1);
+  expect(Math.abs(notFound.geometry.height - homepage.geometry.height)).toBeLessThanOrEqual(1);
+  expect(Math.abs(notFound.geometry.top - homepage.geometry.top)).toBeLessThanOrEqual(1);
+});
+
+test("404 mobile navigation is operable and does not overflow", async ({
+  page,
+}, testInfo) => {
+  test.skip(
+    testInfo.project.name.startsWith("desktop-"),
+    "Mobile navigation behavior",
+  );
+
+  const consoleErrors = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  await page.goto("/404.html", { waitUntil: "networkidle" });
+
+  const navbar = page.locator(".navbar");
+  const toggle = page.locator(".navbar-toggle");
+  const links = page.locator("#site-nav");
+  await expect(toggle).toBeVisible();
+  await expect(toggle).toHaveAttribute("aria-expanded", "false");
+
+  await toggle.click();
+  await expect(navbar).toHaveClass(/is-open/);
+  await expect(toggle).toHaveAttribute("aria-expanded", "true");
+  await expect(links).toBeVisible();
+
+  await page.keyboard.press("Escape");
+  await expect(navbar).not.toHaveClass(/is-open/);
+  await expect(toggle).toHaveAttribute("aria-expanded", "false");
+
+  const overflow = await page.evaluate(
+    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+  );
+  expect(overflow).toBeLessThanOrEqual(1);
+  expect(consoleErrors).toEqual([]);
+});
+
 test("homepage preserves content and has no horizontal overflow", async ({ page }) => {
   const consoleErrors = [];
   page.on("console", (message) => {
@@ -39,6 +202,46 @@ test("homepage preserves content and has no horizontal overflow", async ({ page 
   ]) {
     await expect(page.locator(`#${id}`)).toHaveCount(1);
   }
+  const overflow = await page.evaluate(
+    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+  );
+  expect(overflow).toBeLessThanOrEqual(1);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("homepage directs visitors to the reusable template", async ({ page }) => {
+  const consoleErrors = [];
+  page.on("console", (message) => {
+    if (message.type() === "error" && !message.text().includes("posts.json")) {
+      consoleErrors.push(message.text());
+    }
+  });
+  await page.goto("/", { waitUntil: "networkidle" });
+
+  const footer = page.locator(".site-footer");
+  const templateLink = footer.getByRole("link", {
+    name: "Use the open-source template",
+  });
+
+  await expect(footer).toContainText(
+    "Need your own academic homepage? Use the open-source template",
+  );
+  await expect(templateLink).toHaveAttribute(
+    "href",
+    "https://github.com/fusheng-ji/academic-homepage-template",
+  );
+  await expect(templateLink).toHaveAttribute("target", "_blank");
+  await expect(templateLink).toHaveAttribute("rel", "noopener noreferrer");
+
+  await templateLink.focus();
+  await expect(templateLink).toBeFocused();
+  const focusStyle = await templateLink.evaluate((element) => {
+    const style = getComputedStyle(element);
+    return { outlineStyle: style.outlineStyle, outlineWidth: style.outlineWidth };
+  });
+  expect(focusStyle.outlineStyle).not.toBe("none");
+  expect(focusStyle.outlineWidth).not.toBe("0px");
+
   const overflow = await page.evaluate(
     () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
   );

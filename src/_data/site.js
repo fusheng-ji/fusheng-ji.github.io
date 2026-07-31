@@ -4,7 +4,11 @@ export default {
   description:
     "Personal research portfolio for Wenbo Ji, working on visual computing, human motion video diffusion, 3D/4D reconstruction, tracking, and robot world models.",
   language: "en",
-  updated: "2026-07-29",
+  updated: "2026-07-31",
+  template: {
+    name: "Academic Homepage Template",
+    repositoryUrl: "https://github.com/fusheng-ji/academic-homepage-template",
+  },
   owner: {
     name: "Wenbo Ji",
     alternateNames: ["Ji Wenbo", "嵇文博"],
