@@ -297,6 +297,47 @@ test("entry metadata uses one restrained type scale", async ({ page }) => {
   expect(13).toBeLessThan(entryTitleSize);
 });
 
+test("mentor links inherit the shared mentor typography", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  const mentorTypography = await page.locator(".collab-name").evaluateAll(
+    (elements) =>
+      elements.map((element) => {
+        const style = getComputedStyle(element);
+        return {
+          text: element.textContent.trim(),
+          fontSize: style.fontSize,
+          fontWeight: style.fontWeight,
+          lineHeight: style.lineHeight,
+          links: Array.from(element.querySelectorAll("a")).map((link) => {
+            const linkStyle = getComputedStyle(link);
+            return {
+              fontSize: linkStyle.fontSize,
+              fontWeight: linkStyle.fontWeight,
+              lineHeight: linkStyle.lineHeight,
+            };
+          }),
+        };
+      }),
+  );
+
+  expect(mentorTypography.some(({ text }) => text.includes("Mahdi Mustapha Hamad"))).toBe(
+    true,
+  );
+  expect(new Set(mentorTypography.map(({ fontSize }) => fontSize)).size).toBe(1);
+  for (const mentor of mentorTypography) {
+    for (const link of mentor.links) {
+      expect(link).toEqual({
+        fontSize: mentor.fontSize,
+        fontWeight: mentor.fontWeight,
+        lineHeight: mentor.lineHeight,
+      });
+    }
+  }
+});
+
 test("desktop anchors keep section headings below the sticky navigation", async ({
   page,
 }, testInfo) => {

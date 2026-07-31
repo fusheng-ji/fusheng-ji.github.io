@@ -550,6 +550,9 @@ ul, li {
 }
 .collab-name a {
   color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
 }
 .collab-org {
   font-size: 13px;

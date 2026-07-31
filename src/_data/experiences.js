@@ -25,7 +25,12 @@ export default [
     ],
     mentors: [
       {
-        people: [{ name: "Mahdi Mustapha Hamad" }],
+        people: [
+          {
+            name: "Mahdi Mustapha Hamad",
+            url: "https://scholar.google.com/citations?user=snIHZzcAAAAJ&hl=en",
+          },
+        ],
         organization: "Agile Robots SE / WRD Group",
       },
     ],
@@ -191,7 +196,7 @@ export default [
             name: "Prof. Yan Xia",
             url: "https://cvg.cit.tum.de/members/xiya",
           },
-          { name: "Weirong Chen", url: "https://chiaki530.github.io/" },
+          { name: "Weirong Chen", url: "https://wrchen530.github.io/" },
         ],
         organization: "TUM CVG",
       },
