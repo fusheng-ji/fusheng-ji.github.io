@@ -25,25 +25,16 @@ a:hover {
   transform: translate(-50%, 0);
 }
 
-body, p, a, li, span {
-  font-family: 'Lato', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.65;
+body {
+  font-family: var(--font-sans);
+  font-size: var(--type-body-size);
+  font-weight: var(--type-weight-regular);
+  line-height: var(--type-body-leading);
   color: #44576b;
 }
 
 strong {
-  font-family: 'Lato', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  color: #2f3e4d;
-}
-
-.section-heading {
-  font-family: 'Lato', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
-  font-size: 28px;
-  font-weight: 700;
+  font-weight: var(--type-weight-bold);
   color: #2f3e4d;
 }
 
@@ -54,31 +45,11 @@ strong {
 }
 
 .entry-title {
-  font-family: 'Lato', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
-  font-size: 19px;
-  font-weight: 700;
-  color: #2f3e4d;
   margin: 0;
 }
 
-.entry-meta {
-  font-family: 'Lato', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
-  font-size: var(--font-size-meta);
-  font-weight: 600;
-  color: #2f3e4d;
-}
-
-.site-name {
-  font-family: 'Lato', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
-  font-size: 36px;
-  font-weight: 700;
-  color: #2f3e4d;
-}
 .topic-location {
   display: block;
-  font-size: var(--font-size-meta);
-  font-weight: 300;
-  color: #666;
   white-space: nowrap;
 }
 .inherit-link,
@@ -116,7 +87,6 @@ strong {
 .publication-note {
   margin-top: 4px;
   color: #666;
-  font-size: var(--font-size-meta);
 }
 
 /* Global tags: for publications / experiences / projects / thesis */
@@ -133,10 +103,6 @@ strong {
   border: 1px solid var(--tag-border);
   border-radius: 999px;
   background: var(--tag-surface);
-  font-family: 'Lato', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.4;
   color: var(--tag-ink);
   text-align: center;
   width: auto;
@@ -230,31 +196,6 @@ video[data-src] {
   main .section-cell {
     padding: 18px 0;
     box-sizing: border-box;
-  }
-
-  .section-heading {
-    font-size: 23px;
-    line-height: 1.18;
-  }
-
-  .entry-title,
-  .entry-title {
-    font-size: 18px;
-    line-height: 1.28;
-  }
-
-  body,
-  p,
-  a,
-  li,
-  span,
-  strong {
-    font-size: 17px;
-  }
-
-  .publication-note {
-    font-size: var(--font-size-meta);
-    line-height: 1.5;
   }
 
   img,

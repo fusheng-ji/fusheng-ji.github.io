@@ -1,14 +1,18 @@
 {% macro sectionHeading(id, title, note="") %}
   <header class="section-cell">
-    <h2 class="semantic-heading section-heading" id="{{ id }}">{{ title }}</h2>
-    {% if note %}<p class="publication-note">{{ note }}</p>{% endif %}
+    <h2 class="semantic-heading section-heading type-section-title" id="{{ id }}">{{ title }}</h2>
+    {% if note %}<p class="publication-note type-caption">{{ note }}</p>{% endif %}
   </header>
+{% endmacro %}
+
+{% macro entryGroupLabel(title) %}
+  <h4 class="entry-label type-group-label">{{ title }}</h4>
 {% endmacro %}
 
 {% macro researchTag(areaId, areas, interest=false) %}
   {% for area in areas %}
     {% if area.id == areaId %}
-      <span class="{{ 'research-interest-tag' if interest else 'tag' }} tag-domain-{{ area.theme }}" {% if interest %}role="listitem"{% endif %}>{{ area.label }}</span>
+      <span class="{{ 'research-interest-tag' if interest else 'tag' }} tag-domain-{{ area.theme }} type-tag" {% if interest %}role="listitem"{% endif %}>{{ area.label }}</span>
     {% endif %}
   {% endfor %}
 {% endmacro %}
@@ -48,7 +52,7 @@
 {% endmacro %}
 
 {% macro authors(items) %}
-  <div class="entry-byline">
+  <div class="entry-byline type-secondary">
     {% for author in items %}
       {% if author.lineBreakBefore %}<br>{% endif %}
       {% if author.featured %}<strong><u>{{ author.name }}</u></strong>{% else %}{{ author.name }}{% endif %}{% if author.equal %}*{% endif %}{% if author.corresponding %}†{% endif %}{% if not loop.last %}, {% endif %}

@@ -8,22 +8,22 @@
     </div>
     <div class="entry-content-cell">
       <div class="publication-title-stack document-title-row">
-        <h3 class="entry-title">{{ document.title }}</h3>
-        <div class="publication-meta-row document-year"><span class="entry-meta">{{ document.year }}</span></div>
+        <h3 class="entry-title type-entry-title">{{ document.title }}</h3>
+        <div class="publication-meta-row document-year"><span class="entry-meta type-meta">{{ document.year }}</span></div>
       </div>
       <div class="split-row experience-detail-row document-meta-row">
-        <span class="experience-type">{{ document.type }}</span>
+        <span class="experience-type type-meta type-meta--uppercase">{{ document.type }}</span>
         {{ ui.resourceLinks(document.links, site, document.title + " resources") }}
       </div>
       {% if document.authors %}
         <div class="entry-block">
-          <p class="entry-label">Authors</p>
+          {{ ui.entryGroupLabel("Authors") }}
           {{ ui.authors(document.authors) }}
         </div>
       {% endif %}
       <div class="entry-block">
-        <p class="entry-label">Overview</p>
-        <p class="entry-summary">{{ document.summary }}</p>
+        {{ ui.entryGroupLabel("Overview") }}
+        <p class="entry-summary type-body">{{ document.summary }}</p>
       </div>
     </div>
   </article>

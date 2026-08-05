@@ -357,18 +357,14 @@
 }
 
 .project-showcase-title {
+  --type-heading-color: #f5f7fb;
   max-width: 430px;
-  color: #f5f7fb;
-  font-size: 23px;
-  font-weight: 600;
-  line-height: 1.3;
+  margin: 0;
 }
 
 .project-showcase-side-meta {
+  --type-meta-color: #b7c1ce;
   flex: 0 0 auto;
-  color: #b7c1ce;
-  font-size: 12px;
-  line-height: 1.55;
   text-align: right;
 }
 
@@ -377,10 +373,8 @@
 }
 
 .project-showcase-subtitle {
+  --type-body-color: #cbd3de;
   margin: 0;
-  color: #cbd3de;
-  font-size: 15px;
-  line-height: 1.55;
 }
 
 .project-showcase-footer {
@@ -392,11 +386,8 @@
 }
 
 .project-showcase-tech {
+  --type-meta-color: #919dac;
   min-width: 0;
-  color: #919dac;
-  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
-  font-size: 12px;
-  line-height: 1.5;
 }
 
 .project-showcase-link {
@@ -487,19 +478,13 @@ body.is-gallery-lightbox-open {
 }
 
 .gallery-lightbox-title {
+  --type-heading-color: #f4f6f8;
   margin: 0;
-  color: #f4f6f8;
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 1.3;
 }
 
 .gallery-lightbox-count {
+  --type-meta-color: #98a5b4;
   margin: 4px 0 0;
-  color: #98a5b4;
-  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.08em;
 }
 
 .gallery-lightbox-media {
@@ -606,9 +591,6 @@ body.is-gallery-lightbox-open {
     padding: 22px 22px 20px;
   }
 
-  .project-showcase-title {
-    font-size: 19px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

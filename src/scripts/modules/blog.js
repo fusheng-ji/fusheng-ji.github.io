@@ -45,8 +45,8 @@ import { Site } from "./state.js";
     var reading = post.readingTime ? escapeHtml(String(post.readingTime)) + ' min read' : '';
     var metaBits = [];
 
-    if (date) metaBits.push('<span class="blog-card-date">' + date + '</span>');
-    if (reading) metaBits.push('<span class="blog-card-reading">' + reading + '</span>');
+    if (date) metaBits.push('<span class="blog-card-date type-meta">' + date + '</span>');
+    if (reading) metaBits.push('<span class="blog-card-reading type-meta">' + reading + '</span>');
 
     return [
       '<article class="blog-card">',
@@ -54,8 +54,8 @@ import { Site } from "./state.js";
       '    <div class="blog-card-top">',
       '      <div class="blog-card-top-meta">' + metaBits.join('') + '</div>',
       '    </div>',
-      '    <span class="blog-card-title">' + title + '</span>',
-      description ? '    <p class="blog-card-desc">' + description + '</p>' : '',
+      '    <h3 class="blog-card-title type-entry-title">' + title + '</h3>',
+      description ? '    <p class="blog-card-desc type-body">' + description + '</p>' : '',
       '  </a>',
       '</article>'
     ].join('\n');
@@ -65,7 +65,7 @@ import { Site } from "./state.js";
     var allPosts = Array.isArray(posts) ? posts : [];
 
     if (!allPosts.length) {
-      return '<div class="blog-empty">No blog posts yet.</div>';
+      return '<p class="blog-empty type-body">No blog posts yet.</p>';
     }
 
     return [
@@ -291,7 +291,7 @@ import { Site } from "./state.js";
     list.setAttribute('aria-busy', 'true');
 
     if (typeof window.fetch !== 'function') {
-      list.innerHTML = '<div class="blog-error">Blog posts are available on the blog page.</div>';
+      list.innerHTML = '<p class="blog-error type-body">Blog posts are available on the blog page.</p>';
       list.setAttribute('aria-busy', 'false');
       return;
     }
@@ -309,7 +309,7 @@ import { Site } from "./state.js";
       })
       .catch(function (error) {
         console.warn(error);
-        list.innerHTML = '<div class="blog-error">Unable to load blog posts.</div>';
+        list.innerHTML = '<p class="blog-error type-body">Unable to load blog posts.</p>';
       })
       .then(function () {
         list.setAttribute('aria-busy', 'false');

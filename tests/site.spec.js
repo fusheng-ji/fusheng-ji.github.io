@@ -115,7 +115,9 @@ test("404 navigation matches the homepage navigation system", async ({
     homepage.links.map(({ label }) => label),
   );
   expect(notFound.links.map(({ href }) => href)).toEqual(
-    homepage.links.map(({ href }) => (href.startsWith("#") ? `/${href}` : href)),
+    homepage.links.map(({ href }) =>
+      href.startsWith("#") ? `/${href}` : href,
+    ),
   );
   expect(
     notFound.links.map(({ target, rel, chipCount, labelCount }) => ({
@@ -138,9 +140,15 @@ test("404 navigation matches the homepage navigation system", async ({
   expect(notFound.labelStyle).toEqual(homepage.labelStyle);
   expect(notFound.brandImageStyle).toEqual(homepage.brandImageStyle);
   expect(notFound.toggleStyle).toEqual(homepage.toggleStyle);
-  expect(Math.abs(notFound.geometry.width - homepage.geometry.width)).toBeLessThanOrEqual(1);
-  expect(Math.abs(notFound.geometry.height - homepage.geometry.height)).toBeLessThanOrEqual(1);
-  expect(Math.abs(notFound.geometry.top - homepage.geometry.top)).toBeLessThanOrEqual(1);
+  expect(
+    Math.abs(notFound.geometry.width - homepage.geometry.width),
+  ).toBeLessThanOrEqual(1);
+  expect(
+    Math.abs(notFound.geometry.height - homepage.geometry.height),
+  ).toBeLessThanOrEqual(1);
+  expect(
+    Math.abs(notFound.geometry.top - homepage.geometry.top),
+  ).toBeLessThanOrEqual(1);
 });
 
 test("404 mobile navigation is operable and does not overflow", async ({
@@ -173,13 +181,17 @@ test("404 mobile navigation is operable and does not overflow", async ({
   await expect(toggle).toHaveAttribute("aria-expanded", "false");
 
   const overflow = await page.evaluate(
-    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    () =>
+      document.documentElement.scrollWidth -
+      document.documentElement.clientWidth,
   );
   expect(overflow).toBeLessThanOrEqual(1);
   expect(consoleErrors).toEqual([]);
 });
 
-test("homepage preserves content and has no horizontal overflow", async ({ page }) => {
+test("homepage preserves content and has no horizontal overflow", async ({
+  page,
+}) => {
   const consoleErrors = [];
   page.on("console", (message) => {
     if (message.type() === "error" && !message.text().includes("posts.json")) {
@@ -203,7 +215,9 @@ test("homepage preserves content and has no horizontal overflow", async ({ page 
     await expect(page.locator(`#${id}`)).toHaveCount(1);
   }
   const overflow = await page.evaluate(
-    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    () =>
+      document.documentElement.scrollWidth -
+      document.documentElement.clientWidth,
   );
   expect(overflow).toBeLessThanOrEqual(1);
   expect(consoleErrors).toEqual([]);
@@ -237,13 +251,18 @@ test("homepage directs visitors to the reusable template", async ({ page }) => {
   await expect(templateLink).toBeFocused();
   const focusStyle = await templateLink.evaluate((element) => {
     const style = getComputedStyle(element);
-    return { outlineStyle: style.outlineStyle, outlineWidth: style.outlineWidth };
+    return {
+      outlineStyle: style.outlineStyle,
+      outlineWidth: style.outlineWidth,
+    };
   });
   expect(focusStyle.outlineStyle).not.toBe("none");
   expect(focusStyle.outlineWidth).not.toBe("0px");
 
   const overflow = await page.evaluate(
-    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    () =>
+      document.documentElement.scrollWidth -
+      document.documentElement.clientWidth,
   );
   expect(overflow).toBeLessThanOrEqual(1);
   expect(consoleErrors).toEqual([]);
@@ -254,8 +273,9 @@ test("all homepage section headings share the intended typography", async ({
 }, testInfo) => {
   await page.goto("/");
 
-  const headings = await page.locator("h2.section-heading").evaluateAll(
-    (elements) =>
+  const headings = await page
+    .locator("h2.section-heading")
+    .evaluateAll((elements) =>
       elements.map((element) => {
         const style = getComputedStyle(element);
         return {
@@ -264,7 +284,7 @@ test("all homepage section headings share the intended typography", async ({
           fontWeight: style.fontWeight,
         };
       }),
-  );
+    );
 
   expect(headings).toHaveLength(11);
   expect(new Set(headings.map((heading) => heading.fontFamily)).size).toBe(1);
@@ -274,6 +294,290 @@ test("all homepage section headings share the intended typography", async ({
   );
   expect(headings[0].fontSize).toBe(
     testInfo.project.name.startsWith("desktop-") ? "28px" : "23px",
+  );
+});
+
+test("core content roles follow the shared typography contract", async ({
+  page,
+}, testInfo) => {
+  await page.goto("/", { waitUntil: "networkidle" });
+
+  const typography = await page.evaluate(() => {
+    const selectors = {
+      pageTitle: ".type-page-title",
+      sectionTitle: ".type-section-title",
+      entryTitle: ".type-entry-title",
+      groupLabel: ".type-group-label",
+      body: ".type-body:not(.type-body--emphasis)",
+      bodyEmphasis: ".type-body--emphasis",
+      secondary: ".type-secondary",
+      meta: ".type-meta:not(.type-meta--uppercase)",
+      metaUppercase: ".type-meta--uppercase",
+      caption: ".type-caption",
+      tag: ".type-tag",
+      badge: ".type-badge",
+      control: ".type-control",
+    };
+
+    return Object.fromEntries(
+      Object.entries(selectors).map(([name, selector]) => [
+        name,
+        Array.from(document.querySelectorAll(selector), (element) => {
+          const style = getComputedStyle(element);
+          return {
+            text: element.textContent.trim().replace(/\s+/g, " ").slice(0, 80),
+            fontFamily: style.fontFamily,
+            fontSize: Number.parseFloat(style.fontSize),
+            fontStyle: style.fontStyle,
+            fontWeight: style.fontWeight,
+            lineHeight: Number.parseFloat(style.lineHeight),
+            letterSpacing: style.letterSpacing,
+            textTransform: style.textTransform,
+          };
+        }),
+      ]),
+    );
+  });
+
+  const isDesktop = testInfo.project.name.startsWith("desktop-");
+  const viewportWidth = page.viewportSize().width;
+  const expectedPageTitle = isDesktop
+    ? 36
+    : Math.min(32, Math.max(27, viewportWidth * 0.074));
+  const expected = {
+    pageTitle: { size: expectedPageTitle, weight: "700", leading: 1.15 },
+    sectionTitle: { size: isDesktop ? 28 : 23, weight: "700", leading: 1.18 },
+    entryTitle: { size: 20, weight: "700", leading: 1.25 },
+    groupLabel: {
+      size: 16,
+      weight: "700",
+      leading: 1.35,
+      letterSpacing: "1.6px",
+      textTransform: "uppercase",
+    },
+    body: { size: 16, weight: "400", leading: 1.65 },
+    bodyEmphasis: { size: 16, weight: "700", leading: 1.65 },
+    secondary: { size: 14, weight: "400", leading: 1.5 },
+    meta: { size: 13, weight: "600", leading: 1.45 },
+    metaUppercase: {
+      size: 13,
+      weight: "600",
+      leading: 1.45,
+      textTransform: "uppercase",
+    },
+    caption: { size: 13, weight: "400", leading: 1.5 },
+    tag: { size: 14, weight: "700", leading: 1.4 },
+    badge: {
+      size: 10,
+      weight: "700",
+      leading: 1.25,
+      letterSpacing: "0.8px",
+      textTransform: "uppercase",
+    },
+    control: { size: 15, weight: "600", leading: 1.4 },
+  };
+  const expectedFontFamily = typography.pageTitle[0].fontFamily;
+
+  expect(expectedFontFamily).toContain("Lato");
+  for (const [role, metrics] of Object.entries(typography)) {
+    expect(metrics.length, `${role} has no rendered examples`).toBeGreaterThan(
+      0,
+    );
+    for (const metric of metrics) {
+      const label = `${role}: ${metric.text}`;
+      expect(metric.fontFamily, label).toBe(expectedFontFamily);
+      expect(metric.fontStyle, label).toBe("normal");
+      expect(metric.fontSize, label).toBeCloseTo(expected[role].size, 2);
+      expect(metric.fontWeight, label).toBe(expected[role].weight);
+      expect(metric.lineHeight, label).toBeCloseTo(
+        expected[role].size * expected[role].leading,
+        2,
+      );
+      expect(metric.letterSpacing, label).toBe(
+        expected[role].letterSpacing || "normal",
+      );
+      expect(metric.textTransform, label).toBe(
+        expected[role].textTransform || "none",
+      );
+    }
+  }
+
+  expect(expected.pageTitle.size).toBeGreaterThan(expected.sectionTitle.size);
+  expect(expected.sectionTitle.size).toBeGreaterThan(expected.entryTitle.size);
+  expect(expected.entryTitle.size).toBeGreaterThan(expected.body.size);
+  expect(expected.body.size).toBeLessThanOrEqual(expected.groupLabel.size);
+});
+
+test("core content roles use a semantic heading outline", async ({ page }) => {
+  await page.goto("/", { waitUntil: "networkidle" });
+
+  await expect(page.locator("h1.type-page-title")).toHaveCount(1);
+  await expect(page.locator("h2.type-section-title")).toHaveCount(11);
+  await expect(page.locator("article h3.type-entry-title")).not.toHaveCount(0);
+  await expect(page.locator("article h4.type-group-label")).not.toHaveCount(0);
+  await expect(page.locator(".research-arc h3.type-group-label")).toHaveCount(
+    3,
+  );
+
+  const outline = await page
+    .locator("h1, h2, h3, h4, h5, h6")
+    .evaluateAll((headings) =>
+      headings.map((heading) => ({
+        level: Number(heading.tagName.slice(1)),
+        text: heading.textContent.trim(),
+      })),
+    );
+
+  expect(outline.every(({ text }) => text.length > 0)).toBe(true);
+  for (let index = 1; index < outline.length; index += 1) {
+    expect(outline[index].level - outline[index - 1].level).toBeLessThanOrEqual(
+      1,
+    );
+  }
+});
+
+test("descriptions never exceed their introducing heading", async ({
+  page,
+}) => {
+  await page.goto("/", { waitUntil: "networkidle" });
+
+  const comparisons = await page
+    .locator("article, .research-arc-item")
+    .evaluateAll((containers) =>
+      containers.flatMap((container) => {
+        const title = container.querySelector(
+          ".type-entry-title, .type-group-label",
+        );
+        if (!title) return [];
+        return Array.from(container.querySelectorAll(".type-body")).map(
+          (body) => ({
+            title:
+              body
+                .closest(".entry-block")
+                ?.querySelector(".type-group-label")
+                ?.textContent.trim() || title.textContent.trim(),
+            titleSize: Number.parseFloat(
+              getComputedStyle(
+                body
+                  .closest(".entry-block")
+                  ?.querySelector(".type-group-label") || title,
+              ).fontSize,
+            ),
+            bodySize: Number.parseFloat(getComputedStyle(body).fontSize),
+          }),
+        );
+      }),
+    );
+
+  expect(comparisons.length).toBeGreaterThan(0);
+  for (const comparison of comparisons) {
+    expect(comparison.bodySize, comparison.title).toBeLessThanOrEqual(
+      comparison.titleSize,
+    );
+  }
+});
+
+test("technical report overview follows the shared body hierarchy", async ({
+  page,
+}) => {
+  await page.goto("/", { waitUntil: "networkidle" });
+
+  const report = page.locator(".technical-report-entry");
+  const title = report.locator("h3.type-entry-title");
+  const overviewLabel = report.getByRole("heading", {
+    level: 4,
+    name: "Overview",
+  });
+  const overview = report.getByText(
+    "A TUM DI Lab report on object-centric 3D reconstruction and decomposition with 3D Gaussian Splatting.",
+    { exact: true },
+  );
+
+  await expect(overview).toHaveClass(/type-body/);
+  const sizes = await Promise.all(
+    [title, overview, overviewLabel].map((locator) =>
+      locator.evaluate((element) =>
+        Number.parseFloat(getComputedStyle(element).fontSize),
+      ),
+    ),
+  );
+
+  expect(sizes).toEqual([20, 16, 16]);
+});
+
+test("inline links inherit their content role typography", async ({ page }) => {
+  await page.goto("/", { waitUntil: "networkidle" });
+
+  const comparisons = await page
+    .locator(".type-body a, .type-secondary a, .type-meta a, .type-caption a")
+    .evaluateAll((links) => {
+      const properties = [
+        "fontFamily",
+        "fontSize",
+        "fontStyle",
+        "fontWeight",
+        "lineHeight",
+        "letterSpacing",
+        "textTransform",
+      ];
+
+      return links.map((link) => {
+        const parentRole = link.closest(
+          ".type-body, .type-secondary, .type-meta, .type-caption",
+        );
+        const linkStyle = getComputedStyle(link);
+        const parentStyle = getComputedStyle(parentRole);
+        return {
+          text: link.textContent.trim(),
+          link: Object.fromEntries(
+            properties.map((property) => [property, linkStyle[property]]),
+          ),
+          parent: Object.fromEntries(
+            properties.map((property) => [property, parentStyle[property]]),
+          ),
+        };
+      });
+    });
+
+  expect(comparisons.length).toBeGreaterThan(0);
+  for (const comparison of comparisons) {
+    expect(comparison.link, comparison.text).toEqual(comparison.parent);
+  }
+
+  const control = page.locator("a.type-control").first();
+  await control.focus();
+  await expect(control).toBeFocused();
+  const outlineStyle = await control.evaluate(
+    (element) => getComputedStyle(element).outlineStyle,
+  );
+  expect(outlineStyle).not.toBe("none");
+});
+
+test("text controls and asynchronous blog states use canonical roles", async ({
+  page,
+}) => {
+  let responseMode = "empty";
+  await page.route("https://fusheng-ji.github.io/blog/posts.json", (route) => {
+    if (responseMode === "empty") {
+      return route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: "[]",
+      });
+    }
+    return route.fulfill({ status: 503, body: "Unavailable" });
+  });
+
+  await page.goto("/", { waitUntil: "networkidle" });
+  await expect(page.locator(".news-toggle")).toHaveClass(/type-control/);
+  await expect(page.locator(".blog-empty.type-body")).toHaveText(
+    "No blog posts yet.",
+  );
+
+  responseMode = "error";
+  await page.reload({ waitUntil: "networkidle" });
+  await expect(page.locator(".blog-error.type-body")).toHaveText(
+    "Unable to load blog posts.",
   );
 });
 
@@ -290,20 +594,21 @@ test("entry metadata uses one restrained type scale", async ({ page }) => {
   const entryTitleSize = await page
     .locator(".entry-title")
     .first()
-    .evaluate((element) => Number.parseFloat(getComputedStyle(element).fontSize));
+    .evaluate((element) =>
+      Number.parseFloat(getComputedStyle(element).fontSize),
+    );
 
   expect(metadataSizes.length).toBeGreaterThan(0);
   expect(new Set(metadataSizes)).toEqual(new Set(["13px"]));
   expect(13).toBeLessThan(entryTitleSize);
 });
 
-test("mentor links inherit the shared mentor typography", async ({
-  page,
-}) => {
+test("mentor links inherit the shared mentor typography", async ({ page }) => {
   await page.goto("/");
 
-  const mentorTypography = await page.locator(".collab-name").evaluateAll(
-    (elements) =>
+  const mentorTypography = await page
+    .locator(".collab-name")
+    .evaluateAll((elements) =>
       elements.map((element) => {
         const style = getComputedStyle(element);
         return {
@@ -321,12 +626,14 @@ test("mentor links inherit the shared mentor typography", async ({
           }),
         };
       }),
-  );
+    );
 
-  expect(mentorTypography.some(({ text }) => text.includes("Mahdi Mustapha Hamad"))).toBe(
-    true,
+  expect(
+    mentorTypography.some(({ text }) => text.includes("Mahdi Mustapha Hamad")),
+  ).toBe(true);
+  expect(new Set(mentorTypography.map(({ fontSize }) => fontSize)).size).toBe(
+    1,
   );
-  expect(new Set(mentorTypography.map(({ fontSize }) => fontSize)).size).toBe(1);
   for (const mentor of mentorTypography) {
     for (const link of mentor.links) {
       expect(link).toEqual({
@@ -338,6 +645,53 @@ test("mentor links inherit the shared mentor typography", async ({
   }
 });
 
+test("mentor rows distinguish former and current affiliations", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  const rows = page.locator(".collab-row");
+  await expect(rows).not.toHaveCount(0);
+  const formerLabels = rows.locator(".collab-status--ex");
+  await expect(rows.locator(".collab-status--now")).toHaveCount(
+    await formerLabels.count(),
+  );
+
+  const mahdi = rows.filter({ hasText: "Mahdi Mustapha Hamad" });
+  await expect(mahdi).toContainText(
+    "Tech Lead, Robot Learning Applications · Agile Robots SE",
+  );
+  await expect(mahdi.locator(".collab-status")).toHaveCount(0);
+
+  const benjamin = rows.filter({ hasText: "Benjamin Busam" });
+  await expect(benjamin).toContainText(
+    "exComputer Vision Coordinator · TUM CAMP",
+  );
+  await expect(benjamin).toContainText(
+    "nowProfessor & Director · TUM Photogrammetry and Remote Sensing",
+  );
+  await expect(benjamin.locator("a")).toHaveAttribute(
+    "href",
+    "https://www.asg.ed.tum.de/pf/team/benjamin-busam/",
+  );
+
+  const yan = rows.filter({ hasText: "Yan Xia" });
+  await expect(yan).toContainText(
+    "exSenior Researcher · TUM Computer Vision Group",
+  );
+  await expect(yan).toContainText(
+    "nowProfessor · USTC Spatial Intelligence Lab",
+  );
+
+  const chuanxia = rows.filter({ hasText: "Chuanxia Zheng" });
+  await expect(chuanxia).toContainText(
+    "exPostdoctoral Researcher · Oxford VGG",
+  );
+  await expect(chuanxia).toContainText(
+    "nowNanyang Assistant Professor · NTU CCDS",
+  );
+});
+
 test("desktop anchors keep section headings below the sticky navigation", async ({
   page,
 }, testInfo) => {
@@ -346,7 +700,13 @@ test("desktop anchors keep section headings below the sticky navigation", async 
     "Desktop sticky-navigation behavior",
   );
 
-  for (const id of ["research", "Publications", "experiences", "education", "blog"]) {
+  for (const id of [
+    "research",
+    "Publications",
+    "experiences",
+    "education",
+    "blog",
+  ]) {
     await page.goto("/");
     await page.evaluate(() => {
       document.documentElement.style.scrollBehavior = "auto";
@@ -396,12 +756,12 @@ test("mobile entry metadata remains visually subordinate", async ({
     };
   });
 
-  expect(typography.entryLabel).toBeLessThan(typography.entryBody);
+  expect(typography.entryLabel).toBe(typography.entryBody);
   expect(typography.experienceType).toBeLessThan(typography.entryTitle);
   expect(typography.publicationNote).toBeLessThan(typography.entryBody);
-  expect(typography.entryLabel).toBe(12);
+  expect(typography.entryLabel).toBe(16);
   expect(typography.experienceType).toBe(13);
-  expect(typography.entryBody).toBe(17);
+  expect(typography.entryBody).toBe(16);
   expect(typography.publicationNote).toBe(13);
   expect(typography.sectionHeading).toBe(23);
 });
@@ -545,7 +905,9 @@ test("homepage media layout preserves its desktop and mobile geometry", async ({
   expect(geometry.logoObjectFit).toBe("contain");
 });
 
-test("core homepage content is readable without JavaScript", async ({ browser }) => {
+test("core homepage content is readable without JavaScript", async ({
+  browser,
+}) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.goto("/");
@@ -583,7 +945,11 @@ test("desktop News keeps all updates in an internally scrollable region", async 
 });
 
 test("gallery tabs remain keyboard-operable", async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name.startsWith("mobile-") || testInfo.project.name.startsWith("tablet-"), "Desktop lightbox behavior");
+  test.skip(
+    testInfo.project.name.startsWith("mobile-") ||
+      testInfo.project.name.startsWith("tablet-"),
+    "Desktop lightbox behavior",
+  );
   await page.goto("/");
   const blenderTab = page.getByRole("tab", { name: "Blender Arts" });
   await blenderTab.click();

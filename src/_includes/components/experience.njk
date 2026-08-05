@@ -12,28 +12,31 @@
   </div>
   <div class="entry-content-cell">
     <div class="split-row">
-      <h3 class="entry-title">{{ experience.title }}</h3>
-      <span class="text-right experience-side-meta"><span class="entry-meta">{{ experience.date }}</span></span>
+      <h3 class="entry-title type-entry-title">{{ experience.title }}</h3>
+      <span class="text-right experience-side-meta"><span class="entry-meta type-meta">{{ experience.date }}</span></span>
     </div>
-    <div class="split-row experience-detail-row"><span class="experience-type">{{ experience.type }}</span></div>
+    <div class="split-row experience-detail-row"><span class="experience-type type-meta type-meta--uppercase">{{ experience.type }}</span></div>
     <div class="entry-block">
-      <p class="entry-label">Contributions</p>
-      <ul class="entry-contrib">
+      {{ ui.entryGroupLabel("Contributions") }}
+      <ul class="entry-contrib type-body">
         {% for contribution in experience.contributions %}<li>{{ contribution | safe }}</li>{% endfor %}
       </ul>
     </div>
     <div class="collab-section">
-      <div class="collab-heading">Mentors</div>
+      <h4 class="collab-heading type-group-label">Mentors</h4>
       <div class="collab-list">
         {% for mentor in experience.mentors %}
-          <div class="collab-row">
-            <span class="collab-name">
-              {% for person in mentor.people %}
-                {% if person.url %}<a href="{{ person.url }}">{{ person.name }}</a>{% else %}{{ person.name }}{% endif %}{% if not loop.last %}, {% endif %}
-              {% endfor %}
-            </span>
-            <span class="collab-org">{{ mentor.organization }}</span>
-          </div>
+          {% for person in mentor.people %}
+            <div class="collab-row type-secondary">
+              <span class="collab-name">
+                {% if person.url %}<a href="{{ person.url }}">{{ person.name }}</a>{% else %}{{ person.name }}{% endif %}
+              </span>
+              <span class="collab-affiliations">
+                {% if person.ex %}<span class="collab-affiliation"><span class="collab-status collab-status--ex type-badge">ex</span>{{ person.ex }}</span>{% endif %}
+                {% if person.now %}<span class="collab-affiliation">{% if person.ex %}<span class="collab-status collab-status--now type-badge">now</span>{% endif %}{{ person.now }}</span>{% endif %}
+              </span>
+            </div>
+          {% endfor %}
         {% endfor %}
       </div>
     </div>

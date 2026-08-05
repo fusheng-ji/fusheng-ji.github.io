@@ -9,6 +9,7 @@
 @import url("./components/blog-gallery.css");
 @import url("./components/gallery-carousel.css");
 @import url("./components/footer.css");
+@import url("./typography.css");
 
 @media (prefers-reduced-motion: reduce) {
   *,

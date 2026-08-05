@@ -3,13 +3,13 @@
   <div class="section-cell">
     <span id="blender-gallery" aria-hidden="true"></span>
     <span id="threejs-arts" aria-hidden="true"></span>
-    <h2 class="semantic-heading section-heading" id="gallery">Gallery</h2>
+    <h2 class="semantic-heading section-heading type-section-title" id="gallery">Gallery</h2>
 
     <div class="gallery-tablist-wrap">
       <div class="gallery-tablist" role="tablist" aria-label="Gallery sections" data-gallery-tabs>
         <span class="gallery-tab-indicator" aria-hidden="true"></span>
         {% for tab in gallery.tabs %}
-          <button type="button" class="gallery-tab-button {{ 'is-active' if loop.first }}" id="gallery-tab-{{ tab.id }}" role="tab" aria-selected="{{ 'true' if loop.first else 'false' }}" aria-controls="gallery-panel-{{ tab.id }}" tabindex="{{ '0' if loop.first else '-1' }}" data-gallery-tab="{{ tab.id }}">{{ tab.label }}</button>
+          <button type="button" class="gallery-tab-button type-control {{ 'is-active' if loop.first }}" id="gallery-tab-{{ tab.id }}" role="tab" aria-selected="{{ 'true' if loop.first else 'false' }}" aria-controls="gallery-panel-{{ tab.id }}" tabindex="{{ '0' if loop.first else '-1' }}" data-gallery-tab="{{ tab.id }}">{{ tab.label }}</button>
         {% endfor %}
       </div>
     </div>
@@ -59,12 +59,12 @@
                   </div>
                   <div class="project-showcase-content">
                     <div class="project-showcase-head">
-                      <div class="project-showcase-title">{{ item.title }}</div>
-                      <div class="project-showcase-side-meta"><span>{{ item.date }}</span></div>
+                      <h3 class="project-showcase-title type-entry-title">{{ item.title }}</h3>
+                      <div class="project-showcase-side-meta type-meta"><span>{{ item.date }}</span></div>
                     </div>
-                    <p class="project-showcase-subtitle">{{ item.subtitle }}</p>
+                    <p class="project-showcase-subtitle type-body">{{ item.subtitle }}</p>
                     <div class="project-showcase-footer">
-                      <span class="project-showcase-tech">{{ item.tech }}</span>
+                      <span class="project-showcase-tech type-meta">{{ item.tech }}</span>
                       <a class="project-showcase-link" href="{{ item.url }}" target="_blank" rel="noopener noreferrer" aria-label="Open {{ item.title }}">
                         <img src="{{ site.resourceTypes.project.icon }}" width="24" height="24" class="meta-icon" decoding="async" alt="">
                       </a>
@@ -86,8 +86,8 @@
   <div class="gallery-lightbox-frame" role="document">
     <header class="gallery-lightbox-header">
       <div>
-        <h3 class="gallery-lightbox-title" id="gallery-lightbox-title" data-gallery-lightbox-title>Gallery</h3>
-        <p class="gallery-lightbox-count" data-gallery-lightbox-count>01 / 01</p>
+        <h3 class="gallery-lightbox-title type-entry-title" id="gallery-lightbox-title" data-gallery-lightbox-title>Gallery</h3>
+        <p class="gallery-lightbox-count type-meta" data-gallery-lightbox-count>01 / 01</p>
       </div>
       <button type="button" class="gallery-lightbox-button gallery-lightbox-close" data-gallery-lightbox-action="close" aria-label="Close gallery viewer"><span aria-hidden="true">×</span></button>
     </header>

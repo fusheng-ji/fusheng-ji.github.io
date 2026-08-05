@@ -12,7 +12,6 @@ body {
 .thesis-entry .entry-title {
   display: block;
   max-width: 720px;
-  line-height: 1.25;
 }
 .publication-title-stack {
   display: flex;
@@ -40,8 +39,6 @@ body {
 }
 .publication-meta-row .entry-meta {
   display: block;
-  font-size: var(--font-size-meta);
-  font-weight: 700;
   color: #34485c;
 }
 .publication-meta-row .entry-side-note {
@@ -73,12 +70,6 @@ body {
   display: inline-flex;
   align-items: center;
   flex: 0 0 auto;
-  font-size: var(--font-size-meta);
-  font-weight: 700;
-  font-style: normal;
-  letter-spacing: 0.08em;
-  line-height: 1.5;
-  text-transform: uppercase;
   color: #5d6f82;
 }
 #publications-mount .publication-meta-row .entry-meta em {
@@ -110,7 +101,6 @@ body {
 .project-entry .entry-title {
   display: block;
   max-width: 720px;
-  line-height: 1.25;
 }
 .project-entry .entry-visual-stack {
   width: 100%;
@@ -140,8 +130,6 @@ body {
 }
 .project-meta-row .entry-meta {
   display: block;
-  font-size: var(--font-size-meta);
-  font-weight: 700;
   color: #34485c;
 }
 .project-entry .experience-detail-row {
@@ -151,20 +139,14 @@ body {
 .award-entry .entry-title {
   display: block;
   max-width: 720px;
-  line-height: 1.25;
 }
 .education-degree {
+  --type-body-color: #34485c;
   margin: 8px 0 0;
-  color: #34485c;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.45;
 }
 .education-note {
+  --type-body-color: #607387;
   margin: 6px 0 0;
-  color: #607387;
-  font-size: 15px;
-  line-height: 1.6;
   max-width: 720px;
 }
 .education-entry .experience-detail-row,
@@ -189,9 +171,6 @@ body {
 }
 .award-entry .award-year {
   display: block;
-  font-size: var(--font-size-meta);
-  font-weight: 700;
-  line-height: 1.45;
   color: #34485c;
 }
 .award-entry .topic-location {
@@ -205,8 +184,6 @@ body {
   margin-top: 10px;
 }
 .award-entry .experience-type {
-  font-size: var(--font-size-meta);
-  letter-spacing: 0.12em;
   color: #66788a;
 }
 @media (max-width: 560px) {
@@ -255,36 +232,28 @@ body {
   object-position: center center;
 }
 .entry-byline {
+  --type-secondary-color: #4a5b6d;
   max-width: 760px;
-  font-size: 15px;
-  line-height: 1.65;
-  color: #4a5b6d;
 }
 .entry-block {
   margin-top: 16px;
 }
 .entry-label {
+  --type-group-label-color: #7b8a99;
   margin: 0 0 6px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #7b8a99;
 }
 .entry-summary {
+  --type-body-color: #526476;
   margin: 14px 0 0;
-  color: #526476;
-  line-height: 1.75;
 }
 .entry-block .entry-summary {
   margin-top: 0;
 }
 .entry-contrib {
+  --type-body-color: #526476;
   margin: 0;
   padding-left: 0;
   list-style: none;
-  color: #526476;
-  line-height: 1.65;
 }
 .entry-contrib li + li {
   margin-top: 6px;
@@ -362,13 +331,10 @@ body {
 .entry-side-note {
   display: block;
   margin-top: 6px;
-  font-size: 12px;
-  line-height: 1.45;
   color: #7b8a99;
 }
 .publication-award a {
   color: #2a6fbb;
-  font-weight: 700;
 }
 
 /* Entry and document responsive behavior. */
@@ -383,56 +349,13 @@ body {
 }
 
 @media (max-width: 900px) {
-  .experience-side-meta .entry-meta {
-    font-size: var(--font-size-meta);
-  }
-
   .entry-label {
     margin-bottom: 4px;
-    font-size: 12px;
-    line-height: 1.4;
-    letter-spacing: 0.12em;
   }
 
-  .experience-type {
-    font-size: var(--font-size-meta);
-    line-height: 1.45;
-    letter-spacing: 0.07em;
-  }
-
-  .collab-heading {
-    font-size: 12px;
-  }
-
-  .entry-summary,
-  .entry-byline {
-    font-size: 17px;
-  }
-
-  .collab-row,
-  .education-mobile-line {
-    font-size: 18px;
-  }
-
-  .entry-summary,
-  .entry-byline {
-    line-height: 1.62;
-  }
-
-  .collab-name,
-  .collab-org {
-    font-size: 14px;
-  }
-
-  .topic-location {
-    font-size: var(--font-size-meta);
-  }
-
-  .experience-entry .tag,
-  .publication-entry .tag,
-  .project-entry .tag,
-  .thesis-entry .tag {
-    font-size: 14px;
+  .collab-affiliations {
+    flex-direction: column;
+    gap: 4px;
   }
 
   .education-entry + .education-entry,
@@ -462,8 +385,6 @@ body {
     display: block;
     margin: 0 0 6px;
     color: #34485c;
-    font-weight: 600;
-    line-height: 1.4;
   }
 
   .education-entry .entry-content-cell > .split-row {
@@ -496,8 +417,6 @@ body {
   .education-entry .education-note {
     display: block;
     margin-top: 8px;
-    font-size: 15px;
-    line-height: 1.55;
     color: #607387;
   }
 

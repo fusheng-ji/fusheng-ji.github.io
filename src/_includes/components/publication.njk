@@ -8,22 +8,22 @@
   </div>
   <div class="entry-content-cell">
     <div class="publication-title-stack">
-      <h3 class="entry-title">{{ publication.title }}</h3>
+      <h3 class="entry-title type-entry-title">{{ publication.title }}</h3>
       <div class="publication-meta-row {{ 'publication-meta-row-inline' if publication.award }}">
-        <span class="entry-meta">{{ publication.venue }}, {{ publication.year }}</span>
+        <span class="entry-meta type-meta type-meta--uppercase">{{ publication.venue }}, {{ publication.year }}</span>
         {% if publication.award %}
-          <span class="entry-side-note publication-award"><a href="{{ publication.award.url }}">{{ publication.award.label }}</a></span>
+          <span class="entry-side-note publication-award type-caption"><a href="{{ publication.award.url }}">{{ publication.award.label }}</a></span>
         {% endif %}
         {{ ui.resourceLinks(publication.links, site, publication.title + " resources") }}
       </div>
     </div>
     <div class="entry-block">
-      <p class="entry-label">Authors</p>
+      {{ ui.entryGroupLabel("Authors") }}
       {{ ui.authors(publication.authors) }}
     </div>
     <div class="entry-block">
-      <p class="entry-label">Overview</p>
-      <p class="entry-summary">{{ publication.summary }}</p>
+      {{ ui.entryGroupLabel("Overview") }}
+      <p class="entry-summary type-body">{{ publication.summary }}</p>
     </div>
   </div>
 </article>

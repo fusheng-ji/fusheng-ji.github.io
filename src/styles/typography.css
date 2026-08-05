@@ -1,0 +1,123 @@
+/*
+ * Canonical content roles. Component selectors may control layout and color,
+ * but the type-* roles remain the sole source of typography metrics.
+ */
+.type-page-title,
+.type-section-title,
+.type-entry-title,
+.type-group-label,
+.type-body,
+.type-secondary,
+.type-meta,
+.type-caption,
+.type-tag,
+.type-badge,
+.type-control {
+  font-family: var(--font-sans);
+  font-style: normal;
+  letter-spacing: var(--type-tracking-normal);
+  text-transform: none;
+}
+
+.type-page-title {
+  color: var(--type-heading-color, var(--color-heading));
+  font-size: var(--type-page-title-size);
+  font-weight: var(--type-weight-bold);
+  line-height: var(--type-page-title-leading);
+}
+
+.type-section-title {
+  color: var(--type-heading-color, var(--color-heading));
+  font-size: var(--type-section-title-size);
+  font-weight: var(--type-weight-bold);
+  line-height: var(--type-section-title-leading);
+}
+
+.type-entry-title {
+  color: var(--type-heading-color, var(--color-heading));
+  font-size: var(--type-entry-title-size);
+  font-weight: var(--type-weight-bold);
+  line-height: var(--type-entry-title-leading);
+}
+
+.type-group-label {
+  color: var(--type-group-label-color, var(--color-muted));
+  font-size: var(--type-group-label-size);
+  font-weight: var(--type-weight-bold);
+  line-height: var(--type-group-label-leading);
+  letter-spacing: var(--type-group-label-tracking);
+  text-transform: uppercase;
+}
+
+.type-body {
+  color: var(--type-body-color, var(--color-text));
+  font-size: var(--type-body-size);
+  font-weight: var(--type-weight-regular);
+  line-height: var(--type-body-leading);
+}
+
+.type-body--emphasis {
+  font-weight: var(--type-weight-bold);
+}
+
+.type-secondary {
+  color: var(--type-secondary-color, var(--color-muted));
+  font-size: var(--type-secondary-size);
+  font-weight: var(--type-weight-regular);
+  line-height: var(--type-secondary-leading);
+}
+
+.type-meta {
+  color: var(--type-meta-color, var(--color-muted));
+  font-size: var(--type-meta-size);
+  font-weight: var(--type-weight-semibold);
+  line-height: var(--type-meta-leading);
+}
+
+.type-meta--uppercase {
+  text-transform: uppercase;
+}
+
+.type-caption {
+  color: var(--type-caption-color, var(--color-muted));
+  font-size: var(--type-caption-size);
+  font-weight: var(--type-weight-regular);
+  line-height: var(--type-caption-leading);
+}
+
+.type-tag {
+  font-size: var(--type-tag-size);
+  font-weight: var(--type-weight-bold);
+  line-height: var(--type-tag-leading);
+}
+
+.type-badge {
+  font-size: var(--type-badge-size);
+  font-weight: var(--type-weight-bold);
+  line-height: var(--type-badge-leading);
+  letter-spacing: var(--type-badge-tracking);
+  text-transform: uppercase;
+}
+
+.type-control {
+  font-size: var(--type-control-size);
+  font-weight: var(--type-weight-semibold);
+  line-height: var(--type-control-leading);
+}
+
+.type-body a,
+.type-secondary a,
+.type-meta a,
+.type-caption a {
+  font: inherit;
+}
+
+@media (max-width: 900px) {
+  .type-page-title {
+    font-size: var(--type-page-title-size-mobile);
+  }
+
+  .type-section-title {
+    font-size: var(--type-section-title-size-mobile);
+  }
+}

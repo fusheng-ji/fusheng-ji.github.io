@@ -60,11 +60,6 @@
   color: #73808d;
   border-radius: 0;
   padding: 9px 0 13px;
-  font-family: 'Lato', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.005em;
-  line-height: 1.4;
   white-space: nowrap;
   cursor: pointer;
   opacity: 0.86;
@@ -178,7 +173,6 @@
     align-items: center;
     min-height: 44px;
     padding: 8px 0 10px;
-    font-size: 14px;
     scroll-snap-align: start;
   }
 
@@ -256,14 +250,11 @@
 
 .blog-header-copy .section-heading {
   display: block;
-  line-height: 1.08;
 }
 
 .blog-section-note {
+  --type-caption-color: #607387;
   margin: 0;
-  color: #607387;
-  font-size: 15px;
-  line-height: 1.75;
 }
 
 .blog-list {
@@ -375,9 +366,6 @@
   border: 1px solid #dbe3ea;
   border-radius: 999px;
   background: #eef2f6;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
   color: #4d6277;
   box-sizing: border-box;
 }
@@ -391,20 +379,14 @@
   border: 1px solid #d8e3ee;
   border-radius: 999px;
   background: #edf4fb;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
   color: #436785;
   box-sizing: border-box;
 }
 
 .blog-card-title {
+  --type-heading-color: #2f3e4d;
   display: block;
   margin: 0;
-  font-size: 21px;
-  font-weight: 600;
-  line-height: 1.35;
-  color: #2f3e4d;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -412,10 +394,8 @@
 }
 
 .blog-card-desc {
+  --type-body-color: #5d7084;
   margin: 12px 0 0;
-  font-size: 15px;
-  line-height: 1.75;
-  color: #5d7084;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
@@ -506,9 +486,6 @@
   border-radius: 999px;
   background: #f8fafc;
   color: #2f3e4d;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1;
   white-space: nowrap;
   transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
 }
@@ -520,6 +497,11 @@
   transform: translateY(-1px);
 }
 
+.blog-view-all:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
 .blog-loading,
 .blog-error,
 .blog-empty {
@@ -529,16 +511,11 @@
   border-radius: 22px;
   background: rgba(255, 255, 255, 0.72);
   color: #607387;
+  margin: 0;
 }
 
 /* Blog responsive behavior. */
 @media (max-width: 900px) {
-  .blog-section-note,
-  .blog-card-desc {
-    font-size: 18px;
-    line-height: 1.62;
-  }
-
   .blog-card-top {
     display: none;
   }
@@ -581,7 +558,6 @@
     grid-row: 1;
     align-self: center;
     padding: 8px 12px;
-    font-size: 13px;
   }
 
   .blog-section-note {

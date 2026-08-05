@@ -29,9 +29,9 @@ export default [
           {
             name: "Mahdi Mustapha Hamad",
             url: "https://scholar.google.com/citations?user=snIHZzcAAAAJ&hl=en",
+            now: "Tech Lead, Robot Learning Applications · Agile Robots SE",
           },
         ],
-        organization: "Agile Robots SE / WRD Group",
       },
     ],
   },
@@ -55,14 +55,22 @@ export default [
     mentors: [
       {
         people: [
-          { name: "Yu Chi", url: "https://ychgoaround.github.io/" },
-          { name: "Jiapeng Tang", url: "https://tangjiapeng.github.io/" },
           {
-            name: "Prof. Matthias Nießner",
+            name: "Yu Chi",
+            url: "https://ychgoaround.github.io/",
+            now: "PhD Student · TUM Visual Computing & AI Lab",
+          },
+          {
+            name: "Jiapeng Tang",
+            url: "https://tangjiapeng.github.io/",
+            now: "PhD Student · TUM Visual Computing & AI Lab",
+          },
+          {
+            name: "Matthias Nießner",
             url: "https://niessnerlab.org/members/matthias_niessner/profile.html",
+            now: "Professor · TUM Visual Computing & AI",
           },
         ],
-        organization: "TUM Visual Computing",
       },
     ],
   },
@@ -87,13 +95,17 @@ export default [
     mentors: [
       {
         people: [
-          { name: "Jiapeng Tang", url: "https://tangjiapeng.github.io/" },
           {
-            name: "Prof. Matthias Nießner",
+            name: "Jiapeng Tang",
+            url: "https://tangjiapeng.github.io/",
+            now: "PhD Student · TUM Visual Computing & AI Lab",
+          },
+          {
+            name: "Matthias Nießner",
             url: "https://niessnerlab.org/members/matthias_niessner/profile.html",
+            now: "Professor · TUM Visual Computing & AI",
           },
         ],
-        organization: "TUM Visual Computing",
       },
     ],
   },
@@ -127,31 +139,33 @@ export default [
           {
             name: "Mert Asim Karaoglu",
             url: "https://scholar.google.de/citations?hl=en&user=j2REtlAAAAAJ",
+            now: "Senior Research Engineer · ImFusion; PhD Candidate · TUM CAMP",
           },
         ],
-        organization: "Imfusion & TUM CAMP",
       },
       {
         people: [
           {
-            name: "Prof. Benjamin Busam",
-            url: "https://www.cs.cit.tum.de/camp/members/benjamin-busam/",
+            name: "Benjamin Busam",
+            url: "https://www.asg.ed.tum.de/pf/team/benjamin-busam/",
+            ex: "Computer Vision Coordinator · TUM CAMP",
+            now: "Professor & Director · TUM Photogrammetry and Remote Sensing",
           },
           {
-            name: "Prof. Nassir Navab",
+            name: "Nassir Navab",
             url: "https://www.professoren.tum.de/en/navab-nassir",
+            now: "Professor & Chair · TUM CAMP; Adjunct Professor · Johns Hopkins",
           },
         ],
-        organization: "TUM CAMP",
       },
       {
         people: [
           {
-            name: "Dr. Alexander Ladikos",
+            name: "Alexander Ladikos",
             url: "https://scholar.google.de/citations?user=0fUQE3EAAAAJ&hl=en",
+            now: "Head of Computer Vision & Quality Management · ImFusion",
           },
         ],
-        organization: "Imfusion",
       },
     ],
   },
@@ -189,25 +203,27 @@ export default [
       {
         people: [
           {
-            name: "Prof. Daniel Cremers",
+            name: "Daniel Cremers",
             url: "https://cvg.cit.tum.de/members/cremers",
+            now: "Professor & Chair · TUM Computer Vision & AI",
           },
           {
-            name: "Prof. Yan Xia",
-            url: "https://cvg.cit.tum.de/members/xiya",
+            name: "Yan Xia",
+            url: "https://yan-xia.github.io/",
+            ex: "Senior Researcher · TUM Computer Vision Group",
+            now: "Professor · USTC Spatial Intelligence Lab",
           },
-          { name: "Weirong Chen", url: "https://wrchen530.github.io/" },
         ],
-        organization: "TUM CVG",
       },
       {
         people: [
           {
-            name: "Prof. Chuanxia Zheng",
+            name: "Chuanxia Zheng",
             url: "https://chuanxiaz.com/",
+            ex: "Postdoctoral Researcher · Oxford VGG",
+            now: "Nanyang Assistant Professor · NTU CCDS",
           },
         ],
-        organization: "Oxford VGG",
       },
     ],
   },
@@ -231,9 +247,12 @@ export default [
     mentors: [
       {
         people: [
-          { name: "Prof. Yiyi Liao", url: "https://yiyiliao.github.io/" },
+          {
+            name: "Yiyi Liao",
+            url: "https://yiyiliao.github.io/",
+            now: "Distinguished Researcher & Doctoral Supervisor · Zhejiang University",
+          },
         ],
-        organization: "Zhejiang University",
       },
     ],
   },

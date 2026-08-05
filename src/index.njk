@@ -8,14 +8,14 @@ description: Personal research portfolio for Wenbo Ji.
 
 <header class="section-table hero-name-table">
   <div class="hero-name-cell">
-    <h1 class="hero-name-line"><span class="site-name">Wenbo Ji&nbsp;&nbsp;&nbsp;<ruby class="name-ruby" lang="zh-Latn-pinyin">嵇<rt>jī / yí</rt></ruby>文博</span></h1>
+    <h1 class="hero-name-line type-page-title"><span class="site-name">Wenbo Ji&nbsp;&nbsp;&nbsp;<ruby class="name-ruby" lang="zh-Latn-pinyin">嵇<rt>jī / yí</rt></ruby>文博</span></h1>
   </div>
 </header>
 
 <section class="section-table hero-intro-table" aria-label="About Wenbo Ji">
   <div class="hero-bio-cell">
     {% for paragraph in hero.paragraphs %}
-      <p class="{{ 'hero-phd-line' if loop.index == 3 }} {{ 'hero-background' if loop.index == 4 }}">{{ paragraph | safe }}</p>
+      <p class="type-body {{ 'type-body--emphasis hero-phd-line' if loop.index == 3 }} {{ 'hero-background' if loop.index == 4 }}">{{ paragraph | safe }}</p>
     {% endfor %}
   </div>
   <div class="hero-media-cell">
@@ -37,18 +37,18 @@ description: Personal research portfolio for Wenbo Ji.
 <section class="section-table" id="news-table" aria-labelledby="news">
   <div class="section-cell" id="news-section">
     <div class="news-panel">
-      <div class="news-panel-head"><h2 class="semantic-heading section-heading" id="news">News</h2></div>
+      <div class="news-panel-head"><h2 class="semantic-heading section-heading type-section-title" id="news">News</h2></div>
       <div class="news-scroll" role="region" aria-label="News updates" tabindex="0">
         <div class="news-list">
           {% for item in news %}
-            {% if loop.index <= 3 %}<article class="news-item"><time class="news-date">{{ item.date }}</time><p class="news-body">{{ item.body | safe }}</p></article>{% endif %}
+            {% if loop.index <= 3 %}<article class="news-item"><time class="news-date type-meta">{{ item.date }}</time><p class="news-body type-body">{{ item.body | safe }}</p></article>{% endif %}
           {% endfor %}
         </div>
         <details id="old_news" class="news-archive" open>
-          <summary class="news-toggle">More news</summary>
+          <summary class="news-toggle type-control">More news</summary>
           <div class="news-list news-list-archived">
             {% for item in news %}
-              {% if loop.index > 3 %}<article class="news-item"><time class="news-date">{{ item.date }}</time><p class="news-body">{{ item.body | safe }}</p></article>{% endif %}
+              {% if loop.index > 3 %}<article class="news-item"><time class="news-date type-meta">{{ item.date }}</time><p class="news-body type-body">{{ item.body | safe }}</p></article>{% endif %}
             {% endfor %}
           </div>
         </details>
@@ -60,13 +60,13 @@ description: Personal research portfolio for Wenbo Ji.
 <section class="section-table" id="research-section" aria-labelledby="research">
   <div class="section-cell">
     <div class="research-interests-panel">
-      <h2 class="semantic-heading section-heading" id="research">Research Interests</h2>
+      <h2 class="semantic-heading section-heading type-section-title" id="research">Research Interests</h2>
       <ol class="research-arc" aria-label="Research trajectory">
         {% for item in researchArc %}
           <li class="research-arc-item">
             <span class="research-arc-dot" aria-hidden="true"></span>
-            <span class="research-arc-label">{{ item.label }}</span>
-            <p class="research-arc-text">{{ item.text }}</p>
+            <h3 class="research-arc-label type-group-label">{{ item.label }}</h3>
+            <p class="research-arc-text type-body">{{ item.text }}</p>
           </li>
         {% endfor %}
       </ol>
@@ -97,10 +97,10 @@ description: Personal research portfolio for Wenbo Ji.
         <div class="experience-logo-stack"><div class="experience-logo-card"><img src="{{ item.logo.src }}" width="{{ item.logo.width }}" height="{{ item.logo.height }}" loading="lazy" decoding="async" alt="{{ item.logo.alt }}"></div></div>
       </div>
       <div class="entry-content-cell">
-        <p class="education-mobile-line">{{ item.degree }}</p>
-        <div class="split-row"><h3 class="entry-title">{{ item.institution }}</h3><span class="text-right experience-side-meta"><span class="entry-meta">{{ item.date }}</span></span></div>
-        <p class="education-degree">{{ item.degree }}</p>
-        <p class="education-note">{{ item.note | safe }}</p>
+        <p class="education-mobile-line type-body">{{ item.degree }}</p>
+        <div class="split-row"><h3 class="entry-title type-entry-title">{{ item.institution }}</h3><span class="text-right experience-side-meta"><span class="entry-meta type-meta">{{ item.date }}</span></span></div>
+        <p class="education-degree type-body">{{ item.degree }}</p>
+        <p class="education-note type-body">{{ item.note | safe }}</p>
       </div>
     </article>
   {% endfor %}
@@ -110,8 +110,8 @@ description: Personal research portfolio for Wenbo Ji.
   {{ ui.sectionHeading("awards", "Selected Awards") }}
   {% for award in awards %}
     <article class="section-table experience-entry award-entry" id="award-{{ award.id }}">
-      <div class="award-meta-cell"><time class="award-year">{{ award.date }}</time><span class="topic-location">{{ award.location }}</span></div>
-      <div class="entry-content-cell"><div class="split-row"><h3 class="entry-title">{{ award.title }}</h3></div><div class="split-row experience-detail-row"><span class="experience-type">{{ award.type }}</span></div></div>
+      <div class="award-meta-cell"><time class="award-year type-meta">{{ award.date }}</time><span class="topic-location type-meta">{{ award.location }}</span></div>
+      <div class="entry-content-cell"><div class="split-row"><h3 class="entry-title type-entry-title">{{ award.title }}</h3></div><div class="split-row experience-detail-row"><span class="experience-type type-meta type-meta--uppercase">{{ award.type }}</span></div></div>
     </article>
   {% endfor %}
 </section>
@@ -125,11 +125,11 @@ description: Personal research portfolio for Wenbo Ji.
   <div class="section-cell">
     <div class="blog-panel">
       <div class="blog-header">
-        <div class="blog-header-copy"><h2 class="semantic-heading section-heading" id="blog">Blog</h2><p class="blog-section-note">Thoughts on research, 3D, video generation, and the occasional in-between.</p></div>
-        <a class="blog-view-all" href="/blog/">View all posts</a>
+        <div class="blog-header-copy"><h2 class="semantic-heading section-heading type-section-title" id="blog">Blog</h2><p class="blog-section-note type-caption">Thoughts on research, 3D, video generation, and the occasional in-between.</p></div>
+        <a class="blog-view-all type-control" href="/blog/">View all posts</a>
       </div>
       <div id="blog-list" class="blog-list" aria-live="polite">
-        <div class="blog-error">Latest posts are available on the blog page.</div>
+        <p class="blog-error type-body">Latest posts are available on the blog page.</p>
       </div>
     </div>
   </div>

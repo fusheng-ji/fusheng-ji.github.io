@@ -62,21 +62,14 @@
 }
 
 .research-arc-label {
-  margin-top: 1px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #708398;
-  line-height: 1.4;
+  --type-group-label-color: #708398;
+  margin: 1px 0 0;
 }
 
 .research-arc-text {
+  --type-body-color: #516275;
   grid-column: 1 / -1;
   margin: 0;
-  color: #516275;
-  font-size: 15px;
-  line-height: 1.58;
 }
 
 .research-tags {
@@ -101,9 +94,6 @@
   border: 1px solid var(--tag-border);
   border-radius: 14px;
   background: var(--tag-surface);
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.3;
   color: var(--tag-ink);
   text-align: center;
   box-sizing: border-box;
@@ -122,7 +112,6 @@
 
   .research-interest-tag {
     padding-inline: 10px;
-    font-size: 13px;
     white-space: nowrap;
   }
 }
@@ -195,21 +184,13 @@
   border: 1px solid #dbe3ea;
   border-radius: 999px;
   background: #eef2f6;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
   color: #4d6277;
   box-sizing: border-box;
 }
 
 .news-body {
+  --type-body-color: #516275;
   margin: 0;
-  color: #516275;
-  line-height: 1.58;
-}
-
-.news-body strong {
-  font-size: inherit;
 }
 
 .news-toggle {
@@ -221,9 +202,6 @@
   border: 1px solid #dbe3ea;
   border-radius: 999px;
   background: #f7f9fb;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
   color: #4d6277;
 }
 
@@ -369,17 +347,13 @@ ul, li {
 }
 
 .hero-background {
+  --type-body-color: #607387;
   margin: 12px 0 0;
-  color: #607387;
-  font-size: 16px;
-  line-height: 1.6;
 }
 
 .hero-bio-cell .hero-phd-line {
   margin: 12px 0 0;
   color: #2a6fbb;
-  font-weight: 700;
-  line-height: 1.65;
 }
 
 .entry-media-cell {
@@ -416,21 +390,12 @@ ul, li {
   margin-top: 12px;
 }
 .collab-heading {
+  --type-group-label-color: #8796a6;
   margin: 0 0 6px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #8796a6;
 }
 .experience-type {
   display: inline-block;
-  font-size: var(--font-size-meta);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: #5d6f82;
-  line-height: 1.5;
 }
 .experience-entry {
   margin-bottom: 24px;
@@ -456,13 +421,9 @@ ul, li {
   gap: 18px;
 }
 
-.career-entry .entry-title {
-  font-weight: 600;
-}
 .experience-entry .entry-title {
   display: block;
   max-width: 640px;
-  line-height: 1.2;
 }
 .experience-side-meta {
   flex: 0 0 auto;
@@ -471,8 +432,6 @@ ul, li {
 }
 .experience-side-meta .entry-meta {
   display: block;
-  font-size: var(--font-size-meta);
-  font-weight: 700;
   color: #34485c;
 }
 .experience-detail-row {
@@ -529,38 +488,53 @@ ul, li {
   gap: 5px;
 }
 .collab-row {
+  --type-secondary-color: #68798a;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 2px;
   padding: 5px 0;
   border-top: 1px solid #e7edf3;
-  font-size: 13px;
-  color: #68798a;
 }
 .collab-list .collab-row:first-child {
   border-top: 0;
   padding-top: 0;
 }
 .collab-name {
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 1.4;
   color: #5d7083;
 }
 .collab-name a {
   color: inherit;
-  font-size: inherit;
-  font-weight: inherit;
-  line-height: inherit;
 }
-.collab-org {
-  font-size: 13px;
-  line-height: 1.45;
+.collab-affiliations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  min-width: 0;
   color: #8a98a7;
   text-align: left;
-  white-space: normal;
-  margin-right: 0;
+}
+.collab-affiliation {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 0;
+  color: inherit;
+}
+.collab-status {
+  flex: 0 0 auto;
+  padding: 1px 4px;
+  border: 1px solid #dbe4ec;
+  border-radius: 3px;
+}
+.collab-status--ex {
+  color: #8996a3;
+  background: #f7f9fb;
+}
+.collab-status--now {
+  color: #4f6579;
+  border-color: #cddae5;
+  background: #f1f6fa;
 }
 
 /* Hero and homepage-section responsive behavior. */
@@ -615,11 +589,6 @@ ul, li {
     overflow-wrap: anywhere;
   }
 
-  .hero-name-line .site-name {
-    font-size: clamp(27px, 7.4vw, 32px);
-    line-height: 1.18;
-  }
-
   .hero-name-line .name-ruby rt,
   ruby rt {
     font-size: 12px;
@@ -640,16 +609,10 @@ ul, li {
     color: #45586b;
     white-space: normal;
     overflow-wrap: break-word;
-    font-size: 18px;
   }
 
   .hero-bio-cell .hero-phd-line {
     color: #2a6fbb;
-    font-weight: 700;
-  }
-
-  .hero-background {
-    font-size: 18px;
   }
 
   .hero-media-cell {
@@ -709,15 +672,6 @@ ul, li {
     max-width: 100%;
   }
 
-  .news-date {
-    font-size: 17px;
-  }
-
-  .news-body,
-  .research-arc-text {
-    font-size: 18px;
-  }
-
   .research-interest-tag {
     min-height: 54px;
     padding: 10px 12px;
@@ -740,9 +694,6 @@ ul, li {
     border: 0;
     border-radius: 0;
     background: transparent;
-    font-size: 13px;
-    line-height: 1.5;
-    letter-spacing: 0.02em;
     white-space: nowrap;
   }
 
@@ -750,8 +701,6 @@ ul, li {
     flex: 1 1 auto;
     min-width: 0;
     margin: 0;
-    font-size: 16px;
-    line-height: 1.5 !important;
   }
 
   .news-panel,
@@ -769,11 +718,6 @@ ul, li {
   .news-panel {
     padding: 18px 14px;
     border-radius: 18px;
-  }
-
-  .research-arc-text,
-  .news-body {
-    line-height: 1.62;
   }
 
   .research-arc {
@@ -809,14 +753,8 @@ ul, li {
     border-width: 3px;
   }
 
-  .research-arc-label {
-    font-size: 11px;
-    letter-spacing: 0.12em;
-  }
-
   .research-arc-text {
     grid-column: auto;
-    font-size: 18px;
   }
 
   .research-tags {
