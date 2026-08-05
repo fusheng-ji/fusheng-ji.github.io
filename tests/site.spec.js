@@ -205,7 +205,6 @@ test("homepage preserves content and has no horizontal overflow", async ({
     "Publications",
     "experiences",
     "thesis",
-    "technical-report",
     "education",
     "awards",
     "projects",
@@ -214,6 +213,14 @@ test("homepage preserves content and has no horizontal overflow", async ({
   ]) {
     await expect(page.locator(`#${id}`)).toHaveCount(1);
   }
+  await expect(
+    page.locator("#technical-report, .technical-report-entry"),
+  ).toHaveCount(0);
+  await expect(
+    page.getByText("Object-Centric 3D Reconstruction and Decomposition", {
+      exact: true,
+    }),
+  ).toHaveCount(0);
   const overflow = await page.evaluate(
     () =>
       document.documentElement.scrollWidth -
@@ -286,7 +293,7 @@ test("all homepage section headings share the intended typography", async ({
       }),
     );
 
-  expect(headings).toHaveLength(11);
+  expect(headings).toHaveLength(10);
   expect(new Set(headings.map((heading) => heading.fontFamily)).size).toBe(1);
   expect(new Set(headings.map((heading) => heading.fontSize)).size).toBe(1);
   expect(new Set(headings.map((heading) => heading.fontWeight))).toEqual(
@@ -349,10 +356,10 @@ test("core content roles follow the shared typography contract", async ({
     sectionTitle: { size: isDesktop ? 28 : 23, weight: "700", leading: 1.18 },
     entryTitle: { size: 20, weight: "700", leading: 1.25 },
     groupLabel: {
-      size: isDesktop ? 16 : 14,
+      size: 14,
       weight: "700",
       leading: 1.35,
-      letterSpacing: isDesktop ? "1.6px" : "1.4px",
+      letterSpacing: "1.4px",
       textTransform: "uppercase",
     },
     body: { size: 16, weight: "400", leading: 1.65 },
@@ -405,18 +412,14 @@ test("core content roles follow the shared typography contract", async ({
   expect(expected.pageTitle.size).toBeGreaterThan(expected.sectionTitle.size);
   expect(expected.sectionTitle.size).toBeGreaterThan(expected.entryTitle.size);
   expect(expected.entryTitle.size).toBeGreaterThan(expected.body.size);
-  if (isDesktop) {
-    expect(expected.body.size).toBe(expected.groupLabel.size);
-  } else {
-    expect(expected.body.size).toBeGreaterThan(expected.groupLabel.size);
-  }
+  expect(expected.body.size).toBeGreaterThan(expected.groupLabel.size);
 });
 
 test("core content roles use a semantic heading outline", async ({ page }) => {
   await page.goto("/", { waitUntil: "networkidle" });
 
   await expect(page.locator("h1.type-page-title")).toHaveCount(1);
-  await expect(page.locator("h2.type-section-title")).toHaveCount(11);
+  await expect(page.locator("h2.type-section-title")).toHaveCount(10);
   await expect(page.locator("article h3.type-entry-title")).not.toHaveCount(0);
   await expect(page.locator("article h4.type-group-label")).not.toHaveCount(0);
   await expect(page.locator(".research-arc h3.type-group-label")).toHaveCount(
@@ -469,38 +472,6 @@ test("descriptions never exceed their owning entry or section title", async ({
       comparison.titleSize,
     );
   }
-});
-
-test("technical report overview follows the shared body hierarchy", async ({
-  page,
-}, testInfo) => {
-  await page.goto("/", { waitUntil: "networkidle" });
-
-  const report = page.locator(".technical-report-entry");
-  const title = report.locator("h3.type-entry-title");
-  const overviewLabel = report.getByRole("heading", {
-    level: 4,
-    name: "Overview",
-  });
-  const overview = report.getByText(
-    "A TUM DI Lab report on object-centric 3D reconstruction and decomposition with 3D Gaussian Splatting.",
-    { exact: true },
-  );
-
-  await expect(overview).toHaveClass(/type-body/);
-  const sizes = await Promise.all(
-    [title, overview, overviewLabel].map((locator) =>
-      locator.evaluate((element) =>
-        Number.parseFloat(getComputedStyle(element).fontSize),
-      ),
-    ),
-  );
-
-  expect(sizes).toEqual([
-    20,
-    16,
-    testInfo.project.name.startsWith("desktop-") ? 16 : 14,
-  ]);
 });
 
 test("inline links inherit their content role typography", async ({ page }) => {
@@ -775,7 +746,7 @@ test("mobile resource links render as standalone logos", async ({
   await page.goto("/");
   const styles = await page
     .locator(
-      "#publications-mount .entry-links a, .technical-report-entry .entry-links a, #projects-mount .entry-links a",
+      "#publications-mount .entry-links a, #projects-mount .entry-links a",
     )
     .evaluateAll((links) =>
       links.map((link) => {

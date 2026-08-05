@@ -15,7 +15,7 @@ This document is the source of truth for typography and semantic content roles o
 | R01 | 页面身份标题 | Page title    | `.type-page-title`    | One `h1` per page                                   | 36px / `clamp(27px, 7.4vw, 32px)` | 700 / 1.15           | Normal / none      |
 | R02 | 页面区块标题 | Section title | `.type-section-title` | `h2`                                                | 28px / 23px                       | 700 / 1.18           | Normal / none      |
 | R03 | 内容条目标题 | Entry title   | `.type-entry-title`   | `h3`                                                | 20px / 20px                       | 700 / 1.25           | Normal / none      |
-| R04 | 内容分组标题 | Group heading | `.type-group-label`   | `h4` inside an entry; `h3` directly below a section | 16px / 14px                       | 700 / 1.35           | 0.1em / uppercase  |
+| R04 | 内容分组标题 | Group heading | `.type-group-label`   | `h4` inside an entry; `h3` directly below a section | 14px / 14px                       | 700 / 1.35           | 0.1em / uppercase  |
 | R05 | 描述正文     | Body          | `.type-body`          | `p`, `li`                                           | 16px / 16px                       | 400 / 1.65           | Normal / none      |
 | R06 | 次要说明     | Secondary     | `.type-secondary`     | Authors, collaborators, affiliations                | 14px / 14px                       | 400 / 1.5            | Normal / none      |
 | R07 | 元数据       | Metadata      | `.type-meta`          | `time`, venue, date, type, location                 | 13px / 13px                       | 600 / 1.45           | Normal / none      |

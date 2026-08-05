@@ -275,23 +275,20 @@ body {
 }
 
 #publications-mount,
-#projects-mount,
-.technical-report-entry {
+#projects-mount {
   --resource-logo-size: 24px;
   --resource-hit-size: 36px;
   --resource-logo-gap: 8px;
 }
 
 #publications-mount .entry-links,
-#projects-mount .entry-links,
-.technical-report-entry .entry-links {
+#projects-mount .entry-links {
   align-items: center;
   gap: var(--resource-logo-gap);
 }
 
 #publications-mount .entry-links a,
-#projects-mount .entry-links a,
-.technical-report-entry .entry-links a {
+#projects-mount .entry-links a {
   flex: 0 0 var(--resource-hit-size);
   width: var(--resource-hit-size);
   height: var(--resource-hit-size);
@@ -307,8 +304,7 @@ body {
 }
 
 #publications-mount .entry-links .meta-icon,
-#projects-mount .entry-links .meta-icon,
-.technical-report-entry .entry-links .meta-icon {
+#projects-mount .entry-links .meta-icon {
   display: block;
   width: var(--resource-logo-size) !important;
   height: var(--resource-logo-size) !important;
@@ -319,8 +315,7 @@ body {
 }
 
 #publications-mount .entry-links a:focus-visible,
-#projects-mount .entry-links a:focus-visible,
-.technical-report-entry .entry-links a:focus-visible {
+#projects-mount .entry-links a:focus-visible {
   outline: 2px solid rgba(42, 111, 187, 0.58);
   outline-offset: 2px;
 }
@@ -447,8 +442,7 @@ body {
   }
 
   #publications-mount,
-  #projects-mount,
-  .technical-report-entry {
+  #projects-mount {
     --resource-hit-size: 44px;
   }
 

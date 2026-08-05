@@ -28,10 +28,10 @@ do not edit generated output in `_site/`.
 
 ## Maintenance notes
 
-Downloadable Blender projects, the TUM CV Challenge poster, the TUM DI Lab
-report, the CSG-Fusion poster, and the preserved LiteTracker source image live
-in the repository's `site-assets-v1` GitHub Release. `SHA256SUMS` in that
-release verifies the files.
+Downloadable Blender projects, the TUM CV Challenge poster, the CSG-Fusion
+poster, and the preserved LiteTracker source image live in the repository's
+`site-assets-v1` GitHub Release. `SHA256SUMS` in that release verifies the
+files.
 
 Only web-ready derivatives are tracked. Personal photo originals and language
 certificates are private and are not part of the public Release.

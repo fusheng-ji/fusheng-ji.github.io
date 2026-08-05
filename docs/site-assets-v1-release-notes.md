@@ -5,7 +5,6 @@ were removed from the Git history during the Eleventy migration.
 
 - Five Blender project files
 - TUM CV Challenge SS24 poster
-- TUM DI Lab report
 - CSG-Fusion poster
 - LiteTracker source teaser backup
 - `SHA256SUMS` for integrity verification
