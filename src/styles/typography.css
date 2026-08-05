@@ -120,4 +120,8 @@
   .type-section-title {
     font-size: var(--type-section-title-size-mobile);
   }
+
+  .type-group-label {
+    font-size: var(--type-group-label-size-mobile);
+  }
 }

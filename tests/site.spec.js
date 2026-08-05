@@ -349,10 +349,10 @@ test("core content roles follow the shared typography contract", async ({
     sectionTitle: { size: isDesktop ? 28 : 23, weight: "700", leading: 1.18 },
     entryTitle: { size: 20, weight: "700", leading: 1.25 },
     groupLabel: {
-      size: 16,
+      size: isDesktop ? 16 : 14,
       weight: "700",
       leading: 1.35,
-      letterSpacing: "1.6px",
+      letterSpacing: isDesktop ? "1.6px" : "1.4px",
       textTransform: "uppercase",
     },
     body: { size: 16, weight: "400", leading: 1.65 },
@@ -405,7 +405,11 @@ test("core content roles follow the shared typography contract", async ({
   expect(expected.pageTitle.size).toBeGreaterThan(expected.sectionTitle.size);
   expect(expected.sectionTitle.size).toBeGreaterThan(expected.entryTitle.size);
   expect(expected.entryTitle.size).toBeGreaterThan(expected.body.size);
-  expect(expected.body.size).toBeLessThanOrEqual(expected.groupLabel.size);
+  if (isDesktop) {
+    expect(expected.body.size).toBe(expected.groupLabel.size);
+  } else {
+    expect(expected.body.size).toBeGreaterThan(expected.groupLabel.size);
+  }
 });
 
 test("core content roles use a semantic heading outline", async ({ page }) => {
@@ -436,36 +440,26 @@ test("core content roles use a semantic heading outline", async ({ page }) => {
   }
 });
 
-test("descriptions never exceed their introducing heading", async ({
+test("descriptions never exceed their owning entry or section title", async ({
   page,
 }) => {
   await page.goto("/", { waitUntil: "networkidle" });
 
   const comparisons = await page
-    .locator("article, .research-arc-item")
-    .evaluateAll((containers) =>
-      containers.flatMap((container) => {
-        const title = container.querySelector(
-          ".type-entry-title, .type-group-label",
-        );
-        if (!title) return [];
-        return Array.from(container.querySelectorAll(".type-body")).map(
-          (body) => ({
-            title:
-              body
-                .closest(".entry-block")
-                ?.querySelector(".type-group-label")
-                ?.textContent.trim() || title.textContent.trim(),
-            titleSize: Number.parseFloat(
-              getComputedStyle(
-                body
-                  .closest(".entry-block")
-                  ?.querySelector(".type-group-label") || title,
-              ).fontSize,
-            ),
+    .locator("article .type-body, .research-arc-item .type-body")
+    .evaluateAll((bodies) =>
+      bodies.flatMap((body) => {
+        const ownerTitle =
+          body.closest("article")?.querySelector(".type-entry-title") ||
+          body.closest("section")?.querySelector(".type-section-title");
+        if (!ownerTitle) return [];
+        return [
+          {
+            title: ownerTitle.textContent.trim(),
+            titleSize: Number.parseFloat(getComputedStyle(ownerTitle).fontSize),
             bodySize: Number.parseFloat(getComputedStyle(body).fontSize),
-          }),
-        );
+          },
+        ];
       }),
     );
 
@@ -479,7 +473,7 @@ test("descriptions never exceed their introducing heading", async ({
 
 test("technical report overview follows the shared body hierarchy", async ({
   page,
-}) => {
+}, testInfo) => {
   await page.goto("/", { waitUntil: "networkidle" });
 
   const report = page.locator(".technical-report-entry");
@@ -502,7 +496,11 @@ test("technical report overview follows the shared body hierarchy", async ({
     ),
   );
 
-  expect(sizes).toEqual([20, 16, 16]);
+  expect(sizes).toEqual([
+    20,
+    16,
+    testInfo.project.name.startsWith("desktop-") ? 16 : 14,
+  ]);
 });
 
 test("inline links inherit their content role typography", async ({ page }) => {
@@ -731,7 +729,7 @@ test("desktop anchors keep section headings below the sticky navigation", async 
   }
 });
 
-test("mobile entry metadata remains visually subordinate", async ({
+test("mobile entry labels and metadata remain visually subordinate", async ({
   page,
 }, testInfo) => {
   test.skip(
@@ -756,10 +754,10 @@ test("mobile entry metadata remains visually subordinate", async ({
     };
   });
 
-  expect(typography.entryLabel).toBe(typography.entryBody);
+  expect(typography.entryLabel).toBeLessThan(typography.entryBody);
   expect(typography.experienceType).toBeLessThan(typography.entryTitle);
   expect(typography.publicationNote).toBeLessThan(typography.entryBody);
-  expect(typography.entryLabel).toBe(16);
+  expect(typography.entryLabel).toBe(14);
   expect(typography.experienceType).toBe(13);
   expect(typography.entryBody).toBe(16);
   expect(typography.publicationNote).toBe(13);
