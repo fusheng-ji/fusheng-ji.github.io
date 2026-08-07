@@ -1,4 +1,4 @@
-import { Site } from "./state.js";
+import { toArray } from "./core.js";
 
   function activateImage(img) {
     var src = img && img.getAttribute('data-src');
@@ -22,7 +22,7 @@ import { Site } from "./state.js";
   }
 
   function observeLazyMedia() {
-    var lazyNodes = Site.toArray(document.querySelectorAll('img[data-src], video[data-src]'));
+    var lazyNodes = toArray(document.querySelectorAll('img[data-src], video[data-src]'));
 
     if (!lazyNodes.length) return;
 
@@ -52,8 +52,4 @@ import { Site } from "./state.js";
     observeLazyMedia();
   }
 
-Site.Media = {
-  init: init,
-  activateImage: activateImage,
-  activateVideo: activateVideo
-};
+export { init as initMedia };

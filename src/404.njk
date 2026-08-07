@@ -18,13 +18,10 @@ eleventyExcludeFromCollections: true
   <meta property="og:image" content="{{ site.url }}/assets/images/logo.svg">
   <link rel="icon" href="/assets/images/logo.svg" type="image/svg+xml">
   <title>404 - Wenbo Ji</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ 'page-404.css' | asset }}">
   <script type="module" src="{{ 'page-404.js' | asset }}"></script>
 </head>
-<body>
+<body data-desktop-stylesheet="{{ 'desktop.css' | asset }}">
   {% set navbar_home_href = "/" %}
   {% set navbar_section_prefix = "/" %}
   {% include "components/navbar.njk" %}

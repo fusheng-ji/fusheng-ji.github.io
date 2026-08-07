@@ -13,14 +13,12 @@
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
   <meta property="og:image" content="{{ site.url }}{{ site.owner.portrait.src }}">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ 'site.css' | asset }}">
+  <noscript><link rel="stylesheet" href="{{ 'gallery.css' | asset }}"></noscript>
   <script type="application/ld+json">{{ metadata.jsonLd | json | safe }}</script>
   <script type="module" src="{{ 'site.js' | asset }}"></script>
 </head>
-<body>
+<body data-desktop-stylesheet="{{ 'desktop.css' | asset }}">
   <a class="skip-link" href="#main-content">Skip to content</a>
   <span id="top" aria-hidden="true"></span>
   {% include "components/navbar.njk" %}

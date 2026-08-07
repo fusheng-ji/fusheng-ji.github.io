@@ -1,0 +1,7 @@
+@import url("./components/gallery-tabs.css");
+@import url("./components/gallery-carousel.css");
+
+.gallery-section[data-gallery-pending] {
+  min-height: 0;
+  visibility: visible;
+}

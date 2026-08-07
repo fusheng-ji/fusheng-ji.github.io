@@ -269,22 +269,8 @@ var mounted = new WeakMap();
     }
   }
 
-  function setup(root) {
-    var scope = root || document;
-    var elements = scope.querySelectorAll('[data-site-glass]');
-    var i;
-    for (i = 0; i < elements.length; i++) {
-      mount(elements[i]);
-    }
-  }
-
 export const SiteGlass = {
   mount: mount,
   unmount: unmount,
-  setup: setup,
-  render: render,
-  supportsChromatic: function () {
-    return checkSvgBackdropSupport();
-  },
-  defaults: DEFAULTS
+  render: render
 };

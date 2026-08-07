@@ -1,4 +1,4 @@
-import { Site } from "./state.js";
+import { getElement, toArray, toggleClass } from "./core.js";
 
   function formatDate(dateString) {
     var date = new Date(dateString);
@@ -101,7 +101,7 @@ import { Site } from "./state.js";
     var previousButton = carousel.querySelector('[data-blog-carousel-prev]');
     var nextButton = carousel.querySelector('[data-blog-carousel-next]');
     var dots = carousel.querySelector('.blog-carousel-dots');
-    var cards = Site.toArray(carousel.querySelectorAll('.blog-card'));
+    var cards = toArray(carousel.querySelectorAll('.blog-card'));
     var state = {
       page: 0,
       pageCount: 1,
@@ -146,9 +146,9 @@ import { Site } from "./state.js";
 
     function updateControls() {
       var isStatic = state.pageCount <= 1;
-      var dotButtons = dots ? Site.toArray(dots.querySelectorAll('.blog-carousel-dot')) : [];
+      var dotButtons = dots ? toArray(dots.querySelectorAll('.blog-carousel-dot')) : [];
 
-      Site.toggleClass(carousel, 'is-static', isStatic);
+      toggleClass(carousel, 'is-static', isStatic);
 
       if (previousButton) {
         previousButton.disabled = isStatic || state.page === 0;
@@ -162,7 +162,7 @@ import { Site } from "./state.js";
 
       dotButtons.forEach(function (button, index) {
         var isActive = index === state.page;
-        Site.toggleClass(button, 'is-active', isActive);
+        toggleClass(button, 'is-active', isActive);
         button.setAttribute('aria-current', isActive ? 'page' : 'false');
       });
     }
@@ -279,13 +279,17 @@ import { Site } from "./state.js";
       });
     }
 
-    window.addEventListener('resize', Site.debounce ? Site.debounce(refresh, 120) : refresh);
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(refresh, 120);
+    });
     bindTouchSwipe();
     refresh();
   }
 
   function loadBlogCards() {
-    var list = Site.getElement('blog-list');
+    var list = getElement('blog-list');
     if (!list) return;
 
     list.setAttribute('aria-busy', 'true');
@@ -296,7 +300,7 @@ import { Site } from "./state.js";
       return;
     }
 
-    window.fetch('https://fusheng-ji.github.io/blog/posts.json', { cache: 'no-cache' })
+    window.fetch('https://fusheng-ji.github.io/blog/posts.json')
       .then(function (response) {
         if (!response.ok) {
           throw new Error('Failed to fetch posts.json: ' + response.status);
@@ -316,4 +320,4 @@ import { Site } from "./state.js";
       });
   }
 
-Site.loadBlogCards = loadBlogCards;
+export { loadBlogCards };

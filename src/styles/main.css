@@ -1,15 +1,30 @@
+@import url("./fonts.css");
 @import url("./tokens.css");
 @import url("./base.css");
 @import url("./layout.css");
 @import url("./components/navigation.css");
-@import url("./components/site-glass.css");
 @import url("./components/home-sections.css");
 @import url("./components/entries.css");
 @import url("./components/timeline-avatar.css");
 @import url("./components/blog-gallery.css");
-@import url("./components/gallery-carousel.css");
 @import url("./components/footer.css");
 @import url("./typography.css");
+
+@media (min-width: 901px) {
+  .gallery-section[data-gallery-pending] {
+    contain: inline-size;
+    max-width: 100%;
+    min-height: min(70vw, 720px);
+    overflow: clip;
+    visibility: hidden;
+  }
+}
+
+@media (max-width: 900px) {
+  .gallery-section {
+    display: none;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   *,

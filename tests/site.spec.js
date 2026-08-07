@@ -539,12 +539,14 @@ test("text controls and asynchronous blog states use canonical roles", async ({
 
   await page.goto("/", { waitUntil: "networkidle" });
   await expect(page.locator(".news-toggle")).toHaveClass(/type-control/);
+  await page.locator("#blog-list").scrollIntoViewIfNeeded();
   await expect(page.locator(".blog-empty.type-body")).toHaveText(
     "No blog posts yet.",
   );
 
   responseMode = "error";
   await page.reload({ waitUntil: "networkidle" });
+  await page.locator("#blog-list").scrollIntoViewIfNeeded();
   await expect(page.locator(".blog-error.type-body")).toHaveText(
     "Unable to load blog posts.",
   );
@@ -920,8 +922,111 @@ test("gallery tabs remain keyboard-operable", async ({ page }, testInfo) => {
     "Desktop lightbox behavior",
   );
   await page.goto("/");
+  await page.locator(".gallery-section").scrollIntoViewIfNeeded();
+  await expect(page.locator(".gallery-section")).not.toHaveAttribute(
+    "data-gallery-pending",
+    "",
+  );
   const blenderTab = page.getByRole("tab", { name: "Blender Arts" });
   await blenderTab.click();
   await expect(blenderTab).toHaveAttribute("aria-selected", "true");
   await expect(page.locator("#gallery-panel-blender")).toBeVisible();
+});
+
+test("homepage defers non-critical modules and third-party fonts", async ({
+  page,
+}, testInfo) => {
+  const requests = [];
+  page.on("request", (request) => requests.push(request.url()));
+  await page.goto("/", { waitUntil: "networkidle" });
+
+  expect(requests.some((url) => url.includes("fonts.googleapis.com"))).toBe(false);
+  expect(requests.some((url) => url.includes("fonts.gstatic.com"))).toBe(false);
+  expect(requests.some((url) => url.includes("blog/posts.json"))).toBe(false);
+  expect(requests.some((url) => /chunks\/gallery\./.test(url))).toBe(false);
+  expect(requests.some((url) => /gallery\.[A-Z0-9]+\.css/.test(url))).toBe(false);
+  expect(requests.some((url) => url.includes("alien_ball_poster"))).toBe(false);
+
+  if (!testInfo.project.name.startsWith("desktop-")) {
+    expect(requests.some((url) => /chunks\/glass-nav\./.test(url))).toBe(false);
+    expect(requests.some((url) => /desktop\.[A-Z0-9]+\.css/.test(url))).toBe(false);
+  }
+});
+
+test("blog data loads only when the section approaches", async ({ page }) => {
+  let requests = 0;
+  await page.route("https://fusheng-ji.github.io/blog/posts.json", (route) => {
+    requests += 1;
+    return route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: "[]",
+    });
+  });
+
+  await page.goto("/", { waitUntil: "networkidle" });
+  expect(requests).toBe(0);
+  await page.locator("#blog-list").scrollIntoViewIfNeeded();
+  await expect(page.locator(".blog-empty.type-body")).toHaveText(
+    "No blog posts yet.",
+  );
+  expect(requests).toBe(1);
+});
+
+test("gallery poster waits for the Blender tab", async ({ page }, testInfo) => {
+  test.skip(
+    !testInfo.project.name.startsWith("desktop-"),
+    "Desktop gallery behavior",
+  );
+  const requests = [];
+  page.on("request", (request) => requests.push(request.url()));
+  await page.goto("/", { waitUntil: "networkidle" });
+  await page.locator(".gallery-section").scrollIntoViewIfNeeded();
+  await expect(page.locator(".gallery-section")).not.toHaveAttribute(
+    "data-gallery-pending",
+    "",
+  );
+  expect(requests.some((url) => url.includes("alien_ball_poster"))).toBe(false);
+
+  await page.getByRole("tab", { name: "Blender Arts" }).click();
+  await expect
+    .poll(() => requests.some((url) => url.includes("alien_ball_poster")))
+    .toBe(true);
+});
+
+test("404 card animation idles after settling", async ({ page }, testInfo) => {
+  test.skip(
+    testInfo.project.name !== "desktop-1440",
+    "Single runtime-performance sample",
+  );
+  await page.addInitScript(() => {
+    window.__cardWrites = 0;
+    const original = CSSStyleDeclaration.prototype.setProperty;
+    CSSStyleDeclaration.prototype.setProperty = function (name, ...args) {
+      if (name === "--mx") window.__cardWrites += 1;
+      return original.call(this, name, ...args);
+    };
+  });
+  await page.goto("/404.html", { waitUntil: "networkidle" });
+  await page.waitForTimeout(300);
+  const settledWrites = await page.evaluate(() => window.__cardWrites);
+  await page.waitForTimeout(400);
+  expect(await page.evaluate(() => window.__cardWrites)).toBe(settledWrites);
+});
+
+test("Water Pool skips the heavy simulation without WebGL", async ({
+  page,
+}, testInfo) => {
+  test.skip(
+    testInfo.project.name !== "mobile-390",
+    "Single capability-fallback sample",
+  );
+  const requests = [];
+  page.on("request", (request) => requests.push(request.url()));
+  await page.addInitScript(() => {
+    HTMLCanvasElement.prototype.getContext = () => null;
+  });
+  await page.goto("/three_js_arts/water_pool/", { waitUntil: "networkidle" });
+  expect(requests.some((url) => /chunks\/main\./.test(url))).toBe(false);
+  await expect(page.locator(".no-webgl-message")).toBeVisible();
 });

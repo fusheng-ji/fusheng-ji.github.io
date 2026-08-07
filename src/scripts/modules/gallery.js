@@ -1,4 +1,4 @@
-import { Site } from "./state.js";
+import { addClass, closest, removeClass, requestFrame, scrollElementIntoView, toArray, toggleClass } from "./core.js";
 
   var DESKTOP_GALLERY_QUERY = '(min-width: 901px)';
   var REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
@@ -34,7 +34,7 @@ import { Site } from "./state.js";
   function getClosest(element, selector) {
     if (!element || element === document) return null;
     if (typeof element.closest === 'function') return element.closest(selector);
-    return Site.closest(element, selector);
+    return closest(element, selector);
   }
 
   function isInteractiveTarget(element) {
@@ -76,10 +76,18 @@ import { Site } from "./state.js";
   function loadCardMedia(card) {
     if (!card) return;
 
-    Site.toArray(card.querySelectorAll('img[data-gallery-src]')).forEach(function (image) {
+    toArray(card.querySelectorAll('img[data-gallery-src]')).forEach(function (image) {
       if (image.getAttribute('data-gallery-loaded') === 'true') return;
       image.setAttribute('src', image.getAttribute('data-gallery-src'));
       image.setAttribute('data-gallery-loaded', 'true');
+    });
+  }
+
+  function loadVideoPosters(root) {
+    if (!root) return;
+    toArray(root.querySelectorAll('video[data-poster]')).forEach(function (video) {
+      if (video.getAttribute('poster')) return;
+      video.setAttribute('poster', video.getAttribute('data-poster'));
     });
   }
 
@@ -93,7 +101,7 @@ import { Site } from "./state.js";
     } catch (error) {
       // Preview pause is best-effort during card transitions.
     }
-    Site.removeClass(card, 'is-video-previewing');
+    removeClass(card, 'is-video-previewing');
   }
 
   function startCardVideoPreview(card) {
@@ -133,13 +141,13 @@ import { Site } from "./state.js";
           video.pause();
           return;
         }
-        Site.addClass(card, 'is-video-previewing');
+        addClass(card, 'is-video-previewing');
       }).catch(function () {
         video.setAttribute('data-gallery-preview-requested', 'false');
-        Site.removeClass(card, 'is-video-previewing');
+        removeClass(card, 'is-video-previewing');
       });
     } else {
-      Site.addClass(card, 'is-video-previewing');
+      addClass(card, 'is-video-previewing');
     }
   }
 
@@ -202,7 +210,7 @@ import { Site } from "./state.js";
   }
 
   function setCardAccessibility(card, isActive) {
-    var interactiveElements = Site.toArray(card.querySelectorAll(INTERACTIVE_SELECTOR));
+    var interactiveElements = toArray(card.querySelectorAll(INTERACTIVE_SELECTOR));
 
     card.setAttribute('aria-hidden', isActive ? 'false' : 'true');
     interactiveElements.forEach(function (element) {
@@ -258,8 +266,8 @@ import { Site } from "./state.js";
 
     if (!tabList || tabList.getAttribute('data-gallery-initialized') === 'true') return;
 
-    buttons = Site.toArray(tabList.querySelectorAll('[data-gallery-tab]'));
-    panels = Site.toArray(document.querySelectorAll('[data-gallery-panel]'));
+    buttons = toArray(tabList.querySelectorAll('[data-gallery-tab]'));
+    panels = toArray(document.querySelectorAll('[data-gallery-panel]'));
     indicator = tabList.querySelector('.gallery-tab-indicator');
     if (!buttons.length || !panels.length) return;
 
@@ -341,8 +349,8 @@ import { Site } from "./state.js";
         activeAnimation.cancel();
       }
 
-      Site.toggleClass(indicator, 'is-instant', Boolean(immediate) || reduceMotion);
-      Site.toggleClass(indicator, 'is-magnetic', canAnimate);
+      toggleClass(indicator, 'is-instant', Boolean(immediate) || reduceMotion);
+      toggleClass(indicator, 'is-magnetic', canAnimate);
       indicator.style.width = targetWidth + 'px';
       indicator.style.transform = 'translateX(' + targetPosition + 'px)';
       indicator.style.opacity = '1';
@@ -386,12 +394,12 @@ import { Site } from "./state.js";
         if (indicatorAnimation !== activeAnimation) return;
         indicatorAnimation = null;
         activeAnimation.cancel();
-        Site.removeClass(indicator, 'is-magnetic');
+        removeClass(indicator, 'is-magnetic');
       };
       activeAnimation.oncancel = function () {
         if (indicatorAnimation === activeAnimation) {
           indicatorAnimation = null;
-          Site.removeClass(indicator, 'is-magnetic');
+          removeClass(indicator, 'is-magnetic');
         }
       };
     }
@@ -434,7 +442,7 @@ import { Site } from "./state.js";
       var activeCard = null;
 
       state.root.style.setProperty('--gallery-drag-x', '0px');
-      Site.toggleClass(state.root, 'is-instant', Boolean(config.immediate) || mediaMatches(REDUCED_MOTION_QUERY));
+      toggleClass(state.root, 'is-instant', Boolean(config.immediate) || mediaMatches(REDUCED_MOTION_QUERY));
       state.cards.forEach(function (card, cardIndex) {
         var position = getRelativePosition(cardIndex, state.index, state.cards.length, state.lastDirection);
         var visible = Math.abs(position) <= 1;
@@ -456,12 +464,12 @@ import { Site } from "./state.js";
       }
       setStackStatus(state, Boolean(config.announce));
       if (config.announce && activeCard && !lightboxContext) {
-        Site.requestFrame(function () {
+        requestFrame(function () {
           startCardVideoPreview(activeCard);
         });
       }
-      Site.requestFrame(function () {
-        Site.removeClass(state.root, 'is-instant');
+      requestFrame(function () {
+        removeClass(state.root, 'is-instant');
       });
     }
 
@@ -498,7 +506,7 @@ import { Site } from "./state.js";
     }
 
     function pauseGalleryVideoPreviews() {
-      Site.toArray(document.querySelectorAll('[data-gallery-card]')).forEach(function (card) {
+      toArray(document.querySelectorAll('[data-gallery-card]')).forEach(function (card) {
         stopCardVideoPreview(card);
       });
     }
@@ -561,8 +569,8 @@ import { Site } from "./state.js";
       renderLightbox(false);
       lightbox.hidden = false;
       document.body.classList.add('is-gallery-lightbox-open');
-      Site.requestFrame(function () {
-        Site.addClass(lightbox, 'is-open');
+      requestFrame(function () {
+        addClass(lightbox, 'is-open');
         if (closeButton) closeButton.focus();
       });
     }
@@ -582,7 +590,7 @@ import { Site } from "./state.js";
         focusTarget = activeCard.querySelector('[data-gallery-open]') || lightboxContext.state.root;
       }
       pauseLightboxVideo();
-      Site.removeClass(lightbox, 'is-open');
+      removeClass(lightbox, 'is-open');
       document.body.classList.remove('is-gallery-lightbox-open');
       lightbox.hidden = true;
       lightboxContext = null;
@@ -601,7 +609,7 @@ import { Site } from "./state.js";
 
     function getLightboxFocusableElements() {
       if (!lightbox) return [];
-      return Site.toArray(lightbox.querySelectorAll('button:not([disabled]), video[controls]')).filter(function (element) {
+      return toArray(lightbox.querySelectorAll('button:not([disabled]), video[controls]')).filter(function (element) {
         return !element.hidden && element.offsetParent !== null;
       });
     }
@@ -735,7 +743,7 @@ import { Site } from "./state.js";
         deltaX = 0;
         deltaY = 0;
         dragging = false;
-        Site.removeClass(root, 'is-dragging');
+        removeClass(root, 'is-dragging');
         root.style.setProperty('--gallery-drag-x', '0px');
       }
 
@@ -806,7 +814,7 @@ import { Site } from "./state.js";
         deltaY = event.clientY - startY;
         if (Math.abs(deltaX) > 8 && Math.abs(deltaX) > Math.abs(deltaY)) {
           dragging = true;
-          Site.addClass(root, 'is-dragging');
+          addClass(root, 'is-dragging');
           event.preventDefault();
           scheduleDragRender();
         }
@@ -886,7 +894,7 @@ import { Site } from "./state.js";
       state = {
         root: root,
         shell: shell,
-        cards: Site.toArray(root.querySelectorAll(':scope > [data-gallery-card]')),
+        cards: toArray(root.querySelectorAll(':scope > [data-gallery-card]')),
         kind: root.getAttribute('data-gallery-kind') || 'media',
         label: root.getAttribute('data-gallery-label') || 'Gallery',
         index: 0,
@@ -899,7 +907,7 @@ import { Site } from "./state.js";
         bindCardVideoPreview(card);
       });
 
-      Site.addClass(root, 'is-enhanced');
+      addClass(root, 'is-enhanced');
       bindStack(state);
       return state;
     }
@@ -907,18 +915,18 @@ import { Site } from "./state.js";
     function animatePanel(panel, direction, immediate) {
       if (!panel) return;
 
-      Site.removeClass(panel, 'is-animating');
-      Site.removeClass(panel, 'is-from-right');
-      Site.removeClass(panel, 'is-from-left');
+      removeClass(panel, 'is-animating');
+      removeClass(panel, 'is-from-right');
+      removeClass(panel, 'is-from-left');
       if (!direction || immediate || mediaMatches(REDUCED_MOTION_QUERY)) return;
 
       panel.offsetWidth;
-      Site.addClass(panel, 'is-animating');
-      Site.addClass(panel, direction < 0 ? 'is-from-left' : 'is-from-right');
+      addClass(panel, 'is-animating');
+      addClass(panel, direction < 0 ? 'is-from-left' : 'is-from-right');
       panel.addEventListener('animationend', function handleAnimationEnd() {
-        Site.removeClass(panel, 'is-animating');
-        Site.removeClass(panel, 'is-from-right');
-        Site.removeClass(panel, 'is-from-left');
+        removeClass(panel, 'is-animating');
+        removeClass(panel, 'is-from-right');
+        removeClass(panel, 'is-from-left');
         panel.removeEventListener('animationend', handleAnimationEnd);
       });
     }
@@ -942,7 +950,7 @@ import { Site } from "./state.js";
       currentTab = name;
       buttons.forEach(function (button) {
         var active = button === activeButton;
-        Site.toggleClass(button, 'is-active', active);
+        toggleClass(button, 'is-active', active);
         button.setAttribute('aria-selected', String(active));
         button.setAttribute('tabindex', active ? '0' : '-1');
       });
@@ -952,12 +960,13 @@ import { Site } from "./state.js";
         panel.setAttribute('aria-hidden', String(!active));
       });
 
+      loadVideoPosters(activePanel);
       renderStack(stacks[name], { immediate: config.immediate });
       animatePanel(activePanel, direction, config.immediate);
       updateIndicator(activeButton, config.immediate);
 
       if (config.scrollTabIntoView) {
-        Site.scrollElementIntoView(activeButton, config.immediate);
+        scrollElementIntoView(activeButton, config.immediate);
       }
       if (config.focusTab) activeButton.focus();
       if (config.updateHash) updateHash(name);
@@ -1011,7 +1020,7 @@ import { Site } from "./state.js";
     });
 
     window.addEventListener('resize', function () {
-      Site.requestFrame(function () {
+      requestFrame(function () {
         updateIndicator(getButton(currentTab), true);
       });
     });
@@ -1037,11 +1046,11 @@ import { Site } from "./state.js";
 
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(function () {
-        Site.requestFrame(function () {
+        requestFrame(function () {
           updateIndicator(getButton(currentTab), true);
         });
       });
     }
   }
 
-Site.initGalleryTabs = initGalleryTabs;
+export { initGalleryTabs };

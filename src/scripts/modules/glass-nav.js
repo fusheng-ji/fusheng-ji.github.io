@@ -1,4 +1,4 @@
-import { Site } from "./state.js";
+import { addClass, removeClass, toArray } from "./core.js";
 import { SiteGlass } from "./glass.js";
 
   var REDUCED_TRANSPARENCY_QUERY = '(prefers-reduced-transparency: reduce)';
@@ -7,6 +7,7 @@ import { SiteGlass } from "./glass.js";
 
   var NAV_LINK_RADIUS = 16;
   var materialFrame = 0;
+  var resizeTimer = 0;
   var materialRect = null;
   var materialState = {
     x: 28,
@@ -233,7 +234,7 @@ import { SiteGlass } from "./glass.js";
     var navbar = getNavbar();
     if (!navbar) return;
 
-    Site.toArray(navbar.querySelectorAll('.navbar-links a')).forEach(ensureNavLinkChip);
+    toArray(navbar.querySelectorAll('.navbar-links a')).forEach(ensureNavLinkChip);
   }
 
   function teardownNavbar() {
@@ -324,8 +325,8 @@ import { SiteGlass } from "./glass.js";
         SiteGlass.render(chip);
       }
     });
-    Site.addClass(chip, 'is-nav-glass-active');
-    Site.addClass(link, 'is-nav-glass-active');
+    addClass(chip, 'is-nav-glass-active');
+    addClass(link, 'is-nav-glass-active');
     chip.setAttribute('data-nav-glass-active', 'true');
   }
 
@@ -338,8 +339,8 @@ import { SiteGlass } from "./glass.js";
     }
 
     clearNavLinkGlassAttrs(chip);
-    Site.removeClass(chip, 'is-nav-glass-active');
-    Site.removeClass(link, 'is-nav-glass-active');
+    removeClass(chip, 'is-nav-glass-active');
+    removeClass(link, 'is-nav-glass-active');
     chip.removeAttribute('data-nav-glass-active');
   }
 
@@ -348,7 +349,7 @@ import { SiteGlass } from "./glass.js";
   }
 
   function clearActiveNavLinkGlass() {
-    Site.toArray(document.querySelectorAll('.navbar-links a.is-nav-glass-active')).forEach(function (link) {
+    toArray(document.querySelectorAll('.navbar-links a.is-nav-glass-active')).forEach(function (link) {
       unmountNavLinkGlass(link);
     });
   }
@@ -366,7 +367,7 @@ import { SiteGlass } from "./glass.js";
 
     prepareNavLinks();
 
-    Site.toArray(navbar.querySelectorAll('.navbar-links a')).forEach(function (link) {
+    toArray(navbar.querySelectorAll('.navbar-links a')).forEach(function (link) {
       link.addEventListener('focus', function () {
         mountNavLinkGlass(link);
       });
@@ -386,7 +387,7 @@ import { SiteGlass } from "./glass.js";
   }
 
   function syncActiveNavLinkGlass() {
-    Site.toArray(document.querySelectorAll('.nav-link-chip[data-nav-glass-active="true"]')).forEach(function (chip) {
+    toArray(document.querySelectorAll('.nav-link-chip[data-nav-glass-active="true"]')).forEach(function (chip) {
       applyProportionalNavLinkGlass(chip);
       if (SiteGlass) {
         SiteGlass.render(chip);
@@ -464,8 +465,8 @@ import { SiteGlass } from "./glass.js";
 
   window.addEventListener('resize', function () {
     materialRect = null;
-    window.clearTimeout(Site._siteGlassResizeTimer);
-    Site._siteGlassResizeTimer = window.setTimeout(syncSiteGlassNav, 180);
+    window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(syncSiteGlassNav, 180);
   });
 
   bindMediaChange(REDUCED_TRANSPARENCY_QUERY);
@@ -473,4 +474,4 @@ import { SiteGlass } from "./glass.js";
   bindMediaChange(FINE_POINTER_QUERY);
   bindMediaChange('(max-width: 900px)');
 
-Site.initSiteGlassNav = initSiteGlassNav;
+export { initSiteGlassNav };

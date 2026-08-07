@@ -1,6 +1,6 @@
+@import url("../fonts.css");
 @import url("../tokens.css");
 @import url("../components/navigation.css");
-@import url("../components/site-glass.css");
 
 :root {
       --paper: #eef3f8;

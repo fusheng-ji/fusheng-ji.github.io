@@ -1,5 +1,3 @@
-import { Site } from "./state.js";
-
   function toArray(list) {
     return Array.prototype.slice.call(list || []);
   }
@@ -64,12 +62,6 @@ import { Site } from "./state.js";
       element = element.parentElement;
     }
     return null;
-  }
-
-  function removeNode(node) {
-    if (node && node.parentNode) {
-      node.parentNode.removeChild(node);
-    }
   }
 
   function requestFrame(callback) {
@@ -341,27 +333,23 @@ import { Site } from "./state.js";
     });
   }
 
-  Site.toArray = toArray;
-  Site.ready = ready;
-  Site.getElement = getElement;
-  Site.getData = getData;
-  Site.setData = setData;
-  Site.hasClass = hasClass;
-  Site.addClass = addClass;
-  Site.removeClass = removeClass;
-  Site.toggleClass = toggleClass;
-  Site.closest = closest;
-  Site.removeNode = removeNode;
-  Site.requestFrame = requestFrame;
-  Site.cancelFrame = cancelFrame;
-  Site.prefersReducedMotion = prefersReducedMotion;
-  Site.scrollElementIntoView = scrollElementIntoView;
-  Site.initInitialScrollPosition = initInitialScrollPosition;
-  Site.initToggleLinks = initToggleLinks;
-  Site.initMobileNavbar = initMobileNavbar;
-  Site.initHeroBioDisclosure = initHeroBioDisclosure;
-  Site.initNewsArchiveDisclosure = initNewsArchiveDisclosure;
-  Site.initLogoFallback = initLogoFallback;
-  Site.initSmoothScroll = initSmoothScroll;
-
-export { Site };
+export {
+  addClass,
+  cancelFrame,
+  closest,
+  getElement,
+  initHeroBioDisclosure,
+  initInitialScrollPosition,
+  initLogoFallback,
+  initMobileNavbar,
+  initNewsArchiveDisclosure,
+  initSmoothScroll,
+  initToggleLinks,
+  prefersReducedMotion,
+  ready,
+  removeClass,
+  requestFrame,
+  scrollElementIntoView,
+  toArray,
+  toggleClass,
+};

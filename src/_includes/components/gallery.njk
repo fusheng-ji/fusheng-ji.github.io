@@ -1,5 +1,5 @@
 {% import "components/ui.njk" as ui with context %}
-<section class="section-table gallery-section" aria-labelledby="gallery">
+<section class="section-table gallery-section" aria-labelledby="gallery" data-gallery-pending data-gallery-stylesheet="{{ 'gallery.css' | asset }}">
   <div class="section-cell">
     <span id="blender-gallery" aria-hidden="true"></span>
     <span id="threejs-arts" aria-hidden="true"></span>
@@ -34,7 +34,7 @@
             {% for media in gallery.blender %}
               <article class="gallery-card" data-gallery-card>
                 {% if media.type == "video" %}
-                  <video muted loop playsinline preload="none" poster="{{ media.poster }}" width="{{ media.width }}" height="{{ media.height }}" data-gallery-video-preview data-gallery-description="{{ media.alt }}">
+                  <video muted loop playsinline preload="none" data-poster="{{ media.poster }}" width="{{ media.width }}" height="{{ media.height }}" data-gallery-video-preview data-gallery-description="{{ media.alt }}">
                     <source src="{{ media.src }}" type="video/mp4">
                   </video>
                   <span class="gallery-video-preview-label" aria-hidden="true"><span class="gallery-video-preview-icon">▶</span><span>Video preview</span></span>
@@ -66,7 +66,7 @@
                     <div class="project-showcase-footer">
                       <span class="project-showcase-tech type-meta">{{ item.tech }}</span>
                       <a class="project-showcase-link" href="{{ item.url }}" target="_blank" rel="noopener noreferrer" aria-label="Open {{ item.title }}">
-                        <img src="{{ site.resourceTypes.project.icon }}" width="24" height="24" class="meta-icon" decoding="async" alt="">
+                        <img src="{{ site.resourceTypes.project.icon }}" width="24" height="24" class="meta-icon" loading="lazy" decoding="async" alt="">
                       </a>
                     </div>
                   </div>

@@ -1,5 +1,5 @@
 import { readdirSync, statSync, readFileSync } from "node:fs";
-import { join, relative, resolve } from "node:path";
+import { dirname, join, relative, resolve } from "node:path";
 
 const root = resolve(import.meta.dirname, "..");
 const ignored = new Set([
@@ -52,15 +52,42 @@ if (checkoutBytes > 35 * oneMiB) {
 const manifest = JSON.parse(
   readFileSync(resolve(root, "src/_data/asset-manifest.json"), "utf8"),
 );
-const homepageAssetBytes = ["site.css", "site.js"].reduce((sum, key) => {
-  const path = resolve(root, "public", manifest[key].slice(1));
-  return sum + statSync(path).size;
-}, 0);
+const publicRoot = resolve(root, "public");
+const siteCssPath = resolve(publicRoot, manifest["site.css"].slice(1));
+const siteJsPath = resolve(publicRoot, manifest["site.js"].slice(1));
+const siteCssBytes = statSync(siteCssPath).size;
 
-if (homepageAssetBytes > 120 * 1024) {
-  throw new Error(`Homepage CSS + JS is ${(homepageAssetBytes / 1024).toFixed(1)} KiB; expected < 120 KiB.`);
+function staticModuleBytes(entryPath, visited = new Set()) {
+  if (visited.has(entryPath)) return 0;
+  visited.add(entryPath);
+  const source = readFileSync(entryPath, "utf8");
+  const staticImport = /\bimport(?:[^\("'`;]*?\bfrom)?["']([^"']+)["']/g;
+  let total = statSync(entryPath).size;
+  let match;
+
+  while ((match = staticImport.exec(source))) {
+    if (!match[1].startsWith(".")) continue;
+    total += staticModuleBytes(resolve(dirname(entryPath), match[1]), visited);
+  }
+
+  return total;
+}
+
+const criticalJsBytes = staticModuleBytes(siteJsPath);
+if (siteCssBytes > 50 * 1024) {
+  throw new Error(`Homepage critical CSS is ${(siteCssBytes / 1024).toFixed(1)} KiB; expected <= 50 KiB.`);
+}
+if (criticalJsBytes > 12 * 1024) {
+  throw new Error(`Homepage critical JS is ${(criticalJsBytes / 1024).toFixed(1)} KiB; expected <= 12 KiB.`);
+}
+
+for (const icon of ["github-logo.png", "website_logo.png", "yotube_logo.png"]) {
+  const iconPath = resolve(publicRoot, "assets/misc", icon);
+  if (statSync(iconPath).size > 10 * 1024) {
+    throw new Error(`${icon} is ${(statSync(iconPath).size / 1024).toFixed(1)} KiB; expected <= 10 KiB.`);
+  }
 }
 
 console.log(
-  `Checkout ${(checkoutBytes / oneMiB).toFixed(2)} MiB; homepage CSS + JS ${(homepageAssetBytes / 1024).toFixed(1)} KiB.`,
+  `Checkout ${(checkoutBytes / oneMiB).toFixed(2)} MiB; critical CSS ${(siteCssBytes / 1024).toFixed(1)} KiB; critical JS ${(criticalJsBytes / 1024).toFixed(1)} KiB.`,
 );
