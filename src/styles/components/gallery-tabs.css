@@ -1,7 +1,7 @@
 /* Deferred desktop gallery tabs. */
 .gallery-tablist-wrap {
   width: 100%;
-  margin: 18px 0 14px;
+  margin: var(--space-section-content) 0 14px;
   overflow-x: auto;
   overflow-y: hidden;
   scroll-behavior: smooth;
@@ -158,7 +158,7 @@
 
 @media (max-width: 768px) {
   .gallery-tablist-wrap {
-    margin: 16px -4px 14px;
+    margin: var(--space-section-content) -4px 14px;
     padding: 0 4px 8px;
     scroll-snap-type: x proximity;
   }

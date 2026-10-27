@@ -1,5 +1,5 @@
 {% import "components/ui.njk" as ui with context %}
-<section class="section-table gallery-section" aria-labelledby="gallery" data-gallery-pending data-gallery-stylesheet="{{ 'gallery.css' | asset }}">
+<section class="section-table gallery-section home-section" aria-labelledby="gallery" data-gallery-pending data-gallery-stylesheet="{{ 'gallery.css' | asset }}">
   <div class="section-cell">
     <span id="blender-gallery" aria-hidden="true"></span>
     <span id="threejs-arts" aria-hidden="true"></span>
@@ -62,7 +62,7 @@
                       <h3 class="project-showcase-title type-entry-title">{{ item.title }}</h3>
                       <div class="project-showcase-side-meta type-meta"><span>{{ item.date }}</span></div>
                     </div>
-                    <p class="project-showcase-subtitle type-body">{{ item.subtitle }}</p>
+                    <p class="project-showcase-subtitle type-body type-body--entry-description">{{ item.subtitle }}</p>
                     <div class="project-showcase-footer">
                       <span class="project-showcase-tech type-meta">{{ item.tech }}</span>
                       <a class="project-showcase-link" href="{{ item.url }}" target="_blank" rel="noopener noreferrer" aria-label="Open {{ item.title }}">

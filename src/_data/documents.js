@@ -2,6 +2,7 @@ export default [
   {
     id: "thesis",
     sectionTitle: "Thesis",
+    institution: "Tongji University",
     title: "Endoscopic Scene Reconstruction with 4D Half Gaussian Splatting",
     year: 2025,
     type: "Master's Thesis",

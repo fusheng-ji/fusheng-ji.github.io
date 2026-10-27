@@ -55,7 +55,7 @@ import { getElement, toArray, toggleClass } from "./core.js";
       '      <div class="blog-card-top-meta">' + metaBits.join('') + '</div>',
       '    </div>',
       '    <h3 class="blog-card-title type-entry-title">' + title + '</h3>',
-      description ? '    <p class="blog-card-desc type-body">' + description + '</p>' : '',
+      description ? '    <p class="blog-card-desc type-body type-body--entry-description">' + description + '</p>' : '',
       '  </a>',
       '</article>'
     ].join('\n');

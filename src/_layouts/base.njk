@@ -15,6 +15,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="{{ 'site.css' | asset }}">
   <noscript><link rel="stylesheet" href="{{ 'gallery.css' | asset }}"></noscript>
+  {% if hasContributions %}<link rel="stylesheet" href="{{ 'contributions.css' | asset }}">{% endif %}
   <script type="application/ld+json">{{ metadata.jsonLd | json | safe }}</script>
   <script type="module" src="{{ 'site.js' | asset }}"></script>
 </head>

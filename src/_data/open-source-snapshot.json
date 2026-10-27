@@ -1,0 +1,354 @@
+{
+  "version": 2,
+  "username": "fusheng-ji",
+  "fetchedAt": "2026-10-27T00:49:19.519Z",
+  "summary": {
+    "total": 200,
+    "merged": 91,
+    "open": 93,
+    "closed": 16,
+    "repositories": 13
+  },
+  "repositories": [
+    {
+      "name": "Dao-AILab/flash-attention",
+      "total": 4,
+      "merged": 1,
+      "open": 3,
+      "closed": 0,
+      "stars": 25219,
+      "public": true,
+      "isContributor": true
+    },
+    {
+      "name": "facebookresearch/pytorch3d",
+      "total": 5,
+      "merged": 0,
+      "open": 5,
+      "closed": 0
+    },
+    {
+      "name": "feifeibear/long-context-attention",
+      "total": 1,
+      "merged": 0,
+      "open": 1,
+      "closed": 0
+    },
+    {
+      "name": "hao-ai-lab/FastVideo",
+      "total": 13,
+      "merged": 4,
+      "open": 9,
+      "closed": 0,
+      "stars": 4742,
+      "public": true,
+      "isContributor": true
+    },
+    {
+      "name": "huggingface/diffusers",
+      "total": 2,
+      "merged": 0,
+      "open": 1,
+      "closed": 1,
+      "stars": 34819,
+      "public": true,
+      "isContributor": false
+    },
+    {
+      "name": "modelscope/DiffSynth-Studio",
+      "total": 11,
+      "merged": 5,
+      "open": 0,
+      "closed": 6,
+      "stars": 13309,
+      "public": true,
+      "isContributor": true
+    },
+    {
+      "name": "nerfstudio-project/gsplat",
+      "total": 7,
+      "merged": 0,
+      "open": 7,
+      "closed": 0,
+      "stars": 5837,
+      "public": true,
+      "isContributor": false
+    },
+    {
+      "name": "NVIDIA/flashdreams",
+      "total": 3,
+      "merged": 0,
+      "open": 3,
+      "closed": 0
+    },
+    {
+      "name": "NVIDIA/warp",
+      "total": 5,
+      "merged": 0,
+      "open": 5,
+      "closed": 0
+    },
+    {
+      "name": "RL-Align/RL-Kernel",
+      "total": 42,
+      "merged": 6,
+      "open": 35,
+      "closed": 1,
+      "stars": 437,
+      "public": true,
+      "isContributor": true
+    },
+    {
+      "name": "sgl-project/sglang",
+      "total": 16,
+      "merged": 3,
+      "open": 9,
+      "closed": 4,
+      "stars": 38219,
+      "public": true,
+      "isContributor": false
+    },
+    {
+      "name": "vllm-project/vllm-omni",
+      "total": 9,
+      "merged": 5,
+      "open": 4,
+      "closed": 0,
+      "stars": 7372,
+      "public": true,
+      "isContributor": true
+    },
+    {
+      "name": "xdit-project/xDiT",
+      "total": 82,
+      "merged": 67,
+      "open": 11,
+      "closed": 4,
+      "stars": 2747,
+      "public": true,
+      "isContributor": true
+    }
+  ],
+  "pullRequests": [
+    {
+      "repository": "sgl-project/sglang",
+      "author": "fusheng-ji",
+      "number": 42422,
+      "title": "[diffusion] Fix TeaCache CFG state lifecycle and skip boundaries",
+      "url": "https://github.com/sgl-project/sglang/pull/42422",
+      "status": "merged",
+      "createdAt": "2026-10-03T19:39:58Z",
+      "updatedAt": "2026-10-09T15:20:14Z",
+      "mergedAt": "2026-10-09T15:20:14Z"
+    },
+    {
+      "repository": "sgl-project/sglang",
+      "author": "fusheng-ji",
+      "number": 42423,
+      "title": "[Fix] spectrum: reset Spectrum state per CFG branch",
+      "url": "https://github.com/sgl-project/sglang/pull/42423",
+      "status": "open",
+      "createdAt": "2026-10-03T19:47:38Z",
+      "updatedAt": "2026-10-24T17:47:34Z",
+      "mergedAt": null
+    },
+    {
+      "repository": "huggingface/diffusers",
+      "author": "fusheng-ji",
+      "number": 14942,
+      "title": "Add step-end callbacks and interrupt to modular pipelines",
+      "url": "https://github.com/huggingface/diffusers/pull/14942",
+      "status": "closed",
+      "createdAt": "2026-10-05T01:55:25Z",
+      "updatedAt": "2026-10-06T21:47:26Z",
+      "mergedAt": null
+    },
+    {
+      "repository": "Dao-AILab/flash-attention",
+      "author": "fusheng-ji",
+      "number": 2983,
+      "title": "[CuTe, Fwd, SM100] Prevent NaN contamination from unused V cache entries",
+      "url": "https://github.com/Dao-AILab/flash-attention/pull/2983",
+      "status": "merged",
+      "createdAt": "2026-10-08T20:39:57Z",
+      "updatedAt": "2026-10-21T23:57:51Z",
+      "mergedAt": "2026-10-21T23:57:51Z"
+    },
+    {
+      "repository": "Dao-AILab/flash-attention",
+      "author": "fusheng-ji",
+      "number": 2976,
+      "title": "[CuTe, SM100] Apply L2 swizzling to CLC scheduling and preserve STATIC 2CTA",
+      "url": "https://github.com/Dao-AILab/flash-attention/pull/2976",
+      "status": "open",
+      "createdAt": "2026-10-05T22:32:04Z",
+      "updatedAt": "2026-10-24T22:13:16Z",
+      "mergedAt": null
+    },
+    {
+      "repository": "Dao-AILab/flash-attention",
+      "author": "fusheng-ji",
+      "number": 2975,
+      "title": "[CuTe, Bwd, SM100] Fix dV epilogue for asymmetric head dimensions",
+      "url": "https://github.com/Dao-AILab/flash-attention/pull/2975",
+      "status": "open",
+      "createdAt": "2026-10-05T22:31:32Z",
+      "updatedAt": "2026-10-23T17:40:05Z",
+      "mergedAt": null
+    },
+    {
+      "repository": "modelscope/DiffSynth-Studio",
+      "author": "fusheng-ji",
+      "number": 1720,
+      "title": "fix(qwen-image): implement tiled encode and decode in QwenImageVAE",
+      "url": "https://github.com/modelscope/DiffSynth-Studio/pull/1720",
+      "status": "merged",
+      "createdAt": "2026-09-30T22:05:06Z",
+      "updatedAt": "2026-10-13T03:45:28Z",
+      "mergedAt": "2026-10-13T03:45:27Z"
+    },
+    {
+      "repository": "vllm-project/vllm-omni",
+      "author": "fusheng-ji",
+      "number": 8450,
+      "title": "[Bugfix] Keep the offline Omni engine alive after a non-fatal request error",
+      "url": "https://github.com/vllm-project/vllm-omni/pull/8450",
+      "status": "merged",
+      "createdAt": "2026-10-03T02:00:31Z",
+      "updatedAt": "2026-10-26T13:57:24Z",
+      "mergedAt": "2026-10-26T13:57:24Z"
+    },
+    {
+      "repository": "vllm-project/vllm-omni",
+      "author": "fusheng-ji",
+      "number": 8483,
+      "title": "[Bugfix][Diffusion] Stamp the CFG branch for TeaCache instead of inferring it from parity",
+      "url": "https://github.com/vllm-project/vllm-omni/pull/8483",
+      "status": "merged",
+      "createdAt": "2026-10-04T12:01:30Z",
+      "updatedAt": "2026-10-23T03:45:55Z",
+      "mergedAt": "2026-10-23T03:45:55Z"
+    },
+    {
+      "repository": "vllm-project/vllm-omni",
+      "author": "fusheng-ji",
+      "number": 8475,
+      "title": "[Bugfix][Diffusion] Keep TeaCache CFG branches separate in the shared CFG helper",
+      "url": "https://github.com/vllm-project/vllm-omni/pull/8475",
+      "status": "merged",
+      "createdAt": "2026-10-03T23:56:32Z",
+      "updatedAt": "2026-10-18T12:25:39Z",
+      "mergedAt": "2026-10-18T12:25:39Z"
+    },
+    {
+      "repository": "hao-ai-lab/FastVideo",
+      "author": "fusheng-ji",
+      "number": 1903,
+      "title": "[new-model] Add Wan2.1-VACE 1.3B/14B controllable video generation",
+      "url": "https://github.com/hao-ai-lab/FastVideo/pull/1903",
+      "status": "open",
+      "createdAt": "2026-09-30T00:25:05Z",
+      "updatedAt": "2026-10-17T23:46:44Z",
+      "mergedAt": null
+    },
+    {
+      "repository": "hao-ai-lab/FastVideo",
+      "author": "fusheng-ji",
+      "number": 1900,
+      "title": "[perf] Fuse VSA64 tile layout for SM100 inference",
+      "url": "https://github.com/hao-ai-lab/FastVideo/pull/1900",
+      "status": "merged",
+      "createdAt": "2026-09-29T23:50:16Z",
+      "updatedAt": "2026-10-07T22:31:59Z",
+      "mergedAt": "2026-10-07T22:31:59Z"
+    },
+    {
+      "repository": "hao-ai-lab/FastVideo",
+      "author": "fusheng-ji",
+      "number": 1899,
+      "title": "[perf] Default SM100 long-sequence Attn-QAT tiling",
+      "url": "https://github.com/hao-ai-lab/FastVideo/pull/1899",
+      "status": "merged",
+      "createdAt": "2026-09-29T20:27:27Z",
+      "updatedAt": "2026-10-07T22:14:39Z",
+      "mergedAt": "2026-10-07T22:14:39Z"
+    },
+    {
+      "repository": "xdit-project/xDiT",
+      "author": "fusheng-ji",
+      "number": 851,
+      "title": "fix(sp): handle padding across the remaining transformer wrappers",
+      "url": "https://github.com/xdit-project/xDiT/pull/851",
+      "status": "merged",
+      "createdAt": "2026-10-04T13:37:14Z",
+      "updatedAt": "2026-10-23T07:31:07Z",
+      "mergedAt": "2026-10-23T07:31:07Z"
+    },
+    {
+      "repository": "xdit-project/xDiT",
+      "author": "fusheng-ji",
+      "number": 902,
+      "title": "fix(runner): let one layer own DP, output rank and parallel VAE for legacy pipelines",
+      "url": "https://github.com/xdit-project/xDiT/pull/902",
+      "status": "merged",
+      "createdAt": "2026-10-07T13:43:11Z",
+      "updatedAt": "2026-10-25T21:49:53Z",
+      "mergedAt": "2026-10-25T21:49:53Z"
+    },
+    {
+      "repository": "xdit-project/xDiT",
+      "author": "fusheng-ji",
+      "number": 852,
+      "title": "fix(cosmos3): accept return_dict in the transformer wrapper",
+      "url": "https://github.com/xdit-project/xDiT/pull/852",
+      "status": "merged",
+      "createdAt": "2026-10-04T13:37:45Z",
+      "updatedAt": "2026-10-05T13:56:17Z",
+      "mergedAt": "2026-10-05T13:56:16Z"
+    },
+    {
+      "repository": "xdit-project/xDiT",
+      "author": "fusheng-ji",
+      "number": 823,
+      "title": "feat(models): add Wan2.1-T2V-1.3B support",
+      "url": "https://github.com/xdit-project/xDiT/pull/823",
+      "status": "merged",
+      "createdAt": "2026-10-04T02:48:04Z",
+      "updatedAt": "2026-10-06T07:15:09Z",
+      "mergedAt": "2026-10-06T07:15:08Z"
+    },
+    {
+      "repository": "RL-Align/RL-Kernel",
+      "author": "fusheng-ji",
+      "number": 576,
+      "title": "feat(h3): h3-flash-attention-v1, optional fused strict backend for h3_full_attention",
+      "url": "https://github.com/RL-Align/RL-Kernel/pull/576",
+      "status": "merged",
+      "createdAt": "2026-10-22T23:26:43Z",
+      "updatedAt": "2026-10-25T12:54:27Z",
+      "mergedAt": "2026-10-25T12:54:27Z"
+    },
+    {
+      "repository": "RL-Align/RL-Kernel",
+      "author": "fusheng-ji",
+      "number": 467,
+      "title": "[WS1][CUDA][Qwen3-Next] C1: zero-centred RMSNorm references and CUDA kernel (RFC #428 stack 2/4)",
+      "url": "https://github.com/RL-Align/RL-Kernel/pull/467",
+      "status": "merged",
+      "createdAt": "2026-10-04T01:41:53Z",
+      "updatedAt": "2026-10-26T15:14:20Z",
+      "mergedAt": "2026-10-26T15:14:20Z"
+    },
+    {
+      "repository": "RL-Align/RL-Kernel",
+      "author": "fusheng-ji",
+      "number": 468,
+      "title": "[WS1][CUDA][Qwen3-Next] Gated RMSNorm CUDA kernel for the GDN block (RFC #428 stack 3/4)",
+      "url": "https://github.com/RL-Align/RL-Kernel/pull/468",
+      "status": "open",
+      "createdAt": "2026-10-04T02:07:57Z",
+      "updatedAt": "2026-10-27T00:07:07Z",
+      "mergedAt": null
+    }
+  ]
+}

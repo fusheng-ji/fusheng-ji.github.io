@@ -1,10 +1,8 @@
-a {
-  color: #2a6fbb;
-  text-decoration: none;
-}
+a,
+a:visited,
 a:focus,
 a:hover {
-  color: #d9822b;
+  color: inherit;
   text-decoration: none;
 }
 
@@ -52,32 +50,9 @@ strong {
   display: block;
   white-space: nowrap;
 }
-.inherit-link,
-.inherit-link:focus,
-.inherit-link:hover {
-  color: inherit;
-}
-
 .hero-name-line {
   margin: 0;
   text-align: center;
-}
-
-.hero-name-line .name-ruby {
-  ruby-align: center;
-  ruby-position: over;
-}
-
-.hero-name-line .name-ruby rt {
-  font-family: 'Lato', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
-  font-size: 0.42em;
-  font-weight: 700;
-  font-style: normal;
-  letter-spacing: 0.02em;
-  line-height: 1.15;
-  color: #4a6074;
-  text-transform: none;
-  white-space: nowrap;
 }
 
 .semantic-heading {
@@ -85,8 +60,8 @@ strong {
 }
 
 .publication-note {
-  margin-top: 4px;
-  color: #666;
+  margin: 8px 0 0;
+  color: var(--color-muted);
 }
 
 /* Global tags: for publications / experiences / projects / thesis */

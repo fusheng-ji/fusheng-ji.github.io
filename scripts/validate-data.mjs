@@ -10,8 +10,21 @@ import projects from "../src/_data/projects.js";
 import researchAreas from "../src/_data/researchAreas.js";
 import gallery from "../src/_data/gallery.js";
 import site from "../src/_data/site.js";
+import openSource from "../src/_data/openSource.js";
 
 const root = resolve(import.meta.dirname, "..");
+const { selection, categories } = openSource();
+const contributionCategoryIds = new Set(categories.map(category => category.id));
+const contributionIds = new Set();
+for (const item of selection) {
+  const key = `${item.repository}#${item.number}`;
+  if (contributionIds.has(key) || typeof item.description !== "string" || !item.description.trim()
+    || !contributionCategoryIds.has(item.category)
+    || (item.mechanism !== undefined && (typeof item.mechanism !== "string" || !item.mechanism.trim()))) {
+    throw new Error(`Incomplete selected contribution ${item.repository}#${item.number}`);
+  }
+  contributionIds.add(key);
+}
 const schema = JSON.parse(
   readFileSync(resolve(root, "src/_schemas/content.schema.json"), "utf8"),
 );

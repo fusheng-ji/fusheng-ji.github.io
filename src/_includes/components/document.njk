@@ -1,30 +1,34 @@
 {% import "components/ui.njk" as ui with context %}
-<section class="document-section" aria-labelledby="{{ document.id }}">
+<section class="document-section home-section" aria-labelledby="{{ document.id }}">
   {{ ui.sectionHeading(document.id, document.sectionTitle) }}
   <article class="section-table experience-entry {{ document.className }}">
     <div class="entry-media-cell">
       {{ ui.mediaStack(document.media) }}
-      <div class="entry-media-tags">{{ ui.researchTag(document.area, researchAreas) }}</div>
     </div>
     <div class="entry-content-cell">
       <div class="publication-title-stack document-title-row">
         <h3 class="entry-title type-entry-title">{{ document.title }}</h3>
         <div class="publication-meta-row document-year"><span class="entry-meta type-meta">{{ document.year }}</span></div>
+        {% if document.institution %}<p class="document-school-subtitle type-secondary">{{ document.institution }}</p>{% endif %}
       </div>
-      <div class="split-row experience-detail-row document-meta-row">
+      <div class="split-row experience-detail-row document-meta-row entry-type-row">
         <span class="experience-type type-meta type-meta--uppercase">{{ document.type }}</span>
         {{ ui.resourceLinks(document.links, site, document.title + " resources") }}
       </div>
+      <div class="entry-controls">
+        <details class="entry-tldr">
+          <summary class="entry-tldr-toggle type-caption" aria-label="TL;DR — {{ document.title }}">TL;DR</summary>
+          <div class="entry-tldr-content"><p class="entry-summary type-body type-body--entry-description">{{ document.summary }}</p></div>
+        </details>
+        {# Research topic badge temporarily hidden.
+        <div class="entry-control-tag">{{ ui.researchTag(document.area, researchAreas) }}</div>
+        #}
+      </div>
       {% if document.authors %}
-        <div class="entry-block">
-          {{ ui.entryGroupLabel("Authors") }}
+        <div class="entry-block entry-authors">
           {{ ui.authors(document.authors) }}
         </div>
       {% endif %}
-      <div class="entry-block">
-        {{ ui.entryGroupLabel("Overview") }}
-        <p class="entry-summary type-body">{{ document.summary }}</p>
-      </div>
     </div>
   </article>
 </section>

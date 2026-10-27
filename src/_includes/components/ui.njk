@@ -1,5 +1,5 @@
 {% macro sectionHeading(id, title, note="") %}
-  <header class="section-cell">
+  <header class="section-cell section-heading-row">
     <h2 class="semantic-heading section-heading type-section-title" id="{{ id }}">{{ title }}</h2>
     {% if note %}<p class="publication-note type-caption">{{ note }}</p>{% endif %}
   </header>
@@ -12,7 +12,7 @@
 {% macro researchTag(areaId, areas, interest=false) %}
   {% for area in areas %}
     {% if area.id == areaId %}
-      <span class="{{ 'research-interest-tag' if interest else 'tag' }} tag-domain-{{ area.theme }} type-tag" {% if interest %}role="listitem"{% endif %}>{{ area.label }}</span>
+      <span class="{{ 'research-interest-tag' if interest else 'tag entry-category-tag' }} tag-domain-{{ area.theme }} type-tag" {% if interest %}role="listitem"{% endif %}>{{ area.label }}</span>
     {% endif %}
   {% endfor %}
 {% endmacro %}
@@ -30,14 +30,18 @@
     {% if eager %}fetchpriority="high"{% endif %}>
 {% endmacro %}
 
-{% macro resourceLinks(links, site, label="Resources") %}
+{% macro resourceLinks(links, site, label="Resources", mode="icons") %}
   {% if links and links.length %}
-    <div class="entry-links" role="group" aria-label="{{ label }}">
+    <div class="entry-links{{ ' entry-links--text' if mode == 'text' }}" role="group" aria-label="{{ label }}">
       {% for link in links %}
         {% set resource = site.resourceTypes[link.type] %}
         <a href="{{ link.url }}"
+          {% if mode == "text" %}class="resource-text-link resource-text-link--{{ resource.colorGroup }} type-resource-control"{% endif %}
           aria-label="{{ link.label or resource.label }}"
           {% if link.external %}target="_blank" rel="noopener noreferrer"{% endif %}>
+          {% if mode == "text" %}
+            {{ resource.textLabel }}
+          {% else %}
           <img
             src="{{ resource.icon }}"
             width="24"
@@ -46,6 +50,7 @@
             loading="lazy"
             decoding="async"
             alt="">
+          {% endif %}
         </a>
       {% endfor %}
     </div>

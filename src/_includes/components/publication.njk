@@ -4,26 +4,31 @@
     <div class="entry-visual-stack">
       <div class="entry-visual">{{ ui.image(publication.media, false, "teaser-img") }}</div>
     </div>
-    <div class="entry-media-tags">{{ ui.researchTag(publication.area, researchAreas) }}</div>
   </div>
   <div class="entry-content-cell">
     <div class="publication-title-stack">
       <h3 class="entry-title type-entry-title">{{ publication.title }}</h3>
+      {# Research topic badge temporarily hidden.
+      <div class="publication-controls">
+        <div class="publication-control-tag">{{ ui.researchTag(publication.area, researchAreas) }}</div>
+      </div>
+      #}
       <div class="publication-meta-row {{ 'publication-meta-row-inline' if publication.award }}">
         <span class="entry-meta type-meta type-meta--uppercase">{{ publication.venue }}, {{ publication.year }}</span>
         {% if publication.award %}
           <span class="entry-side-note publication-award type-caption"><a href="{{ publication.award.url }}">{{ publication.award.label }}</a></span>
         {% endif %}
-        {{ ui.resourceLinks(publication.links, site, publication.title + " resources") }}
       </div>
     </div>
-    <div class="entry-block">
-      {{ ui.entryGroupLabel("Authors") }}
+    <div class="entry-block entry-authors">
       {{ ui.authors(publication.authors) }}
     </div>
-    <div class="entry-block">
-      {{ ui.entryGroupLabel("Overview") }}
-      <p class="entry-summary type-body">{{ publication.summary }}</p>
+    <div class="publication-actions">
+      <details class="publication-tldr">
+        <summary class="publication-tldr-toggle type-resource-control" aria-label="TL;DR — {{ publication.title }}">TL;DR</summary>
+        <p class="entry-summary type-body type-body--entry-description">{{ publication.summary }}</p>
+      </details>
+      <div class="publication-resources">{{ ui.resourceLinks(publication.links, site, publication.title + " resources", "text") }}</div>
     </div>
   </div>
 </article>

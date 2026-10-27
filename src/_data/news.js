@@ -5,7 +5,7 @@ export default [
   },
   {
     date: "10/2025",
-    body: 'Our paper <a href="https://openaccess.thecvf.com/content/ICCV2025W/E2E3D/html/Xia_CSG-Fusion_Consistent_Sparse-View_Gaussian_Splatting_via_Matching-based_Fusion_ICCVW_2025_paper.html">CSG-Fusion</a> received the <strong>Best Paper Award</strong> at the <em>ICCV 2025 Workshop E2E3D</em> (workshop track).',
+    body: 'Our paper <a href="https://openaccess.thecvf.com/content/ICCV2025W/E2E3D/html/Xia_CSG-Fusion_Consistent_Sparse-View_Gaussian_Splatting_via_Matching-based_Fusion_ICCVW_2025_paper.html">CSG-Fusion</a> received the <strong>Best Paper Award</strong> at the <em>ICCV 2025 Workshop E2E3D</em>.',
   },
   {
     date: "08/2025",
@@ -25,7 +25,8 @@ export default [
   },
   {
     date: "01/2024",
-    body: 'I joined <a href="https://cvg.cit.tum.de/">TUM-CVG</a> and <a href="https://www.mdsi.tum.de/en/di-lab/tum-di-lab/">TUM-DI-LAB</a> under the co-supervision of <a href="https://cvg.cit.tum.de/members/xiya">Prof. Yan Xia</a> and <a href="https://chuanxiaz.com/">Prof. Chuanxia Zheng</a>.',
+    // Historical news uses names without applying their current faculty titles.
+    body: 'I joined <a href="https://cvg.cit.tum.de/">TUM-CVG</a> and <a href="https://www.mdsi.tum.de/en/di-lab/tum-di-lab/">TUM-DI-LAB</a> under the co-supervision of <a href="https://cvg.cit.tum.de/members/xiya">Yan Xia</a> and <a href="https://chuanxiaz.com/">Chuanxia Zheng</a>.',
   },
   {
     date: "05/2023",

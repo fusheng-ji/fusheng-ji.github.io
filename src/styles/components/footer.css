@@ -39,27 +39,13 @@
   display: inline-flex;
   align-items: center;
   min-height: 30px;
-  color: var(--color-link);
-  text-decoration: underline;
-  text-decoration-color: rgba(42, 111, 187, 0.32);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.22em;
-  transition:
-    color var(--transition-fast),
-    text-decoration-color var(--transition-fast);
-}
-
-.footer-template-link:hover {
-  color: var(--color-link-hover);
-  text-decoration-color: currentColor;
+  transition: text-decoration-color var(--transition-fast);
 }
 
 .footer-template-link:focus-visible {
-  color: var(--color-link-hover);
   outline: var(--focus-ring);
   outline-offset: var(--focus-offset);
   border-radius: 3px;
-  text-decoration-color: currentColor;
 }
 
 .footer-external-mark {

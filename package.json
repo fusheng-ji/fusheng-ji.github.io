@@ -10,7 +10,9 @@
   "scripts": {
     "dev": "node scripts/dev.mjs",
     "build": "node scripts/build-assets.mjs && eleventy",
-    "check": "npm run validate:data && npm run validate:html && npm run lint:js && npm run lint:css && npm run check:links && npm run check:size",
+    "check": "npm run validate:data && npm run test:contributions && npm run validate:html && npm run lint:js && npm run lint:css && npm run check:links && npm run check:size",
+    "sync:contributions": "node scripts/sync-contributions.mjs",
+    "test:contributions": "node --test scripts/tests/*.test.mjs",
     "validate:data": "node scripts/validate-data.mjs",
     "validate:html": "html-validate \"_site/**/*.html\"",
     "lint:js": "eslint \"src/**/*.js\" \"scripts/**/*.mjs\"",

@@ -22,10 +22,9 @@ export default {
   },
   navigation: [
     { label: "CV", url: "/assets/doc/WenboJi_CV_English.pdf", external: true },
-    { label: "Research", url: "#research" },
     { label: "Publications", url: "#Publications" },
+    { label: "Open Source", url: "#open-source" },
     { label: "Experiences", url: "#experiences" },
-    { label: "Education", url: "#education" },
     { label: "Blog", url: "#blog" },
   ],
   social: [
@@ -65,13 +64,13 @@ export default {
     },
   ],
   resourceTypes: {
-    arxiv: { label: "arXiv", icon: "/assets/misc/arxiv_logo.svg" },
-    paper: { label: "Paper", icon: "/assets/misc/paper_logo.svg" },
-    poster: { label: "Poster", icon: "/assets/misc/poster-logo.svg" },
-    project: { label: "Project website", icon: "/assets/misc/website_logo.png" },
-    code: { label: "GitHub", icon: "/assets/misc/github-logo.png" },
-    video: { label: "Video", icon: "/assets/misc/yotube_logo.png" },
-    ieee: { label: "IEEE", icon: "/assets/misc/ieee-logo.svg", className: "ieee-inline-logo" },
-    pdf: { label: "PDF", icon: "/assets/misc/paper_logo.svg" },
+    arxiv: { textLabel: "arXiv", colorGroup: "arxiv", label: "arXiv", icon: "/assets/misc/arxiv_logo.svg" },
+    paper: { textLabel: "Paper", colorGroup: "paper", label: "Paper", icon: "/assets/misc/paper_logo.svg" },
+    poster: { textLabel: "Poster", colorGroup: "poster", label: "Poster", icon: "/assets/misc/poster-logo.svg" },
+    project: { textLabel: "Website", colorGroup: "website", label: "Project website", icon: "/assets/misc/website_logo.png" },
+    code: { textLabel: "Code", colorGroup: "code", label: "GitHub", icon: "/assets/misc/github-logo.png" },
+    video: { textLabel: "Video", colorGroup: "video", label: "Video", icon: "/assets/misc/yotube_logo.png" },
+    ieee: { textLabel: "Paper", colorGroup: "paper", label: "IEEE", icon: "/assets/misc/ieee-logo.svg", className: "ieee-inline-logo" },
+    pdf: { textLabel: "PDF", colorGroup: "paper", label: "PDF", icon: "/assets/misc/paper_logo.svg" },
   },
 };

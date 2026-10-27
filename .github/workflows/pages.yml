@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: '17 6 * * 1'
 
 permissions:
   contents: read
@@ -32,6 +34,11 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Sync open-source contributions
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: npm run sync:contributions
 
       - name: Build
         run: npm run build

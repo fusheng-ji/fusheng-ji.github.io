@@ -11,6 +11,8 @@ export default [
       height: 320,
       alt: "ViDS teaser showing identity-preserving portrait animation driven by 3D face normal maps",
     },
+    // Author order and correspondence: https://arxiv.org/pdf/2607.24124v1, p. 1.
+    // This remains a preprint; no proceedings version was found (2026-10-27).
     authors: [
       { name: "Wenbo Ji", featured: true },
       { name: "Davide Davoli" },
@@ -49,6 +51,8 @@ export default [
       height: 361,
       alt: "CSG-Fusion teaser image",
     },
+    // CVF accepted paper, p. 2653: Yan Xia and Wenbo Ji contributed equally;
+    // Yan Xia is the corresponding author (checked 2026-10-27).
     authors: [
       { name: "Yan Xia", equal: true, corresponding: true },
       { name: "Wenbo Ji", featured: true, equal: true },
@@ -91,13 +95,15 @@ export default [
       height: 724,
       alt: "LiteTracker teaser image",
     },
+    // Springer: https://doi.org/10.1007/978-3-032-05127-1_30.
+    // Correspondence to Mert Asim Karaoglu; no equal-contribution mark in the MICCAI PDF.
     authors: [
-      { name: "Mert Asim Karaoglu" },
+      { name: "Mert Asim Karaoglu", corresponding: true },
       { name: "Wenbo Ji", featured: true },
       { name: "Ahmed Abbas" },
       { name: "Nassir Navab" },
       { name: "Benjamin Busam" },
-      { name: "Alexander Ladikos", corresponding: true },
+      { name: "Alexander Ladikos" },
     ],
     summary:
       "Causal temporal feature reuse with prior-motion initialization for accurate, low-latency online tissue tracking. It ran approximately 7× faster than its predecessor and 2× faster than prior state of the art, reaching 29.67 ms P95 for 1,024 points.",
@@ -140,6 +146,9 @@ export default [
       height: 360,
       alt: "RE0 teaser image",
     },
+    // Order cross-checked against the ICRA proceedings; equal contributions against
+    // https://micro-han.github.io/ and correspondence against Gang Wei's Tongji profile.
+    // IEEE full-text footnotes remain unverified (2026-10-27); retain existing flags.
     authors: [
       { name: "Xiaohan Yan", equal: true },
       { name: "Zijian Jiang", equal: true },

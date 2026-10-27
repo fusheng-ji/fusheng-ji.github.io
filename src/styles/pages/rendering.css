@@ -1,4 +1,5 @@
 @import url("../fonts.css");
+@import url("../tokens.css");
 
 :root {
   --ink: #2f3e4d;
@@ -21,7 +22,7 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--body);
-  font-family: Lato, "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.65;
 }

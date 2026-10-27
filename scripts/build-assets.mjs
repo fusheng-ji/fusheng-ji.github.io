@@ -16,6 +16,7 @@ const entryPoints = [
   ["site.css", "src/styles/main.css"],
   ["desktop.css", "src/styles/desktop.css"],
   ["gallery.css", "src/styles/gallery.css"],
+  ["contributions.css", "src/styles/components/contributions.css"],
   ["site.js", "src/scripts/site.js"],
   ["page-404.css", "src/styles/pages/404.css"],
   ["page-404.js", "src/scripts/pages/404.js"],

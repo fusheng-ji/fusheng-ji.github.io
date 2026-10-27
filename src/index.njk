@@ -3,12 +3,13 @@ layout: base.njk
 permalink: /index.html
 title: Wenbo Ji
 description: Personal research portfolio for Wenbo Ji.
+hasContributions: true
 ---
 {% import "components/ui.njk" as ui with context %}
 
 <header class="section-table hero-name-table">
   <div class="hero-name-cell">
-    <h1 class="hero-name-line type-page-title"><span class="site-name">Wenbo Ji&nbsp;&nbsp;&nbsp;<ruby class="name-ruby" lang="zh-Latn-pinyin">嵇<rt>jī / yí</rt></ruby>文博</span></h1>
+    <h1 class="hero-name-line type-page-title"><span class="site-name">Wenbo Ji&nbsp;&nbsp;&nbsp;嵇文博</span></h1>
   </div>
 </header>
 
@@ -34,7 +35,7 @@ description: Personal research portfolio for Wenbo Ji.
   </div>
 </section>
 
-<section class="section-table" id="news-table" aria-labelledby="news">
+<section class="section-table home-section" id="news-table" aria-labelledby="news">
   <div class="section-cell" id="news-section">
     <div class="news-panel">
       <div class="news-panel-head"><h2 class="semantic-heading section-heading type-section-title" id="news">News</h2></div>
@@ -57,7 +58,7 @@ description: Personal research portfolio for Wenbo Ji.
   </div>
 </section>
 
-<section class="section-table" id="research-section" aria-labelledby="research">
+<section class="section-table home-section" id="research-section" aria-labelledby="research">
   <div class="section-cell">
     <div class="research-interests-panel">
       <h2 class="semantic-heading section-heading type-section-title" id="research">Research Interests</h2>
@@ -65,31 +66,38 @@ description: Personal research portfolio for Wenbo Ji.
         {% for item in researchArc %}
           <li class="research-arc-item">
             <span class="research-arc-dot" aria-hidden="true"></span>
-            <h3 class="research-arc-label type-group-label">{{ item.label }}</h3>
+            <h3 class="research-arc-label type-subsection-title">{{ item.label }}</h3>
             <p class="research-arc-text type-body">{{ item.text }}</p>
           </li>
         {% endfor %}
       </ol>
+      {# Research topic badges temporarily hidden.
       <div class="research-tags" id="research-tags" role="list" aria-label="Research interest areas">
         {% for area in researchAreas %}{{ ui.researchTag(area.id, researchAreas, true) }}{% endfor %}
       </div>
+      #}
     </div>
   </div>
 </section>
 
-<section id="publications-mount" aria-labelledby="Publications">
+<section class="home-section" id="publications-mount" aria-labelledby="Publications">
   {{ ui.sectionHeading("Publications", "Selected Publications", "* equal contribution, † corresponding author") }}
   {% for publication in publications %}{% include "components/publication.njk" %}{% endfor %}
 </section>
 
-<section id="experiences-mount" aria-labelledby="experiences">
+{% include "components/open-source.njk" %}
+
+<section class="home-section" id="experiences-mount" aria-labelledby="experiences">
   {{ ui.sectionHeading("experiences", "Experiences") }}
   {% for experience in experiences %}{% include "components/experience.njk" %}{% endfor %}
 </section>
 
+{# Thesis temporarily omitted from the homepage; retain component and data for restoration.
 {% for document in documents %}{% include "components/document.njk" %}{% endfor %}
+#}
 
-<section id="education-mount" aria-labelledby="education">
+{# Education temporarily omitted from the homepage; retain markup and data for restoration.
+<section class="home-section" id="education-mount" aria-labelledby="education">
   {{ ui.sectionHeading("education", "Education") }}
   {% for item in education %}
     <article class="section-table experience-entry education-entry" id="education-{{ item.id }}">
@@ -100,13 +108,16 @@ description: Personal research portfolio for Wenbo Ji.
         <p class="education-mobile-line type-body">{{ item.degree }}</p>
         <div class="split-row"><h3 class="entry-title type-entry-title">{{ item.institution }}</h3><span class="text-right experience-side-meta"><span class="entry-meta type-meta">{{ item.date }}</span></span></div>
         <p class="education-degree type-body">{{ item.degree }}</p>
-        <p class="education-note type-body">{{ item.note | safe }}</p>
+        <p class="education-note type-body type-body--entry-description">{{ item.note | safe }}</p>
       </div>
     </article>
   {% endfor %}
 </section>
 
-<section id="awards-mount" aria-labelledby="awards">
+#}
+
+{# Selected Awards temporarily omitted from the homepage; retain markup and data for restoration.
+<section class="home-section" id="awards-mount" aria-labelledby="awards">
   {{ ui.sectionHeading("awards", "Selected Awards") }}
   {% for award in awards %}
     <article class="section-table experience-entry award-entry" id="award-{{ award.id }}">
@@ -116,12 +127,9 @@ description: Personal research portfolio for Wenbo Ji.
   {% endfor %}
 </section>
 
-<section id="projects-mount" aria-labelledby="projects">
-  {{ ui.sectionHeading("projects", "Projects") }}
-  {% for project in projects %}{% include "components/project.njk" %}{% endfor %}
-</section>
+#}
 
-<section class="section-table blog-section-table" aria-labelledby="blog">
+<section class="section-table blog-section-table home-section" aria-labelledby="blog">
   <div class="section-cell">
     <div class="blog-panel">
       <div class="blog-header">
@@ -133,6 +141,11 @@ description: Personal research portfolio for Wenbo Ji.
       </div>
     </div>
   </div>
+</section>
+
+<section class="home-section" id="projects-mount" aria-labelledby="projects">
+  {{ ui.sectionHeading("projects", "Projects") }}
+  {% for project in projects %}{% include "components/project.njk" %}{% endfor %}
 </section>
 
 {% include "components/gallery.njk" %}

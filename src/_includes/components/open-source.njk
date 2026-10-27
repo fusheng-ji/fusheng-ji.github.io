@@ -1,0 +1,61 @@
+<!--
+GitHub Octicons — MIT License. Copyright (c) 2026 GitHub Inc.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+<section class="home-section" id="open-source-section" aria-labelledby="open-source" data-contributions>
+  {{ ui.sectionHeading("open-source", "Open Source Contributions") }}
+  <div class="section-cell">
+    <div class="contributions-panel">
+      <div class="contributions-list" id="contributions-list">
+        {% for repository in openSource.repositoryGroups %}
+          <article class="contribution-repository" data-contribution-repository="{{ repository.name }}">
+            <header class="contribution-repository-head">
+              <div class="contribution-repository-heading">
+                <h3 class="contribution-repository-title type-entry-title"><a href="{{ repository.url }}" title="{{ repository.name | escape }}" target="_blank" rel="noopener noreferrer">{{ repository.label | escape }}</a></h3>
+                <ul class="contribution-categories" aria-label="Contribution types">
+                  {% for category in repository.categories %}
+                    <li><span class="tag entry-category-tag type-tag tag-domain-{{ category.theme }}" data-contribution-category="{{ category.id }}">{{ category.label | escape }}</span></li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </header>
+            <p class="contribution-repository-summary type-body type-body--entry-description">{{ repository.technicalSummary | escape }}</p>
+            {% if repository.mergedPullRequests.length %}
+            <details class="contribution-disclosure">
+              <summary class="contribution-toggle type-caption" aria-label="Merged PRs — {{ repository.label | escape }}"><svg class="contribution-toggle-arrow" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="m3 2 6 4-6 4Z"/></svg>Merged PRs</summary>
+              <ul class="contribution-entries" aria-label="Merged contributions to {{ repository.label | escape }}">
+              {% for pr in repository.mergedPullRequests %}
+                <li class="contribution-entry" data-contribution-state="{{ pr.status }}" data-contribution-number="{{ pr.number }}">
+                  <div class="contribution-content">
+                    <p class="contribution-description type-body type-body--entry-description"><span class="contribution-status contribution-status--{{ pr.status }}" role="img" aria-label="{{ pr.status | capitalize }}" title="{{ pr.status | capitalize }}">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.45 5.154A4.25 4.25 0 0 0 9.25 7.5h1.378a2.251 2.251 0 1 1 0 1.5H9.25A5.734 5.734 0 0 1 5 7.123v3.505a2.25 2.25 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.95-.218ZM4.25 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm8.5-4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM5 3.25a.75.75 0 1 0 0 .005V3.25Z"/></svg>
+                    </span><span class="contribution-text"><a class="contribution-pr-link" href="{{ pr.url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ repository.label | escape }} PR #{{ pr.number }}: {{ pr.description | escape }} ({{ pr.status | capitalize }})" title="{{ pr.title | escape }}">#{{ pr.number }} {{ pr.description | escape }}</a>
+                    {% if pr.mechanism %}<span class="contribution-tags"><span class="tag entry-category-tag type-tag contribution-mechanism">{{ pr.mechanism | escape }}</span></span>{% endif %}</span></p>
+                  </div>
+                </li>
+              {% endfor %}
+              </ul>
+            </details>
+            {% endif %}
+          </article>
+        {% else %}
+          <p class="contributions-empty type-body">No selected technical contributions are currently open or merged.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

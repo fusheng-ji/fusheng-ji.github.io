@@ -41,7 +41,7 @@
         radial-gradient(circle at 58% 82%, rgb(153 241 214 / 22%), transparent 34%),
         linear-gradient(180deg, #f8fafc 0%, #edf3f8 48%, #e8eef5 100%);
       color: var(--body);
-      font-family: Lato, "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+      font-family: var(--font-sans);
       font-size: 16px;
       line-height: 1.65;
     }
