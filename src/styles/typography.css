@@ -135,8 +135,8 @@
 .type-meta a,
 .type-caption a {
   font: inherit;
-  color: inherit;
-  text-decoration-line: none;
+  color: var(--color-link);
+  text-decoration-line: underline;
   text-decoration-color: var(--link-underline-color);
   text-decoration-thickness: var(--link-underline-thickness);
   text-underline-offset: var(--link-underline-offset);
@@ -144,7 +144,7 @@
 }
 
 :is(.type-body, .type-secondary, .type-meta, .type-caption) a:is(:hover, :focus-visible) {
-  color: inherit;
+  color: var(--color-link);
   text-decoration-line: underline;
   text-decoration-color: currentColor;
 }

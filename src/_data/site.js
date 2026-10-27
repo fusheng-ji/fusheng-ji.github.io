@@ -2,7 +2,7 @@ export default {
   url: "https://fusheng-ji.github.io",
   title: "Wenbo Ji",
   description:
-    "Personal research portfolio for Wenbo Ji, working on visual computing, human motion video diffusion, 3D/4D reconstruction, tracking, and robot world models.",
+    "Wenbo Ji works on controllable video generation and ML systems for video diffusion, with a background in 3D/4D vision (TUM M.Sc., Agile Robots SE).",
   language: "en",
   updated: "2026-08-05",
   template: {

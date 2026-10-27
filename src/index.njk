@@ -1,23 +1,33 @@
 ---
 layout: base.njk
 permalink: /index.html
-title: Wenbo Ji
-description: Personal research portfolio for Wenbo Ji.
+title: Wenbo Ji (嵇文博) · Video Generation & ML Systems
 hasContributions: true
 ---
 {% import "components/ui.njk" as ui with context %}
 
 <header class="section-table hero-name-table">
   <div class="hero-name-cell">
-    <h1 class="hero-name-line type-page-title"><span class="site-name">Wenbo Ji&nbsp;&nbsp;&nbsp;嵇文博</span></h1>
+    <h1 class="hero-name-line type-page-title"><span class="site-name">Wenbo Ji <span class="site-name-zh" lang="zh-Hans">嵇文博</span></span></h1>
+    <p class="hero-tagline type-body">{{ hero.tagline }}</p>
+    <p class="hero-role type-secondary">{{ hero.role }}</p>
+    <nav class="hero-cta" aria-label="Profiles">
+      <a class="hero-cta-link hero-cta-link--primary type-control" href="/assets/doc/WenboJi_CV_English.pdf" target="_blank" rel="noopener noreferrer">CV (PDF)</a>
+      <a class="hero-cta-link type-control" href="https://scholar.google.com/citations?user=ZTUMczEAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Google Scholar</a>
+      <a class="hero-cta-link type-control" href="https://github.com/fusheng-ji/" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a class="hero-cta-link type-control" href="mailto:{{ site.owner.email }}">Email</a>
+    </nav>
   </div>
 </header>
 
 <section class="section-table hero-intro-table" aria-label="About Wenbo Ji">
   <div class="hero-bio-cell">
-    {% for paragraph in hero.paragraphs %}
-      <p class="type-body {{ 'type-body--emphasis hero-phd-line' if loop.index == 3 }} {{ 'hero-background' if loop.index == 4 }}">{{ paragraph | safe }}</p>
-    {% endfor %}
+    <p class="type-body">{{ hero.summary | safe }}</p>
+    <p class="type-body type-body--emphasis hero-phd-line">{{ hero.availability }}</p>
+    <details class="hero-bio-more" open>
+      <summary class="hero-bio-more-toggle type-control">Background</summary>
+      {% for paragraph in hero.more %}<p class="type-body {{ 'hero-background' if loop.last }}">{{ paragraph | safe }}</p>{% endfor %}
+    </details>
   </div>
   <div class="hero-media-cell">
     <div class="hero-media-layout">

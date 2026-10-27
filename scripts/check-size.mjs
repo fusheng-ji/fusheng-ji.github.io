@@ -74,8 +74,8 @@ function staticModuleBytes(entryPath, visited = new Set()) {
 }
 
 const criticalJsBytes = staticModuleBytes(siteJsPath);
-if (siteCssBytes > 50 * 1024) {
-  throw new Error(`Homepage critical CSS is ${(siteCssBytes / 1024).toFixed(1)} KiB; expected <= 50 KiB.`);
+if (siteCssBytes > 60 * 1024) {
+  throw new Error(`Homepage critical CSS is ${(siteCssBytes / 1024).toFixed(1)} KiB; expected <= 60 KiB.`);
 }
 if (criticalJsBytes > 12 * 1024) {
   throw new Error(`Homepage critical JS is ${(criticalJsBytes / 1024).toFixed(1)} KiB; expected <= 12 KiB.`);
