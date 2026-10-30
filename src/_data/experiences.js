@@ -173,16 +173,16 @@ export default [
         alt: "University of Oxford logo",
       },
       {
-        src: "/assets/institution_logo/tum.png",
-        width: 200,
-        height: 90,
-        alt: "Technical University of Munich logo",
-      },
-      {
         src: "/assets/institution_logo/tum-di-lab.webp",
         width: 400,
         height: 225,
         alt: "TUM DI Lab logo",
+      },
+      {
+        src: "/assets/institution_logo/tum.png",
+        width: 200,
+        height: 90,
+        alt: "Technical University of Munich logo",
       },
     ],
     contributions: [

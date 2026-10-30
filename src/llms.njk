@@ -29,7 +29,7 @@ Canonical profile: {{ site.url }}/
 
 ## Projects
 {% for project in projects %}
-- {{ project.title }} — {{ project.focus }}
+- {{ project.title }}
   {{ project.summary | striptags | safe }}
   {% for link in project.links %}{{ link.label }}: {{ link.url }}
   {% endfor %}

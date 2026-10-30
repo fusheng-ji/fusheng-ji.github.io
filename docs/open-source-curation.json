@@ -1,0 +1,1104 @@
+{
+  "reviewedOn": "2026-10-30",
+  "timezone": "Europe/Berlin",
+  "githubMetadataAsOf": "2026-10-29T23:53:27.488Z",
+  "targetRoles": [
+    "Research Engineer",
+    "Research Scientist",
+    "Member of Technical Staff"
+  ],
+  "focus": [
+    "video generation",
+    "multimodal AI",
+    "embodied AI",
+    "spatial intelligence"
+  ],
+  "candidatePool": {
+    "publicExternalPullRequests": 201,
+    "source": "https://github.com/search?q=is%3Apr+is%3Apublic+author%3Afusheng-ji+-user%3Afusheng-ji&type=pullrequests"
+  },
+  "criteria": [
+    "Substantive implementation or systems design",
+    "Measured impact with explicit baseline and hardware",
+    "Correctness and reliability with reproducible validation",
+    "Coverage of distinct capabilities relevant to the homepage focus"
+  ],
+  "displayPolicy": {
+    "eligibleStatuses": [
+      "open",
+      "merged"
+    ],
+    "excludedStatuses": [
+      "draft",
+      "closed"
+    ],
+    "perRepositoryLimit": 5,
+    "order": "Manual technical priority within each repository, independent of merge status; repositories sorted by stars",
+    "statusSource": "Refreshable GitHub snapshot, not this historical review record",
+    "omittedHashtags": [
+      "PyTorch",
+      "Diffusers",
+      "CUDA",
+      "VideoGeneration",
+      "DiffusionModels",
+      "ModelIntegration",
+      "InferenceServing",
+      "RLPostTraining",
+      "VAE",
+      "Triton",
+      "CuTeDSL",
+      "NumericalConsistency",
+      "MemoryOptimization",
+      "AttentionKernels",
+      "Caching",
+      "KernelScheduling",
+      "TensorLayouts",
+      "MemorySafety"
+    ],
+    "hashtagPolicy": "No PR tags are rendered; mechanism taxonomy is retained only as internal curation metadata.",
+    "renderedHashtags": false
+  },
+  "technicalTags": {
+    "tensor": {
+      "label": "TensorParallelism",
+      "jobTerms": [
+        "distributed inference",
+        "tensor sharding"
+      ]
+    },
+    "sequence": {
+      "label": "SequenceParallelism",
+      "jobTerms": [
+        "distributed execution",
+        "sequence sharding"
+      ]
+    },
+    "cfgparallel": {
+      "label": "CFGParallelism",
+      "jobTerms": [
+        "distributed diffusion inference",
+        "guidance branch execution"
+      ]
+    },
+    "expert": {
+      "label": "ExpertParallelism",
+      "jobTerms": [
+        "mixture of experts",
+        "distributed inference"
+      ]
+    },
+    "data": {
+      "label": "DataParallelism",
+      "jobTerms": [
+        "prompt sharding",
+        "distributed inference"
+      ]
+    },
+    "headpadding": {
+      "label": "HeadShardPadding",
+      "jobTerms": [
+        "sequence-parallel correctness",
+        "attention reduction alignment"
+      ]
+    },
+    "splitkv": {
+      "label": "SplitKVReduction",
+      "jobTerms": [
+        "attention numerical correctness",
+        "GPU reduction order"
+      ]
+    },
+    "cfgcache": {
+      "label": "CFGCacheIsolation",
+      "jobTerms": [
+        "diffusion caching correctness",
+        "conditional/unconditional branch isolation"
+      ]
+    },
+    "requestreset": {
+      "label": "RequestStateReset",
+      "jobTerms": [
+        "request lifecycle",
+        "cache invalidation"
+      ]
+    },
+    "tmazero": {
+      "label": "TMAZeroFill",
+      "jobTerms": [
+        "GPU memory safety",
+        "tensor memory accelerator"
+      ]
+    },
+    "kvbounds": {
+      "label": "KVCacheBounds",
+      "jobTerms": [
+        "sequence-bounded memory access",
+        "attention correctness"
+      ]
+    },
+    "l2swizzle": {
+      "label": "L2Swizzling",
+      "jobTerms": [
+        "GPU cache locality",
+        "attention scheduling"
+      ]
+    },
+    "clc": {
+      "label": "CLCScheduling",
+      "jobTerms": [
+        "GPU work scheduling",
+        "SM100 attention"
+      ]
+    },
+    "static2cta": {
+      "label": "Static2CTA",
+      "jobTerms": [
+        "GPU launch geometry",
+        "attention scheduling"
+      ]
+    },
+    "staging": {
+      "label": "TMEMSMEMStaging",
+      "jobTerms": [
+        "GPU memory staging",
+        "attention backward correctness"
+      ]
+    },
+    "asymmetric": {
+      "label": "AsymmetricHeadDims",
+      "jobTerms": [
+        "attention gradient correctness",
+        "MHA/GQA support"
+      ]
+    },
+    "vaetiling": {
+      "label": "VAETiling",
+      "jobTerms": [
+        "memory-efficient generation",
+        "tiled encoding and decoding"
+      ]
+    },
+    "overlap": {
+      "label": "OverlapBlending",
+      "jobTerms": [
+        "tiled VAE reconstruction",
+        "tile boundary handling"
+      ]
+    },
+    "reliability": {
+      "label": "FaultIsolation",
+      "jobTerms": [
+        "request failure recovery",
+        "inference serving reliability"
+      ]
+    },
+    "batchcleanup": {
+      "label": "PartialBatchCleanup",
+      "jobTerms": [
+        "request abort handling",
+        "inference engine reuse"
+      ]
+    },
+    "layoutfusion": {
+      "label": "LayoutTransformFusion",
+      "jobTerms": [
+        "fused GPU kernels",
+        "video inference optimization"
+      ]
+    },
+    "vsa64": {
+      "label": "VSA64Scatter",
+      "jobTerms": [
+        "sparse attention layouts",
+        "GPU data movement"
+      ]
+    },
+    "controlshard": {
+      "label": "ControlStreamSharding",
+      "jobTerms": [
+        "conditional video generation",
+        "sequence-parallel control streams"
+      ]
+    },
+    "attentiontiling": {
+      "label": "AttentionTiling",
+      "jobTerms": [
+        "GPU attention optimization",
+        "quantization-aware training"
+      ]
+    },
+    "maskedtail": {
+      "label": "MaskedTailHandling",
+      "jobTerms": [
+        "long-sequence GPU kernels",
+        "attention boundary handling"
+      ]
+    },
+    "contiguous": {
+      "label": "ContiguousLayouts",
+      "jobTerms": [
+        "tensor stride optimization",
+        "cuDNN input layout"
+      ]
+    },
+    "validpadding": {
+      "label": "ValidTokenPadding",
+      "jobTerms": [
+        "sequence-parallel correctness",
+        "padded token masking"
+      ]
+    },
+    "joint": {
+      "label": "JointAttention",
+      "jobTerms": [
+        "joint-token handling",
+        "sequence-parallel attention"
+      ]
+    },
+    "outputrank": {
+      "label": "OutputRankOwnership",
+      "jobTerms": [
+        "distributed output coordination",
+        "data-parallel inference"
+      ]
+    },
+    "parallelvae": {
+      "label": "ParallelVAE",
+      "jobTerms": [
+        "distributed video decoding",
+        "VAE rank ownership"
+      ]
+    },
+    "fixedreduction": {
+      "label": "FixedOrderReduction",
+      "jobTerms": [
+        "deterministic attention",
+        "batch-invariant GPU reductions"
+      ]
+    },
+    "invariantattention": {
+      "label": "BatchInvariantAttention",
+      "jobTerms": [
+        "deterministic forward and backward",
+        "attention numerical consistency"
+      ]
+    },
+    "parity": {
+      "label": "RolloutRecomputeParity",
+      "jobTerms": [
+        "cross-engine numerical consistency",
+        "RL rollout and training alignment"
+      ]
+    },
+    "fixedrouting": {
+      "label": "FixedOrderRouting",
+      "jobTerms": [
+        "deterministic expert execution",
+        "expert-parallel inference"
+      ]
+    },
+    "zeroworkspace": {
+      "label": "ZeroWorkspaceBackward",
+      "jobTerms": [
+        "GPU memory optimization",
+        "log-probability gradients"
+      ]
+    },
+    "chunkedbackward": {
+      "label": "ChunkedBackward",
+      "jobTerms": [
+        "bounded peak memory",
+        "log-probability gradients"
+      ]
+    }
+  },
+  "selected": [
+    {
+      "repository": "sgl-project/sglang",
+      "number": 43152,
+      "source": "https://github.com/sgl-project/sglang/pull/43152",
+      "statusAtReview": "open",
+      "headRevision": "150a86e309a7114b9efea973208ea6266fc3a748",
+      "title": "[Feat] ovis-image: add native Ovis-Image support",
+      "upstreamLabels": [
+        "documentation",
+        "npu",
+        "diffusion"
+      ],
+      "hashtags": [
+        "#TensorParallelism",
+        "#SequenceParallelism",
+        "#CFGParallelism"
+      ],
+      "technicalEvidenceAndScope": "Native Ovis DiT/Qwen3/VAE integration, TP and Ulysses/Ring/CFG execution. Single-GPU comparison is bit-exact against pinned Diffusers; TP2×SP2 four-B200 replay is within BF16 control noise, not a universal distributed bitwise guarantee. NPU is an upstream label, not a verified capability asserted here.",
+      "tagSources": [
+        "upstream PR title/body and linked validation reports",
+        "implementation files; upstream labels where technically applicable"
+      ],
+      "implementationPaths": [
+        "docs/cookbook/diffusion/Ovis/Ovis-Image.mdx",
+        "docs/cookbook/diffusion/intro.mdx",
+        "docs/docs.json",
+        "docs/src/snippets/configs/ATH-MaaS/ovis-image.jsx",
+        "docs/src/snippets/diffusion/model-catalog.jsx",
+        "python/sglang/multimodal_gen/configs/models/dits/ovis_image.py",
+        "python/sglang/multimodal_gen/configs/models/encoders/qwen3.py",
+        "python/sglang/multimodal_gen/configs/pipeline_configs/base.py",
+        "python/sglang/multimodal_gen/configs/pipeline_configs/ovis_image.py",
+        "python/sglang/multimodal_gen/configs/sample/ovis_image.py",
+        "python/sglang/multimodal_gen/runtime/layers/layernorm.py",
+        "python/sglang/multimodal_gen/runtime/layers/usp.py"
+      ],
+      "presentation": {
+        "topic": "Native diffusion execution",
+        "linkLabel": "Native Ovis-Image execution",
+        "mechanism": "Native Ovis-Image 7B execution with checkpoint mapping, CFG, and TP/SP.",
+        "validation": "Single-B200 exact-tier output matches pinned Diffusers bit-for-bit; four-B200 replay is validated within BF16 control error."
+      }
+    },
+    {
+      "repository": "sgl-project/sglang",
+      "number": 43242,
+      "source": "https://github.com/sgl-project/sglang/pull/43242",
+      "statusAtReview": "open",
+      "headRevision": "5b378813aed6b6bb803a036b6122eff5099d58c4",
+      "title": "[Fix] diffusion: keep TP/Ulysses head shards on the unsharded torch SDPA kernel",
+      "upstreamLabels": [
+        "diffusion"
+      ],
+      "hashtags": [
+        "#HeadShardPadding",
+        "#SplitKVReduction",
+        "#SequenceParallelism"
+      ],
+      "technicalEvidenceAndScope": "PyTorch flash-SDPA split-KV reduction depends on head count. Exact-tier padded query execution aligns head-sharded reductions. Tested two-B200 USP cases; the default lossless-performance tier is unchanged. This is a correctness result, not a speedup.",
+      "tagSources": [
+        "upstream PR title/body and linked validation reports",
+        "implementation files; upstream labels where technically applicable"
+      ],
+      "implementationPaths": [
+        "python/sglang/multimodal_gen/runtime/layers/attention/backends/sdpa.py",
+        "python/sglang/multimodal_gen/runtime/layers/attention/layer.py",
+        "python/sglang/multimodal_gen/runtime/models/bridges/mova_dual_tower.py",
+        "python/sglang/multimodal_gen/runtime/models/dits/anima.py",
+        "python/sglang/multimodal_gen/runtime/models/dits/cosmos3video.py",
+        "python/sglang/multimodal_gen/runtime/models/dits/ernie_image.py",
+        "python/sglang/multimodal_gen/runtime/models/dits/flux.py",
+        "python/sglang/multimodal_gen/runtime/models/dits/flux3.py",
+        "python/sglang/multimodal_gen/runtime/models/dits/flux_2.py",
+        "python/sglang/multimodal_gen/runtime/models/dits/glm_image.py",
+        "python/sglang/multimodal_gen/runtime/models/dits/helios.py",
+        "python/sglang/multimodal_gen/runtime/models/dits/hunyuanvideo.py"
+      ],
+      "presentation": {
+        "topic": "Sharded attention consistency",
+        "linkLabel": "Exact-tier head shards",
+        "mechanism": "Pad exact-tier SDPA queries to align TP/Ulysses head-shard reduction paths.",
+        "validation": "Operator and two-B200 checks are bit-identical; whole-model differences remain. Default lossless-tier behavior is unchanged."
+      }
+    },
+    {
+      "repository": "sgl-project/sglang",
+      "number": 42422,
+      "source": "https://github.com/sgl-project/sglang/pull/42422",
+      "statusAtReview": "merged",
+      "headRevision": "4b9039dec7e2f802e827ab24cff925908ab37e73",
+      "title": "[diffusion] Fix TeaCache CFG state lifecycle and skip boundaries",
+      "upstreamLabels": [
+        "run-ci",
+        "diffusion"
+      ],
+      "hashtags": [
+        "#CFGCacheIsolation",
+        "#RequestStateReset"
+      ],
+      "technicalEvidenceAndScope": "TeaCache state is separated across conditional/unconditional CFG and reset across request/denoising windows. Reused Wan instances match fresh instances on one/two B200s. Does not claim authorship of the underlying cache algorithm or attribute all caching speedup to this fix.",
+      "tagSources": [
+        "upstream PR title/body and linked validation reports",
+        "implementation files; upstream labels where technically applicable"
+      ],
+      "implementationPaths": [
+        "python/sglang/multimodal_gen/configs/sample/teacache.py",
+        "python/sglang/multimodal_gen/runtime/cache/teacache.py",
+        "python/sglang/multimodal_gen/runtime/models/dits/wanvideo.py",
+        "python/sglang/multimodal_gen/test/test_utils.py",
+        "python/sglang/multimodal_gen/test/unit/test_sampling_params.py",
+        "python/sglang/multimodal_gen/test/unit/test_teacache_lifecycle.py"
+      ],
+      "presentation": {
+        "topic": "Request-local cache state",
+        "linkLabel": "CFG-aware TeaCache lifecycle",
+        "mechanism": "Isolate TeaCache CFG branches and reset cached steps and residuals per request.",
+        "validation": "Reused Wan instances match fresh execution bit-for-bit on 1/2 B200s under serial/parallel CFG."
+      }
+    },
+    {
+      "repository": "Dao-AILab/flash-attention",
+      "number": 2983,
+      "source": "https://github.com/Dao-AILab/flash-attention/pull/2983",
+      "statusAtReview": "merged",
+      "headRevision": "17e9f35b4c0f13efc7ed9ed2d9ac4197392ca9f3",
+      "title": "[CuTe, Fwd, SM100] Prevent NaN contamination from unused V cache entries",
+      "upstreamLabels": [],
+      "hashtags": [
+        "#TMAZeroFill",
+        "#KVCacheBounds"
+      ],
+      "technicalEvidenceAndScope": "CuTe DSL/CUDA sequence-bounded TMA zero-fill avoids unused V values containing NaN. Real-GPU 146-case regression and clean memcheck; finite controls preserve output/LSE bits. B200 latency differences range from -0.26% to +2.22%; no speedup claim.",
+      "tagSources": [
+        "upstream PR title/body and linked validation reports",
+        "implementation files; upstream labels where technically applicable"
+      ],
+      "implementationPaths": [
+        "flash_attn/cute/copy_utils.py",
+        "flash_attn/cute/flash_fwd_sm100.py",
+        "tests/cute/test_flash_attn.py"
+      ],
+      "presentation": {
+        "topic": "Cache-safe attention forward",
+        "linkLabel": "Sequence-bounded V-cache loads",
+        "mechanism": "Sequence-bound nonpaged V-cache TMA loads and zero-fill unused rows to prevent NaN contamination.",
+        "validation": "B200: 146 GPU regressions and memory checks pass; valid-value NaNs and paged KV retain their contracts."
+      }
+    },
+    {
+      "repository": "Dao-AILab/flash-attention",
+      "number": 2976,
+      "source": "https://github.com/Dao-AILab/flash-attention/pull/2976",
+      "statusAtReview": "open",
+      "headRevision": "092fc735b57d3a3a6a9f3dbd607f48f2c367109e",
+      "title": "[CuTe, SM100] Apply L2 swizzling to CLC scheduling and preserve STATIC 2CTA",
+      "upstreamLabels": [],
+      "hashtags": [
+        "#L2Swizzling",
+        "#CLCScheduling",
+        "#Static2CTA"
+      ],
+      "technicalEvidenceAndScope": "Integration/adaptation of XYX’s co-authored CLC L2-swizzle scheduling, preserving STATIC 2CTA compatibility. B200 BF16 causal benchmark: 180 shapes, 1CTA with CLC enabled, 1.039× geomean and 1.012× median speedup; 138 faster/42 slower, maximum median regression 3.53%. Not an across-the-board gain or an original scheduling invention claim.",
+      "tagSources": [
+        "upstream PR title/body and linked validation reports",
+        "implementation files; upstream labels where technically applicable"
+      ],
+      "implementationPaths": [
+        "flash_attn/cute/tile_scheduler.py",
+        "tests/cute/test_lpt_clc_swizzle.py",
+        "tests/cute/test_lpt_scheduler.py"
+      ],
+      "presentation": {
+        "topic": "Cache locality and launch geometry",
+        "linkLabel": "CLC L2 swizzling and STATIC 2CTA",
+        "mechanism": "Adapt co-authored CLC L2 swizzling while preserving STATIC 2CTA.",
+        "validation": "B200 BF16 causal, 180 1CTA/CLC shapes: 1.039× geomean speedup; 42 shapes regress."
+      }
+    },
+    {
+      "repository": "Dao-AILab/flash-attention",
+      "number": 2975,
+      "source": "https://github.com/Dao-AILab/flash-attention/pull/2975",
+      "statusAtReview": "open",
+      "headRevision": "b2be06f65391a3fdca4d19167ee32908f1cda7d7",
+      "title": "[CuTe, Bwd, SM100] Fix dV epilogue for asymmetric head dimensions",
+      "upstreamLabels": [],
+      "hashtags": [
+        "#TMEMSMEMStaging",
+        "#AsymmetricHeadDims"
+      ],
+      "technicalEvidenceAndScope": "CuTe DSL/CUDA attention backward: fix TMEM/SMEM dV epilogue widths for asymmetric Dqk/Dv in MHA/GQA. Numerical gradient correctness; no performance claim.",
+      "tagSources": [
+        "upstream PR title/body and linked validation reports",
+        "implementation files; upstream labels where technically applicable"
+      ],
+      "implementationPaths": [
+        "flash_attn/cute/flash_bwd_sm100.py",
+        "tests/cute/test_flash_attn.py"
+      ],
+      "presentation": {
+        "topic": "Asymmetric-head backward correctness",
+        "linkLabel": "Asymmetric dV memory staging",
+        "mechanism": "Separate dV TMEM/SMEM staging widths from Q/K for asymmetric head dimensions.",
+        "validation": "Targeted MHA/GQA gradient regressions cover silent backward errors."
+      }
+    },
+    {
+      "repository": "modelscope/DiffSynth-Studio",
+      "number": 1720,
+      "source": "https://github.com/modelscope/DiffSynth-Studio/pull/1720",
+      "statusAtReview": "merged",
+      "headRevision": "12bf35facf6ae6897b77d2e3dfc3fd1fff8fac6d",
+      "title": "fix(qwen-image): implement tiled encode and decode in QwenImageVAE",
+      "upstreamLabels": [],
+      "hashtags": [
+        "#VAETiling",
+        "#OverlapBlending"
+      ],
+      "technicalEvidenceAndScope": "QwenImageVAE PyTorch overlap tiling, edge handling and RGBA support. Isolated VAE, one B200, BF16, 2048², tile/stride 128/64: encode 7.77→2.15 GiB, decode 8.53→2.43 GiB. Decode PSNR 60.3 dB; overlap tiling is not bitwise-equivalent. Separate pipeline memory numbers are not mixed into these measurements.",
+      "tagSources": [
+        "upstream PR title/body and linked validation reports",
+        "implementation files; upstream labels where technically applicable"
+      ],
+      "implementationPaths": [
+        "diffsynth/models/qwen_image_vae.py"
+      ],
+      "presentation": {
+        "topic": "Memory-efficient VAE execution",
+        "linkLabel": "Overlapping Qwen-Image VAE tiles",
+        "mechanism": "Blend overlapping QwenImageVAE tiles for memory-efficient encoding and decoding.",
+        "validation": "One B200, 2048² BF16, tile/stride 128/64: isolated encode/decode peaks 7.77/8.53 → 2.15/2.43 GiB; tiled outputs differ slightly."
+      }
+    },
+    {
+      "repository": "vllm-project/vllm-omni",
+      "number": 8475,
+      "source": "https://github.com/vllm-project/vllm-omni/pull/8475",
+      "statusAtReview": "merged",
+      "headRevision": "4f86166260ed79ebe96fc3965e74c00417d2ce8b",
+      "title": "[Bugfix][Diffusion] Keep TeaCache CFG branches separate in the shared CFG helper",
+      "upstreamLabels": [
+        "bug",
+        "ready",
+        "diffusion"
+      ],
+      "hashtags": [
+        "#CFGCacheIsolation"
+      ],
+      "technicalEvidenceAndScope": "Shared CFG-context helper isolates TeaCache conditional/unconditional branches. Historical local SSIM/speed measurements predate the final uninitialized-group fallback correction and were not rerun, so numeric performance/quality claims are omitted from the homepage.",
+      "tagSources": [
+        "upstream PR title/body and linked validation reports",
+        "implementation files; upstream labels where technically applicable"
+      ],
+      "implementationPaths": [
+        "tests/diffusion/cache/test_teacache_cfg_group.py",
+        "tests/diffusion/distributed/test_cfg_parallel.py",
+        "tests/diffusion/distributed/test_pipeline_parallel.py",
+        "vllm_omni/diffusion/cache/teacache/hook.py",
+        "vllm_omni/diffusion/distributed/cfg_parallel.py",
+        "vllm_omni/diffusion/distributed/pipeline_parallel.py",
+        "vllm_omni/diffusion/models/flux/pipeline_flux.py",
+        "vllm_omni/diffusion/models/flux/pipeline_flux_kontext.py",
+        "vllm_omni/diffusion/models/qwen_image/cfg_parallel.py",
+        "vllm_omni/diffusion/models/qwen_image/pipeline_qwen_image.py"
+      ],
+      "presentation": {
+        "topic": "Guidance-aware cache ownership",
+        "linkLabel": "Shared CFG cache contexts",
+        "mechanism": "Separate conditional/unconditional TeaCache state through shared CFG contexts.",
+        "validation": "Regressions cover branch-local updates and fallback without an initialized distributed group."
+      }
+    },
+    {
+      "repository": "vllm-project/vllm-omni",
+      "number": 8450,
+      "source": "https://github.com/vllm-project/vllm-omni/pull/8450",
+      "statusAtReview": "merged",
+      "headRevision": "e87a6501c0f9db0e7c12698edee9dd2bcd4803fb",
+      "title": "[Bugfix] Keep the offline Omni engine alive after a non-fatal request error",
+      "upstreamLabels": [
+        "bug",
+        "ready",
+        "core"
+      ],
+      "hashtags": [
+        "#FaultIsolation",
+        "#PartialBatchCleanup"
+      ],
+      "technicalEvidenceAndScope": "Inference serving request-scoped exception handling and partial batch cleanup, including generator input, keep healthy engines reusable. GPU regression confirms a subsequent request succeeds; reliability rather than speedup.",
+      "tagSources": [
+        "upstream PR title/body and linked validation reports",
+        "implementation files; upstream labels where technically applicable"
+      ],
+      "implementationPaths": [
+        "docs/design/module/error_contracts.md",
+        "tests/engine/test_orchestrator.py",
+        "tests/entrypoints/test_omni_entrypoints.py",
+        "vllm_omni/entrypoints/omni.py",
+        "vllm_omni/entrypoints/omni_base.py"
+      ],
+      "presentation": {
+        "topic": "Request failure recovery",
+        "linkLabel": "Request isolation and batch cleanup",
+        "mechanism": "Isolate failed requests and clean up partially submitted batches.",
+        "validation": "GPU regressions preserve engine reuse for later requests, covering list and generator inputs."
+      }
+    },
+    {
+      "repository": "hao-ai-lab/FastVideo",
+      "number": 1900,
+      "source": "https://github.com/hao-ai-lab/FastVideo/pull/1900",
+      "statusAtReview": "merged",
+      "headRevision": "136ca124a045ae65c60a77fff8b655b979de1eaa",
+      "title": "[perf] Fuse VSA64 tile layout for SM100 inference",
+      "upstreamLabels": [
+        "type: perf",
+        "scope: training",
+        "scope: inference",
+        "scope: attention",
+        "scope: kernel",
+        "scope: infra",
+        "scope: distributed",
+        "scope: docs"
+      ],
+      "hashtags": [
+        "#LayoutTransformFusion",
+        "#VSA64Scatter"
+      ],
+      "technicalEvidenceAndScope": "New fused Triton VSA64 scatter/layout kernel for SM100 BF16 D128 tile64 inference. Wan2.1-VSA-T2V14B, 50 steps: one B200 194.20→168.10s (1.155×), SP2/two B200s 106.91→93.38s (1.145×). Supported measured outputs are bitwise equal. Layout microbenchmark 17.5× is not an end-to-end figure; old kernel-package fallback does not obtain this gain.",
+      "tagSources": [
+        "upstream PR title/body and linked validation reports",
+        "implementation files; upstream labels where technically applicable"
+      ],
+      "implementationPaths": [
+        "docs/attention/vsa/index.md",
+        "docs/contributing/env_vars.md",
+        "fastvideo-kernel/benchmarks/bench_vsa_tile_layout.py",
+        "fastvideo-kernel/python/fastvideo_kernel/triton_kernels/vsa_tile_layout.py",
+        "fastvideo-kernel/tests/test_vsa_tile_layout.py",
+        "fastvideo/attention/backends/video_sparse_attn.py",
+        "fastvideo/envs.py",
+        "fastvideo/pipelines/stages/denoising.py",
+        "fastvideo/tests/attention/test_vsa64_fused_layout.py"
+      ],
+      "presentation": {
+        "topic": "Fused sparse-attention data movement",
+        "linkLabel": "Fused VSA64 scatter and layouts",
+        "mechanism": "Fuse VSA64 scatter and layout transforms into one Triton kernel.",
+        "validation": "Wan2.1-VSA-T2V-14B, 50 steps, 1/2 B200s: 1.155×/1.145× speedup with bitwise-equal tested outputs (SM100 BF16, D128, tile64; inference only)."
+      }
+    },
+    {
+      "repository": "hao-ai-lab/FastVideo",
+      "number": 1903,
+      "source": "https://github.com/hao-ai-lab/FastVideo/pull/1903",
+      "statusAtReview": "open",
+      "headRevision": "61a5754d1424aef857337e0a4a07b245e1bac6ba",
+      "title": "[new-model] Add Wan2.1-VACE 1.3B/14B controllable video generation",
+      "upstreamLabels": [
+        "type: new-model",
+        "scope: training",
+        "scope: inference",
+        "scope: infra",
+        "scope: distributed",
+        "scope: docs",
+        "scope: model"
+      ],
+      "hashtags": [
+        "#ControlStreamSharding",
+        "#SequenceParallelism"
+      ],
+      "technicalEvidenceAndScope": "Wan-VACE 1.3B/14B model and pipeline integration, checkpoint mapping, control streams and SP sharding for image/video/mask conditioning. Tiny teacher-forced single-GPU comparison and FP32 SP2 tolerance 1e-5. BF16 SP2 is not bitwise; legacy Wan preservation is a separate bitwise test. No universal full-model generation parity claim.",
+      "tagSources": [
+        "upstream PR title/body and linked validation reports",
+        "implementation files; upstream labels where technically applicable"
+      ],
+      "implementationPaths": [
+        ".agents/lessons/2026-09-24_t5-arch-refresh-drops-tokenizer-kwargs.md",
+        ".pre-commit-config.yaml",
+        "docs-site/navigation.json",
+        "docs/design/inference_schema_parity_inventory.yaml",
+        "docs/inference/support_matrix.md",
+        "docs/inference/wan_vace.md",
+        "examples/inference/basic/basic_wan_vace.py",
+        "fastvideo/api/sampling_param.py",
+        "fastvideo/configs/models/dits/base.py",
+        "fastvideo/configs/models/encoders/__init__.py",
+        "fastvideo/configs/models/encoders/t5.py",
+        "fastvideo/configs/pipelines/wan.py"
+      ],
+      "presentation": {
+        "topic": "Sequence-parallel control streams",
+        "linkLabel": "Wan-VACE conditioning and sharding",
+        "mechanism": "Shard Wan-VACE 1.3B/14B image, video, and mask control streams across sequence-parallel ranks.",
+        "validation": "Teacher-forced checks compare against Diffusers; FP32 SP2 uses 1e-5 tolerance. BF16 parallel outputs are not bitwise-equivalent."
+      }
+    },
+    {
+      "repository": "hao-ai-lab/FastVideo",
+      "number": 1899,
+      "source": "https://github.com/hao-ai-lab/FastVideo/pull/1899",
+      "statusAtReview": "merged",
+      "headRevision": "12718a320f5c29d116ad6cd4d7fad6e4f2276581",
+      "title": "[perf] Default SM100 long-sequence Attn-QAT tiling",
+      "upstreamLabels": [
+        "type: perf",
+        "scope: kernel",
+        "scope: docs"
+      ],
+      "hashtags": [
+        "#AttentionTiling",
+        "#MaskedTailHandling"
+      ],
+      "technicalEvidenceAndScope": "Triton SM100 Attn-QAT full-tile/masked-tail forward loops and 64×128 backward tiling. B200 isolated 31200-token forward/backward latency reductions: 24.1%/9.3%. Fixed-batch Wan2.1-1.3B SP2, two B200s, forward+backward+AdamW step 1772.5→1579.6ms (10.9% lower), output/statistics/gradient bitwise parity. Not a complete training-run speedup.",
+      "tagSources": [
+        "upstream PR title/body and linked validation reports",
+        "implementation files; upstream labels where technically applicable"
+      ],
+      "implementationPaths": [
+        "docs/training/attn_qat.md",
+        "fastvideo-kernel/python/fastvideo_kernel/triton_kernels/attn_qat_train.py",
+        "fastvideo-kernel/tests/test_attn_qat_sm100_long_sequence.py",
+        "fastvideo-kernel/tests/test_attn_qat_train_routing.py"
+      ],
+      "presentation": {
+        "topic": "Long-sequence attention tiling",
+        "linkLabel": "SM100 Attn-QAT tile paths",
+        "mechanism": "Optimize Attn-QAT full-tile/masked-tail loops and 64×128 backward tiling.",
+        "validation": "Fixed-batch Wan2.1-1.3B SP2, two B200s: forward/backward/AdamW step latency falls 10.9%, preserving tested outputs and gradients bit-for-bit."
+      }
+    },
+    {
+      "repository": "xdit-project/xDiT",
+      "number": 861,
+      "source": "https://github.com/xdit-project/xDiT/pull/861",
+      "statusAtReview": "merged",
+      "headRevision": "88fd17264e3a7027c0d43f3e855306e0003f3a30",
+      "title": "perf(wan): keep the residual stream contiguous after patch embedding",
+      "upstreamLabels": [],
+      "hashtags": [
+        "#ContiguousLayouts",
+        "#SequenceParallelism"
+      ],
+      "technicalEvidenceAndScope": "PyTorch contiguous layout after Wan patch embedding avoids cuDNN non-contiguous input overhead. Wan1.3B BF16, 480×832, 81 frames, 50 steps, median of three B200 runs: one GPU 38.94→35.66s; Ulysses2 23.11→21.67s (6.3% lower); Ring2 22.52→20.94s (7.0% lower). Outputs bit-identical. Restores stock contiguous behavior rather than introducing a new cuDNN kernel.",
+      "tagSources": [
+        "upstream PR title/body and linked validation reports",
+        "implementation files; upstream labels where technically applicable"
+      ],
+      "implementationPaths": [
+        "tests/unit/model_executor/models/transformers/test_transformer_wan.py",
+        "xfuser/model_executor/models/transformers/transformer_causal_wan.py",
+        "xfuser/model_executor/models/transformers/transformer_wan.py",
+        "xfuser/model_executor/models/transformers/transformer_wan_vace.py"
+      ],
+      "presentation": {
+        "topic": "Contiguous patch-embedding layouts",
+        "linkLabel": "Wan patch-layout correction",
+        "mechanism": "Restore contiguous Wan patch embeddings for cuDNN execution.",
+        "validation": "Wan1.3B BF16, 480×832, 81 frames, 50 steps: two-B200 Ulysses/Ring median latency −6.3%/−7.0%, with bit-identical outputs."
+      }
+    },
+    {
+      "repository": "xdit-project/xDiT",
+      "number": 851,
+      "source": "https://github.com/xdit-project/xDiT/pull/851",
+      "statusAtReview": "merged",
+      "headRevision": "8420c1e401dd90651358e2e392009b9cf2d279b0",
+      "title": "fix(sp): handle padding across the remaining transformer wrappers",
+      "upstreamLabels": [],
+      "hashtags": [
+        "#ValidTokenPadding",
+        "#JointAttention",
+        "#SequenceParallelism"
+      ],
+      "technicalEvidenceAndScope": "Valid-token padding and joint-token handling across diffusion transformer wrappers and sequence-parallel attention, with unsupported layout guards. Eight-B200 node tests: exact outputs in reported ZImage/Cosmos3/QwenImage/LingBot cases; FLUX2 replay has ~9e-7 error. Do not generalize bitwise parity across every model/configuration.",
+      "tagSources": [
+        "upstream PR title/body and linked validation reports",
+        "implementation files; upstream labels where technically applicable"
+      ],
+      "implementationPaths": [
+        "tests/integration/accelerator/model_executor/models/test_sequence_parallel_padding.py",
+        "tests/integration/cpu/model_executor/layers/test_usp_sequence_parallel_pad.py",
+        "tests/unit/core/distributed/test_ssta_sequence_parallel.py",
+        "tests/unit/model_executor/layers/test_usp.py",
+        "tests/unit/model_executor/models/transformers/test_cosmos3_sp_pad_rows.py",
+        "tests/unit/model_executor/models/transformers/test_flux2_sp_pad_rows.py",
+        "tests/unit/model_executor/models/transformers/test_hunyuan_video15_sp_padding.py",
+        "tests/unit/model_executor/models/transformers/test_lingbot_video_sp_pad_rows.py",
+        "tests/unit/model_executor/models/transformers/test_ltx2_sp_pad_rows.py",
+        "tests/unit/model_executor/models/transformers/test_qwen_sp_padding.py",
+        "tests/unit/model_executor/models/transformers/test_transformers_utils.py",
+        "tests/unit/model_executor/models/transformers/test_wan_sp_pad_rows.py"
+      ],
+      "presentation": {
+        "topic": "Valid-token attention boundaries",
+        "linkLabel": "SP padding and joint tokens",
+        "mechanism": "Propagate valid-token bounds through padded sequence shards and joint attention, guarding unsupported layouts.",
+        "validation": "Eight-B200-node tests match selected ZImage/Cosmos3/QwenImage/LingBot references exactly; FLUX2 retains a small replay error."
+      }
+    },
+    {
+      "repository": "xdit-project/xDiT",
+      "number": 902,
+      "source": "https://github.com/xdit-project/xDiT/pull/902",
+      "statusAtReview": "merged",
+      "headRevision": "ca2c2bce48df5abc6b615de20ee89d46ec23a1f2",
+      "title": "fix(runner): let one layer own DP, output rank and parallel VAE for legacy pipelines",
+      "upstreamLabels": [],
+      "hashtags": [
+        "#DataParallelism",
+        "#OutputRankOwnership",
+        "#ParallelVAE"
+      ],
+      "technicalEvidenceAndScope": "Data-parallel prompt splitting exactly once, output-owner rank selection, parallel-VAE ownership and legacy SD3/FLUX PipeFusion coordination. Eight-B200 node configuration matrix combines DP/Ulysses/CFG. Fixes missing/duplicated outputs and ownership; no performance claim.",
+      "tagSources": [
+        "upstream PR title/body and linked validation reports",
+        "implementation files; upstream labels where technically applicable"
+      ],
+      "implementationPaths": [
+        "tests/integration/cpu/conftest.py",
+        "tests/integration/cpu/model_executor/models/runner_models/test_legacy_pipeline_wrapper.py",
+        "tests/integration/cpu/model_executor/pipelines/test_dp_last_group.py",
+        "tests/unit/model_executor/pipelines/test_legacy_wrapper_parallel_vae.py",
+        "tests/unit/model_executor/runner_models/test_base_model.py",
+        "tests/unit/model_executor/runner_models/test_flux.py",
+        "tests/unit/model_executor/runner_models/test_vae_lifecycle.py",
+        "xfuser/model_executor/models/runner_models/base_model.py",
+        "xfuser/model_executor/models/runner_models/flux.py",
+        "xfuser/model_executor/pipelines/base_pipeline.py"
+      ],
+      "presentation": {
+        "topic": "Distributed execution ownership",
+        "linkLabel": "DP, output rank, and parallel VAE",
+        "mechanism": "Give prompt sharding, output gathering, and parallel VAE decoding explicit ownership.",
+        "validation": "An eight-B200 DP/Ulysses/CFG matrix verifies missing/duplicated-output fixes and coordinated VAE collectives."
+      }
+    },
+    {
+      "repository": "RL-Align/RL-Kernel",
+      "number": 576,
+      "source": "https://github.com/RL-Align/RL-Kernel/pull/576",
+      "statusAtReview": "merged",
+      "headRevision": "ae8dff68413715fd75e0bd9c4a07c21b1667805e",
+      "title": "feat(h3): h3-flash-attention-v1, optional fused strict backend for h3_full_attention",
+      "upstreamLabels": [
+        "new-model",
+        "MiniMax-H3"
+      ],
+      "hashtags": [
+        "#FixedOrderReduction",
+        "#BatchInvariantAttention"
+      ],
+      "technicalEvidenceAndScope": "Fixed-order Triton flash attention, no atomic reduction, autotuning or split-KV; FP32 accumulators and P_hi+P_lo MMA. One H100, BF16 BSHD, 56 heads, D128, non-causal: up to 48× forward+backward versus strict deterministic reference PR #553 at 8349 tokens; still 1.6–2.3× slower than SDPA. Batch/head invariant on the tested GPU family; deterministic implementations are not necessarily bit-equal to each other.",
+      "tagSources": [
+        "upstream PR title/body and linked validation reports",
+        "implementation files; upstream labels where technically applicable"
+      ],
+      "implementationPaths": [
+        "docs/operators/README.md",
+        "docs/operators/h3-flash-attention.md",
+        "rl_engine/backends/shared/triton/attention/h3_flash.py",
+        "tests/backends/cuda/test_h3_flash_attention.py",
+        "tools/validation/models/h3_flash_attention_bench.py"
+      ],
+      "presentation": {
+        "topic": "Batch-invariant attention kernels",
+        "linkLabel": "Fixed-order H3 attention",
+        "mechanism": "Fixed-order Triton H3 attention without atomics or split-KV.",
+        "validation": "One H100, BF16 non-causal forward/backward: batch/head invariant, up to 48× vs strict deterministic reference at 8,349 tokens; still 1.6–2.3× slower than SDPA."
+      }
+    },
+    {
+      "repository": "RL-Align/RL-Kernel",
+      "number": 543,
+      "source": "https://github.com/RL-Align/RL-Kernel/pull/543",
+      "statusAtReview": "open",
+      "headRevision": "d78b22b38dd7e7f978d6968ed96d0ca7026cc9c4",
+      "title": "[WS1][CUDA][Qwen3-Next] Full-model chain: vLLM rollout vs VIME recompute, raw-bit through two updates and a reload (RFC #428 stack 7/11)",
+      "upstreamLabels": [
+        "platform: cuda",
+        "new-model",
+        "qwen",
+        "WS1"
+      ],
+      "hashtags": [
+        "#TensorParallelism",
+        "#RolloutRecomputeParity"
+      ],
+      "technicalEvidenceAndScope": "Qwen3-Next shared vLLM rollout/VIME–Megatron recompute providers, TP4 weight import/export and staged drift diagnostics. Four-B200 full-model 64-cell matrix (16 cases × 4 weight versions), two updates plus checkpoint reload; EP1 only. Stacked PR: total file count includes dependent work; incremental contribution is engine integration, not all underlying kernels.",
+      "tagSources": [
+        "upstream PR title/body and linked validation reports",
+        "implementation files; upstream labels where technically applicable"
+      ],
+      "implementationPaths": [
+        ".github/workflows/ci.yml",
+        ".github/workflows/qwen3-next-provider-gpu.yml",
+        "ci/scripts/run_qwen3_next_chain_gate.sh",
+        "ci/scripts/run_qwen3_next_operator_gates.sh",
+        "ci/scripts/run_ws1_gtest.sh",
+        "csrc/bindings/ops.cpp",
+        "csrc/cuda/attention/deterministic_attention.cu",
+        "csrc/cuda/norm/rmsnorm.cu",
+        "docs/.nav.yml",
+        "docs/archive/design/rfc428-c6-gdn-recurrent-replay.md",
+        "docs/operators/README.md",
+        "docs/operators/attention.md"
+      ],
+      "presentation": {
+        "topic": "Rollout/recompute reproducibility",
+        "linkLabel": "TP4 rollout and recompute",
+        "mechanism": "Map Qwen3-Next TP4 weights across vLLM rollout and Megatron recompute.",
+        "validation": "Four B200s, EP1: 64 replay cells validate bitwise parity through two updates and checkpoint reload."
+      }
+    },
+    {
+      "repository": "RL-Align/RL-Kernel",
+      "number": 557,
+      "source": "https://github.com/RL-Align/RL-Kernel/pull/557",
+      "statusAtReview": "open",
+      "headRevision": "88c4f02ea7bffb6e566dc137c04e6c298d2e78c0",
+      "title": "[WS1][CUDA][Qwen3-Next] EP4 distributed logprob parity: expert-parallel MoE, full-model L2 bitwise on TP4 x EP4 (RFC #428 stack 10/11)",
+      "upstreamLabels": [
+        "platform: cuda",
+        "new-model",
+        "qwen",
+        "WS1"
+      ],
+      "hashtags": [
+        "#ExpertParallelism",
+        "#FixedOrderRouting",
+        "#TensorParallelism"
+      ],
+      "technicalEvidenceAndScope": "Qwen3-Next TP4×EP4 fixed-order expert-routing gather without arithmetic collectives. Single four-B200 node full-model L2 16/16 raw-bit equality and 97/97 batch matrix at stack top. EP4 training is unsupported and fails closed. Earlier H100 full-model claims were withdrawn because local changes were absent from the PR; H200 qualification is also not claimed. Stacked PR includes dependent work.",
+      "tagSources": [
+        "upstream PR title/body and linked validation reports",
+        "implementation files; upstream labels where technically applicable"
+      ],
+      "implementationPaths": [
+        ".github/workflows/ci.yml",
+        ".github/workflows/qwen3-next-provider-gpu.yml",
+        "ci/scripts/run_qwen3_next_chain_gate.sh",
+        "ci/scripts/run_qwen3_next_operator_gates.sh",
+        "ci/scripts/run_ws1_gtest.sh",
+        "csrc/bindings/ops.cpp",
+        "csrc/cuda/attention/deterministic_attention.cu",
+        "csrc/cuda/norm/rmsnorm.cu",
+        "docs/.nav.yml",
+        "docs/archive/design/rfc428-c6-gdn-recurrent-replay.md",
+        "docs/operators/README.md",
+        "docs/operators/attention.md"
+      ],
+      "presentation": {
+        "topic": "Rollout/recompute reproducibility",
+        "linkLabel": "EP4 replay extension",
+        "mechanism": "Extend TP4 replay to EP4 with fixed-order expert routing.",
+        "validation": "One four-B200 node: 16/16 rollout/recompute and 97/97 batch-invariance cases pass; EP4 training and checkpoint export stay disabled."
+      }
+    },
+    {
+      "repository": "RL-Align/RL-Kernel",
+      "number": 495,
+      "source": "https://github.com/RL-Align/RL-Kernel/pull/495",
+      "statusAtReview": "open",
+      "headRevision": "a320e65ab5d0bc6ce43f70ba6943a5df9878ba92",
+      "title": "perf(logp): fused zero-workspace backward for the generic CUDA fused logp (#174)",
+      "upstreamLabels": [
+        "component: kernels",
+        "platform: cuda",
+        "type: performance"
+      ],
+      "hashtags": [
+        "#ZeroWorkspaceBackward",
+        "#ChunkedBackward"
+      ],
+      "technicalEvidenceAndScope": "CUDA zero-workspace log-probability backward and chunked fallback for RL post-training. BF16 32768×151936 B200 peak allocation 46.37→9.27 GiB. Newer B200 F+B timing 33.2ms supersedes 27.2ms; tuned cross-entropy alternatives can be faster (FlashAttention 6.2ms). Memory/strict semantics tradeoff, not a general fastest-kernel claim.",
+      "tagSources": [
+        "upstream PR title/body and linked validation reports",
+        "implementation files; upstream labels where technically applicable"
+      ],
+      "implementationPaths": [
+        "benchmarks/fused_logp_backward_evidence.py",
+        "benchmarks/fused_logp_provider_evidence.py",
+        "benchmarks/plot_fused_logp_backward_evidence.py",
+        "csrc/bindings/ops.cpp",
+        "csrc/cuda/logprob/fused_logp_kernel.cu",
+        "docs/operators/fused-logp.md",
+        "rl_engine/_C.pyi",
+        "rl_engine/backends/cuda/logprob/logp.py",
+        "tests/backends/cuda/test_fused_logp_backward_indexing.py",
+        "tests/backends/cuda/test_fused_logp_chunked_backward.py",
+        "tests/backends/rocm/test_rocm_logprob_backend.py",
+        "tests/benchmarks/test_fused_logp_backward_evidence.py"
+      ],
+      "presentation": {
+        "topic": "Bounded-memory log-probability backward",
+        "linkLabel": "Zero-workspace logp gradients",
+        "mechanism": "Fuse direct-write logp gradients with a bounded chunked fallback.",
+        "validation": "One B200, BF16 32768×151936 logits: peak memory 46.37 → 9.27 GiB including gradients; some tuned cross-entropy alternatives are faster."
+      }
+    },
+    {
+      "repository": "huggingface/diffusers",
+      "number": 14948,
+      "source": "https://github.com/huggingface/diffusers/pull/14948",
+      "statusAtReview": "open",
+      "headRevision": "71703af39b83a142a211a8248356229fc416dc93",
+      "title": "Fix missing cache contexts in Wan video-to-video",
+      "upstreamLabels": [
+        "tests",
+        "size/M",
+        "pipelines"
+      ],
+      "hashtags": [
+        "#CFGCacheIsolation",
+        "#RequestStateReset"
+      ],
+      "technicalEvidenceAndScope": "Diffusers Wan video-to-video integration with separate CFG cache contexts for TaylorSeer, FirstBlockCache and MagCache. One B200, Wan1.3B BF16 transformer/FP32 VAE, 33 frames, 480×832, eight steps. Cache-off/repeated-cache/disable-cleanup checks are bit-exact per tested backend and FirstBlock reuse is exercised. Functional smoke tests, not a performance or quality qualification.",
+      "tagSources": [
+        "upstream PR title/body and linked validation reports",
+        "implementation files; upstream labels where technically applicable"
+      ],
+      "implementationPaths": [
+        "src/diffusers/pipelines/wan/pipeline_wan_video2video.py",
+        "tests/pipelines/testing_utils/__init__.py",
+        "tests/pipelines/testing_utils/cache.py",
+        "tests/pipelines/wan/test_wan_video_to_video.py"
+      ],
+      "presentation": {
+        "topic": "Branch-aware video caching",
+        "linkLabel": "Wan V2V cache contexts",
+        "mechanism": "Separate Wan V2V CFG cache contexts for TaylorSeer, FirstBlockCache, and MagCache.",
+        "validation": "One-B200 Wan1.3B smoke tests verify cache-off parity and request reset; speed and generation quality are unqualified."
+      }
+    }
+  ],
+  "excluded": [
+    {
+      "source": "https://github.com/vllm-project/vllm-omni/pull/8731",
+      "reason": "Experimental PP TeaCache did not pass production acceptance; calibration profiles failed and tested paths were slower."
+    },
+    {
+      "source": "https://github.com/hao-ai-lab/FastVideo/pull/1938",
+      "reason": "Gradient-contract/full-training semantics remain pending; qualified training gains cannot yet be claimed."
+    },
+    {
+      "source": "https://github.com/RL-Align/RL-Kernel/pull/571",
+      "reason": "Diagnostic strict deterministic H3 path remains 4–35× slower; production batch-invariance qualification is incomplete."
+    },
+    {
+      "source": "https://github.com/Dao-AILab/flash-attention/pull/2982",
+      "reason": "Benchmark primarily explains another author’s merged performance work; less direct implementation value than the selected kernel PRs."
+    },
+    {
+      "source": "https://github.com/huggingface/diffusers/pull/14942",
+      "reason": "Closed-unmerged; replaced by the substantive open Wan video cache integration."
+    },
+    {
+      "source": "https://github.com/vllm-project/vllm-omni/pull/8483",
+      "reason": "Related CFG state work overlaps the selected shared-context TeaCache contribution; reduce repetitive examples."
+    }
+  ],
+  "supportingStrengths": [
+    "ML systems for video diffusion",
+    "AI infrastructure"
+  ],
+  "assetEdits": [
+    {
+      "path": "public/assets/open-source/diffusers-mark.webp",
+      "tool": "Built-in imagegen; Sharp used only for trimming, resizing, and lossless encoding",
+      "prompt": "Use case: background-extraction. Edit target: the attached official Diffusers logo. Remove only the solid white background, producing real transparent alpha. Preserve the original logo exactly: hugging face at left, black D, red dynamite stick replacing i, black ffusers lettering, original colors, layout and proportions. Do not redesign, add shadows, outlines or any new elements. Trim excess surrounding transparent whitespace; keep all original artwork intact. This is a local website logo asset."
+    }
+  ],
+  "organization": {
+    "reference": "https://github.com/fusheng-ji#open-source-contributions",
+    "scope": "Existing eight repositories and twenty selected PRs; no repository or PR additions",
+    "sequencePolicy": "Only explicitly reviewed related work is shown as an extension chain; incomplete chains have no sequence label",
+    "layout": "One flat vertical repository list, without category headings",
+    "repositoryOrder": [
+      "sgl-project/sglang",
+      "huggingface/diffusers",
+      "modelscope/DiffSynth-Studio",
+      "vllm-project/vllm-omni",
+      "xdit-project/xDiT",
+      "Dao-AILab/flash-attention",
+      "hao-ai-lab/FastVideo",
+      "RL-Align/RL-Kernel"
+    ]
+  }
+}

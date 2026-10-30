@@ -9,14 +9,6 @@ hasContributions: true
 <header class="section-table hero-name-table">
   <div class="hero-name-cell">
     <h1 class="hero-name-line type-page-title"><span class="site-name">Wenbo Ji <span class="site-name-zh" lang="zh-Hans">嵇文博</span></span></h1>
-    <p class="hero-tagline type-body">{{ hero.tagline }}</p>
-    <p class="hero-role type-secondary">{{ hero.role }}</p>
-    <nav class="hero-cta" aria-label="Profiles">
-      <a class="hero-cta-link hero-cta-link--primary type-control" href="/assets/doc/WenboJi_CV_English.pdf" target="_blank" rel="noopener noreferrer">CV (PDF)</a>
-      <a class="hero-cta-link type-control" href="https://scholar.google.com/citations?user=ZTUMczEAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Google Scholar</a>
-      <a class="hero-cta-link type-control" href="https://github.com/fusheng-ji/" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a class="hero-cta-link type-control" href="mailto:{{ site.owner.email }}">Email</a>
-    </nav>
   </div>
 </header>
 
@@ -72,15 +64,14 @@ hasContributions: true
   <div class="section-cell">
     <div class="research-interests-panel">
       <h2 class="semantic-heading section-heading type-section-title" id="research">Research Interests</h2>
-      <ol class="research-arc" aria-label="Research trajectory">
+      <ul class="research-arc" aria-label="Research interests">
         {% for item in researchArc %}
           <li class="research-arc-item">
-            <span class="research-arc-dot" aria-hidden="true"></span>
             <h3 class="research-arc-label type-subsection-title">{{ item.label }}</h3>
             <p class="research-arc-text type-body">{{ item.text }}</p>
           </li>
         {% endfor %}
-      </ol>
+      </ul>
       {# Research topic badges temporarily hidden.
       <div class="research-tags" id="research-tags" role="list" aria-label="Research interest areas">
         {% for area in researchAreas %}{{ ui.researchTag(area.id, researchAreas, true) }}{% endfor %}

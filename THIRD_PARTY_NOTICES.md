@@ -52,30 +52,29 @@ of their respective owners and do not imply affiliation or endorsement.
 `manifest.json` records each local image's source, dimensions, and any format
 conversion or preparation.
 
-- [SGLang](https://raw.githubusercontent.com/sgl-project/sglang/main/assets/logo.png)
-  — official repository wordmark, unchanged PNG.
+- [SGLang](https://raw.githubusercontent.com/sgl-project/sglang/main/assets/logo.svg)
+  — official SVG wordmark with a matching responsive viewBox added.
 - [Diffusers](https://raw.githubusercontent.com/huggingface/diffusers/main/docs/source/en/imgs/diffusers_library.jpg)
-  — official library wordmark, unchanged JPEG.
-- [FlashAttention-2](https://raw.githubusercontent.com/Dao-AILab/flash-attention/main/assets/flashattention_logo.png)
-  — official README project artwork, proportionally downsampled to 960 × 540
-  and encoded as lossless WebP without cropping or stretching.
-- [DiffSynth-Studio](https://raw.githubusercontent.com/modelscope/DiffSynth-Studio/main/.github/workflows/logo.gif)
-  — first frame of the official animated logo, converted to static PNG with
-  identical decoded pixels.
-- [vLLM-Omni](https://raw.githubusercontent.com/vllm-project/vllm-omni/refs/heads/main/docs/source/logos/vllm-omni-logo.png)
-  — official wordmark; the upstream URL serves JPEG, converted to PNG with
-  identical decoded pixels.
+  — official library artwork with its white background removed and transparent
+  margins trimmed; resized proportionally and encoded as lossless WebP.
+- [FlashAttention](https://www.linkedin.com/in/wenbo-ji-6950b9187/overlay/1791422238727/single-media-viewer/)
+  and [DiffSynth-Studio](https://www.linkedin.com/in/wenbo-ji-6950b9187/overlay/1791422201138/single-media-viewer/)
+  — wordmarks prepared from the author's approved LinkedIn project previews,
+  with backgrounds removed and transparent margins trimmed.
+- [vLLM-Omni](https://raw.githubusercontent.com/vllm-project/vllm-omni/refs/heads/main/docs/source/logos/vllm-omni-logo.png),
+  [FastVideo](https://raw.githubusercontent.com/hao-ai-lab/FastVideo/main/assets/logos/logo.svg),
+  and [xDiT](https://raw.githubusercontent.com/xdit-project/xdit_assets/main/XDiTlogo.png)
+  — approved project artwork prepared with transparent backgrounds, trimmed
+  margins, and proportional WebP sizing.
 - [Nerfstudio](https://github.com/nerfstudio-project)
-  — official GitHub organization avatar, used for
-  [gsplat](https://github.com/nerfstudio-project/gsplat).
-- [FastVideo](https://raw.githubusercontent.com/hao-ai-lab/FastVideo/main/assets/logos/logo.svg)
-  — official project logo rasterized from SVG.
-- [xDiT](https://raw.githubusercontent.com/xdit-project/xdit_assets/main/XDiTlogo.png)
-  — official project logo linked from the repository README.
+  — organization avatar retained as the configured gsplat reference image.
 - [RL-Kernel](https://raw.githubusercontent.com/RL-Align/RL-Kernel/main/docs/assets/logo.png)
-  — official project logo linked from the repository README.
+  — a site-specific horizontal composition of the official flame-and-circuit
+  icon with an RL-Kernel text label; this composite is not an official upstream
+  wordmark.
 
-The FastVideo, xDiT, Nerfstudio/gsplat, and RL-Kernel files are byte-identical
-copies of the approved LinkedIn image previews: original artwork proportionally
-scaled, centered, and surrounded by white padding on a 16:9 canvas. Only empty
-white margins were trimmed where needed; the artwork was not redrawn.
+Transparent-background preparation and the RL-Kernel composition used built-in
+image generation. Cropping of empty margins, proportional resizing, and encoding
+were performed locally. Per-file source URLs, dimensions, and transformations
+are recorded in `public/assets/open-source/manifest.json`. These prepared images
+retain the branding exclusions described in `NOTICE.md`.

@@ -248,9 +248,6 @@ body {
 .entry-block {
   margin-top: 16px;
 }
-.entry-label {
-  margin: 0 0 8px;
-}
 .entry-summary {
   --type-body-color: #526476;
   margin: 14px 0 0;
@@ -474,6 +471,29 @@ body {
   max-height: none;
   margin-inline: auto;
   object-fit: contain;
+}
+
+@media (min-width: 901px) {
+  .career-entry .experience-logo-stack {
+    row-gap: 8px;
+  }
+
+  .career-entry:not(#robot-world-model) .experience-logo-stack:has(> :nth-child(2)) {
+    row-gap: 4px;
+  }
+
+  #robot-world-model .experience-logo-card {
+    height: 36px;
+  }
+
+  #scene-decomposition .experience-logo-card {
+    height: auto;
+  }
+
+  #scene-decomposition .experience-logo-card img {
+    height: auto !important;
+    max-height: clamp(64px, 7vw, 82px);
+  }
 }
 
 @media (max-width: 900px) {

@@ -1,4 +1,3 @@
-{% import "components/ui.njk" as ui with context %}
 <article class="section-table experience-entry career-entry" id="{{ experience.id }}">
   <div class="entry-media-cell">
     <div class="experience-logo-stack">
@@ -15,11 +14,10 @@
         <h3 class="entry-title type-entry-title">{{ experience.title }}</h3>
         <span class="text-right experience-side-meta"><span class="entry-meta type-meta">{{ experience.date }}</span></span>
       </div>
-      <div class="split-row experience-detail-row entry-type-row"><span class="experience-type type-meta type-meta--uppercase">{{ experience.type }}</span></div>
+      <div class="split-row experience-detail-row entry-type-row"><span class="experience-type type-meta">{{ experience.type }}</span></div>
     </div>
     <div class="experience-content">
       <div class="entry-block">
-        <h4 class="entry-label type-group-label">Contributions</h4>
         <ul class="entry-contrib type-body type-body--entry-description">
           {% for contribution in experience.contributions %}<li>{{ contribution | safe }}</li>{% endfor %}
         </ul>

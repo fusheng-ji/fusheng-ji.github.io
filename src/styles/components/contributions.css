@@ -1,28 +1,70 @@
+.contribution-topics {
+  display: grid;
+  gap: 18px;
+  margin-top: 10px;
+}
+
+.contribution-topic-title {
+  margin: 0 0 6px;
+}
+
+.contribution-topic-sequence {
+  margin: 0 0 6px;
+}
+
+.contribution-explanation {
+  margin: 0 0 4px;
+  overflow-wrap: anywhere;
+}
+
 .contributions-panel a:focus-visible {
   outline: var(--focus-ring);
   outline-offset: var(--focus-offset);
 }
 
 .contribution-repository {
-  padding: 8px 0;
-  border-top: 1px solid var(--color-rule);
+  padding: 0;
 }
 
-.contribution-repository:first-child {
+.contribution-repository:first-child > .entry-media-cell,
+.contribution-repository:first-child > .entry-content-cell {
   padding-top: 0;
-  border-top: 0;
 }
 
-.contribution-repository:last-child {
-  padding-bottom: 0;
+.contribution-media-stack {
+  display: grid;
+  width: min(100%, 220px);
+}
+
+.contribution-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 82px;
+}
+
+.contribution-logo img {
+  display: block;
+  width: min(180px, 100%);
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+}
+
+.contribution-logo-fallback {
+  overflow-wrap: anywhere;
 }
 
 .contribution-repository-head {
   margin-bottom: 4px;
 }
 
-.contribution-repository-summary {
+.contribution-repository-intro {
   margin: 0;
+}
+
+.contribution-repository-summary {
+  margin: 8px 0 0;
 }
 
 .contribution-disclosure {
@@ -79,24 +121,15 @@
   min-width: 0;
 }
 
-.contribution-categories {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  max-width: 100%;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.contribution-categories li {
-  display: flex;
-  min-width: 0;
-  max-width: 100%;
-}
-
 .contribution-repository-title {
   margin: 0;
+}
+
+.contribution-repository-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
 }
 
 .contribution-repository-title a {
@@ -109,8 +142,8 @@
 
 .contribution-entries {
   display: grid;
-  gap: 4px;
-  margin: 8px 0 0;
+  gap: 12px;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
@@ -130,6 +163,10 @@
 .contribution-status svg {
   display: block;
   fill: currentColor;
+}
+
+.contribution-status--open {
+  color: #1a7f37;
 }
 
 .contribution-status--merged {
@@ -158,31 +195,23 @@
 
 .contribution-repository-title a:is(:hover, :focus-visible),
 .contribution-pr-link:is(:hover, :focus-visible) {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.contribution-tags {
-  display: inline-flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  max-width: 100%;
-  margin-left: 6px;
-  vertical-align: middle;
-  text-indent: 0;
-}
-
-.contribution-tags .entry-category-tag,
-.contribution-categories .entry-category-tag {
-  min-height: 0;
-  padding: 2px 8px;
-}
-
-.contribution-categories .entry-category-tag {
-  padding-inline: 6px;
+  text-decoration: none;
 }
 
 @media (max-width: 900px) {
+  .contribution-repository + .contribution-repository {
+    padding-top: 20px;
+    border-top: 1px solid #dfe6ec;
+  }
+
+  .contribution-media-stack {
+    width: min(100%, 260px);
+  }
+
+  .contribution-logo {
+    min-height: 72px;
+  }
+
   .contribution-status {
     margin-top: 14px;
   }
@@ -197,6 +226,6 @@
   }
 
   .contribution-entries {
-    gap: 8px;
+    gap: 12px;
   }
 }

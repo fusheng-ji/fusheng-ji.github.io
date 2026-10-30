@@ -5,10 +5,6 @@
   </header>
 {% endmacro %}
 
-{% macro entryGroupLabel(title) %}
-  <h4 class="entry-label type-group-label">{{ title }}</h4>
-{% endmacro %}
-
 {% macro researchTag(areaId, areas, interest=false) %}
   {% for area in areas %}
     {% if area.id == areaId %}

@@ -1,14 +1,14 @@
 export default [
   {
-    label: "Past",
-    text: "Built foundations in long-term tracking, 3D/4D reconstruction, and scene decomposition.",
+    label: "Controllable video generation",
+    text: "Camera and motion conditioning for video generation, with a focus on expressive human motion, identity consistency, and scene interactions.",
   },
   {
-    label: "Now",
-    text: "Working on camera-controlled human motion video generation and video world models for robot dexterous manipulation.",
+    label: "Multimodal AI infrastructure",
+    text: "Large-scale multi-GPU training and efficient, reliable inference for multimodal models, spanning distributed execution, GPU kernel optimization, and correctness in caching and serving.",
   },
   {
-    label: "Next",
-    text: "Unifying these threads into perception-action models of interactive humans and dynamic scenes.",
+    label: "Spatial intelligence and embodied AI",
+    text: "3D/4D representation and video tracking for dynamic scene understanding, alongside video world models and cross-embodiment generation for robot learning.",
   },
 ];

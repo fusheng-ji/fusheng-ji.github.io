@@ -3,6 +3,7 @@ import publications from "../src/_data/publications.js";
 import projects from "../src/_data/projects.js";
 import site from "../src/_data/site.js";
 import experiences from "../src/_data/experiences.js";
+import researchArc from "../src/_data/researchArc.js";
 
 function contrastRatio(first, second) {
   const luminance = color => color.slice(0, 3).map(component => {
@@ -271,7 +272,7 @@ test("homepage preserves content and has no horizontal overflow", async ({
   expect(consoleErrors).toEqual([]);
 });
 
-test("homepage directs visitors to the reusable template", async ({ page }) => {
+test("homepage footer shows the update date without template promotion", async ({ page }) => {
   const consoleErrors = [];
   page.on("console", (message) => {
     if (message.type() === "error" && !message.text().includes("posts.json")) {
@@ -281,31 +282,10 @@ test("homepage directs visitors to the reusable template", async ({ page }) => {
   await page.goto("/", { waitUntil: "networkidle" });
 
   const footer = page.locator(".site-footer");
-  const templateLink = footer.getByRole("link", {
-    name: "Use the open-source template",
-  });
-
-  await expect(footer).toContainText(
-    "Need your own academic homepage? Use the open-source template",
-  );
-  await expect(templateLink).toHaveAttribute(
-    "href",
-    "https://github.com/fusheng-ji/academic-homepage-template",
-  );
-  await expect(templateLink).toHaveAttribute("target", "_blank");
-  await expect(templateLink).toHaveAttribute("rel", "noopener noreferrer");
-
-  await templateLink.focus();
-  await expect(templateLink).toBeFocused();
-  const focusStyle = await templateLink.evaluate((element) => {
-    const style = getComputedStyle(element);
-    return {
-      outlineStyle: style.outlineStyle,
-      outlineWidth: style.outlineWidth,
-    };
-  });
-  expect(focusStyle.outlineStyle).not.toBe("none");
-  expect(focusStyle.outlineWidth).not.toBe("0px");
+  await expect(footer.locator(".footer-updated")).toHaveText(`Last Updated on ${site.updated.replaceAll("-", "/")}`);
+  await expect(footer).not.toContainText("Need your own academic homepage?");
+  await expect(footer.getByRole("link", { name: "Use the open-source template" })).toHaveCount(0);
+  await expect(footer.locator(".footer-template-prompt, .footer-template-link")).toHaveCount(0);
 
   const overflow = await page.evaluate(
     () =>
@@ -361,10 +341,8 @@ test("core content roles follow the shared typography contract", async ({
       entryDescription: ".type-body--entry-description",
       bodyEmphasis: ".type-body--emphasis",
       secondary: ".type-secondary",
-      meta: ".type-meta:not(.type-meta--uppercase)",
-      metaUppercase: ".type-meta--uppercase",
+      meta: ".type-meta",
       caption: ".type-caption",
-      tag: ".type-tag",
       control: ".type-control",
       resourceControl: ".type-resource-control",
       navigation: ".nav-link-label",
@@ -410,11 +388,7 @@ test("core content roles follow the shared typography contract", async ({
     bodyEmphasis: { size: 16, weight: "600", leading: 1.65 },
     secondary: { size: 14, weight: "400", leading: 1.55 },
     meta: { size: 13, weight: "500", leading: 1.45 },
-    metaUppercase: {
-      size: 13, weight: "500", leading: 1.45, textTransform: "uppercase",
-    },
     caption: { size: 13, weight: "400", leading: 1.5 },
-    tag: { size: 14, weight: "500", leading: 1.4 },
     control: { size: 15, weight: "500", leading: 1.4 },
     resourceControl: { size: 13, weight: "500", leading: 1.5 },
     navigation: { size: isDesktop ? 15 : 16, weight: "500", leading: 1.4 },
@@ -466,8 +440,10 @@ test("core content roles follow the shared typography contract", async ({
     return [style.fontSize, style.fontWeight, style.lineHeight, style.color];
   }));
   for (const label of labels) expect(label).toEqual(["14px", "600", "19.6px", "rgb(68, 87, 107)"]);
-  const focusGaps = await page.locator(".project-entry .entry-label").evaluateAll(labels => labels.map(label => label.nextElementSibling.getBoundingClientRect().top - label.getBoundingClientRect().bottom));
-  for (const gap of focusGaps) expect(gap).toBeCloseTo(8, 1);
+  await expect(page.locator(".project-entry .entry-label")).toHaveCount(0);
+  for (const project of projects) {
+    await expect(page.locator(`#${project.id} .entry-summary`)).toHaveCount(1);
+  }
 
   expect(expected.pageTitle.size).toBeGreaterThan(expected.sectionTitle.size);
   expect(expected.sectionTitle.size).toBeGreaterThan(expected.entryTitle.size);
@@ -503,13 +479,14 @@ test("core content roles use a semantic heading outline", async ({ page }) => {
   }
 });
 
-test("research topic badges are omitted while paragraphs and contribution tags remain", async ({ page }) => {
+test("research, project, and PR badges are omitted", async ({ page }) => {
   await page.goto("/", { waitUntil: "networkidle" });
   await expect(page.locator(".research-tags, .research-interest-tag, .publication-controls, .publication-control-tag, .entry-control-tag")).toHaveCount(0);
   await expect(page.locator(".publication-entry .tag, .career-entry .tag")).toHaveCount(0);
-  await expect(page.locator("#open-source-section [data-contribution-category]").first()).toBeVisible();
+  await expect(page.locator("#open-source-section [data-contribution-category]")).toHaveCount(0);
+  await expect(page.locator("#open-source-section .contribution-repository-intro").first()).toBeVisible();
   await page.locator("#open-source-section summary").first().click();
-  await expect(page.locator("#open-source-section .contribution-mechanism:visible").first()).toBeVisible();
+  await expect(page.locator("#open-source-section .tag, #open-source-section [data-pr-tag]")).toHaveCount(0);
   const starts = await page.locator(".research-arc-text").evaluateAll(elements => elements.map(element => {
     const box = element.getBoundingClientRect();
     return box.left;
@@ -519,41 +496,115 @@ test("research topic badges are omitted while paragraphs and contribution tags r
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
 
-test("research trajectory stays vertical and aligned at seven widths", async ({ page }, testInfo) => {
+test("research interests show three stacked directions without timeline decoration at nine widths", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-1440", "Explicit breakpoint check runs once");
   await page.goto("/", { waitUntil: "networkidle" });
   await page.evaluate(() => document.fonts.ready);
-  for (const width of [1440, 1024, 901, 900, 768, 390, 360]) {
-    await page.setViewportSize({ width, height: 1000 });
-    await expect(page.locator(".research-arc-label")).toHaveText(["Past", "Now", "Next"]);
+  const list = page.getByRole("list", { name: "Research interests", exact: true });
+  await expect(list).toHaveJSProperty("tagName", "UL");
+  await expect(list.locator(":scope > li")).toHaveCount(3);
+  await expect(page.locator("#research")).toHaveText("Research Interests");
+  await expect(page.locator(".research-arc-label")).toHaveText([
+    "Controllable video generation", "Multimodal AI infrastructure", "Spatial intelligence and embodied AI",
+  ]);
+  await expect(page.locator(".research-arc-text")).toHaveText(researchArc.map(item => item.text));
+  await expect(list.locator(".research-arc-dot, a, img, svg, button")).toHaveCount(0);
+  for (const width of [1440, 1366, 1024, 901, 900, 768, 390, 375, 360]) {
+    await page.setViewportSize({ width, height: width <= 900 ? 812 : 900 });
     const rows = await page.locator(".research-arc-item").evaluateAll(items => items.map(item => {
       const row = item.getBoundingClientRect();
       const label = item.querySelector(".research-arc-label").getBoundingClientRect();
       const text = item.querySelector(".research-arc-text").getBoundingClientRect();
-      const dot = item.querySelector(".research-arc-dot").getBoundingClientRect();
       const line = getComputedStyle(item, "::before");
       return {
         top: row.top, bottom: row.bottom, left: row.left,
         labelLeft: label.left, textLeft: text.left,
-        fits: text.right <= row.right + 1 && text.bottom <= row.bottom + 1,
-        labelGap: label.left - dot.left, textGap: text.left - label.right,
-        padding: [getComputedStyle(item).paddingTop, getComputedStyle(item).paddingBottom],
-        connector: line.content !== "none" && line.width === "1px",
+        fits: label.right <= row.right + 1 && text.right <= row.right + 1 && text.bottom <= row.bottom + 1,
+        textGap: text.top - label.bottom,
+        connector: !["none", "normal"].includes(line.content),
       };
     }));
     for (const [index, row] of rows.entries()) {
       expect(row.labelLeft).toBeCloseTo(rows[0].labelLeft, 1);
       expect(row.textLeft).toBeCloseTo(rows[0].textLeft, 1);
-      expect(row.labelGap).toBeCloseTo(22, 1);
-      expect(row.textGap).toBeCloseTo(10, 1);
-      expect(row.padding).toEqual(["10px", "12px"]);
+      expect(row.labelLeft).toBeCloseTo(row.textLeft, 1);
+      expect(row.textGap).toBeCloseTo(8, 1);
       expect(row.fits).toBe(true);
-      expect(row.connector).toBe(index < rows.length - 1);
-      if (index) expect(row.top).toBeCloseTo(rows[index - 1].bottom, 1);
+      expect(row.connector).toBe(false);
+      if (index) expect(row.top - rows[index - 1].bottom).toBeCloseTo(24, 1);
     }
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-    if ([1440, 390].includes(width)) {
+    if ([1440, 1366, 390, 375, 360].includes(width)) {
       await page.locator("#research-section").screenshot({ path: `output/playwright/research-vertical-${width}.png` });
+    }
+  }
+});
+
+test("entry-section headings and media share a left edge at nine widths", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-1440", "Explicit breakpoint check runs once");
+  await page.goto("/", { waitUntil: "networkidle" });
+  await page.evaluate(() => document.fonts.ready);
+
+  for (const width of [1440, 1366, 1024, 901, 900, 768, 390, 375, 360]) {
+    await page.setViewportSize({ width, height: width <= 900 ? 812 : 900 });
+    const sections = await page.locator("#publications-mount, #experiences-mount, #projects-mount").evaluateAll(elements => elements.map(section => {
+      const left = section.querySelector("h2").getBoundingClientRect().left;
+      return {
+        id: section.id,
+        left,
+        entries: Array.from(section.querySelectorAll("article"), article => {
+          const stack = article.querySelector(".entry-visual-stack, .experience-logo-stack");
+          const imageBox = stack.querySelector("img").getBoundingClientRect();
+          const cardBox = stack.querySelector("img").parentElement.getBoundingClientRect();
+          return {
+            id: article.id,
+            left: article.getBoundingClientRect().left,
+            stackLeft: stack.getBoundingClientRect().left,
+            imageLeft: stack.querySelector("img").getBoundingClientRect().left,
+            imageCenterOffset: (imageBox.left + imageBox.right - cardBox.left - cardBox.right) / 2,
+            imageHeight: imageBox.height,
+            contentLeft: article.querySelector(".entry-content-cell").getBoundingClientRect().left,
+            imagesFit: Array.from(stack.querySelectorAll("img")).every(image => {
+              const imageBox = image.getBoundingClientRect();
+              const cardBox = image.parentElement.getBoundingClientRect();
+              const aligned = article.id === "robot-world-model"
+                ? imageBox.left >= cardBox.left - 1
+                : Math.abs(imageBox.left - cardBox.left) <= 1;
+              return aligned && imageBox.right <= cardBox.right + 1;
+            }),
+          };
+        }),
+      };
+    }));
+    expect(sections).toHaveLength(3);
+    for (const section of sections) {
+      expect(section.entries.length).toBeGreaterThan(0);
+      for (const entry of section.entries) {
+        const context = `${width}px ${section.id}/${entry.id}`;
+        expect(Math.abs(entry.left - section.left), context).toBeLessThanOrEqual(1);
+        expect(Math.abs(entry.stackLeft - section.left), context).toBeLessThanOrEqual(1);
+        if (entry.id === "robot-world-model") {
+          expect(Math.abs(entry.imageCenterOffset), context).toBeLessThanOrEqual(1);
+          expect(entry.imageHeight, context).toBe(width <= 900 ? 42 : 36);
+        } else {
+          expect(Math.abs(entry.imageLeft - section.left), context).toBeLessThanOrEqual(1);
+        }
+        expect(entry.contentLeft, context).toBeGreaterThanOrEqual(section.left - 1);
+        expect(entry.imagesFit, context).toBe(true);
+      }
+    }
+    const contributionEdges = await page.locator("#open-source-section").evaluate(section => [
+      section.querySelector("h2"),
+      section.querySelector(".contributions-panel"),
+      ...section.querySelectorAll(".contribution-repository"),
+    ].map(element => element.getBoundingClientRect().left));
+    for (const left of contributionEdges) {
+      expect(Math.abs(left - sections[0].left), `${width}px open source alignment`).toBeLessThanOrEqual(1);
+    }
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    if ([1366, 375].includes(width)) {
+      await page.locator("#publications-mount").screenshot({ path: `output/playwright/entry-alignment-${width}.png` });
+      await page.locator("#robot-world-model").screenshot({ path: `output/playwright/robot-logo-centered-${width}.png`, style: ".navbar, .skip-link { visibility: hidden; }" });
     }
   }
 });
@@ -633,8 +684,13 @@ test("publication titles stay complete and fit one line on a wide desktop", asyn
 test("publication content uses spacing instead of repeated labels", async ({ page }, testInfo) => {
   await page.goto("/", { waitUntil: "networkidle" });
   await page.evaluate(() => document.fonts.ready);
+  for (const publication of publications) {
+    const metadata = page.locator(`#${publication.id} .publication-meta-row .entry-meta`);
+    await expect(metadata).toHaveText(`${publication.venue} ${publication.year}`);
+    await expect(metadata).toHaveCSS("text-transform", "none");
+  }
   await expect(page.locator(".entry-label", { hasText: /^(Authors|Overview)$/ })).toHaveCount(0);
-  await expect(page.locator(".entry-label", { hasText: "Focus" })).not.toHaveCount(0);
+  await expect(page.locator(".entry-label", { hasText: "Focus" })).toHaveCount(0);
   await expect(page.locator(".collab-heading", { hasText: "Mentors" })).toHaveCount(0);
   const geometry = await page.locator("#publications-mount").evaluate((section) => {
     const article = section.querySelector("article");
@@ -878,6 +934,7 @@ test("experience content and metadata are visible without topic badges", async (
     await expect(article.locator(".experience-side-meta")).toHaveText(experience.date);
     await expect(article.locator(".experience-type")).toHaveText(experience.type);
     await expect(article.locator(".experience-type")).toBeVisible();
+    await expect(article.locator(".experience-type")).toHaveCSS("text-transform", "none");
     await expect(article.locator(".experience-side-meta .entry-meta")).toHaveCount(1);
     const titleBox = await article.locator(".entry-title").boundingBox();
     const dateBox = await article.locator(".experience-side-meta").boundingBox();
@@ -891,6 +948,7 @@ test("experience content and metadata are visible without topic badges", async (
       expect(Math.abs(dateBox.x - titleBox.x)).toBeLessThanOrEqual(1);
     }
     await expect(article.locator(".entry-contrib")).toBeVisible();
+    await expect(article.locator(".entry-label")).toHaveCount(0);
     await expect(article.locator(".collab-section")).toHaveCount(0);
     const contributions = await article.locator(".entry-contrib li").evaluateAll((items, expected) => items.map((item, index) => {
       const source = document.createElement("div");
@@ -940,12 +998,10 @@ test("experience content stays full-width and visible after reload", async ({ pa
     let contributionSpacing = null;
     if (article.classList.contains("career-entry")) {
       const body = article.querySelector(".entry-contrib");
-      const heading = article.querySelector(".entry-label");
       const items = Array.from(body.children, item => item.getBoundingClientRect());
       contributionSpacing = {
-        headingGap: body.getBoundingClientRect().top - heading.getBoundingClientRect().bottom,
+        bodyTop: body.getBoundingClientRect().top - content.top,
         paragraphGaps: items.slice(1).map((item, index) => item.top - items[index].bottom),
-        headingColor: getComputedStyle(heading).color,
         bodyColor: getComputedStyle(body).color,
       };
     }
@@ -966,9 +1022,8 @@ test("experience content stays full-width and visible after reload", async ({ pa
     expect(metric.fits).toBe(true);
     if (metric.contributionSpacing) {
       const spacing = metric.contributionSpacing;
-      expect(spacing.headingGap).toBeCloseTo(8, 1);
+      expect(spacing.bodyTop).toBeCloseTo(0, 1);
       for (const gap of spacing.paragraphGaps) expect(gap).toBeCloseTo(8, 1);
-      expect(spacing.headingColor).toBe("rgb(68, 87, 107)");
       expect(spacing.bodyColor).toBe("rgb(82, 100, 118)");
     }
   }
@@ -1090,10 +1145,9 @@ test("inline text links inherit their parent color without default underlines", 
     expect(link.offset, link.text).toBeCloseTo(link.size * 0.2, 2);
     expect(Math.abs(link.alpha - 255 * 0.45), link.text).toBeLessThanOrEqual(1);
   }
-  await expect(page.locator(".hero-phd-line")).toHaveCSS("color", "rgb(42, 111, 187)");
 });
 
-test("text link hover and keyboard focus keep color and reveal underlines", async ({ page }) => {
+test("text link hover and keyboard focus keep inherited color without underlines", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.route("https://fusheng-ji.github.io/blog/posts.json", route => route.fulfill({
     status: 200,
@@ -1102,11 +1156,10 @@ test("text link hover and keyboard focus keep color and reveal underlines", asyn
   }));
   await page.goto("/", { waitUntil: "networkidle" });
   for (const selector of [
-    '.hero-bio-cell a[href*="niessnerlab"]',
+    '.hero-bio-cell a[href="https://www.cit.tum.de/en/cit/home/"]',
     ".news-body a",
     ".publication-award a",
     "#dense-point-tracking .entry-contrib a",
-    ".footer-template-link",
   ]) {
     const link = page.locator(selector).first();
     await link.scrollIntoViewIfNeeded();
@@ -1119,7 +1172,7 @@ test("text link hover and keyboard focus keep color and reveal underlines", asyn
     }));
     await link.hover();
     await expect(link, selector).toHaveCSS("color", baseline.color);
-    await expect(link, selector).toHaveCSS("text-decoration-line", "underline");
+    await expect(link, selector).toHaveCSS("text-decoration-line", "none");
     await expect(link, selector).toHaveCSS("text-decoration-color", baseline.color);
     await page.mouse.move(0, 0);
     await link.focus();
@@ -1127,7 +1180,7 @@ test("text link hover and keyboard focus keep color and reveal underlines", asyn
     await page.keyboard.press("Tab");
     await expect(link, selector).toBeFocused();
     await expect(link, selector).toHaveCSS("color", baseline.color);
-    await expect(link, selector).toHaveCSS("text-decoration-line", "underline");
+    await expect(link, selector).toHaveCSS("text-decoration-line", "none");
     await expect(link, selector).toHaveCSS("text-decoration-color", baseline.color);
     await expect(link, selector).toHaveCSS("outline-style", "solid");
     await expect(link, selector).toHaveCSS("outline-width", "2px");
@@ -1378,7 +1431,7 @@ test("desktop anchors keep section headings below the sticky navigation", async 
   }
 });
 
-test("mobile entry labels and metadata remain visually subordinate", async ({
+test("mobile entry metadata remains visually subordinate", async ({
   page,
 }, testInfo) => {
   test.skip(
@@ -1396,7 +1449,6 @@ test("mobile entry labels and metadata remain visually subordinate", async ({
     return {
       sectionHeading: size(".section-heading"),
       entryTitle: size(".entry-title"),
-      entryLabel: size(".entry-label"),
       entryDescription: size(".type-body--entry-description"),
       experienceType: size(".experience-type"),
       entryBody: size(".entry-summary"),
@@ -1404,10 +1456,8 @@ test("mobile entry labels and metadata remain visually subordinate", async ({
     };
   });
 
-  expect(typography.entryLabel).toBeLessThan(typography.entryBody);
   expect(typography.experienceType).toBeLessThan(typography.entryTitle);
   expect(typography.publicationNote).toBeLessThan(typography.entryBody);
-  expect(typography.entryLabel).toBe(14);
   expect(typography.entryDescription).toBe(15);
   expect(typography.experienceType).toBe(13);
   expect(typography.entryBody).toBe(15);
@@ -1550,6 +1600,8 @@ test("homepage media layout preserves its desktop and mobile geometry", async ({
   page,
 }, testInfo) => {
   await page.goto("/", { waitUntil: "networkidle" });
+  await page.locator("#scene-decomposition").scrollIntoViewIfNeeded();
+  await page.locator("#scene-decomposition img").evaluateAll(images => Promise.all(images.map(image => image.decode())));
 
   const geometry = await page.evaluate(() => {
     const rect = (selector) => {
@@ -1576,6 +1628,7 @@ test("homepage media layout preserves its desktop and mobile geometry", async ({
         const bounds = stack.getBoundingClientRect();
         const mediaBounds = stack.closest(".entry-media-cell").getBoundingClientRect();
         return {
+          id: stack.closest(".career-entry").id,
           width: bounds.width,
           height: bounds.height,
           left: bounds.left,
@@ -1592,6 +1645,9 @@ test("homepage media layout preserves its desktop and mobile geometry", async ({
               bottom: cardBounds.bottom,
               width: cardBounds.width,
               height: cardBounds.height,
+              imageWidth: image.getBoundingClientRect().width,
+              imageHeight: image.getBoundingClientRect().height,
+              naturalRatio: image.naturalWidth / image.naturalHeight,
               objectFit: getComputedStyle(image).objectFit,
             };
           }),
@@ -1663,7 +1719,17 @@ test("homepage media layout preserves its desktop and mobile geometry", async ({
     if (row.cards.length === 1) continue;
     if (testInfo.project.name.startsWith("desktop-")) {
       for (let i = 1; i < row.cards.length; i++) {
-        expect(row.cards[i].top).toBeGreaterThanOrEqual(row.cards[i - 1].bottom);
+        closeTo(row.cards[i].top - row.cards[i - 1].bottom, row.id === "robot-world-model" ? 8 : 4);
+      }
+      if (row.id === "scene-decomposition") {
+        const previousCardHeight = Math.max(64, Math.min(page.viewportSize().width * 0.07, 82));
+        for (const card of row.cards) {
+          const expectedHeight = Math.min(row.width / card.naturalRatio, previousCardHeight);
+          closeTo(card.height, expectedHeight);
+          closeTo(Math.min(card.imageHeight, card.imageWidth / card.naturalRatio), expectedHeight);
+          closeTo(Math.min(card.imageWidth, card.imageHeight * card.naturalRatio),
+            Math.min(row.width, previousCardHeight * card.naturalRatio));
+        }
       }
     } else {
       closeTo(row.height, 64);

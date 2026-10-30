@@ -14,7 +14,7 @@
       </div>
       #}
       <div class="publication-meta-row {{ 'publication-meta-row-inline' if publication.award }}">
-        <span class="entry-meta type-meta type-meta--uppercase">{{ publication.venue }}, {{ publication.year }}</span>
+        <span class="entry-meta type-meta">{{ publication.venue }} {{ publication.year }}</span>
         {% if publication.award %}
           <span class="entry-side-note publication-award type-caption"><a href="{{ publication.award.url }}">{{ publication.award.label }}</a></span>
         {% endif %}

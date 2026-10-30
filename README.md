@@ -30,32 +30,46 @@ do not edit generated output in `_site/`.
 
 ### Open-source contributions
 
-The homepage groups 20 curated technical PRs by external public repository,
-with at most five entries per repository. Open and merged technical work informs
-the visible repository summaries and category tags; draft and closed-unmerged PRs
-do not qualify a repository for display. Entries are rendered
-as compact static HTML, with no filters, pagination, or browser API requests.
-Each repository heading pairs its name with deduplicated contribution types.
-One concise technical summary remains visible for each eligible repository. Only merged
-PRs appear as evidence inside its native, initially closed `Merged PRs` disclosure.
-Repositories without merged evidence have no empty disclosure. Evidence rows show
-descriptions, links, purple merge icons, and optional mechanism tags; statistics, sync dates, and repository metadata
-stay in the data snapshot rather than appearing on the homepage.
-Edit the selection, repository summaries, English descriptions, contribution categories, and optional
-mechanism tags in `src/_data/openSource.js`. Every selected repository needs a
-nonempty editorial summary, including proposed work without implying acceptance.
-Review the technical substance before
-adding a PR; formatting, documentation, dependency declarations, and small
-maintenance fixes do not qualify, and new PRs never fill unused slots automatically.
-Selection order expresses technical priority within each repository; merged work
-is placed first before the five-entry cap is applied.
+The homepage displays 20 reviewed technical PRs in eight independent repositories
+as one vertical list, without category headings. The explicit repository order
+preserves the current sequence, with at most five PRs per repository. Both Open and Merged work appears
+inside native, initially closed `Selected PRs` disclosures. Each PR has an accessible
+status icon and short PR link, without tags or a repeated Open/Merged caption; drafts
+and closed-unmerged PRs are excluded.
+Repository logos, project introductions, stars, and contribution summaries
+remain visible when evidence is collapsed. Expanded evidence follows technical
+topics: a compact mechanism-and-result paragraph, then a short PR link. Keep
+hardware/model conditions and material numerical or support limits with the result.
+Only the reviewed TP4-to-EP4 extension has an explicit sequence label;
+independent patches stay parallel. Narratives are joined to the filtered view,
+so a hidden PR removes its explanation and an incomplete chain loses its label.
+The section is static HTML with no browser API calls, filters, or pagination.
+
+Edit `selection` and repository summaries in
+`src/_data/openSource.js`. Edit repository order, topic text, short link labels,
+mechanisms, validation scope, and sequence declarations in
+`src/_data/openSourceDetails.js`. Its organization follows the public profile README;
+the selected PR set and verified benchmark scopes remain independently curated.
+The retired tag taxonomy and job-term mappings are archived in
+`docs/open-source-curation.json`, alongside source labels, head revisions,
+benchmark scope, and tradeoffs. They are not loaded by the rendering or sync
+pipeline. Claims retain upstream evidence and necessary test conditions; do not
+infer platform support from a label alone.
+
+Selection order expresses technical priority within each repository and remains
+stable when a PR merges. The five-entry cap follows filtering, without filling
+unused slots from unreviewed PRs. Favor
+substantive model integration, systems design, kernels, measurable improvements,
+and correctness work; documentation and minor maintenance alone do not qualify.
+Do not imply acceptance for Open work or generalize a benchmark beyond its tested
+hardware, model, precision, and baseline.
 
 Sync refreshes GitHub titles, statuses, dates, repository stars, and Contributor
-membership without changing the curated selection. Repositories are ordered by
-stars, but technical work in smaller repositories is eligible too. Contributor
-membership requires a verified GitHub listing. Derived totals count eligible
-selected Open/Merged work, separately from the merged evidence list and the
-complete external PR statistics stored in the snapshot.
+membership without changing the selection or editorial metadata. Contributor membership
+requires a verified GitHub listing. Displayed selected totals and complete
+external PR statistics remain separate in the snapshot. Technical evidence is
+reviewed again when upstream scope changes; status refresh alone is not a new
+technical review.
 
 Run `npm run sync:contributions` before building to refresh the local, ignored
 `.cache/contributions.json` snapshot. `GITHUB_TOKEN` is optional locally and

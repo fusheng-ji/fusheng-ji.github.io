@@ -3,7 +3,6 @@ export default [
     id: "infralens",
     title: "InfraLens",
     date: "May 2026",
-    focus: "AI Infrastructure Handbook",
     summary:
       "A static handbook for understanding how modern AI systems train, serve, generate, route, compress, and fail.",
     media: {
@@ -31,7 +30,6 @@ export default [
     id: "open-user-study-kit",
     title: "OpenUserStudyKit",
     date: "March 2026",
-    focus: "Reusable User Study Infrastructure",
     summary:
       "An open-source toolkit for building reusable user study questionnaires and experiment workflows.",
     media: {
@@ -59,7 +57,6 @@ export default [
     id: "liteavatar-wasm",
     title: "LiteAvatar - WASM Version",
     date: "Jan 2026",
-    focus: "2D Audio-driven Human Avatar Animation",
     summary:
       'A lightweight audio-driven 2D avatar solution that runs entirely in the browser using WASM based on <a href="https://github.com/HumanAIGC/lite-avatar" class="inherit-link">Lite-avatar</a>. No backend server required.',
     media: {

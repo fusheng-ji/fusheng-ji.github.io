@@ -4,11 +4,7 @@ export default {
   description:
     "Wenbo Ji works on controllable video generation and ML systems for video diffusion, with a background in 3D/4D vision (TUM M.Sc., Agile Robots SE).",
   language: "en",
-  updated: "2026-08-05",
-  template: {
-    name: "Academic Homepage Template",
-    repositoryUrl: "https://github.com/fusheng-ji/academic-homepage-template",
-  },
+  updated: "2026-10-30",
   owner: {
     name: "Wenbo Ji",
     alternateNames: ["Ji Wenbo", "嵇文博"],

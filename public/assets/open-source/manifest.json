@@ -1,0 +1,92 @@
+{
+  "sgl-project/sglang": {
+    "src": "/assets/open-source/sglang-official.svg",
+    "width": 2392,
+    "height": 729,
+    "alt": "SGLang logo",
+    "source": "https://raw.githubusercontent.com/sgl-project/sglang/main/assets/logo.svg",
+    "originalWidth": 2392,
+    "originalHeight": 729,
+    "transformation": "Official SVG artwork used directly. Added an explicit matching viewBox for responsive scaling; original artwork and transparent background preserved. Display remains 180px wide and centered."
+  },
+  "huggingface/diffusers": {
+    "src": "/assets/open-source/diffusers-mark.webp",
+    "width": 540,
+    "height": 115,
+    "alt": "Diffusers logo",
+    "source": "https://raw.githubusercontent.com/huggingface/diffusers/main/docs/source/en/imgs/diffusers_library.jpg",
+    "originalWidth": 794,
+    "originalHeight": 187,
+    "transformation": "White background removed with built-in imagegen while preserving the official artwork. Transparent margins trimmed and resized proportionally to 540px wide for a centered 180px CSS display."
+  },
+  "Dao-AILab/flash-attention": {
+    "src": "/assets/open-source/flash-attention-mark.webp",
+    "width": 540,
+    "height": 62,
+    "originalWidth": 960,
+    "originalHeight": 540,
+    "alt": "FlashAttention wordmark",
+    "source": "https://www.linkedin.com/in/wenbo-ji-6950b9187/overlay/1791422238727/single-media-viewer/",
+    "transformation": "Background removed with imagegen from the user’s LinkedIn project preview. Transparent outer margins trimmed and artwork resized proportionally to 540px wide for a shared 180px CSS display width; original proportions preserved."
+  },
+  "modelscope/DiffSynth-Studio": {
+    "src": "/assets/open-source/diffsynth-studio-mark.webp",
+    "width": 540,
+    "height": 246,
+    "alt": "DiffSynth-Studio composite logo",
+    "source": "https://www.linkedin.com/in/wenbo-ji-6950b9187/overlay/1791422201138/single-media-viewer/",
+    "transformation": "Background removed with imagegen from the user’s LinkedIn project preview. Transparent outer margins trimmed and artwork resized proportionally to 540px wide for a shared 180px CSS display width; original proportions preserved.",
+    "originalWidth": 500,
+    "originalHeight": 500
+  },
+  "vllm-project/vllm-omni": {
+    "src": "/assets/open-source/vllm-omni-mark.webp",
+    "width": 540,
+    "height": 82,
+    "alt": "vLLM-Omni logo",
+    "source": "https://raw.githubusercontent.com/vllm-project/vllm-omni/refs/heads/main/docs/source/logos/vllm-omni-logo.png",
+    "transformation": "Background removed with imagegen from the existing official project asset. Transparent outer margins trimmed and artwork resized proportionally to 540px wide for a shared 180px CSS display width; original proportions preserved.",
+    "originalWidth": 1584,
+    "originalHeight": 290
+  },
+  "nerfstudio-project/gsplat": {
+    "src": "/assets/open-source/gsplat.png",
+    "width": 1024,
+    "height": 576,
+    "originalWidth": 200,
+    "originalHeight": 200,
+    "alt": "Nerfstudio organization logo for gsplat",
+    "source": "https://github.com/nerfstudio-project",
+    "transformation": "Byte-identical reuse of the approved LinkedIn preview: official Nerfstudio GitHub organization avatar with white margins trimmed, artwork proportionally resized and centered on a white 16:9 canvas."
+  },
+  "hao-ai-lab/FastVideo": {
+    "src": "/assets/open-source/fastvideo-mark.webp",
+    "width": 540,
+    "height": 217,
+    "originalWidth": 1024,
+    "originalHeight": 576,
+    "alt": "FastVideo logo",
+    "source": "https://raw.githubusercontent.com/hao-ai-lab/FastVideo/main/assets/logos/logo.svg",
+    "transformation": "Background removed with imagegen from the existing official project asset. Transparent outer margins trimmed and artwork resized proportionally to 540px wide for a shared 180px CSS display width; original proportions preserved."
+  },
+  "xdit-project/xDiT": {
+    "src": "/assets/open-source/xdit-mark.webp",
+    "width": 540,
+    "height": 179,
+    "originalWidth": 1024,
+    "originalHeight": 576,
+    "alt": "xDiT logo",
+    "source": "https://raw.githubusercontent.com/xdit-project/xdit_assets/main/XDiTlogo.png",
+    "transformation": "Background removed with imagegen from the existing official project asset. Transparent outer margins trimmed and artwork resized proportionally to 540px wide for a shared 180px CSS display width; original proportions preserved."
+  },
+  "RL-Align/RL-Kernel": {
+    "src": "/assets/open-source/rl-kernel-horizontal.webp",
+    "width": 540,
+    "height": 169,
+    "originalWidth": 1276,
+    "originalHeight": 1048,
+    "alt": "RL-Kernel icon and wordmark",
+    "source": "https://raw.githubusercontent.com/RL-Align/RL-Kernel/main/docs/assets/logo.png",
+    "transformation": "Site-specific horizontal composition of the official orange flame-and-circuit icon and an RL-Kernel text label, created with built-in imagegen. Transparent alpha background; proportionally resized to 540px wide for a centered 180px CSS display. This composite is not an official upstream wordmark."
+  }
+}
