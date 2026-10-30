@@ -212,10 +212,14 @@ test("navigation and disclosure keyboard activation preserve visible focus", asy
 
 test("logos and project introductions align and collapsed and expanded contributions fit nine widths", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-1440", "Explicit breakpoint check runs once");
+  // Nine viewport/image/disclosure checks need more than one ordinary test's
+  // budget on CI. Reduced motion keeps scrolling stable during measurement.
+  test.slow();
+  await page.emulateMedia({ reducedMotion: "reduce" });
   for (const width of [1440, 1366, 1024, 901, 900, 768, 390, 375, 360]) {
     await page.setViewportSize({ width, height: 900 });
-    await page.goto("/#open-source");
-    await page.reload();
+    await page.goto(`/?viewport=${width}#open-source`, { waitUntil: "networkidle" });
+    await page.evaluate(() => document.fonts.ready);
     const section = page.locator("#open-source-section");
     await section.scrollIntoViewIfNeeded();
     for (const image of await section.locator(".contribution-logo img").all()) {
