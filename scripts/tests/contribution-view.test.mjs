@@ -6,6 +6,11 @@ import { contributionView } from "../lib/contribution-view.mjs";
 const { selection, repositorySummaries, seedSnapshot: initialSnapshot } = openSource({ configurationOnly: true });
 const mergedPRs = repository => repository.pullRequests.filter(pr => pr.status === "merged");
 const clone = value => JSON.parse(JSON.stringify(value));
+const expectedRepositoryOrder = [
+  "Dao-AILab/flash-attention", "hao-ai-lab/FastVideo", "sgl-project/sglang",
+  "xdit-project/xDiT", "modelscope/DiffSynth-Studio", "vllm-project/vllm-omni",
+  "RL-Align/RL-Kernel", "huggingface/diffusers",
+];
 // Keep transition fixtures independent of the periodically refreshed offline snapshot.
 const seedSnapshot = clone(initialSnapshot);
 for (const pr of seedSnapshot.pullRequests) {
@@ -159,7 +164,7 @@ test("flat presentation preserves repository order and the reviewed TP4/EP4 exte
   const { contributionPresentation } = await import("../lib/contribution-presentation.mjs");
   const { contributionDetails } = openSource({ configurationOnly: true });
   const result = contributionPresentation(view(), contributionDetails);
-  assert.deepEqual(result.repositoryGroups.map(repository => repository.name), contributionDetails.repositoryOrder);
+  assert.deepEqual(result.repositoryGroups.map(repository => repository.name), expectedRepositoryOrder);
   assert.equal(result.repositorySections, undefined);
   for (const repository of result.repositoryGroups) {
     assert.deepEqual(repository.topics.flatMap(topic => topic.pullRequests.map(pr => pr.number)), repository.pullRequests.map(pr => pr.number));
@@ -167,6 +172,21 @@ test("flat presentation preserves repository order and the reviewed TP4/EP4 exte
   const replay = result.repositoryGroups.find(repo => repo.name === "RL-Align/RL-Kernel").topics.find(topic => topic.sequenceLabel);
   assert.deepEqual(replay.pullRequests.map(pr => pr.number), [543, 557]);
   assert.equal(replay.sequenceLabel, "TP4 validation → EP4 extension");
+});
+
+test("community star and acceptance updates do not override the reviewed repository order", async () => {
+  const { contributionPresentation } = await import("../lib/contribution-presentation.mjs");
+  const { contributionDetails } = openSource({ configurationOnly: true });
+  const snapshot = clone(seedSnapshot);
+  for (const repository of snapshot.repositories) {
+    repository.stars = (expectedRepositoryOrder.indexOf(repository.name) + 1) * 100000;
+  }
+  for (const pr of snapshot.pullRequests) {
+    pr.status = "merged";
+    pr.mergedAt = "2026-11-01T00:00:00Z";
+  }
+  const result = contributionPresentation(view(snapshot), contributionDetails);
+  assert.deepEqual(result.repositoryGroups.map(repository => repository.name), expectedRepositoryOrder);
 });
 
 test("topic narratives and extension labels disappear with their filtered evidence", async () => {
@@ -184,7 +204,7 @@ test("topic narratives and extension labels disappear with their filtered eviden
     if (["RL-Align/RL-Kernel", "hao-ai-lab/FastVideo", "Dao-AILab/flash-attention"].includes(pr.repository)) pr.status = "closed";
   }
   result = contributionPresentation(view(snapshot), contributionDetails);
-  assert.deepEqual(result.repositoryGroups.map(repository => repository.name), contributionDetails.repositoryOrder.filter(name =>
+  assert.deepEqual(result.repositoryGroups.map(repository => repository.name), expectedRepositoryOrder.filter(name =>
     !["RL-Align/RL-Kernel", "hao-ai-lab/FastVideo", "Dao-AILab/flash-attention"].includes(name)));
   for (const pr of snapshot.pullRequests) pr.status = "closed";
   assert.deepEqual(contributionPresentation(view(snapshot), contributionDetails).repositoryGroups, []);

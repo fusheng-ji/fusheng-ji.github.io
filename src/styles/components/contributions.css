@@ -51,6 +51,15 @@
   object-position: center;
 }
 
+.contribution-repository:is(
+  [data-contribution-repository="sgl-project/sglang"],
+  [data-contribution-repository="xdit-project/xDiT"],
+  [data-contribution-repository="hao-ai-lab/FastVideo"]
+) .contribution-logo img {
+  transform: scale(0.9);
+  transform-origin: center;
+}
+
 .contribution-logo-fallback {
   overflow-wrap: anywhere;
 }

@@ -7,6 +7,11 @@ import { contributionPresentation } from "../scripts/lib/contribution-presentati
 const content = openSource();
 const { selection, repositorySummaries, seedSnapshot } = openSource({ configurationOnly: true });
 const selected = content.repositoryGroups.flatMap(group => group.pullRequests);
+const expectedRepositoryOrder = [
+  "Dao-AILab/flash-attention", "hao-ai-lab/FastVideo", "sgl-project/sglang",
+  "xdit-project/xDiT", "modelscope/DiffSynth-Studio", "vllm-project/vllm-omni",
+  "RL-Align/RL-Kernel", "huggingface/diffusers",
+];
 const env = new nunjucks.Environment(new nunjucks.FileSystemLoader("src/_includes"), { autoescape: true });
 const template = '{% import "components/ui.njk" as ui with context %}{% include "components/open-source.njk" %}';
 const groupFor = (page, name) => page.locator(`[data-contribution-repository="${name}"]`);
@@ -47,6 +52,13 @@ test("repository summaries stay visible while selected open and merged evidence 
   page.on("request", request => { if (new URL(request.url()).hostname === "api.github.com") apiRequests.push(request.url()); });
   await page.goto("/#open-source");
   const section = page.locator("#open-source-section");
+  expect(await section.locator(".contribution-repository").evaluateAll(elements =>
+    elements.map(element => element.dataset.contributionRepository))).toEqual(expectedRepositoryOrder);
+  const llmsResponse = await page.request.get("/llms.txt");
+  expect(llmsResponse.ok()).toBe(true);
+  const llms = await llmsResponse.text();
+  expect([...llms.matchAll(/^- \*\*([^*]+)\*\* \([\d.]+k? stars\):/gm)].map(match => match[1])).toEqual(
+    expectedRepositoryOrder.map(name => name.split("/")[1]));
   await expect(groupFor(page, "nerfstudio-project/gsplat")).toHaveCount(0);
   await expect(section.locator(".contribution-repository-summary:visible")).toHaveCount(content.repositoryGroups.length);
   await expect(section.locator(".contribution-repository-intro:visible")).toHaveCount(content.repositoryGroups.length);
@@ -143,6 +155,9 @@ test("status transitions add independent native disclosures and reload restores 
     if (pr.number === 43242) pr.status = "draft";
   }
   const fixture = await serveFixture(page, snapshot);
+  expect(await page.locator(".contribution-repository").evaluateAll(elements =>
+    elements.map(element => element.dataset.contributionRepository))).toEqual(expectedRepositoryOrder.filter(name =>
+    !["huggingface/diffusers", "RL-Align/RL-Kernel"].includes(name)));
   await expect(page.locator(".contribution-disclosure")).toHaveCount(fixture.repositoryGroups.length);
   await expect(groupFor(page, "huggingface/diffusers")).toHaveCount(0);
   await expect(groupFor(page, "RL-Align/RL-Kernel")).toHaveCount(0);
@@ -216,6 +231,7 @@ test("logos and project introductions align and collapsed and expanded contribut
   // budget on CI. Reduced motion keeps scrolling stable during measurement.
   test.slow();
   await page.emulateMedia({ reducedMotion: "reduce" });
+  const insetLogoRepositories = new Set(["sgl-project/sglang", "xdit-project/xDiT", "hao-ai-lab/FastVideo"]);
   for (const width of [1440, 1366, 1024, 901, 900, 768, 390, 375, 360]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto(`/?viewport=${width}#open-source`, { waitUntil: "networkidle" });
@@ -262,6 +278,7 @@ test("logos and project introductions align and collapsed and expanded contribut
         const imageBox = image.getBoundingClientRect();
         const contentStyle = getComputedStyle(article.querySelector(".entry-content-cell"));
         return {
+          repository: article.dataset.contributionRepository,
           left: box.left, headingLeft, mediaLeft: media.left, logoLeft: logo.left,
           width: box.width, mediaWidth: media.width, contentWidth: content.width,
           contentTop: content.top, mediaBottom: media.bottom,
@@ -269,7 +286,9 @@ test("logos and project introductions align and collapsed and expanded contribut
           introLeft: intro.left, titleLeft: title.left, introTop: intro.top, titleBottom: title.bottom,
           summaryLeft: summary.left, summaryTop: summary.top, introBottom: intro.bottom,
           imageWidth: imageBox.width, imageHeight: imageBox.height,
+          imageLayoutWidth: Number.parseFloat(imageStyle.width), imageLayoutHeight: Number.parseFloat(imageStyle.height),
           imageCenter: imageBox.left + imageBox.width / 2, logoCenter: logo.left + logo.width / 2,
+          imageCenterY: imageBox.top + imageBox.height / 2, logoCenterY: logo.top + logo.height / 2,
           naturalRatio: image.naturalWidth / image.naturalHeight,
           fit: imageStyle.objectFit, position: imageStyle.objectPosition,
           divider: contentStyle.borderLeftWidth,
@@ -286,10 +305,12 @@ test("logos and project introductions align and collapsed and expanded contribut
       expect(row.summaryLeft).toBeCloseTo(row.introLeft, 1);
       expect(row.introTop).toBeGreaterThanOrEqual(row.titleBottom);
       expect(row.summaryTop - row.introBottom).toBeCloseTo(8, 1);
-      expect(row.imageWidth).toBeCloseTo(180, 1);
+      expect(row.imageLayoutWidth).toBeCloseTo(180, 1);
+      expect(row.imageWidth).toBeCloseTo(insetLogoRepositories.has(row.repository) ? 162 : 180, 1);
       expect(row.imageCenter).toBeCloseTo(row.logoCenter, 1);
+      expect(row.imageCenterY).toBeCloseTo(row.logoCenterY, 1);
       expect(row.imageWidth / row.imageHeight).toBeCloseTo(row.naturalRatio, 2);
-      expect(row.logoHeight).toBeCloseTo(Math.max(width <= 900 ? 72 : 82, row.imageHeight), 1);
+      expect(row.logoHeight).toBeCloseTo(Math.max(width <= 900 ? 72 : 82, row.imageLayoutHeight), 1);
       expect(row.logoWidth).toBeCloseTo(Math.min(width <= 900 ? 260 : 220, row.mediaWidth - (width <= 900 ? 0 : 14)), 1);
       if (width <= 900) {
         expect(row.mediaWidth).toBeCloseTo(row.width, 1);

@@ -68,10 +68,12 @@ const records = [
 
 export default {
   source: "https://github.com/fusheng-ji#open-source-contributions",
+  // Balance verified personal impact and technical depth with community reach
+  // and research relevance. Reassess with new evidence, not automatic star/status updates.
   repositoryOrder: [
-    "sgl-project/sglang", "huggingface/diffusers", "modelscope/DiffSynth-Studio",
-    "vllm-project/vllm-omni", "xdit-project/xDiT", "Dao-AILab/flash-attention",
-    "hao-ai-lab/FastVideo", "RL-Align/RL-Kernel",
+    "Dao-AILab/flash-attention", "hao-ai-lab/FastVideo", "sgl-project/sglang",
+    "xdit-project/xDiT", "modelscope/DiffSynth-Studio", "vllm-project/vllm-omni",
+    "RL-Align/RL-Kernel", "huggingface/diffusers",
   ],
   records: Object.fromEntries(records.map(({ key, ...record }) => [key, record])),
   sequences: [

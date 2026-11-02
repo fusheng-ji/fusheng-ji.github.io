@@ -178,12 +178,6 @@ export default [
         height: 225,
         alt: "TUM DI Lab logo",
       },
-      {
-        src: "/assets/institution_logo/tum.png",
-        width: 200,
-        height: 90,
-        alt: "Technical University of Munich logo",
-      },
     ],
     contributions: [
       'Designed and evaluated <a href="https://openaccess.thecvf.com/content/ICCV2025W/E2E3D/html/Xia_CSG-Fusion_Consistent_Sparse-View_Gaussian_Splatting_via_Matching-based_Fusion_ICCVW_2025_paper.html">CSG-Fusion</a>; received Best Paper at ICCV Workshop E2E3D.',

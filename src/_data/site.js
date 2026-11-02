@@ -2,9 +2,9 @@ export default {
   url: "https://fusheng-ji.github.io",
   title: "Wenbo Ji",
   description:
-    "Wenbo Ji works on controllable video generation and ML systems for video diffusion, with a background in 3D/4D vision (TUM M.Sc., Agile Robots SE).",
+    "Wenbo Ji (嵇文博) — AI researcher and engineer (TUM, Agile Robots). Specializing in controllable video generation, video world models, and high-performance ML systems (Triton/CUDA, FlashAttention SM100, SGLang, FastVideo). Seeking 2027 new grad full-time roles (worldwide relocation).",
   language: "en",
-  updated: "2026-10-30",
+  updated: "2026-10-31",
   owner: {
     name: "Wenbo Ji",
     alternateNames: ["Ji Wenbo", "嵇文博"],

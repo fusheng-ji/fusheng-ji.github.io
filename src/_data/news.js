@@ -25,11 +25,10 @@ export default [
   },
   {
     date: "01/2024",
-    // Historical news uses names without applying their current faculty titles.
-    body: 'I joined <a href="https://cvg.cit.tum.de/">TUM-CVG</a> and <a href="https://www.mdsi.tum.de/en/di-lab/tum-di-lab/">TUM-DI-LAB</a> under the co-supervision of <a href="https://cvg.cit.tum.de/members/xiya">Yan Xia</a> and <a href="https://chuanxiaz.com/">Chuanxia Zheng</a>.',
+    body: 'I joined <a href="https://cvg.cit.tum.de/">TUM-CVG</a> and <a href="https://www.mdsi.tum.de/en/di-lab/tum-di-lab/">TUM-DI-LAB</a>.',
   },
   {
     date: "05/2023",
-    body: 'I joined the <a href="https://www.cit.tum.de/en/cit/home/" class="inherit-link">Technical University of Munich</a> as a Master\'s student in Electrical Engineering and Information Technology.',
+    body: 'I started my Master\'s studies at the <a href="https://www.cit.tum.de/en/cit/home/" class="inherit-link">Technical University of Munich</a>.',
   },
 ];

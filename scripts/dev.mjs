@@ -38,7 +38,10 @@ assetWatcher.stdout.on("data", (chunk) => {
   if (chunk.includes("Asset watcher ready.")) {
     assetWatcher.stdout.removeAllListeners("data");
     assetWatcher.stdout.pipe(process.stdout);
-    start(process.execPath, ["node_modules/@11ty/eleventy/cmd.cjs", "--serve"]);
+    const port = process.env.PORT || process.argv.slice(2).find((arg) => arg.startsWith("--port="))?.split("=")[1];
+    const eleventyArgs = ["node_modules/@11ty/eleventy/cmd.cjs", "--serve"];
+    if (port) eleventyArgs.push(`--port=${port}`);
+    start(process.execPath, eleventyArgs);
   }
 });
 

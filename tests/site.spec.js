@@ -459,7 +459,7 @@ test("core content roles use a semantic heading outline", async ({ page }) => {
   await expect(page.locator("article h3.type-entry-title")).not.toHaveCount(0);
   await expect(page.locator("article h4.type-group-label")).not.toHaveCount(0);
   await expect(page.locator(".research-arc h3.type-subsection-title")).toHaveCount(
-    3,
+    4,
   );
 
   const outline = await page
@@ -496,16 +496,16 @@ test("research, project, and PR badges are omitted", async ({ page }) => {
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
 
-test("research interests show three stacked directions without timeline decoration at nine widths", async ({ page }, testInfo) => {
+test("research interests show four stacked directions without timeline decoration at nine widths", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-1440", "Explicit breakpoint check runs once");
   await page.goto("/", { waitUntil: "networkidle" });
   await page.evaluate(() => document.fonts.ready);
   const list = page.getByRole("list", { name: "Research interests", exact: true });
   await expect(list).toHaveJSProperty("tagName", "UL");
-  await expect(list.locator(":scope > li")).toHaveCount(3);
+  await expect(list.locator(":scope > li")).toHaveCount(4);
   await expect(page.locator("#research")).toHaveText("Research Interests");
   await expect(page.locator(".research-arc-label")).toHaveText([
-    "Controllable video generation", "Multimodal AI infrastructure", "Spatial intelligence and embodied AI",
+    "Controllable video generation", "Multimodal learning", "Spatial intelligence", "Embodied AI and world models",
   ]);
   await expect(page.locator(".research-arc-text")).toHaveText(researchArc.map(item => item.text));
   await expect(list.locator(".research-arc-dot, a, img, svg, button")).toHaveCount(0);
@@ -1377,7 +1377,7 @@ test("mentor blocks are omitted while experience data remains available", async 
   }
 });
 
-test("news keeps award and supervision content", async ({ page }) => {
+test("news keeps award and affiliation links", async ({ page }) => {
   await page.goto("/", { waitUntil: "networkidle" });
   if (await page.locator("#old_news").getAttribute("open") === null) {
     await page.locator(".news-toggle").click();
@@ -1386,10 +1386,11 @@ test("news keeps award and supervision content", async ({ page }) => {
   await expect(award).toHaveText("Our paper CSG-Fusion received the Best Paper Award at the ICCV 2025 Workshop E2E3D.");
   await expect(award.locator("strong")).toHaveText("Best Paper Award");
   await expect(award.locator("em")).toHaveText("ICCV 2025 Workshop E2E3D");
-  const supervision = page.locator(".news-body").filter({ hasText: "co-supervision" });
-  await expect(supervision).not.toContainText("Prof.");
-  await expect(supervision.getByRole("link", { name: "Yan Xia", exact: true })).toHaveAttribute("href", "https://cvg.cit.tum.de/members/xiya");
-  await expect(supervision.getByRole("link", { name: "Chuanxia Zheng", exact: true })).toHaveAttribute("href", "https://chuanxiaz.com/");
+  const affiliation = page.locator(".news-body").filter({ hasText: "TUM-CVG" });
+  await expect(affiliation).toHaveText("I joined TUM-CVG and TUM-DI-LAB.");
+  await expect(affiliation.getByRole("link", { name: "TUM-CVG", exact: true })).toHaveAttribute("href", "https://cvg.cit.tum.de/");
+  await expect(affiliation.getByRole("link", { name: "TUM-DI-LAB", exact: true })).toHaveAttribute("href", "https://www.mdsi.tum.de/en/di-lab/tum-di-lab/");
+  await expect(affiliation.locator("a")).toHaveCount(2);
 
 });
 
@@ -1602,6 +1603,8 @@ test("homepage media layout preserves its desktop and mobile geometry", async ({
   await page.goto("/", { waitUntil: "networkidle" });
   await page.locator("#scene-decomposition").scrollIntoViewIfNeeded();
   await page.locator("#scene-decomposition img").evaluateAll(images => Promise.all(images.map(image => image.decode())));
+  expect(await page.locator("#scene-decomposition img").evaluateAll(images => images.map(image => image.alt)))
+    .toEqual(["University of Oxford logo", "TUM DI Lab logo"]);
 
   const geometry = await page.evaluate(() => {
     const rect = (selector) => {
@@ -1711,7 +1714,7 @@ test("homepage media layout preserves its desktop and mobile geometry", async ({
   expect(geometry.logoObjectFit).toBe("contain");
 
   const multipleInstitutionRows = geometry.institutionRows.filter(row => row.cards.length > 1);
-  expect(multipleInstitutionRows.map(row => row.cards.length)).toEqual([2, 2, 3]);
+  expect(multipleInstitutionRows.map(row => row.cards.length)).toEqual([2, 2, 2]);
   for (const row of geometry.institutionRows) {
     expect(row.left).toBeGreaterThanOrEqual(row.mediaLeft - 1);
     expect(row.right).toBeLessThanOrEqual(row.mediaRight + 1);

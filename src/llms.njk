@@ -2,38 +2,100 @@
 permalink: /llms.txt
 eleventyExcludeFromCollections: true
 ---
-# {{ site.owner.name }}
+# {{ site.owner.name }} (嵇文博)
 
 > {{ site.description }}
 
 Canonical profile: {{ site.url }}/
+Contact: {{ site.owner.email }}
+GitHub: https://github.com/fusheng-ji
+Google Scholar: https://scholar.google.com/citations?user=ZTUMczEAAAAJ&hl=en
+LinkedIn: https://www.linkedin.com/in/wenbo-ji-6950b9187
 
-## Research areas
-{% for area in researchAreas %}
-- {{ area.label }}
+## Profile & Target Positions
+- **Current Position**: M.Sc. student at Technical University of Munich (TUM), expected graduation March 2027, and Research Intern at Agile Robots SE.
+- **Candidate Type**: **Upcoming Graduate / New Grad 2027 (应届毕业生)**.
+- **Job-Seeking Intent**: Seeking full-time **new grad** industry roles as a **Research Engineer**, **Research Scientist**, or **Member of Technical Staff (MTS)** in controllable video generation, multimodal AI, and spatial intelligence / embodied AI.
+- **Availability**: Available starting **Fall 2027** (free to relocate).
+- **Core Value Proposition**: Rare dual competency bridging algorithmic frontier in controllable video diffusion and embodied world models with high-performance ML systems (Triton/CUDA kernel optimization, Blackwell SM100 scheduling, distributed sequence parallelism, and CFG-aware caching).
+
+## Core Technical Competencies & Project Evidence
+- **Controllable Video Generation & World Models**:
+{% for publication in publications %}
+{% if publication.id == "vids-publication" %}
+  - *ViDS*: {{ publication.summary }}
+{% endif %}
+{% endfor %}
+{% for experience in experiences %}
+{% if experience.id == "human-motion-video-diffusion" or experience.id == "robot-world-model" %}
+  - *{{ experience.title }}*: {% for contribution in experience.contributions %}{{ contribution | striptags | safe }} {% endfor %}
+{% endif %}
+{% endfor %}
+- **High-Performance ML Systems & GPU Kernel Optimization**:
+{% for repository in openSource.repositoryGroups %}
+  - *{{ repository.label }}*: {{ repository.technicalSummary }}
+{% endfor %}
+  Detailed mechanisms, benchmark conditions, limitations, hardware, and PR statuses are listed under Open Source ML Systems & Kernel Contributions below.
+- **Spatial Intelligence & 3D/4D Dynamics**:
+{% for publication in publications %}
+{% if publication.id == "csg-fusion-publication" or publication.id == "litetracker-publication" %}
+  - *{{ publication.title }}*: {{ publication.summary }}
+{% endif %}
 {% endfor %}
 
-## Selected publications
+## Academic Mentors & Collaborators
+- **Prof. Matthias Nießner** (TUM Visual Computing Lab): Master's thesis advisor on camera-controlled video diffusion and co-author on ViDS.
+- **Mahdi Mustapha Hamad** (Agile Robots SE): Research mentor on video world models for robot dexterous manipulation.
+- **Prof. Daniel Cremers** (TUM Computer Vision Group): Collaborator on CSG-Fusion (Best Paper Award at ICCV 2025 Workshop E2E3D).
+- **Prof. Nassir Navab** & **Prof. Benjamin Busam** (TUM CAMP): Collaborators on LiteTracker (MICCAI 2025).
+
+## Research Pillars
+{% for item in researchArc %}
+- **{{ item.label }}**: {{ item.text }}
+{% endfor %}
+
+## Selected Publications
 {% for publication in publications %}
-- {{ publication.title }} — {{ publication.venue }}, {{ publication.year }}
+- **{{ publication.title }}** — {{ publication.venue }}, {{ publication.year }}
   {{ publication.summary }}
-  {% for link in publication.links %}{{ link.label }}: {{ link.url }}
+  {% if publication.award %}*Award*: {{ publication.award.label }}{% endif %}
+  {% for link in publication.links %}- {{ link.label }}: {{ link.url }}
   {% endfor %}
 {% endfor %}
 
-## Experiences
+## Open Source ML Systems & Kernel Contributions
+Hardware labels identify the tested GPU: NVIDIA H100 (Hopper) or NVIDIA B200 (Blackwell). Results retain their original model, configuration, and validation limits; they are not cross-architecture comparisons. No architecture is inferred when the validation does not name a GPU.
+{% for repository in openSource.repositoryGroups %}
+- **{{ repository.label }}** ({{ repository.starsLabel }} stars): {{ repository.technicalSummary }}
+  Repository: {{ repository.url }}
+  {% for topic in repository.topics %}
+  - *{{ topic.title }}*:
+    {% for pr in topic.pullRequests %}
+    - PR #{{ pr.number }} ({{ pr.status }}): {{ pr.mechanism }} {{ pr.validation }} ({{ pr.url }})
+      {% if "H100" in pr.validation %}Hardware: NVIDIA H100 (Hopper).{% endif %}
+      {% if "B200" in pr.validation %}Hardware: NVIDIA B200 (Blackwell).{% endif %}
+    {% endfor %}
+  {% endfor %}
+{% endfor %}
+
+## Research & Professional Experiences
 {% for experience in experiences %}
-- {{ experience.title }} — {{ experience.type }}, {{ experience.date }}
+- **{{ experience.title }}** — {{ experience.type }}, {{ experience.date }}
   {% for contribution in experience.contributions %}{{ contribution | striptags | safe }} {% endfor %}
 {% endfor %}
 
 ## Projects
 {% for project in projects %}
-- {{ project.title }}
+- **{{ project.title }}**
   {{ project.summary | striptags | safe }}
-  {% for link in project.links %}{{ link.label }}: {{ link.url }}
+  {% for link in project.links %}- {{ link.label }}: {{ link.url }}
   {% endfor %}
 {% endfor %}
+
+## Education
+- **Technical University of Munich (TUM)**: M.Sc. Electrical Engineering and Information Technology (2023 – Present). Thesis advised by Prof. Matthias Nießner.
+- **Tongji University**: M.Sc. Computer Science (2021 – 2025). Thesis on endoscopic scene reconstruction with 4D half-Gaussian splatting.
+- **Nanjing Tech University**: B.Sc. Information and Computing Science (2017 – 2021).
 
 ## Other pages
 - Blog: {{ site.url }}/blog/
