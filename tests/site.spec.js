@@ -491,7 +491,7 @@ test("research, project, and PR badges are omitted", async ({ page }) => {
     const box = element.getBoundingClientRect();
     return box.left;
   }));
-  expect(starts).toHaveLength(3);
+  expect(starts).toHaveLength(4);
   expect(Math.max(...starts) - Math.min(...starts)).toBeLessThanOrEqual(1);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
