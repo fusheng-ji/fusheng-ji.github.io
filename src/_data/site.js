@@ -10,7 +10,7 @@ export default {
     alternateNames: ["Ji Wenbo", "嵇文博"],
     email: "wenboji0420@gmail.com",
     portrait: {
-      src: "/assets/site-media/wenbo-ji-portrait.jpg",
+      src: "/assets/site-media/wenbo-ji-portrait-denoised.webp",
       width: 1122,
       height: 1122,
       alt: "Wenbo Ji portrait",
